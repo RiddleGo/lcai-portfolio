@@ -318,6 +318,7 @@ def build_unified_report(
         "depth": {
             "lcai_ready": True,
             "uzi_ready": uzi_e.get("ready", False),
+            "full_ready": bool(uzi_e.get("ready")),
             "ready": True,
             "schedule": "weekly_monday",
         },

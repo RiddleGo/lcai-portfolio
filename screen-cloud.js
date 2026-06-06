@@ -47,6 +47,46 @@ const ScreenCloud = (() => {
     return !!(data && data.uzi && data.uzi.ready);
   }
 
+  function isFullDepthReady(data) {
+    return hasUziLayer(data) || !!(data && data.depth && data.depth.full_ready);
+  }
+
+  function isGeneratingFullDepth(code, data) {
+    if (pollTimer && normalizeSymbol(currentSymbol) === normalizeSymbol(code)) return true;
+    if (hasUnifiedDepth(data) && !isFullDepthReady(data)) return true;
+    if (!data && (ScreenWatchlist?.isInCloud?.(code) || pollTimer)) return true;
+    return false;
+  }
+
+  function syncFullReportButton(code, data) {
+    const btnOpen = el('btn-open-full-report');
+    if (!btnOpen) return;
+
+    const fullReady = isFullDepthReady(data);
+    const generating = isGeneratingFullDepth(code, data);
+    const showBtn = fullReady || generating || hasUnifiedDepth(data) || ScreenWatchlist?.isInCloud?.(code);
+
+    if (!showBtn) {
+      btnOpen.hidden = true;
+      btnOpen.disabled = true;
+      btnOpen.onclick = null;
+      return;
+    }
+
+    btnOpen.hidden = false;
+    if (fullReady) {
+      btnOpen.disabled = false;
+      btnOpen.textContent = '查看 UZI 完整 HTML';
+      btnOpen.onclick = () => window.open(lcaiAsset(`reports/${code}/index.html`), '_blank');
+    } else {
+      btnOpen.disabled = true;
+      btnOpen.textContent = pollTimer && normalizeSymbol(currentSymbol) === normalizeSymbol(code)
+        ? '完整研报生成中…'
+        : '完整研报排队中…';
+      btnOpen.onclick = null;
+    }
+  }
+
   function needsCloudEnqueue(code, data) {
     return !ScreenWatchlist?.isInCloud?.(code) && !hasUnifiedDepth(data);
   }
@@ -87,13 +127,18 @@ const ScreenCloud = (() => {
         const data = await fetchUnified(currentSymbol);
         const gen = data.generated_at ? new Date(data.generated_at).getTime() : 0;
         const isNew = !baselineTime || gen > baselineTime;
-        if (isNew && hasUnifiedDepth(data)) {
+        if (isNew && isFullDepthReady(data)) {
           updateReportCta(currentSymbol, data);
           if (lastLiveReport && ScreenUnified?.applyMerged) {
             ScreenUnified.applyMerged(ScreenUnified.mergeLiveWithCache(lastLiveReport, data));
           }
-          setStatus('好了！深度分析已就绪，以后每周一自动更新。', 'ok');
+          setStatus('好了！完整深度分析已就绪，以后每周一自动更新。', 'ok');
           stopPolling();
+        } else if (isNew && hasUnifiedDepth(data)) {
+          updateReportCta(currentSymbol, data);
+          if (lastLiveReport && ScreenUnified?.applyMerged) {
+            ScreenUnified.applyMerged(ScreenUnified.mergeLiveWithCache(lastLiveReport, data));
+          }
         }
       } catch (_) { /* wait */ }
 
@@ -108,18 +153,18 @@ const ScreenCloud = (() => {
     const box = el('report-cta');
     const text = el('report-cta-text');
     const btnGen = el('btn-favorite-generate');
-    const btnOpen = el('btn-open-full-report');
     if (!box) return;
 
     const code = normalizeSymbol(symbol);
     const unified = hasUnifiedDepth(data);
-    const uzi = hasUziLayer(data);
+    const fullReady = isFullDepthReady(data);
+    const generating = isGeneratingFullDepth(code, data);
     const inCloud = ScreenWatchlist?.isInCloud?.(code);
     box.hidden = false;
 
     if (btnGen) {
       btnGen.hidden = false;
-      btnGen.disabled = false;
+      btnGen.disabled = !!(pollTimer && normalizeSymbol(currentSymbol) === code);
       if (inCloud || unified) {
         btnGen.textContent = '⭐ 已收藏（每周自动更新）';
       } else {
@@ -128,12 +173,13 @@ const ScreenCloud = (() => {
       btnGen.onclick = () => favoriteSymbol(code, data?.name);
     }
 
-    if (unified) {
-      const uziNote = uzi
-        ? 'UZI 价值派材料已并入下方解读。'
-        : 'LCAI 综合研判已就绪；UZI 价值派层将在<strong>每周一</strong>自动补全。';
+    if (fullReady) {
       if (text) {
-        text.innerHTML = `<p class="cta-ok">✅ 深度研判已就绪</p><p class="cta-steps">${uziNote}</p>`;
+        text.innerHTML = `<p class="cta-ok">✅ 完整深度分析已就绪</p><p class="cta-steps">UZI 价值派材料已并入下方解读，可点「查看 UZI 完整 HTML」。</p>`;
+      }
+    } else if (unified || generating) {
+      if (text) {
+        text.innerHTML = `<p class="cta-title">⏳ 完整深度分析生成中</p><p class="cta-steps">综合研判已可看；完整 HTML 生成完成后按钮才可点（约 5–10 分钟，或每周一自动）。</p>`;
       }
     } else if (text) {
       text.innerHTML = `
@@ -141,15 +187,7 @@ const ScreenCloud = (() => {
         <p class="cta-steps">点「收藏并加入云端队列」→ 新页面点绿色 <strong>Submit</strong>（<strong>仅首次</strong>）→ 回到本页等着（约 5–10 分钟）。<br>之后每周一自动更新，不用再开 Issue。</p>`;
     }
 
-    if (btnOpen) {
-      if (unified) {
-        btnOpen.hidden = false;
-        btnOpen.textContent = uzi ? '查看 UZI 完整 HTML' : '查看完整研报';
-        btnOpen.onclick = () => window.open(lcaiAsset(`reports/${code}/index.html`), '_blank');
-      } else {
-        btnOpen.hidden = true;
-      }
-    }
+    syncFullReportButton(code, data);
   }
 
   async function favoriteSymbol(code, name) {
@@ -169,8 +207,12 @@ const ScreenCloud = (() => {
     } catch (_) { /* no cache yet */ }
 
     if (ScreenWatchlist?.isInCloud?.(sym) || hasUnifiedDepth(data)) {
-      setStatus('已在云端关注列表，每周一自动更新深度分析。', 'ok');
       updateReportCta(sym, data);
+      if (isFullDepthReady(data)) {
+        setStatus('已在云端关注列表，完整深度分析已就绪。', 'ok');
+      } else {
+        setStatus('已在云端关注列表。完整深度分析生成中或排队中，完成后按钮可点。', 'warn');
+      }
       return;
     }
 
@@ -215,5 +257,7 @@ const ScreenCloud = (() => {
     fetchUnified,
     actionsUrl: ACTIONS_URL,
     needsCloudEnqueue,
+    isFullDepthReady,
+    hasUnifiedDepth,
   };
 })();
