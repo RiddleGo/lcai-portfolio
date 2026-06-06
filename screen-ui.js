@@ -63,17 +63,25 @@ const ScreenUI = (() => {
   }
 
   function setLoading(on) {
-    el('btn-screen').disabled = on;
-    el('loading').hidden = !on;
+    const btn = el('btn-screen');
+    const loading = el('screen-loading');
+    if (btn) btn.disabled = on;
+    if (loading) loading.hidden = !on;
   }
 
   function showError(msg) {
-    el('error').textContent = msg;
-    el('error').hidden = false;
+    const box = el('screen-error');
+    if (box) {
+      box.textContent = msg;
+      box.hidden = false;
+    } else {
+      alert(msg);
+    }
   }
 
   function clearError() {
-    el('error').hidden = true;
+    const box = el('screen-error');
+    if (box) box.hidden = true;
   }
 
   async function run() {
@@ -91,19 +99,23 @@ const ScreenUI = (() => {
       renderVerdict(report);
     } catch (e) {
       showError(e.message || String(e));
-      el('report-panel').hidden = true;
+      const panel = el('report-panel');
+      if (panel) panel.hidden = true;
     } finally {
       setLoading(false);
     }
   }
 
   function init() {
-    el('btn-screen').addEventListener('click', run);
-    el('symbol-input').addEventListener('keydown', e => {
+    if (window._screenInited) return;
+    const btn = el('btn-screen');
+    if (!btn) return;
+    btn.addEventListener('click', run);
+    el('symbol-input')?.addEventListener('keydown', e => {
       if (e.key === 'Enter') run();
     });
-    el('btn-export').addEventListener('click', () => {
-      const text = el('report-json').textContent;
+    el('btn-export')?.addEventListener('click', () => {
+      const text = el('report-json')?.textContent;
       if (!text) return;
       const blob = new Blob([text], { type: 'application/json' });
       const a = document.createElement('a');
@@ -111,7 +123,12 @@ const ScreenUI = (() => {
       a.download = `screen-${Date.now()}.json`;
       a.click();
     });
+    window._screenInited = true;
   }
 
   return { init, renderVerdict, run };
 })();
+
+if (document.getElementById('btn-screen')) {
+  ScreenUI.init();
+}

@@ -2623,10 +2623,7 @@
       if (el) el.classList.add("active");
       if (page === "screen") {
         history.replaceState(null, "", "#screen");
-        if (window.ScreenUI && !window._screenInited) {
-          ScreenUI.init();
-          window._screenInited = true;
-        }
+        window.ScreenUI?.init();
       } else if (location.hash === "#screen") {
         history.replaceState(null, "", location.pathname);
       }
@@ -2659,5 +2656,14 @@
   <script src="screen-data.js"></script>
   <script src="screen-engine.js"></script>
   <script src="screen-ui.js"></script>
+  <script>
+    if (location.hash === "#screen") {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.querySelector('.tab-btn[data-page="screen"]')?.classList.add("active");
+      document.getElementById("page-screen")?.classList.add("active");
+      window.ScreenUI?.init();
+    }
+  </script>
 </body>
 </html>
