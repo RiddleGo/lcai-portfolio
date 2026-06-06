@@ -694,6 +694,49 @@
       background: var(--bg); padding: 10px; border-radius: 8px;
       overflow: auto; font-size: 0.72rem; max-height: 200px; margin-top: 8px;
     }
+    .screen-analysis-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .screen-analysis-block h3 { font-size: 0.9rem; margin-bottom: 8px; }
+    .screen-analysis-text { font-size: 0.88rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
+    .screen-metrics-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px; margin: 12px 0;
+    }
+    .screen-metric-item { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+    .screen-metric-item .m-val { font-weight: 600; font-size: 0.92rem; }
+    .screen-metric-item .m-lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .screen-analysis-cols {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;
+    }
+    .screen-list-block h4 { font-size: 0.82rem; margin-bottom: 6px; color: var(--muted); }
+    .screen-list-block ul { margin: 0; padding-left: 18px; font-size: 0.82rem; line-height: 1.6; }
+    .screen-list-block li { margin-bottom: 4px; }
+    .screen-decision-step {
+      display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.84rem; align-items: flex-start;
+    }
+    .screen-decision-step .step-num {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600;
+    }
+    .screen-decision-step.pass .step-num { background: rgba(16,185,129,0.2); color: var(--ok); }
+    .screen-decision-step.fail .step-num { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .screen-decision-step.danger .step-num { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .screen-decision-step .step-body { flex: 1; }
+    .screen-decision-step .step-title { font-weight: 600; margin-bottom: 2px; }
+    .screen-decision-step .step-detail { color: var(--muted); line-height: 1.55; }
+    .screen-layer-card {
+      background: var(--bg); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+    }
+    .screen-layer-card h4 { font-size: 0.85rem; margin-bottom: 4px; display: flex; justify-content: space-between; gap: 8px; }
+    .screen-layer-card .layer-status { font-size: 0.72rem; font-weight: 600; }
+    .screen-layer-card .layer-status.ok { color: var(--ok); }
+    .screen-layer-card .layer-status.warn { color: var(--warn); }
+    .screen-layer-card .layer-status.danger { color: var(--danger); }
+    .screen-layer-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+    .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
+
+    @media (max-width: 768px) {
+      .screen-analysis-cols { grid-template-columns: 1fr; }
+    }
 
     @media (max-width: 640px) {
       table { font-size: 0.76rem; }
@@ -1720,23 +1763,47 @@
             </div>
             <span id="portfolio-tag" class="screen-tag">—</span>
           </div>
-          <p id="logic-summary" style="margin-bottom:10px;font-size:0.92rem"></p>
+          <p id="logic-summary" class="screen-analysis-text" style="margin-bottom:10px;font-size:0.92rem"></p>
           <div class="screen-score-grid">
             <div class="screen-score-item"><div class="val" id="overall-score">—</div><div class="lbl">总分</div></div>
             <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
           </div>
           <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
+
+          <div id="analysis-metrics" class="screen-metrics-grid"></div>
+
+          <div id="analysis-valuation" class="screen-analysis-block">
+            <h3>估值测算</h3>
+            <div id="analysis-valuation-text" class="screen-analysis-text"></div>
+          </div>
+
+          <div class="screen-analysis-cols">
+            <div id="analysis-strengths" class="screen-list-block"></div>
+            <div id="analysis-weaknesses" class="screen-list-block"></div>
+            <div id="analysis-watch" class="screen-list-block"></div>
+          </div>
+
+          <div class="screen-analysis-block">
+            <h3>判定逻辑链</h3>
+            <div id="analysis-decision-steps"></div>
+          </div>
+
           <h3 style="margin:14px 0 8px;font-size:0.9rem">分层得分</h3>
           <div id="layer-scores"></div>
+
+          <div class="screen-analysis-block">
+            <h3>分层解读</h3>
+            <div id="analysis-layer-cards"></div>
+          </div>
         </div>
 
         <div class="card">
-          <h3 style="margin-bottom:10px;font-size:0.9rem">规则明细</h3>
+          <h3 style="margin-bottom:10px;font-size:0.9rem">规则明细（含分析说明）</h3>
           <div style="overflow-x:auto">
             <table>
               <thead>
                 <tr>
-                  <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>来源</th>
+                  <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>分析说明</th><th>来源</th>
                 </tr>
               </thead>
               <tbody id="rules-body"></tbody>

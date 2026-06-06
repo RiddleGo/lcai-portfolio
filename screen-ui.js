@@ -15,20 +15,80 @@ const ScreenUI = (() => {
     return document.getElementById(id);
   }
 
+  function renderListBlock(containerId, title, items, emptyText) {
+    const box = el(containerId);
+    if (!box) return;
+    if (!items || !items.length) {
+      box.innerHTML = `<h4>${title}</h4><p style="font-size:0.82rem;color:var(--muted);margin:0">${emptyText}</p>`;
+      return;
+    }
+    box.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
+  }
+
+  function renderAnalysis(report) {
+    const a = report.analysis || {};
+    el('logic-summary').textContent = a.executive || report.logic_summary || '';
+
+    const metricsBox = el('analysis-metrics');
+    if (metricsBox) {
+      metricsBox.innerHTML = (a.key_metrics || []).map(m =>
+        `<div class="screen-metric-item"><div class="m-val">${m.value}</div><div class="m-lbl">${m.label}</div></div>`
+      ).join('');
+    }
+
+    const valText = el('analysis-valuation-text');
+    const valBlock = el('analysis-valuation');
+    if (valText && valBlock) {
+      valText.textContent = a.valuation?.narrative || '暂无估值数据';
+      valBlock.hidden = !a.valuation?.narrative;
+    }
+
+    renderListBlock('analysis-strengths', '优势', a.strengths, '暂无显著优势项');
+    renderListBlock('analysis-weaknesses', '风险 / 短板', a.weaknesses, '无重大否决或硬指标 Fail');
+    renderListBlock('analysis-watch', '关注项', a.watch_points, '无额外关注项');
+
+    const stepsBox = el('analysis-decision-steps');
+    if (stepsBox) {
+      stepsBox.innerHTML = (a.decision_path || []).map(s => {
+        const cls = s.ok ? 'pass' : (s.step === 6 && ['排除', '卖出'].includes(report.verdict) ? 'danger' : 'fail');
+        return `<div class="screen-decision-step ${cls}">
+          <div class="step-num">${s.step}</div>
+          <div class="step-body">
+            <div class="step-title">${s.title}</div>
+            <div class="step-detail">${s.detail}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
+
+    const layersBox = el('analysis-layer-cards');
+    if (layersBox) {
+      layersBox.innerHTML = (a.layers || []).map(l => {
+        const stCls = l.status === '通过' ? 'ok' : l.status === '未通过' ? 'danger' : 'warn';
+        const scoreTxt = l.layer === 'L0' ? '' : ` · 得分 ${l.score}`;
+        return `<div class="screen-layer-card">
+          <h4><span>${l.title}${scoreTxt}</span><span class="layer-status ${stCls}">${l.status}</span></h4>
+          <p>${l.summary}</p>
+        </div>`;
+      }).join('');
+    }
+  }
+
   function renderVerdict(report) {
     const badge = el('verdict-badge');
     const cls = VERDICT_STYLE[report.verdict] || 'warn';
     badge.className = `verdict-badge ${cls}`;
     badge.textContent = report.verdict;
     el('verdict-action').textContent = report.verdict_action;
-    el('logic-summary').textContent = report.logic_summary;
     el('stock-title').textContent = `${report.name} (${report.symbol})`;
     el('overall-score').textContent = report.overall_score;
     el('rating').textContent = report.rating;
     el('portfolio-tag').textContent = report.in_portfolio ? '已持仓' : '未持仓';
     el('portfolio-tag').className = `screen-tag ${report.in_portfolio ? 'in-port' : ''}`;
     el('position-hint').textContent =
-      `建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）`;
+      `建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）· ${report.position_hint.reason}`;
+
+    renderAnalysis(report);
 
     const layers = el('layer-scores');
     layers.innerHTML = '';
@@ -54,6 +114,7 @@ const ScreenUI = (() => {
         <td>${r.actual}</td>
         <td>${r.threshold}</td>
         <td class="rule-${rc}">${r.result === 'veto' ? '否决' : r.pass ? 'Pass' : 'Fail'}</td>
+        <td class="rule-reason">${r.reason || '—'}</td>
         <td style="color:var(--muted);font-size:0.78rem">${(r.sources || []).join('、')}</td>`;
       tbody.appendChild(tr);
     }
