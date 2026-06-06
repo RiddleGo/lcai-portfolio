@@ -12,10 +12,23 @@
   "dcf_fair_value": null,
   "dcf_margin_pct": null,
   "margin_gap": null,
-  "divergences": [],
-  "divergence_notes": [],
+  "divergences": [
+    {
+      "kind": "warning",
+      "title": "数据不足",
+      "summary": "财务或行情拉取失败，缓存已损坏"
+    }
+  ],
   "trap_flags": [],
   "report_url": "reports/09880/index.html",
-  "generated_at": "2026-06-07T00:52:54+08:00",
-  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
+  "generated_at": "2026-06-06T23:49:45+08:00",
+  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考",
+  "divergence_notes": [
+    {
+      "kind": "warning",
+      "title": "数据不足",
+      "summary": "财务或行情拉取失败，缓存已损坏"
+    }
+  ],
+  "in_portfolio": true
 }

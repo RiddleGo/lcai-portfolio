@@ -532,9 +532,121 @@ def build_decision_path(lcai: dict) -> list[dict]:
     ]
 
 
+def is_data_valid(lcai: dict) -> tuple[bool, str]:
+    if lcai.get("error"):
+        return False, "财务或行情拉取失败，缓存已损坏"
+    verdict = lcai.get("verdict")
+    if not verdict or verdict in ("—", "None", None):
+        return False, "缺少 LCAI 裁决（verdict）"
+    if lcai.get("price") is None and lcai.get("roe_avg") is None:
+        return False, "缺少行情与财务核心字段"
+    return True, ""
+
+
+def build_final_conclusion(lcai: dict, *, in_portfolio: bool = False, uzi_tone: str | None = None) -> dict[str, Any]:
+    ok, fail_reason = is_data_valid(lcai)
+    if not ok:
+        return {
+            "verdict": "数据不足",
+            "action": fail_reason,
+            "headline": f"暂无法给出买卖结论 — {fail_reason}",
+            "reasons": [fail_reason],
+            "actions": [
+                "点上方「立即更新全部深度分析」→ GitHub Actions Run workflow",
+                "港股若持续失败，需检查 East Money 财务接口",
+            ],
+            "data_ok": False,
+            "in_portfolio": in_portfolio,
+        }
+
+    verdict = lcai.get("verdict") or "—"
+    action = lcai.get("verdict_action") or ""
+    notes = build_divergence_notes(lcai, uzi_tone)
+    reasons: list[str] = []
+    for n in notes:
+        if n.get("kind") in ("veto", "hard_fail", "warning", "divergence"):
+            text = (n.get("summary") or "").strip()
+            if text and text not in reasons:
+                reasons.append(text)
+        if len(reasons) >= 3:
+            break
+
+    if not reasons:
+        if verdict == "买入":
+            reasons.append("生意、财务、估值硬指标均过，总分与安全边际达 LCAI 建仓线（25%）。")
+        elif verdict == "观察":
+            mos = lcai.get("margin_of_safety_pct")
+            if mos is not None and mos < 25:
+                reasons.append(f"价格未够便宜：安全边际 {_pct(mos)}，未达 25% 建仓线。")
+            else:
+                reasons.append(action or "部分硬指标未达标，宜继续观察。")
+        elif verdict in ("排除", "卖出"):
+            reasons.append(action or "触发 LCAI 否决或硬门槛，不符合价值建仓标准。")
+        else:
+            reasons.append(action or "请结合下方规则明细。")
+
+    actions: list[str] = []
+    if in_portfolio:
+        if verdict in ("排除", "卖出"):
+            actions.append("已持仓：逻辑证伪或触发否决，建议制定退出计划，不因熟悉公司而豁免规则。")
+        elif verdict == "减仓":
+            actions.append("已持仓：估值偏高或边际转弱，建议降低敞口，暂不追加。")
+        elif verdict == "持有":
+            actions.append("已持仓：逻辑未破，可继续持有；未达加仓线则不追加。")
+        elif verdict == "观察":
+            actions.append("已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。")
+        elif verdict == "买入":
+            actions.append("已持仓：达建仓线，可继续持有或小幅加仓，严守单票上限。")
+    else:
+        if verdict in ("排除", "卖出"):
+            actions.append("未持仓：不新建仓，不必因「听说过」而破例。")
+        elif verdict == "买入":
+            actions.append("未持仓：达 LCAI 建仓线，可分批买入，严守单票上限。")
+        elif verdict == "观察":
+            actions.append("未持仓：可放入观察池，等安全边际≥25% 或硬指标改善后再评估。")
+        else:
+            actions.append(f"未持仓：{action or '按 LCAI 规则执行'}")
+
+    port = "已持仓" if in_portfolio else "未持仓"
+    headline = f"【{port}】{verdict} — {action}"
+
+    return {
+        "verdict": verdict,
+        "action": action,
+        "headline": headline,
+        "reasons": reasons[:3],
+        "actions": actions,
+        "data_ok": True,
+        "in_portfolio": in_portfolio,
+    }
+
+
+def build_executive_brief(lcai: dict, final: dict[str, Any]) -> str:
+    name = lcai.get("name") or lcai.get("symbol") or "—"
+    if not final.get("data_ok"):
+        return f"{name}：{final.get('headline', '数据不足，无法研判。')}"
+    reasons = final.get("reasons") or []
+    core = reasons[0] if reasons else (final.get("action") or "")
+    if len(reasons) > 1:
+        core = f"{reasons[0]}；{reasons[1]}"
+    return f"{name}：{final.get('headline')} 核心：{core}"
+
+
 def build_summary_detailed(lcai: dict) -> str:
+    ok, fail_reason = is_data_valid(lcai)
     name = lcai.get("name") or lcai.get("symbol") or "—"
     symbol = lcai.get("symbol") or "—"
+    if not ok:
+        return "\n".join([
+            f"【一句话结论】{name}（{symbol}）— 数据不足，无法给出 LCAI 买卖结论。",
+            "",
+            f"【原因】{fail_reason}",
+            "",
+            "【你可以怎么做】",
+            "· 在 GitHub Actions 运行 uzi-reports 刷新缓存",
+            "· 港股需确认 East Money 能返回财务数据",
+            "· 刷新后重新点「帮我看看」",
+        ])
     industry = lcai.get("industry") or "未知行业"
     sector = lcai.get("sector") or {}
     verdict = lcai.get("verdict") or "—"
@@ -631,15 +743,19 @@ def build_rule_notes(lcai: dict) -> list[dict]:
     return notes
 
 
-def build_lcai_detail(lcai: dict, uzi_tone: str | None = None) -> dict[str, Any]:
-    rule_details = build_rule_details(lcai)
+def build_lcai_detail(lcai: dict, uzi_tone: str | None = None, *, in_portfolio: bool = False) -> dict[str, Any]:
+    final = build_final_conclusion(lcai, in_portfolio=in_portfolio, uzi_tone=uzi_tone)
+    rule_details = build_rule_details(lcai) if final.get("data_ok") else []
     return {
+        "final_conclusion": final,
+        "executive_brief": build_executive_brief(lcai, final),
         "summary_detailed": build_summary_detailed(lcai),
         "key_metrics": build_key_metrics(lcai),
-        "decision_path": build_decision_path(lcai),
-        "rule_highlights": build_rule_notes(lcai),
+        "decision_path": build_decision_path(lcai) if final.get("data_ok") else [],
+        "rule_highlights": build_rule_notes(lcai) if final.get("data_ok") else [],
         "rule_details": rule_details,
-        "divergence_notes": build_divergence_notes(lcai, uzi_tone),
+        "divergence_notes": build_divergence_notes(lcai, uzi_tone) if final.get("data_ok") else [],
+        "data_ok": final.get("data_ok", False),
     }
 
 

@@ -1,5 +1,146 @@
 {
   "source": "lcai",
   "symbol": "01833",
-  "error": "Traceback (most recent call last):\n  File \"/home/runner/work/lcai-portfolio/lcai-portfolio/scripts/lcai_screen_json.py\", line 204, in <module>\n    main()\n  File \"/home/runner/work/lcai-portfolio/lcai-portfolio/scripts/lcai_screen_json.py\", line 162, in main\n    data = load_stock(sys.argv[1])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lcai-portfolio/lcai-portfolio/投资系统/engine/data_eastmoney.py\", line 125, in load_stock\n    fin = fetch_financials(parsed[\"code\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/lcai-portfolio/lcai-portfolio/投资系统/engine/data_eastmoney.py\", line 103, in fetch_financials\n    raise ValueError(\"未获取财务数据\")\nValueError: 未获取财务数据\n"
+  "error": "Traceback (most recent call last):\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 189, in <module>\n    main()\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 159, in main\n    data = load_stock(sys.argv[1])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 125, in load_stock\n    fin = fetch_financials(parsed[\"code\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 103, in fetch_financials\n    raise ValueError(\"δ��ȡ��������\")\nValueError: δ��ȡ��������\n",
+  "verdict": "数据不足",
+  "verdict_action": "缓存损坏或财务未拉取，请 Run workflow 刷新",
+  "rating": "—",
+  "overall_score": null,
+  "analysis": {
+    "final_conclusion": {
+      "verdict": "数据不足",
+      "action": "财务或行情拉取失败，缓存已损坏",
+      "headline": "暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
+      "reasons": [
+        "财务或行情拉取失败，缓存已损坏"
+      ],
+      "actions": [
+        "点上方「立即更新全部深度分析」→ GitHub Actions Run workflow",
+        "港股若持续失败，需检查 East Money 财务接口"
+      ],
+      "data_ok": false,
+      "in_portfolio": true
+    },
+    "executive_brief": "01833：暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
+    "summary_detailed": "【一句话结论】01833（01833）— 数据不足，无法给出 LCAI 买卖结论。\n\n【原因】财务或行情拉取失败，缓存已损坏\n\n【你可以怎么做】\n· 在 GitHub Actions 运行 uzi-reports 刷新缓存\n· 港股需确认 East Money 能返回财务数据\n· 刷新后重新点「帮我看看」",
+    "key_metrics": [
+      {
+        "label": "现价",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "行情或缓存价"
+      },
+      {
+        "label": "PE",
+        "value": "—",
+        "threshold": "≤40",
+        "status": "fail",
+        "note": "行业上限 40"
+      },
+      {
+        "label": "PB",
+        "value": "—",
+        "threshold": "≤8",
+        "status": "ok",
+        "note": "资产定价"
+      },
+      {
+        "label": "PEG",
+        "value": "—",
+        "threshold": "≤2",
+        "status": "ok",
+        "note": "彼得·林奇"
+      },
+      {
+        "label": "ROE 均值",
+        "value": "—%",
+        "threshold": "≥15%",
+        "status": "fail",
+        "note": "5年加权"
+      },
+      {
+        "label": "盈利年数",
+        "value": "—",
+        "threshold": "≥4年",
+        "status": "fail",
+        "note": "近5年"
+      },
+      {
+        "label": "毛利率",
+        "value": "—%",
+        "threshold": "≥20%",
+        "status": "ok",
+        "note": "最新年报"
+      },
+      {
+        "label": "利润 YoY",
+        "value": "—%",
+        "threshold": "≥0%",
+        "status": "ok",
+        "note": "最新期"
+      },
+      {
+        "label": "OCF/EPS",
+        "value": "—",
+        "threshold": "≥0.8",
+        "status": "fail",
+        "note": "现金流质量"
+      },
+      {
+        "label": "公允 PE",
+        "value": "20",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "default"
+      },
+      {
+        "label": "公允价",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "EPS×20"
+      },
+      {
+        "label": "安全边际",
+        "value": "—",
+        "threshold": "≥25%",
+        "status": "fail",
+        "note": "=(公允−现价)/公允"
+      },
+      {
+        "label": "DCF 公允",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "简化两阶段"
+      },
+      {
+        "label": "DCF 边际",
+        "value": "—",
+        "threshold": "≥25%",
+        "status": "fail",
+        "note": "与 L3-01 交叉"
+      },
+      {
+        "label": "EPS",
+        "value": "—",
+        "threshold": ">0",
+        "status": "fail",
+        "note": "估值基础"
+      },
+      {
+        "label": "成交额",
+        "value": "0.00 亿",
+        "threshold": "A股≥0.5亿",
+        "status": "neutral",
+        "note": "流动性 L0-03"
+      }
+    ],
+    "decision_path": [],
+    "rule_highlights": [],
+    "rule_details": [],
+    "divergence_notes": [],
+    "data_ok": false
+  }
 }

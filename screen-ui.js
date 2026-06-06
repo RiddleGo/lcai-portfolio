@@ -9,7 +9,65 @@ const ScreenUI = (() => {
     '减仓': 'warn',
     '卖出': 'danger',
     '排除': 'danger',
+    '数据不足': 'warn',
   };
+
+  function renderFinalConclusion(fc) {
+    const box = el('final-conclusion');
+    if (!box) return;
+    if (!fc) {
+      box.hidden = true;
+      return;
+    }
+    box.hidden = false;
+    const ok = fc.data_ok !== false;
+    box.className = `final-conclusion ${ok ? '' : 'data-bad'}`;
+    const reasons = (fc.reasons || []).map((r, i) => `<li>${r}</li>`).join('');
+    const actions = (fc.actions || []).map(a => `<li>${a}</li>`).join('');
+    box.innerHTML = `
+      <h3>最终结论</h3>
+      <p class="fc-headline">${fc.headline || `${fc.verdict} — ${fc.action || ''}`}</p>
+      ${reasons ? `<p class="fc-label">核心理由</p><ul class="fc-list">${reasons}</ul>` : ''}
+      ${actions ? `<p class="fc-label">你可以怎么做</p><ul class="fc-list fc-actions">${actions}</ul>` : ''}`;
+  }
+
+  function renderRulesTable(rules) {
+    const tbody = el('rules-body');
+    const passBody = el('rules-body-pass');
+    const passWrap = el('rules-pass-wrap');
+    const failCountEl = el('rules-fail-count');
+    if (!tbody) return;
+
+    const failRules = (rules || []).filter(r => r.result === 'veto' || r.result === 'fail' || !r.pass);
+    const passRules = (rules || []).filter(r => r.pass && r.result === 'pass');
+
+    const rowHtml = r => {
+      const rc = r.result === 'pass' ? 'pass' : r.result === 'veto' ? 'veto' : 'fail';
+      return `<tr>
+        <td>${r.id}</td>
+        <td>${r.name}${r.missing ? ' <span class="rule-missing">数据缺失</span>' : ''}${r.note === 'manual' ? ' <span class="rule-manual">主观</span>' : ''}</td>
+        <td>${r.actual}</td>
+        <td>${r.threshold}</td>
+        <td class="rule-${rc}">${r.result === 'veto' ? '否决' : r.pass ? 'Pass' : 'Fail'}</td>
+        <td class="rule-reason">${r.reason || '—'}</td>
+        <td style="color:var(--muted);font-size:0.78rem">${(r.sources || []).join('、')}</td>
+      </tr>`;
+    };
+
+    tbody.innerHTML = failRules.length
+      ? failRules.map(rowHtml).join('')
+      : '<tr><td colspan="7" style="color:var(--muted)">无否决或硬指标 Fail — 详见下方 Pass 规则</td></tr>';
+
+    if (passBody && passWrap) {
+      passBody.innerHTML = passRules.map(rowHtml).join('');
+      passWrap.hidden = !passRules.length;
+    }
+    if (failCountEl) {
+      failCountEl.textContent = failRules.length
+        ? `展示 ${failRules.length} 条未通过 / 否决（Pass ${passRules.length} 条已折叠）`
+        : `全部 ${passRules.length} 条规则 Pass（无 Fail/Veto）`;
+    }
+  }
 
   function el(id) {
     return document.getElementById(id);
@@ -27,11 +85,12 @@ const ScreenUI = (() => {
 
   function renderAnalysis(report) {
     const a = report.analysis || {};
-    const brief = a.executive || report.logic_summary || '';
+    renderFinalConclusion(a.final_conclusion);
+    const brief = a.executive_brief || a.executive || report.logic_summary || '';
     const detailed = a.detailed_summary || '';
     el('logic-summary').textContent = brief;
 
-    const detailBlock = el('analysis-detailed');
+    const detailBlock = el('analysis-detailed-wrap');
     const detailText = el('analysis-detailed-text');
     if (detailBlock && detailText) {
       if (detailed) {
@@ -65,7 +124,8 @@ const ScreenUI = (() => {
 
     renderListBlock('analysis-strengths', '优势', a.strengths, '暂无显著优势项');
     renderListBlock('analysis-weaknesses', '风险 / 短板', a.weaknesses, '无重大否决或硬指标 Fail');
-    renderListBlock('analysis-watch', '关注项', a.watch_points, '无额外关注项');
+    const watchBox = el('analysis-watch');
+    if (watchBox) watchBox.hidden = true;
 
     const stepsBox = el('analysis-decision-steps');
     if (stepsBox) {
@@ -126,21 +186,7 @@ const ScreenUI = (() => {
       layers.appendChild(row);
     }
 
-    const tbody = el('rules-body');
-    tbody.innerHTML = '';
-    for (const r of report.rules) {
-      const tr = document.createElement('tr');
-      const rc = r.result === 'pass' ? 'pass' : r.result === 'veto' ? 'veto' : 'fail';
-        tr.innerHTML = `
-        <td>${r.id}</td>
-        <td>${r.name}${r.missing ? ' <span class="rule-missing">数据缺失</span>' : ''}${r.note === 'manual' ? ' <span class="rule-manual">主观</span>' : ''}</td>
-        <td>${r.actual}</td>
-        <td>${r.threshold}</td>
-        <td class="rule-${rc}">${r.result === 'veto' ? '否决' : r.pass ? 'Pass' : 'Fail'}</td>
-        <td class="rule-reason">${r.reason || '—'}</td>
-        <td style="color:var(--muted);font-size:0.78rem">${(r.sources || []).join('、')}</td>`;
-      tbody.appendChild(tr);
-    }
+    renderRulesTable(report.rules);
 
     el('report-json').textContent = JSON.stringify(report, null, 2);
     el('report-panel').hidden = false;
@@ -266,7 +312,7 @@ const ScreenUI = (() => {
     window._screenInited = true;
   }
 
-  return { init, renderVerdict, run };
+  return { init, renderVerdict, run, renderFinalConclusion };
 })();
 
 if (document.getElementById('btn-screen')) {

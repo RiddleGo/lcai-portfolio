@@ -322,6 +322,55 @@ const ScreenEngine = (() => {
     };
   }
 
+  function buildFinalConclusion(decision, results, metrics, ctx) {
+    const verdict = decision.verdict;
+    const action = decision.verdict_action;
+    const inPortfolio = !!ctx.inPortfolio;
+    const vetoRows = results.filter(r => r.veto && !r.pass);
+    const hardRows = results.filter(r => r.type === 'hard' && !r.pass && !r.veto);
+
+    const reasons = [];
+    for (const r of [...vetoRows, ...hardRows]) {
+      if (r.reason && !reasons.includes(r.reason)) reasons.push(r.reason);
+      if (reasons.length >= 3) break;
+    }
+    if (!reasons.length) {
+      if (verdict === '买入') reasons.push('生意、财务、估值硬指标均过，总分与安全边际达 LCAI 建仓线（25%）。');
+      else if (verdict === '观察' && metrics.marginOfSafety != null && metrics.marginOfSafety < 0.25) {
+        reasons.push(`价格未够便宜：安全边际 ${pct(metrics.marginOfSafety)}，未达 25% 建仓线。`);
+      } else reasons.push(action || '请结合下方规则明细。');
+    }
+
+    const actions = [];
+    if (inPortfolio) {
+      if (['排除', '卖出'].includes(verdict)) actions.push('已持仓：逻辑证伪或触发否决，建议制定退出计划。');
+      else if (verdict === '减仓') actions.push('已持仓：估值偏高或边际转弱，建议降低敞口。');
+      else if (verdict === '持有') actions.push('已持仓：逻辑未破，可继续持有；未达加仓线则不追加。');
+      else if (verdict === '观察') actions.push('已持仓：未达加仓线，维持观察。');
+      else if (verdict === '买入') actions.push('已持仓：达建仓线，可继续持有或小幅加仓。');
+    } else {
+      if (['排除', '卖出'].includes(verdict)) actions.push('未持仓：不新建仓。');
+      else if (verdict === '买入') actions.push('未持仓：达 LCAI 建仓线，可分批买入。');
+      else if (verdict === '观察') actions.push('未持仓：放入观察池，等安全边际≥25% 或硬指标改善。');
+      else actions.push(`未持仓：${action || '按 LCAI 规则执行'}`);
+    }
+
+    return {
+      verdict,
+      action,
+      headline: `【${inPortfolio ? '已持仓' : '未持仓'}】${verdict} — ${action}`,
+      reasons: reasons.slice(0, 3),
+      actions,
+      data_ok: true,
+      in_portfolio: inPortfolio,
+    };
+  }
+
+  function buildExecutiveBrief(metrics, final) {
+    const core = (final.reasons || []).slice(0, 2).join('；') || final.action || '';
+    return `${metrics.name}：${final.headline} 核心：${core}。`;
+  }
+
   function buildAnalysis(metrics, results, ctx, decision) {
     const cfg = criteria.scoring;
     const snap = metricsSnapshot(metrics);
@@ -452,9 +501,15 @@ const ScreenEngine = (() => {
     execParts.push(`评级 ${rating}（总分 ${overall}），单票上限 ${decision.position_hint.max_weight}。`);
 
     const logicDetailed = execParts.join('\n\n');
+    const finalConclusion = buildFinalConclusion(decision, results, metrics, ctx);
+    const executiveBrief = buildExecutiveBrief(metrics, finalConclusion);
 
     return {
-      executive: logicDetailed,
+      executive: executiveBrief,
+      executive_brief: executiveBrief,
+      detailed_summary: logicDetailed,
+      final_conclusion: finalConclusion,
+      data_ok: true,
       valuation,
       strengths: strengths.slice(0, 8),
       weaknesses: weaknesses.slice(0, 8),
@@ -658,10 +713,16 @@ const ScreenEngine = (() => {
     const keyMetrics = unified?.key_metrics || detail.key_metrics;
     const decisionPath = unified?.decision_path || detail.decision_path;
     const detailedSummary = unified?.summary_detailed || detail.summary_detailed;
+    const finalConclusion = unified?.final_conclusion || detail.final_conclusion;
+    const executiveBrief = unified?.executive_brief || detail.executive_brief
+      || unified?.executive || `${lcai.name}：${lcai.verdict} — ${lcai.verdict_action}`;
 
     return {
-      executive: unified?.executive || `${lcai.name}：${lcai.verdict} — ${lcai.verdict_action}`,
+      executive: executiveBrief,
+      executive_brief: executiveBrief,
       detailed_summary: detailedSummary,
+      final_conclusion: finalConclusion,
+      data_ok: unified?.data_ok ?? detail.data_ok ?? (lcai.verdict && lcai.verdict !== '数据不足'),
       valuation: {
         narrative: unified?.valuation?.narrative
           || (lcai.fair_value != null
@@ -670,9 +731,7 @@ const ScreenEngine = (() => {
       },
       strengths: unified?.strengths || [],
       weaknesses: unified?.weaknesses || [],
-      watch_points: (unified?.divergence_notes || unified?.divergences || []).map(d =>
-        typeof d === 'string' ? d : (d.summary || d.title || '')
-      ),
+      watch_points: [],
       decision_path: decisionPath && decisionPath.length
         ? decisionPath
         : [

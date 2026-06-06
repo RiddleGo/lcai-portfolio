@@ -45,6 +45,18 @@ def build_report_html(
     layers = unified.get("layers") or []
     strengths = unified.get("strengths") or []
     weaknesses = unified.get("weaknesses") or []
+    final = unified.get("final_conclusion") or (lcai.get("analysis") or {}).get("final_conclusion") or {}
+
+    fc_block = ""
+    if final:
+        reasons = "".join(f"<li>{_esc(r)}</li>" for r in (final.get("reasons") or []))
+        actions = "".join(f"<li>{_esc(a)}</li>" for a in (final.get("actions") or []))
+        fc_block = f"""<section class="card" style="border-color:#3b82f6">
+    <h2>最终结论</h2>
+    <p style="font-size:1.05rem;font-weight:700">{_esc(final.get('headline') or f"{verdict} — {action}")}</p>
+    {f'<p style="color:#94a3b8;font-size:0.85rem;margin:8px 0 4px">核心理由</p><ul>{reasons}</ul>' if reasons else ''}
+    {f'<p style="color:#94a3b8;font-size:0.85rem;margin:8px 0 4px">你可以怎么做</p><ul>{actions}</ul>' if actions else ''}
+  </section>"""
 
     metrics_rows = ""
     for m in key_metrics:
@@ -141,10 +153,12 @@ def build_report_html(
   <p><a href="{dash_url}">← 返回资产总览 · 选股</a></p>
   <h1>{_esc(name)} <span style="font-weight:400;color:#94a3b8">({symbol})</span></h1>
   <p class="meta">评级 {_esc(rating)} · 总分 {_esc(score)}{f' · 更新 {_esc(generated)}' if generated else ''}</p>
-  <p class="verdict {'buy' if verdict == '买入' else 'hold' if verdict in ('观察', '持有') else ''}">{_esc(verdict)} — {_esc(action)}</p>
+  <p class="verdict {'buy' if verdict == '买入' else 'hold' if verdict in ('观察', '持有', '数据不足') else ''}">{_esc(verdict)} — {_esc(action)}</p>
+
+  {fc_block}
 
   <section class="card">
-    <h2>Executive Summary</h2>
+    <h2>简要摘要</h2>
     <p>{_esc(executive)}</p>
   </section>
 

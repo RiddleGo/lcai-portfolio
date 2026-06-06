@@ -47,7 +47,8 @@ const ScreenUnified = (() => {
         source: 'lcai',
         max_weight: maxWeight(live.rating),
       },
-      executive: live.analysis?.executive || live.logic_summary || '',
+      executive: live.analysis?.executive_brief || live.analysis?.executive || live.logic_summary || '',
+      finalConclusion: live.analysis?.final_conclusion || null,
       summaryDetailed: live.analysis?.detailed_summary || '',
       keyMetrics: live.analysis?.key_metrics || [],
       decisionPath: live.analysis?.decision_path || [],
@@ -66,7 +67,8 @@ const ScreenUnified = (() => {
       return base;
     }
 
-    base.executive = unified.executive || base.executive;
+    base.executive = unified.executive_brief || unified.executive || base.executive;
+    base.finalConclusion = unified.final_conclusion || null;
     base.summaryDetailed = unified.summary_detailed || base.summaryDetailed;
     base.keyMetrics = unified.key_metrics?.length ? unified.key_metrics : base.keyMetrics;
     base.decisionPath = unified.decision_path?.length ? unified.decision_path : base.decisionPath;
@@ -98,14 +100,16 @@ const ScreenUnified = (() => {
   }
 
   function applyMerged(data) {
+    ScreenUI?.renderFinalConclusion?.(data.finalConclusion);
+
     const summary = el('logic-summary');
     if (summary) summary.textContent = data.executive || '';
 
-    const detailBlock = el('analysis-detailed');
+    const detailBlock = el('analysis-detailed-wrap');
     const detailText = el('analysis-detailed-text');
     const detailed = data.summaryDetailed || '';
     if (detailBlock && detailText) {
-      if (detailed && detailed !== (data.executive || '')) {
+      if (detailed) {
         detailText.textContent = detailed;
         detailBlock.hidden = false;
       } else {
@@ -145,7 +149,8 @@ const ScreenUnified = (() => {
 
     renderListBlock('analysis-strengths', '优势', data.strengths, '暂无显著优势项');
     renderListBlock('analysis-weaknesses', '风险 / 短板', data.weaknesses, '无重大否决或硬指标 Fail');
-    renderListBlock('analysis-watch', '关注项', data.watch_points, '无额外关注项');
+    const watchBox = el('analysis-watch');
+    if (watchBox) watchBox.hidden = true;
 
     const layersBox = el('analysis-layer-cards');
     if (layersBox && data.layers?.length) {
@@ -168,7 +173,7 @@ const ScreenUnified = (() => {
       const items = data.divergence_notes?.length ? data.divergence_notes : data.divergences;
       if (items?.length) {
         divBox.hidden = false;
-        divBox.innerHTML = `<h3 style="margin:0 0 10px;font-size:0.9rem">分歧 / 提示</h3>` + items.map(d => {
+        divBox.innerHTML = `<h3 style="margin:0 0 10px;font-size:0.9rem">风险与提示</h3>` + items.map(d => {
           if (typeof d === 'string') {
             return `<div class="divergence-item warning"><p style="margin:0;font-size:0.82rem;color:var(--warn)">${d}</p></div>`;
           }

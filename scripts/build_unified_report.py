@@ -216,24 +216,21 @@ def build_valuation_narrative(lcai: dict, uzi_e: dict, compare: dict) -> str:
     return "\n".join(lines) if lines else "暂无估值数据。"
 
 
-def build_executive(lcai: dict, uzi_e: dict, compare: dict) -> str:
+def build_executive(lcai: dict, uzi_e: dict, compare: dict, detail: dict | None = None) -> str:
+    detail = detail or {}
+    if detail.get("executive_brief"):
+        brief = detail["executive_brief"]
+        if uzi_e.get("ready") and uzi_e.get("tone"):
+            brief += f" UZI 参考：{uzi_e['tone']}（不改变 LCAI 裁决）。"
+        return brief
+    if not is_data_valid(lcai)[0]:
+        name = lcai.get("name") or lcai.get("symbol")
+        return f"{name}：数据不足，无法研判。请 Run workflow 刷新缓存。"
     parts = [
         f"{lcai.get('name', lcai.get('symbol'))}：LCAI 判定「{lcai.get('verdict')}」——{lcai.get('verdict_action', '')}",
     ]
-    if lcai.get("hard_failures"):
-        parts.append(f"硬指标 Fail：{'、'.join(lcai['hard_failures'])}。")
-    if lcai.get("vetoes_triggered"):
-        parts.append(f"否决项：{'、'.join(lcai['vetoes_triggered'])}。")
     if uzi_e.get("ready") and uzi_e.get("tone"):
-        parts.append(f"UZI 价值派（A,E）参考：{uzi_e['tone']}（共识 {uzi_e.get('consensus', '—')}）。")
-    if compare.get("divergences"):
-        div_parts = []
-        for d in compare["divergences"]:
-            if isinstance(d, dict):
-                div_parts.append(d.get("title") or d.get("summary", ""))
-            else:
-                div_parts.append(str(d))
-        parts.append("分歧 / 提示：" + "；".join(div_parts) + "。")
+        parts.append(f"UZI 参考：{uzi_e['tone']}。")
     parts.append("买卖结论以 LCAI 规则为准。")
     return " ".join(parts)
 
@@ -275,16 +272,17 @@ def build_unified_report(
     compare: dict,
     symbol: str,
 ) -> dict:
-    from build_lcai_detail import build_lcai_detail  # noqa: WPS433
+    from build_lcai_detail import build_lcai_detail, is_data_valid  # noqa: WPS433
 
     uzi_e = parse_uzi_enrichment(uzi_raw)
     rating = lcai.get("rating") or compare.get("lcai_rating")
     verdict = lcai.get("verdict") or compare.get("lcai_verdict")
     action = lcai.get("verdict_action") or compare.get("lcai_verdict_action")
     uzi_tone = compare.get("uzi_tone") or (uzi_e.get("tone") if uzi_e.get("ready") else None)
+    in_portfolio = bool(compare.get("in_portfolio"))
     detail = lcai.get("analysis") or {}
-    if not detail.get("rule_details"):
-        detail = build_lcai_detail(lcai, uzi_tone)
+    if not detail.get("final_conclusion"):
+        detail = build_lcai_detail(lcai, uzi_tone, in_portfolio=in_portfolio)
 
     layers = []
     for layer, title_suffix in LAYER_META.items():
@@ -321,7 +319,10 @@ def build_unified_report(
             "source": "lcai",
             "max_weight": max_weight_for_rating(rating),
         },
-        "executive": build_executive(lcai, uzi_e, compare),
+        "executive": build_executive(lcai, uzi_e, compare, detail),
+        "final_conclusion": detail.get("final_conclusion") or {},
+        "executive_brief": detail.get("executive_brief") or "",
+        "data_ok": detail.get("data_ok", is_data_valid(lcai)[0]),
         "summary_detailed": detail.get("summary_detailed") or build_executive(lcai, uzi_e, compare),
         "key_metrics": detail.get("key_metrics") or [],
         "decision_path": detail.get("decision_path") or [],

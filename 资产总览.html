@@ -717,6 +717,17 @@
     .divergence-item .div-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 4px; }
     .divergence-item .div-summary { font-size: 0.82rem; line-height: 1.6; margin: 0; color: var(--text); }
     .divergence-item .div-metrics { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    .final-conclusion {
+      background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(16,185,129,0.08));
+      border: 1px solid rgba(59,130,246,0.35); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
+    }
+    .final-conclusion.data-bad { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.4); }
+    .final-conclusion h3 { font-size: 0.9rem; margin: 0 0 8px; color: var(--muted); }
+    .final-conclusion .fc-headline { font-size: 1.05rem; font-weight: 700; margin: 0 0 10px; line-height: 1.45; }
+    .final-conclusion .fc-label { font-size: 0.78rem; color: var(--muted); margin: 8px 0 4px; }
+    .final-conclusion .fc-list { margin: 0; padding-left: 1.2rem; font-size: 0.86rem; line-height: 1.55; }
+    .final-conclusion .fc-actions { color: var(--text); }
+    #analysis-detailed { margin-top: 8px; }
     .screen-analysis-cols {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;
     }
@@ -1816,11 +1827,12 @@
             </div>
             <span id="portfolio-tag" class="screen-tag">—</span>
           </div>
-          <p id="logic-summary" class="screen-analysis-text" style="margin-bottom:10px;font-size:0.92rem"></p>
-          <div id="analysis-detailed" class="screen-analysis-block" hidden>
-            <h3>详细总结</h3>
+          <div id="final-conclusion" class="final-conclusion" hidden></div>
+          <p id="logic-summary" class="screen-analysis-text" style="margin-bottom:10px;font-size:0.88rem;color:var(--muted)"></p>
+          <details id="analysis-detailed-wrap" class="screen-analysis-block" hidden>
+            <summary style="cursor:pointer;font-size:0.88rem;color:var(--muted);margin-bottom:8px">展开详细总结</summary>
             <pre id="analysis-detailed-text" class="screen-analysis-text" style="white-space:pre-wrap;font-family:inherit;margin:0"></pre>
-          </div>
+          </details>
           <div class="screen-score-grid">
             <div class="screen-score-item"><div class="val" id="overall-score">—</div><div class="lbl">总分</div></div>
             <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
@@ -1867,7 +1879,8 @@
         </div>
 
         <div class="card">
-          <h3 style="margin-bottom:10px;font-size:0.9rem">规则明细（含分析说明）</h3>
+          <h3 style="margin-bottom:6px;font-size:0.9rem">规则明细（含分析说明）</h3>
+          <p id="rules-fail-count" style="font-size:0.78rem;color:var(--muted);margin:0 0 10px"></p>
           <div style="overflow-x:auto">
             <table>
               <thead>
@@ -1878,6 +1891,19 @@
               <tbody id="rules-body"></tbody>
             </table>
           </div>
+          <details id="rules-pass-wrap" style="margin-top:12px" hidden>
+            <summary style="cursor:pointer;color:var(--muted);font-size:0.85rem">展开 Pass 规则（已通过项）</summary>
+            <div style="overflow-x:auto;margin-top:8px">
+              <table>
+                <thead>
+                  <tr>
+                    <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>分析说明</th><th>来源</th>
+                  </tr>
+                </thead>
+                <tbody id="rules-body-pass"></tbody>
+              </table>
+            </div>
+          </details>
           <details style="margin-top:12px">
             <summary style="cursor:pointer;color:var(--muted);font-size:0.85rem">导出 JSON</summary>
             <button type="button" class="screen-btn screen-btn-ghost" id="btn-export" style="margin:8px 0">下载报告</button>
@@ -2789,13 +2815,13 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748012"></script>
-  <script src="screen-data.js?v=748012"></script>
-  <script src="screen-engine.js?v=748012"></script>
-  <script src="screen-watchlist.js?v=748012"></script>
-  <script src="screen-cloud.js?v=748012"></script>
-  <script src="screen-unified.js?v=748012"></script>
-  <script src="screen-ui.js?v=748012"></script>
+  <script src="watchlist-data.js?v=748013"></script>
+  <script src="screen-data.js?v=748013"></script>
+  <script src="screen-engine.js?v=748013"></script>
+  <script src="screen-watchlist.js?v=748013"></script>
+  <script src="screen-cloud.js?v=748013"></script>
+  <script src="screen-unified.js?v=748013"></script>
+  <script src="screen-ui.js?v=748013"></script>
   <script>
     if (location.hash === "#screen") {
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));

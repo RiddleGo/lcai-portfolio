@@ -33,8 +33,8 @@
       "kind": "veto",
       "rule_id": "L3-05",
       "title": "L3-05 极端高估值（否决）",
-      "summary": "PE 185.74 极高且利润增速 6.93% 不足，估值泡沫风险大，触发否决（极端高估值）。",
-      "actual": "PE=185.74",
+      "summary": "PE 547.25 极高且利润增速 6.93% 不足，估值泡沫风险大，触发否决（极端高估值）。",
+      "actual": "PE=547.25",
       "threshold": "非极端泡沫"
     },
     {
@@ -65,8 +65,8 @@
       "kind": "hard_fail",
       "rule_id": "L3-02",
       "title": "L3-02 PE合理（硬指标 Fail）",
-      "summary": "PE 185.74 超过 default 行业上限 ≤40（default），估值偏贵。",
-      "actual": "185.74",
+      "summary": "PE 547.25 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "547.25",
       "threshold": "≤40（default）"
     },
     {
@@ -78,6 +78,12 @@
       "threshold": "异常特征≤1"
     }
   ],
+  "trap_flags": [
+    "极端估值"
+  ],
+  "report_url": "reports/002851/index.html",
+  "generated_at": "2026-06-07T00:16:33+08:00",
+  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考",
   "divergence_notes": [
     {
       "kind": "veto",
@@ -99,8 +105,8 @@
       "kind": "veto",
       "rule_id": "L3-05",
       "title": "L3-05 极端高估值（否决）",
-      "summary": "PE 185.74 极高且利润增速 6.93% 不足，估值泡沫风险大，触发否决（极端高估值）。",
-      "actual": "PE=185.74",
+      "summary": "PE 547.25 极高且利润增速 6.93% 不足，估值泡沫风险大，触发否决（极端高估值）。",
+      "actual": "PE=547.25",
       "threshold": "非极端泡沫"
     },
     {
@@ -131,8 +137,8 @@
       "kind": "hard_fail",
       "rule_id": "L3-02",
       "title": "L3-02 PE合理（硬指标 Fail）",
-      "summary": "PE 185.74 超过 default 行业上限 ≤40（default），估值偏贵。",
-      "actual": "185.74",
+      "summary": "PE 547.25 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "547.25",
       "threshold": "≤40（default）"
     },
     {
@@ -144,10 +150,5 @@
       "threshold": "异常特征≤1"
     }
   ],
-  "trap_flags": [
-    "极端估值"
-  ],
-  "report_url": "reports/002851/index.html",
-  "generated_at": "2026-06-07T00:52:32+08:00",
-  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
+  "in_portfolio": true
 }
