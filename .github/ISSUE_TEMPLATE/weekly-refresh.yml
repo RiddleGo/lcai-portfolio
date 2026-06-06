@@ -1,0 +1,11 @@
+name: Weekly depth refresh
+description: 立即跑持仓+关注列表全量深度分析（等同每周 Actions）
+title: "[weekly] refresh"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提交后 Actions 会对 **持仓 + 云端关注** 全量跑 LCAI + UZI 深度（约 30–60 分钟）。
+        **请勿修改标题** `[weekly] refresh`。
+labels:
+  - report

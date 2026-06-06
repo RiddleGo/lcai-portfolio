@@ -29,6 +29,19 @@ const ScreenCloud = (() => {
     return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
 
+  function weeklyRefreshUrl() {
+    const title = encodeURIComponent('[weekly] refresh');
+    const body = encodeURIComponent(
+      '请立即跑持仓+云端关注列表的全量深度分析（网页触发，请勿修改标题）。'
+    );
+    return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
+  }
+
+  function requestWeeklyRefresh() {
+    window.open(weeklyRefreshUrl(), '_blank', 'noopener');
+    setStatus('第 1 步：请在新页面点绿色 Submit。第 2 步：约 30–60 分钟后刷新本页，完整 HTML 按钮会变可点。', 'pending');
+  }
+
   function setStatus(msg, type = 'info') {
     const box = el('cloud-status');
     if (!box) return;
@@ -245,11 +258,13 @@ const ScreenCloud = (() => {
       const name = el('stock-title')?.textContent?.split('(')[0]?.trim();
       requestFullReport(sym, name);
     });
+    el('btn-weekly-refresh')?.addEventListener('click', requestWeeklyRefresh);
   }
 
   return {
     init,
     requestFullReport,
+    requestWeeklyRefresh,
     checkAndShowCta,
     hasFullReport,
     normalizeSymbol,
