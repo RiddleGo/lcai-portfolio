@@ -24,13 +24,14 @@ python scripts/lcai_screen_json.py 600519          # 完整 JSON
 bash scripts/run_dual_analysis.sh 600519           # LCAI + UZI 双轨（需 clone UZI）
 ```
 
-## 网页触发（无需命令行）
+## 网页触发（无需 PAT）
 
-| 操作 | 方式 |
+| 操作 | 步骤 |
 |------|------|
-| **LCAI 研判** | 选股 Tab → 输入代码 → **研判**（浏览器即时） |
-| **UZI 深度研报** | 同一页 → **云端研报** → 自动打开 GitHub Actions 并轮询；配置 Worker 后可一键触发 |
-| Worker 部署 | 见 [`workers/README.md`](workers/README.md) |
+| **LCAI 研判** | 选股 Tab → **研判**（浏览器即时） |
+| **UZI 云端研报** | **云端研报** → 提交 GitHub Issue → 本页自动轮询（约 3–10 分钟） |
+
+确保仓库 [Issues 已开启](https://github.com/RiddleGo/lcai-portfolio/settings)。可选 Worker 见 [`workers/README.md`](workers/README.md)。
 
 ## 部署
 

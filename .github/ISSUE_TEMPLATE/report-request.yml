@@ -1,0 +1,25 @@
+name: 云端研报请求
+description: 从资产总览网页触发，生成 LCAI + UZI 深度研报（提交后约 3–10 分钟）
+title: "[report] "
+labels:
+  - report-bot
+body:
+  - type: markdown
+    value: |
+      标题格式：`[report] 600519`（不要改 `[report]` 前缀）
+      提交后 GitHub Actions 会自动生成研报并关闭本 Issue。
+  - type: input
+    id: symbol
+    attributes:
+      label: 股票代码
+      description: A 股 6 位或港股 5 位，例如 600519、00700
+      placeholder: "600519"
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我了解这是研究辅助，不构成投资建议
+          required: true

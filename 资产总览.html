@@ -1774,12 +1774,12 @@
           <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
         </div>
         <details class="cloud-settings">
-          <summary>云端研报设置（可选 · 一键触发需部署 Worker）</summary>
-          <p style="color:var(--muted);margin:8px 0 4px;line-height:1.5">LCAI 研判在浏览器即时完成。UZI 深度报告需在 GitHub 云端生成（约 3–10 分钟）。配置 Worker 后可网页一键触发；否则点「云端研报」会打开 Actions 并自动轮询。</p>
+          <summary>高级：Worker 一键触发（可选，需 PAT）</summary>
+          <p style="color:var(--muted);margin:8px 0 4px;line-height:1.5">默认方式：<strong>点「云端研报」→ 提交 GitHub Issue</strong> 即可，无需 PAT。若部署 Cloudflare Worker 可跳过 Issue 一步。</p>
           <label>Worker URL <input type="text" id="cloud-trigger-url" placeholder="https://xxx.workers.dev"></label>
-          <label style="display:block;margin-top:6px">触发密钥 <input type="text" id="cloud-trigger-key" placeholder="与 Worker TRIGGER_KEY 一致"></label>
-          <button type="button" class="screen-btn screen-btn-ghost" id="btn-save-cloud-config" style="margin-top:8px">保存设置</button>
-          <span style="margin-left:8px;font-size:0.75rem;color:var(--muted)">部署说明见 <code>workers/README.md</code></span>
+          <label style="display:block;margin-top:6px">触发密钥 <input type="text" id="cloud-trigger-key" placeholder="TRIGGER_KEY"></label>
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-save-cloud-config" style="margin-top:8px">保存</button>
+          <span style="margin-left:8px;font-size:0.75rem;color:var(--muted)">见 <code>workers/README.md</code></span>
         </details>
         <div id="cloud-status" class="cloud-status" hidden></div>
         <div id="screen-error" class="screen-error" hidden></div>
@@ -1810,7 +1810,7 @@
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-deep-report" hidden>深度研报 (UZI)</button>
               <span id="dual-track-meta" style="font-size:0.75rem;color:var(--muted)"></span>
             </div>
-            <p class="uzi-disclaimer">UZI 深度 HTML 无法在浏览器内运行，由 GitHub Actions 云端生成。配置 Worker 后可在本页一键触发；否则点「云端研报」打开 Actions 后本页自动轮询更新。</p>
+            <p class="uzi-disclaimer">UZI 深度报告在 GitHub 云端生成。点「云端研报」→ 提交预填 Issue → 约 3–10 分钟后本页自动更新。无需 PAT。</p>
           </div>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
