@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "philosophy": "value_core",
+  "scoring": {
+    "L1_min": 70,
+    "L2_min": 75,
+    "L3_min": 65,
+    "overall_buy": 72,
+    "weights": { "L1": 0.30, "L2": 0.25, "L3": 0.25, "L4": 0.10, "L5": 0.10 }
+  },
+  "sector_pe_caps": {
+    "default": 40,
+    "白酒": 35,
+    "消费": 35,
+    "医药": 45,
+    "半导体": 50,
+    "软件": 45,
+    "汽车": 35,
+    "金融": 12,
+    "银行": 8
+  },
+  "fair_pe_by_sector": {
+    "default": 20,
+    "白酒": 25,
+    "消费": 22,
+    "医药": 28,
+    "半导体": 30,
+    "软件": 28,
+    "汽车": 18,
+    "金融": 8,
+    "银行": 6
+  },
+  "rules": [
+    {"id": "L0-01", "layer": "L0", "type": "soft", "auto": "manual", "name": "能力圈", "eval": "circle_of_competence", "weight": 5, "sources": ["穷查理宝典", "大道无形：段永平"]},
+    {"id": "L0-02", "layer": "L0", "type": "hard", "auto": "full", "name": "非ST", "eval": "not_st", "threshold": true, "sources": ["一本书看透A股"]},
+    {"id": "L0-03", "layer": "L0", "type": "hard", "auto": "full", "name": "流动性", "eval": "min_avg_amount", "threshold": 50000000, "threshold_hk": 20000000, "sources": ["手把手教你投资港股"]},
+    {"id": "L0-04", "layer": "L0", "type": "soft", "auto": "full", "name": "营收增长", "eval": "revenue_growth", "threshold": 0, "weight": 5, "sources": ["时势"]},
+    {"id": "L0-05", "layer": "L0", "type": "veto", "auto": "full", "name": "财务造假嫌疑", "eval": "fraud_suspect", "threshold": false, "sources": ["一本书看透财报"]},
+    {"id": "L1-01", "layer": "L1", "type": "hard", "auto": "full", "name": "ROE均值", "eval": "min_roe_avg", "threshold": 15, "sources": ["巴菲特的护城河", "股市稳赚"]},
+    {"id": "L1-02", "layer": "L1", "type": "hard", "auto": "full", "name": "盈利稳定性", "eval": "min_profit_years", "threshold": 4, "sources": ["回归投资常识"]},
+    {"id": "L1-03", "layer": "L1", "type": "soft", "auto": "full", "name": "毛利率", "eval": "gross_margin_score", "threshold": 20, "weight": 8, "sources": ["竞争优势"]},
+    {"id": "L1-04", "layer": "L1", "type": "soft", "auto": "proxy", "name": "护城河代理", "eval": "moat_proxy", "threshold": 60, "weight": 10, "sources": ["巴菲特的护城河"]},
+    {"id": "L1-05", "layer": "L1", "type": "soft", "auto": "full", "name": "利润增长", "eval": "profit_yoy", "threshold": 0, "weight": 5, "sources": ["怎样选择成长股"]},
+    {"id": "L1-06", "layer": "L1", "type": "veto", "auto": "full", "name": "利润崩塌", "eval": "profit_collapse", "threshold": false, "sources": ["创新者的窘境"]},
+    {"id": "L2-01", "layer": "L2", "type": "hard", "auto": "full", "name": "现金流质量", "eval": "ocf_to_profit", "threshold": 0.8, "sources": ["一本书看透财报"]},
+    {"id": "L2-02", "layer": "L2", "type": "soft", "auto": "proxy", "name": "扣非质量", "eval": "deduct_eps_ratio", "threshold": 0.8, "weight": 7, "sources": ["投资中最常犯的错"]},
+    {"id": "L2-03", "layer": "L2", "type": "soft", "auto": "full", "name": "盈利趋势", "eval": "profit_trend", "threshold": 0, "weight": 8, "sources": ["慢即是快"]},
+    {"id": "L2-04", "layer": "L2", "type": "veto", "auto": "full", "name": "现金流长期背离", "eval": "ocf_veto", "threshold": false, "sources": ["一本书看透财报"]},
+    {"id": "L3-01", "layer": "L3", "type": "hard", "auto": "full", "name": "安全边际", "eval": "margin_of_safety", "threshold": 0.25, "sources": ["聪明的投资者"]},
+    {"id": "L3-02", "layer": "L3", "type": "hard", "auto": "full", "name": "PE合理", "eval": "pe_reasonable", "threshold": 40, "sources": ["穿透估值"]},
+    {"id": "L3-03", "layer": "L3", "type": "soft", "auto": "full", "name": "PB合理", "eval": "pb_reasonable", "threshold": 8, "weight": 6, "sources": ["估值"]},
+    {"id": "L3-04", "layer": "L3", "type": "soft", "auto": "full", "name": "PEG", "eval": "peg_score", "threshold": 2, "weight": 8, "sources": ["彼得·林奇的成功投资"]},
+    {"id": "L3-05", "layer": "L3", "type": "veto", "auto": "full", "name": "极端高估值", "eval": "pe_extreme_veto", "threshold": false, "sources": ["投资中最常犯的错"]},
+    {"id": "L4-01", "layer": "L4", "type": "soft", "auto": "manual", "name": "心理纪律", "eval": "psychology_ok", "threshold": true, "weight": 10, "sources": ["金钱心理学"]},
+    {"id": "L4-02", "layer": "L4", "type": "soft", "auto": "full", "name": "仓位建议", "eval": "position_cap", "threshold": 25, "weight": 5, "sources": ["集中投资"]},
+    {"id": "L5-01", "layer": "L5", "type": "soft", "auto": "full", "name": "行业适配", "eval": "sector_fit", "threshold": 60, "weight": 10, "sources": ["04-行业叠加规则"]}
+  ]
+}

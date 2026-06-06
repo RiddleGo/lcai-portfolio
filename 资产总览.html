@@ -632,6 +632,69 @@
       color: var(--muted);
     }
 
+    /* ========== 选股研判 ========== */
+    .screen-input-row {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    }
+    .screen-input-row input[type=text] {
+      flex: 1; min-width: 140px; max-width: 280px;
+      padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text); font-size: 0.95rem;
+    }
+    .screen-btn {
+      padding: 9px 18px; border: none; border-radius: 8px;
+      background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .screen-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .screen-btn-ghost {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+    }
+    .screen-chk-row { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .screen-chk-row label { font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+    .screen-error {
+      background: rgba(239,68,68,0.12); border: 1px solid var(--danger);
+      color: #fca5a5; padding: 10px 12px; border-radius: 8px; margin-top: 12px;
+    }
+    .screen-loading { color: var(--muted); margin-top: 10px; font-size: 0.88rem; }
+    .verdict-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+    .verdict-badge {
+      font-size: 1.35rem; font-weight: 700; padding: 6px 16px; border-radius: 10px;
+    }
+    .verdict-badge.ok { background: rgba(16,185,129,0.2); color: var(--ok); }
+    .verdict-badge.warn { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .verdict-badge.danger { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .screen-tag {
+      font-size: 0.72rem; padding: 3px 9px; border-radius: 999px;
+      background: var(--border); color: var(--muted);
+    }
+    .screen-tag.in-port { background: rgba(59,130,246,0.2); color: #93c5fd; }
+    .screen-score-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 10px; margin: 12px 0;
+    }
+    .screen-score-item {
+      background: var(--bg); border-radius: 8px; padding: 10px; text-align: center;
+    }
+    .screen-score-item .val { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+    .screen-score-item .lbl { font-size: 0.72rem; color: var(--muted); }
+    .layer-row {
+      display: grid; grid-template-columns: 64px 1fr 32px; align-items: center;
+      gap: 8px; margin-bottom: 6px;
+    }
+    .layer-label { font-size: 0.78rem; color: var(--muted); }
+    .bar-wrap { height: 7px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .bar { height: 100%; background: var(--accent); border-radius: 4px; }
+    .layer-val { font-size: 0.78rem; text-align: right; }
+    td.rule-pass { color: var(--ok); }
+    td.rule-fail { color: var(--warn); }
+    td.rule-veto { color: var(--danger); font-weight: 600; }
+    .rule-missing { color: var(--warn); font-size: 0.72rem; }
+    .rule-manual { color: #93c5fd; font-size: 0.72rem; }
+    .screen-json {
+      background: var(--bg); padding: 10px; border-radius: 8px;
+      overflow: auto; font-size: 0.72rem; max-height: 200px; margin-top: 8px;
+    }
+
     @media (max-width: 640px) {
       table { font-size: 0.76rem; }
       thead th, tbody td { padding: 7px 5px; }
@@ -651,6 +714,7 @@
         <button class="tab-btn" data-page="invest">投资规划</button>
         <button class="tab-btn" data-page="diagnosis">诊断</button>
         <button class="tab-btn" data-page="stock">持仓</button>
+        <button class="tab-btn" data-page="screen">选股</button>
       </nav>
     </div>
 
@@ -1629,7 +1693,67 @@
       </div>
     </div>
 
-    <footer>生成日期：2026-06-06 · 执行（主页）+ 还款 + 现金流 + 投资规划 + 诊断 + 持仓</footer>
+    <!-- ========== 页7：选股研判 ========== -->
+    <div id="page-screen" class="page">
+      <p class="page-desc">价值投资五层漏斗 · 自动拉取财报与估值 · 输出买卖判定与逐条逻辑 · 已持仓标的自动识别</p>
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="screen-input-row">
+          <input type="text" id="symbol-input" placeholder="A股 600519 / 港股 00700" value="">
+          <button type="button" class="screen-btn" id="btn-screen">研判</button>
+        </div>
+        <div class="screen-chk-row">
+          <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
+          <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
+        </div>
+        <div id="screen-error" class="screen-error" hidden></div>
+        <p id="screen-loading" class="screen-loading" hidden>正在拉取数据并计算…</p>
+      </div>
+
+      <div id="report-panel" hidden>
+        <div class="card" style="margin-bottom:16px">
+          <div class="verdict-head">
+            <span id="verdict-badge" class="verdict-badge warn">—</span>
+            <div>
+              <div id="stock-title" style="font-weight:600">—</div>
+              <div id="verdict-action" style="color:var(--muted);font-size:0.88rem">—</div>
+            </div>
+            <span id="portfolio-tag" class="screen-tag">—</span>
+          </div>
+          <p id="logic-summary" style="margin-bottom:10px;font-size:0.92rem"></p>
+          <div class="screen-score-grid">
+            <div class="screen-score-item"><div class="val" id="overall-score">—</div><div class="lbl">总分</div></div>
+            <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
+          </div>
+          <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
+          <h3 style="margin:14px 0 8px;font-size:0.9rem">分层得分</h3>
+          <div id="layer-scores"></div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom:10px;font-size:0.9rem">规则明细</h3>
+          <div style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>来源</th>
+                </tr>
+              </thead>
+              <tbody id="rules-body"></tbody>
+            </table>
+          </div>
+          <details style="margin-top:12px">
+            <summary style="cursor:pointer;color:var(--muted);font-size:0.85rem">导出 JSON</summary>
+            <button type="button" class="screen-btn screen-btn-ghost" id="btn-export" style="margin:8px 0">下载报告</button>
+            <pre id="report-json" class="screen-json"></pre>
+          </details>
+        </div>
+      </div>
+
+      <p class="page-desc" style="margin-top:16px;margin-bottom:0">免责声明：研究辅助，不构成投资建议。规则详见 <code style="font-size:0.8rem">投资系统/</code></p>
+    </div>
+
+    <footer>生成日期：2026-06-06 · 执行 + 还款 + 现金流 + 投资规划 + 诊断 + 持仓 + 选股</footer>
   </div>
 
   <div id="effect-toast" class="effect-toast hidden" role="dialog" aria-modal="true" aria-labelledby="effect-toast-title">
@@ -2487,13 +2611,28 @@
     });
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-        btn.classList.add("active");
-        document.getElementById("page-" + btn.dataset.page).classList.add("active");
-      });
+      btn.addEventListener("click", () => switchTab(btn.dataset.page));
     });
+
+    function switchTab(page) {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      const btn = document.querySelector(`.tab-btn[data-page="${page}"]`);
+      if (btn) btn.classList.add("active");
+      const el = document.getElementById("page-" + page);
+      if (el) el.classList.add("active");
+      if (page === "screen") {
+        history.replaceState(null, "", "#screen");
+        if (window.ScreenUI && !window._screenInited) {
+          ScreenUI.init();
+          window._screenInited = true;
+        }
+      } else if (location.hash === "#screen") {
+        history.replaceState(null, "", location.pathname);
+      }
+    }
+
+    if (location.hash === "#screen") switchTab("screen");
 
     renderTodos();
     renderAll();
@@ -2517,5 +2656,8 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
+  <script src="screen-data.js"></script>
+  <script src="screen-engine.js"></script>
+  <script src="screen-ui.js"></script>
 </body>
 </html>
