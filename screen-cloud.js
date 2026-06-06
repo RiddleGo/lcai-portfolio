@@ -3,6 +3,7 @@
  */
 const ScreenCloud = (() => {
   const REPO = 'RiddleGo/lcai-portfolio';
+  const WEEKLY_ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/uzi-reports.yml`;
   const POLL_MS = 15000;
   const POLL_MAX = 48;
 
@@ -28,17 +29,12 @@ const ScreenCloud = (() => {
     return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
 
-  function weeklyRefreshUrl() {
-    const title = encodeURIComponent('[weekly] refresh');
-    const body = encodeURIComponent(
-      '请立即跑持仓+云端关注列表的全量深度分析（网页触发，请勿修改标题）。'
-    );
-    return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
-  }
-
   function requestWeeklyRefresh() {
-    window.open(weeklyRefreshUrl(), '_blank', 'noopener');
-    setStatus('第 1 步：请在新页面点绿色 Submit。第 2 步：约 30–60 分钟后刷新本页，完整 HTML 按钮会变可点。', 'pending');
+    window.open(WEEKLY_ACTIONS_URL, '_blank', 'noopener');
+    setStatus(
+      '已打开 GitHub Actions：右侧点 Run workflow → 保持 run_uzi 为 true → 绿色 Run。约 30–60 分钟后刷新本页。',
+      'pending'
+    );
   }
 
   function setStatus(msg, type = 'info') {
@@ -251,6 +247,7 @@ const ScreenCloud = (() => {
     init,
     requestFullReport,
     requestWeeklyRefresh,
+    weeklyActionsUrl: WEEKLY_ACTIONS_URL,
     checkAndShowCta,
     normalizeSymbol,
     setLiveReport,
