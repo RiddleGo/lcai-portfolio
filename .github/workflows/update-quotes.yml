@@ -1,0 +1,31 @@
+name: Update stock quotes
+
+on:
+  schedule:
+    # 工作日 UTC 07:30 ≈ 北京时间 15:30（A 股收盘后）
+    - cron: "30 7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-quotes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fetch quotes
+        run: python fetch_quotes.py
+
+      - name: Commit quotes-data.js
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add quotes-data.js
+          git diff --staged --quiet || git commit -m "chore: update stock quotes"
+          git push

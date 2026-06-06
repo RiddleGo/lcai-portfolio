@@ -1,0 +1,2363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>资产总览</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --card: #1a2332;
+      --border: #2d3a4f;
+      --text: #e8edf4;
+      --muted: #8b9cb3;
+      --accent: #3b82f6;
+      --warn: #f59e0b;
+      --danger: #ef4444;
+      --ok: #10b981;
+      --jd: #e1251b;
+      --ali: #1677ff;
+      --dy: #fe2c55;
+      --didi: #ff7a00;
+      --personal: #a855f7;
+      --gt: #6366f1;
+      --hb: #14b8a6;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .top-bar h1 { font-size: 1.35rem; font-weight: 600; }
+
+    .tabs {
+      display: flex;
+      gap: 6px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 7px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 22px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+    }
+
+    .card.highlight {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #1a2332 0%, #1e2d45 100%);
+    }
+
+    .card.warn-card {
+      border-color: var(--warn);
+      background: linear-gradient(135deg, #1a2332 0%, #2a2318 100%);
+    }
+
+    .card.danger-card {
+      border-color: var(--danger);
+      background: linear-gradient(135deg, #1a2332 0%, #2a1818 100%);
+    }
+
+    .card-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .card-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card.highlight .card-value { color: #60a5fa; }
+    .card.warn-card .card-value { color: #fbbf24; }
+    .card.danger-card .card-value { color: #fca5a5; }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .platform-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot.jd { background: var(--jd); }
+    .dot.ali { background: var(--ali); }
+    .dot.dy { background: var(--dy); }
+    .dot.didi { background: var(--didi); }
+    .dot.personal { background: var(--personal); }
+    .dot.gt { background: var(--gt); }
+    .dot.hb { background: var(--hb); }
+    .dot.fund { background: #ec4899; }
+    .dot.salary { background: #22c55e; }
+
+    section { margin-bottom: 28px; }
+
+    section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    thead th {
+      text-align: right;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    thead th:first-child { text-align: left; }
+
+    tbody td {
+      padding: 10px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td:first-child { text-align: left; font-weight: 500; }
+
+    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody tr.peak { background: rgba(239, 68, 68, 0.1); }
+    tbody tr.peak td:last-child { color: #fca5a5; font-weight: 700; }
+    tbody tr.aug { background: rgba(168, 85, 247, 0.1); }
+    tbody tr.aug td:nth-child(6) { color: #d8b4fe; font-weight: 700; }
+    tbody tr.light { background: rgba(16, 185, 129, 0.06); }
+    tbody tr.light td:last-child { color: #6ee7b7; }
+
+    .dash { color: var(--border); }
+    .loss { color: #fca5a5; }
+    .gain { color: #6ee7b7; }
+    .warn { color: #fbbf24; }
+    .month-total { font-weight: 700; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .badge.danger { background: rgba(239,68,68,0.2); color: #fca5a5; }
+    .badge.purple { background: rgba(168,85,247,0.2); color: #d8b4fe; }
+    .badge.ok { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+    .badge.hk { background: rgba(99,102,241,0.2); color: #a5b4fc; font-size: 0.62rem; margin-left: 4px; }
+
+    .tips {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .tips strong { color: var(--warn); }
+    .tips ul { margin-top: 8px; padding-left: 18px; }
+    .tips li { margin-bottom: 5px; }
+
+    .account-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+
+    .account-tag.gt { background: rgba(99,102,241,0.15); color: #a5b4fc; }
+    .account-tag.hb { background: rgba(20,184,166,0.15); color: #5eead4; }
+
+    .plan-principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .principle {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+    }
+
+    .principle .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .principle.hold { border-color: rgba(16,185,129,0.4); }
+    .principle.hold .tag { color: #6ee7b7; }
+    .principle.sell { border-color: rgba(239,68,68,0.35); }
+    .principle.sell .tag { color: #fca5a5; }
+    .principle.later { border-color: rgba(245,158,11,0.35); }
+    .principle.later .tag { color: #fbbf24; }
+
+    .phase {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .phase-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .phase-head h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .phase-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.05);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .phase-need {
+      font-size: 0.82rem;
+      color: var(--warn);
+      margin-bottom: 10px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 8px 0 8px 28px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .checklist li.done::before { content: "☑"; color: var(--ok); }
+
+    .todo-section {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+
+    .todo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .todo-header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .todo-progress {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .todo-progress strong {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-progress-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .todo-progress-bar span {
+      display: block;
+      height: 100%;
+      background: var(--ok);
+      border-radius: 2px;
+      transition: width 0.25s ease;
+      width: 0%;
+    }
+
+    .todo-group {
+      margin-bottom: 18px;
+    }
+
+    .todo-group:last-child { margin-bottom: 0; }
+
+    .todo-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .todo-group-head h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .todo-group-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(45, 58, 79, 0.5);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .todo-item:last-child { border-bottom: none; }
+
+    .todo-item:hover { background: rgba(255,255,255,0.03); }
+
+    .todo-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--ok);
+      cursor: pointer;
+    }
+
+    .todo-item label {
+      flex: 1;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .todo-item.done label {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(139, 156, 179, 0.6);
+    }
+
+    .todo-item.urgent label { color: #fca5a5; }
+    .todo-item.urgent.done label { color: var(--muted); }
+
+    .todo-reset {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .todo-reset:hover {
+      border-color: var(--danger);
+      color: #fca5a5;
+    }
+
+    .edit-amount-btn {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      font-family: inherit;
+      margin-left: auto;
+    }
+
+    .edit-amount-btn:hover { border-color: var(--accent); }
+
+    .todo-actual-tag {
+      font-size: 0.75rem;
+      color: var(--warn);
+    }
+
+    .card.data-done { opacity: 0.55; }
+    .card.data-done .card-value {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    tr.data-done td {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    tr.data-done td:first-child { text-decoration: none; }
+
+    .badge-done {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      margin-left: 6px;
+    }
+
+    .quote-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 0.84rem;
+    }
+
+    .quote-bar.stale { border-color: var(--warn); }
+
+    .quote-bar-meta { color: var(--muted); }
+    .quote-bar-meta strong { color: var(--text); }
+
+    .holding-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+
+    .holding-actions button {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .holding-actions button:hover {
+      border-color: var(--accent);
+      color: #93c5fd;
+    }
+
+    .price-manual { color: var(--warn); font-size: 0.75rem; }
+
+    .score-ok { color: #6ee7b7; }
+    .score-warn { color: #fbbf24; }
+    .score-bad { color: #fca5a5; }
+
+    tbody tr.plan-row-sell { background: rgba(239,68,68,0.08); }
+    tbody tr.plan-row-hold { background: rgba(16,185,129,0.06); }
+    tbody tr.plan-row-later { background: rgba(245,158,11,0.06); }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 640px) {
+      table { font-size: 0.76rem; }
+      thead th, tbody td { padding: 7px 5px; }
+      .card-value { font-size: 1.15rem; }
+      .tab-btn { padding: 7px 12px; font-size: 0.82rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top-bar">
+      <h1>资产总览</h1>
+      <nav class="tabs">
+        <button class="tab-btn active" data-page="plan">执行</button>
+        <button class="tab-btn" data-page="repay">还款</button>
+        <button class="tab-btn" data-page="cashflow">现金流</button>
+        <button class="tab-btn" data-page="invest">投资规划</button>
+        <button class="tab-btn" data-page="diagnosis">诊断</button>
+        <button class="tab-btn" data-page="stock">持仓</button>
+      </nav>
+    </div>
+
+    <!-- ========== 页1：还款计划 ========== -->
+    <div id="page-repay" class="page">
+      <p class="page-desc">投资资金待还 + 个人借款 20 万（2026 年 8 月）· 当月合计向上取整</p>
+
+      <div class="summary-grid" id="repay-summary">
+        <div class="card" id="card-debt-jd">
+          <div class="platform-row"><span class="dot jd"></span><span class="card-label">京东金条</span></div>
+          <div class="card-value" id="debt-jd">—</div>
+        </div>
+        <div class="card" id="card-debt-ali">
+          <div class="platform-row"><span class="dot ali"></span><span class="card-label">支付宝</span></div>
+          <div class="card-value" id="debt-ali">—</div>
+        </div>
+        <div class="card" id="card-debt-dy">
+          <div class="platform-row"><span class="dot dy"></span><span class="card-label">抖音</span></div>
+          <div class="card-value" id="debt-dy">—</div>
+        </div>
+        <div class="card" id="card-debt-didi">
+          <div class="platform-row"><span class="dot didi"></span><span class="card-label">滴滴</span></div>
+          <div class="card-value" id="debt-didi">—</div>
+        </div>
+        <div class="card" id="card-debt-personal">
+          <div class="platform-row"><span class="dot personal"></span><span class="card-label">个人借款</span></div>
+          <div class="card-value" id="debt-personal">—</div>
+          <div class="card-sub">2026 年 8 月归还</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-label">负债合计</div>
+          <div class="card-value" id="debt-total">—</div>
+        </div>
+        <div class="card danger-card">
+          <div class="card-label">2026 年 8 月需准备</div>
+          <div class="card-value">348,941</div>
+          <div class="card-sub">投资资金 148,941 + 个人 200,000</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>各平台待还明细</h2>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>项目</th><th>笔数</th><th>待还(元)</th><th>还款日</th></tr>
+            </thead>
+            <tbody id="debt-detail-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>每月需准备金额</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table id="monthly-table">
+            <thead>
+              <tr>
+                <th>月份</th>
+                <th>京东</th>
+                <th>滴滴</th>
+                <th>抖音</th>
+                <th>支付宝</th>
+                <th>个人</th>
+                <th>当月合计 ↑</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="tips">
+        <strong>资金提示</strong>
+        <ul>
+          <li><strong>2026 年 8 月</strong>：个人 20 万（朋友）+ 平台 ~6 万，合计 ~26 万。</li>
+          <li>6 月提前结清抖音+滴滴 后，<strong>7 月</strong>仅 ~6 万；<strong>9 月</strong>起 ~6 万/月，<strong>10 月</strong>起 ~4.4 万/月。</li>
+          <li><strong>2027-04</strong> 京东末笔 → 平台投资资金清零；支付宝末笔在 <strong>2027-03</strong>（~1.54 万）。</li>
+        </ul>
+      </div>
+
+      <section>
+        <h2>执行后每月还款（6 月清抖音+滴滴 · 8 月还个人 20 万）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>月份</th><th>京东</th><th>支付宝</th><th>个人</th><th>当月合计 ↑</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2026-06</td><td>—</td><td>14,661</td><td>—</td><td>14,661</td></tr>
+              <tr><td>2026-07</td><td>44,845</td><td>14,761</td><td>—</td><td>59,607</td></tr>
+              <tr class="aug"><td>2026-08</td><td>44,975</td><td>14,815</td><td>200,000</td><td>259,791</td></tr>
+              <tr><td>2026-09</td><td>45,425</td><td>14,894</td><td>—</td><td>60,319</td></tr>
+              <tr class="light"><td>2026-10～12</td><td>~28,4～29,1k</td><td>~15,0～15,1k</td><td>—</td><td>~43,4～44,2k</td></tr>
+              <tr><td>2027-01～03</td><td>~21,5～29,7k</td><td>~15,2～15,4k</td><td>—</td><td>~36,9～44,0k</td></tr>
+              <tr class="light"><td>2027-04</td><td>8,944</td><td>—</td><td>—</td><td>8,944</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== 页1：执行计划（主页） ========== -->
+    <div id="page-plan" class="page active">
+      <p class="page-desc">6～8 月卖股 + 还款 · 做完一项勾一项 · 赛力斯不动 · 更新于 2026-06-06</p>
+
+      <section class="todo-section" id="todo-section">
+        <div class="todo-header">
+          <h2>执行待办</h2>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="todo-progress">已完成 <strong id="todo-done">0</strong> / <strong id="todo-total">0</strong></span>
+            <button type="button" class="todo-reset" id="todo-reset">重置全部</button>
+          </div>
+        </div>
+        <div class="todo-progress-bar"><span id="todo-bar"></span></div>
+        <div id="todo-container"></div>
+      </section>
+
+      <div class="plan-principles">
+        <div class="principle hold">
+          <div class="tag">长期持有</div>
+          <strong>赛力斯</strong>（两账户合计 4,700 股）<br>
+          <span style="color:var(--muted)">信仰仓，不卖 · 目标价 200</span>
+        </div>
+        <div class="principle hold">
+          <div class="tag">弹性医疗仓</div>
+          <strong>平安好医生</strong>（尽量多留）<br>
+          <span style="color:var(--muted)">8 月仅卖 ~10% 补缺口 · 目标价 20 港元</span>
+        </div>
+        <div class="principle sell">
+          <div class="tag">6 月卖出</div>
+          <strong>麦格米特 + 优必选</strong><br>
+          <span style="color:var(--muted)">周一卖，凑 6 月还款</span>
+        </div>
+        <div class="principle later">
+          <div class="tag">7～8 月卖出</div>
+          <strong>京东健康优先</strong><br>
+          <span style="color:var(--muted)">7 月卖 ~6 万 · 8 月清剩余</span>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+        <div class="card highlight">
+          <div class="card-label">6 月需准备</div>
+          <div class="card-value">279,952</div>
+          <div class="card-sub">提前结清抖音+滴滴 265,291 + 支付宝 14,661</div>
+        </div>
+        <div class="card">
+          <div class="card-label">7 月需准备</div>
+          <div class="card-value">59,607</div>
+          <div class="card-sub">仅京东+支付宝 · 个人 20 万 8 月还</div>
+        </div>
+        <div class="card warn-card">
+          <div class="card-label">8 月需准备</div>
+          <div class="card-value">259,791</div>
+          <div class="card-sub">个人 200,000 + 京东+支付宝 59,791</div>
+        </div>
+        <div class="card">
+          <div class="card-label">6 月卖股</div>
+          <div class="card-value">276,802</div>
+          <div class="card-sub">麦格米特 + 优必选</div>
+        </div>
+        <div class="card">
+          <div class="card-label">7 月卖股</div>
+          <div class="card-value">~45,480</div>
+          <div class="card-sub">京东 ~1,185 股（7/4）+ 工资付 7/22</div>
+        </div>
+        <div class="card">
+          <div class="card-label">8 月弹药</div>
+          <div class="card-value">~259,791</div>
+          <div class="card-sub">清京东 + 全赎基金 + 工资 4 万 + 平安 ~5,044 股</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>阶段一 · 6 月 9 日（周一）卖股</h2>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>华宝证券</h3>
+            <span class="phase-date">A 股 · T+1 到账</span>
+          </div>
+          <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
+            <table>
+              <thead>
+                <tr><th>操作</th><th>股票</th><th>股数</th><th>参考市值</th><th>到账</th></tr>
+              </thead>
+              <tbody>
+                <tr class="plan-row-sell">
+                  <td><strong>清仓</strong></td>
+                  <td>麦格米特</td>
+                  <td>1,100</td>
+                  <td>~167,090</td>
+                  <td>6/10（周二）</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>不动</td>
+                  <td>赛力斯</td>
+                  <td>4,400</td>
+                  <td>330,088</td>
+                  <td>—</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>不动</td>
+                  <td>江西铜业</td>
+                  <td>200</td>
+                  <td>9,066</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="phase">
+          <div class="phase-head">
+            <h3>国投证券</h3>
+            <span class="phase-date">港股通 · T+2 到账</span>
+          </div>
+          <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
+            <table>
+              <thead>
+                <tr><th>操作</th><th>股票</th><th>股数</th><th>参考市值</th><th>到账</th></tr>
+              </thead>
+              <tbody>
+                <tr class="plan-row-sell">
+                  <td><strong>清仓</strong></td>
+                  <td>优必选</td>
+                  <td>1,150</td>
+                  <td>~109,712</td>
+                  <td>6/11～6/12</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>不动</td>
+                  <td>赛力斯</td>
+                  <td>300</td>
+                  <td>22,503</td>
+                  <td>—</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>不动</td>
+                  <td>京东健康</td>
+                  <td>4,650</td>
+                  <td>152,431</td>
+                  <td>—</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>不动</td>
+                  <td>平安好医生</td>
+                  <td>40,700</td>
+                  <td>308,375</td>
+                  <td>—</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>到账时间一览</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>节点</th><th>卖/赎</th><th>到账</th><th>还款</th><th>宽裕度</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>6 月抖音+滴滴</td><td>6/9 卖股</td><td>6/10～12</td><td>6/11～13 提前结清</td><td class="gain">宽</td></tr>
+              <tr><td>6/22 支付宝</td><td>—</td><td>—</td><td>6/22 前</td><td class="gain">很宽</td></tr>
+              <tr class="peak"><td><strong>7/4 京东</strong></td><td><strong>7/1～7/2 卖京东</strong></td><td><strong>7/3～4</strong></td><td><strong>7/4 前</strong></td><td><strong>紧</strong></td></tr>
+              <tr><td>7/22 支付宝</td><td>—</td><td>7 月储蓄 2 万</td><td>7/22 前</td><td class="gain">宽</td></tr>
+              <tr><td>8 月</td><td>7/25 赎基金 + 7/28～8/1 卖股</td><td>基金 T+1 · 股 T+2</td><td>8/4 京东 + 8 月内朋友 20 万</td><td class="gain">宽</td></tr>
+              <tr><td>9 月+</td><td>仅工资 2 万/月</td><td>—</td><td>4 日 / 22 日</td><td class="warn">需留缓冲</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="page-desc" style="margin-top:10px;margin-bottom:0;">6 月提前结清不卡当期还款日；全计划<strong>唯一要紧</strong>的是 7/4 京东。</p>
+      </section>
+
+      <section>
+        <h2>阶段二 · 6 月还款</h2>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>提前结清高息短贷</h3>
+            <span class="phase-date">6/11～6/13</span>
+          </div>
+          <p class="phase-need">需准备：<strong>265,291 元</strong>（抖音 162,179 + 滴滴 103,111）</p>
+        </div>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>6 月支付宝</h3>
+            <span class="phase-date">6/22 前</span>
+          </div>
+          <p class="phase-need">需准备：<strong>14,661 元</strong></p>
+        </div>
+      </section>
+
+      <section>
+        <h2>阶段三 · 7 月（轻量）卖股 + 还款</h2>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>7 月初卖股（建议 7/1～7/2）</h3>
+            <span class="phase-date">全计划最紧 · 7/4 京东</span>
+          </div>
+          <p class="phase-need">7 月仅需准备：<strong>59,607 元</strong>（无个人借款）</p>
+          <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
+            <table>
+              <thead>
+                <tr><th>顺序</th><th>股票</th><th>操作</th><th>股数</th><th>约金额</th></tr>
+              </thead>
+              <tbody>
+                <tr class="plan-row-sell">
+                  <td>1</td>
+                  <td>京东健康</td>
+                  <td><strong>卖 ~23%</strong></td>
+                  <td>~1,185</td>
+                  <td>~45,480</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>—</td>
+                  <td>京东健康</td>
+                  <td>保留至 8 月</td>
+                  <td>~3,465</td>
+                  <td>~106,951</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>—</td>
+                  <td>平安好医生</td>
+                  <td><strong>7 月不动</strong></td>
+                  <td>40,700</td>
+                  <td>308,375</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>7 月还款日程</h3>
+            <span class="phase-date">按平台还款日</span>
+          </div>
+          <div class="card" style="padding:0;overflow-x:auto;">
+            <table>
+              <thead>
+                <tr><th>日期</th><th>项目</th><th>金额</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>7/4 前</td><td><span class="dot jd"></span> 京东金条</td><td>44,845</td></tr>
+                <tr><td>7/22 前</td><td><span class="dot ali"></span> 支付宝</td><td>14,761</td></tr>
+                <tr style="font-weight:600;"><td>合计 ↑</td><td></td><td>59,607</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>阶段四 · 8 月赎基金 + 卖股 + 还款</h2>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>8 月初准备（建议 7/25 赎基金 · 7/28～8/1 卖股）</h3>
+            <span class="phase-date">凑个人 20 万 + 8 月平台 · 最小卖平安</span>
+          </div>
+          <p class="phase-need">8 月合计需准备：<strong>259,791 元</strong>（工资 7+8 月 ~4 万可抵扣）</p>
+          <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
+            <table>
+              <thead>
+                <tr><th>顺序</th><th>来源</th><th>操作</th><th>数量</th><th>约金额</th></tr>
+              </thead>
+              <tbody>
+                <tr class="plan-row-sell">
+                  <td>1</td>
+                  <td>理财通 7 只基金</td>
+                  <td><strong>全部提前赎回</strong></td>
+                  <td>7 只 C 类</td>
+                  <td>~74,624</td>
+                </tr>
+                <tr class="plan-row-sell">
+                  <td>2</td>
+                  <td>京东健康</td>
+                  <td><strong>清仓剩余</strong></td>
+                  <td>~3,465 股</td>
+                  <td>~106,951</td>
+                </tr>
+                <tr class="plan-row-sell">
+                  <td>3</td>
+                  <td>7～8 月储蓄</td>
+                  <td>预留还款</td>
+                  <td>—</td>
+                  <td>~40,000</td>
+                </tr>
+                <tr class="plan-row-sell">
+                  <td>4</td>
+                  <td>平安好医生</td>
+                  <td><strong>仅补缺口 ~10%</strong></td>
+                  <td>~5,044 股</td>
+                  <td>~38,216</td>
+                </tr>
+                <tr class="plan-row-hold">
+                  <td>—</td>
+                  <td>平安好医生</td>
+                  <td>保留 ~90%</td>
+                  <td>~35,656 股</td>
+                  <td>~270,159</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="phase">
+          <div class="phase-head">
+            <h3>8 月还款日程</h3>
+            <span class="phase-date">按平台 + 个人</span>
+          </div>
+          <div class="card" style="padding:0;overflow-x:auto;">
+            <table>
+              <thead>
+                <tr><th>日期</th><th>项目</th><th>金额</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>8/4 前</td><td><span class="dot jd"></span> 京东金条</td><td>44,975</td></tr>
+                <tr><td>8 月内</td><td><span class="dot personal"></span> 个人借款（朋友）</td><td>200,000</td></tr>
+                <tr><td>8/22 前</td><td><span class="dot ali"></span> 支付宝</td><td>14,815</td></tr>
+                <tr style="font-weight:600;"><td>合计 ↑</td><td></td><td>259,791</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>阶段五 · 9 月起常态</h2>
+        <div class="phase">
+          <p class="phase-need" style="color:var(--ok);">抖音、滴滴、个人 20 万已清 → 9 月仅需 <strong>~6 万</strong>（京东+支付宝）</p>
+          <div class="card" style="padding:0;overflow-x:auto;">
+            <table>
+              <thead>
+                <tr><th>月份</th><th>京东</th><th>支付宝</th><th>当月合计 ↑</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>2026-09</td><td>45,425</td><td>14,894</td><td>60,319</td></tr>
+                <tr><td>2026-10 起</td><td>~28,435</td><td>~14,991</td><td>~43,426</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>执行后持仓预期（8 月末）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>股票</th><th>账户</th><th>预期状态</th><th>约市值</th></tr>
+            </thead>
+            <tbody>
+              <tr class="plan-row-hold"><td>赛力斯</td><td>国投+华宝</td><td>4,700 股 · 全留</td><td>~352,591</td></tr>
+              <tr class="plan-row-hold"><td>平安好医生</td><td>国投</td><td>~35,656 股 · 留 ~90%</td><td>~270,159</td></tr>
+              <tr class="plan-row-hold"><td>江西铜业</td><td>华宝</td><td>可用后卖出 · 非核心</td><td>~9,066</td></tr>
+              <tr class="plan-row-sell"><td>麦格米特</td><td>—</td><td>6 月已清仓</td><td>—</td></tr>
+              <tr class="plan-row-sell"><td>优必选</td><td>—</td><td>6 月已清仓</td><td>—</td></tr>
+              <tr class="plan-row-sell"><td>京东健康</td><td>—</td><td>8 月已清仓</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="tips">
+        <strong>执行提醒</strong>
+        <ul>
+          <li>本计划假设截图市值；实际以卖出成交价为准，微调股数使合计达标即可。</li>
+          <li>6 月卖股 ~27.7 万 vs 需 ~28.0 万，缺口约 <strong>700 元</strong>，麦格米特略高价卖即可覆盖。</li>
+          <li>个人 20 万由<strong>好朋友 8 月收</strong>，7 月压力仅 ~6 万，<strong>7 月不必动平安好医生</strong>。</li>
+          <li>8 月：<strong>全赎基金 ~7.5 万</strong> + 清京东 + 平安 ~5,044 股 + 两月工资 ~4 万 → 凑 26 万。</li>
+          <li>9～12 月：<strong>仅工资 2 万/月</strong>，需账户缓冲 ~11 万（见「现金流」页测算）。</li>
+          <li><strong>6 月时间充裕</strong>；唯一紧节点：<strong>7/1～7/2 卖京东赶 7/4</strong>。<strong>2027-04 前只还不投</strong>。</li>
+          <li><strong>赛力斯</strong>全程不卖；<strong>江铜</strong>非核心，可用后顺手卖（~9 千）。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== 页3：现金流（工资+基金） ========== -->
+    <div id="page-cashflow" class="page">
+      <p class="page-desc">腾讯理财通 + 每月储蓄 2 万（生活开支另算）· 8 月提前赎基金 · 共同方案 · 2026-06-06</p>
+
+      <div class="summary-grid">
+        <div class="card highlight">
+          <div class="platform-row"><span class="dot fund"></span><span class="card-label">理财通进阶资产</span></div>
+          <div class="card-value" id="fund-total">—</div>
+          <div class="card-sub" id="fund-sub">—</div>
+        </div>
+        <div class="card">
+          <div class="platform-row"><span class="dot salary"></span><span class="card-label">每月储蓄</span></div>
+          <div class="card-value">20,000</div>
+          <div class="card-sub">专用于还款/积累 · 生活另算</div>
+        </div>
+        <div class="card warn-card">
+          <div class="card-label">9～12 月总需还</div>
+          <div class="card-value">191,715</div>
+          <div class="card-sub">工资 8 万 · 基金已在 8 月用尽</div>
+        </div>
+        <div class="card danger-card">
+          <div class="card-label">9～12 月需缓冲</div>
+          <div class="card-value">~111,715</div>
+          <div class="card-sub">总需 19.17 万 − 工资 8 万 · 8 月末账户留底</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>理财通基金持仓（7 只 · C 类）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>基金</th><th>持有金额</th><th>持仓收益</th><th>赎回优先级</th><th>说明</th></tr>
+            </thead>
+            <tbody id="funds-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>江西铜业 · 是否保留</h2>
+        <div class="tips" style="margin-bottom:20px;">
+          <ul>
+            <li>华宝 <strong>200 股 · ~9,066 元 · 浮亏 −43%</strong>，占组合 0.8%，对还款几乎无影响。</li>
+            <li>公司质地尚可（铜龙头、Q1 利润 +44%），但属<strong>周期股</strong>，与赛力斯/医疗主线无关。</li>
+            <li>理财通里还有<strong>稀有金属 ETF ~1.4 万</strong>，与江铜逻辑重复。</li>
+            <li><strong>建议：不必留。</strong>8 月与 6 只主题一并赎回；勿与稀有金属 ETF 双倍押铜。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>月度现金流总表（工资 + 卖股 + 基金）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr><th>月份</th><th>需还 ↑</th><th>工资</th><th>卖股</th><th>基金赎回</th><th>工资结余</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2026-06</td><td>279,952</td><td>20,000</td><td>麦格米特+优必选 ~276,802</td><td>—</td><td>—</td></tr>
+              <tr><td>2026-07</td><td>59,607</td><td>20,000</td><td>京东健康 ~1,185 股 ~4.5 万</td><td>—</td><td>—</td></tr>
+              <tr><td>2026-08</td><td>259,791</td><td>40,000</td><td>清京东 + 平安 ~5,044 股 ~3.8 万</td><td>~74,624（7 只全赎）</td><td>—</td></tr>
+              <tr><td>2026-09</td><td>60,319</td><td>20,000</td><td>—</td><td>—</td><td>需缓冲 ~4.0 万</td></tr>
+              <tr><td>2026-10</td><td>43,426</td><td>20,000</td><td>—</td><td>—</td><td>需缓冲 ~2.3 万</td></tr>
+              <tr><td>2026-11</td><td>43,752</td><td>20,000</td><td>—</td><td>—</td><td>需缓冲 ~2.4 万</td></tr>
+              <tr><td>2026-12</td><td>44,218</td><td>20,000</td><td>—</td><td>—</td><td>需缓冲 ~2.4 万</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>基金赎回方案对比（共同方案测算）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;margin-bottom:14px;">
+          <table>
+            <thead>
+              <tr><th>方案</th><th>8 月基金</th><th>8 月卖平安</th><th>平安保留</th><th>9～12 月</th><th>结论</th></tr>
+            </thead>
+            <tbody>
+              <tr class="plan-row-hold">
+                <td><strong>A · 已确认</strong></td>
+                <td>7 只全赎 ~7.46 万</td>
+                <td>~5,044 股 (~3.8 万)</td>
+                <td>~90% (~35,656 股)</td>
+                <td>仅靠工资 + 账户缓冲</td>
+                <td><span class="badge ok">最少卖平安</span></td>
+              </tr>
+              <tr>
+                <td>B · 留富国</td>
+                <td>赎 6 只 ~5.72 万</td>
+                <td>~7,345 股 (~5.6 万)</td>
+                <td>~82%</td>
+                <td>富国 ~1.7 万可后赎</td>
+                <td>多卖 ~2,300 股平安</td>
+              </tr>
+              <tr>
+                <td>C · 等反弹 10%</td>
+                <td>全赎 ~8.21 万</td>
+                <td>~4,059 股 (~3.1 万)</td>
+                <td>~90%</td>
+                <td>同 A</td>
+                <td>多等 ~7,500 · 8 月凑钱风险大</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tips">
+          <ul>
+            <li><strong>不是因为亏了 1.1 万才卖</strong> — 浮亏是沉没成本；看流动性 + 持仓质量（7 只主题 ETF 太散）。</li>
+            <li>你选了 <strong>A</strong>：8 月还满朋友 20 万 + 平台 ~6 万，平安只卖 ~10% 补缺口。</li>
+            <li>9～12 月总需 <strong>191,715</strong>，工资仅 <strong>80,000</strong> → 差额 <strong>111,715</strong> 须在 8 月到账后<strong>留存在银行卡</strong>（到账顺序错开自然形成，勿花掉）。</li>
+            <li>测算脚本：<code>calc_fund_scenarios.py</code></li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>9～12 月执行（仅工资 + 缓冲）</h2>
+        <div class="phase">
+          <div class="phase-head"><h3>8 月末留底</h3><span class="phase-date">衔接 9 月</span></div>
+          <ul class="checklist">
+            <li>8 月多路到账（基金 T+1 + 股 T+2 + 工资）后，<strong>不要花光</strong></li>
+            <li>9 月 4 日前账户需有 ≥ <strong>60,319</strong>（或 9/1 前有 ~4 万 + 9 月工资 2 万）</li>
+            <li>全期缓冲目标：<strong>~11.2 万</strong>（= 19.17 万总需 − 8 万工资）</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-head"><h3>9～12 月每月</h3><span class="phase-date">无基金弹药</span></div>
+          <ul class="checklist">
+            <li>每月 2 万储蓄<strong>优先还平台</strong>，2027-04 前不投资</li>
+            <li>9 月缺口最大（~4.0 万扣工资后），10 月起降至 ~2.3～2.4 万/月</li>
+            <li>若缓冲不足：江铜 ~9 千可卖；<strong>不动赛力斯/平安</strong></li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="tips">
+        <strong>现金流说明</strong>
+        <ul>
+          <li><strong>2 万/月是纯储蓄</strong>（生活另算）。8 月全赎基金后，9～12 月<strong>无基金弹药</strong>，靠工资 + 8 月留底 ~11.2 万。</li>
+          <li>8 月赎基金：<strong>7/25 前</strong>提交，T+1 到账；与卖股到账错开，便于 8/4 京东 + 8 月内还朋友。</li>
+          <li><strong>2027-04 前只还不投</strong>；勿新开行业主题 C 类基金。</li>
+        </ul>
+      </div>
+
+      <section>
+        <h2>2027-04 后 · 储蓄分配</h2>
+        <p class="page-desc">与「投资规划」页目标一致 · 无债后长线 + 中短线 + 可选富国定投</p>
+        <div class="card" style="padding:0;overflow-x:auto;margin-bottom:14px;">
+          <table>
+            <thead>
+              <tr><th>阶段</th><th>月还约</th><th>每月储蓄 2 万分配</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2027-01～03（仅剩支付宝）</td><td>~1.5 万</td><td>1.5 万还支付宝 + 0.5 万暂存/操作备用</td></tr>
+              <tr class="light"><td>2027-04 后（无平台债）</td><td>0</td><td>长线双核 + 中短线趋势 + 操作金；比例按行情定（见投资规划）</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tips">
+          <strong>长期纪律（债务清零后）</strong>
+          <ul>
+            <li><strong>操作备用</strong>：银行卡留 <strong>1～2 万</strong>（转账/还款缓冲），满额后不再堆现金。</li>
+            <li><strong>双核集中</strong>：赛力斯（目标 200）+ 平安好医生（目标 20 HKD）；长线加仓 50/50。</li>
+            <li><strong>中短线</strong>：1～3 月趋势、1～2 只、设止损；熟悉行业优先。</li>
+            <li><strong>杠杆红线</strong>：永不再用消费贷/平台贷投股票。</li>
+            <li><strong>基金</strong>：可选恢复 <strong>富国医药创新</strong> ~0.3 万/月；不买宽基/主题 ETF。</li>
+            <li>详见 <strong>「投资规划」</strong> 页完整政策。</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== 页4：投资规划（目标导向） ========== -->
+    <div id="page-invest" class="page">
+      <p class="page-desc">共同方案 · 目标价导向 · 长线双核 + 中短线趋势 · 2026-06-06</p>
+
+      <div class="summary-grid">
+        <div class="card highlight">
+          <div class="card-label">核心目标</div>
+          <div class="card-value" style="font-size:1rem;">赛力斯 200 · 平安 20</div>
+          <div class="card-sub">接近目标价再分批减 · 不设固定年限</div>
+        </div>
+        <div class="card warn-card">
+          <div class="card-label">风险档</div>
+          <div class="card-value" style="font-size:1rem;">高</div>
+          <div class="card-sub">再跌 20% 仍加仓 · 接受双核集中</div>
+        </div>
+        <div class="card">
+          <div class="card-label">无债后储蓄 2 万/月</div>
+          <div class="card-value" style="font-size:1rem;">继续投</div>
+          <div class="card-sub">长线 + 中短线 · 比例按行情定</div>
+        </div>
+        <div class="card">
+          <div class="card-label">当前阶段</div>
+          <div class="card-value" style="font-size:1rem;">I → II</div>
+          <div class="card-sub">偿债高峰 → 2027.4 前只还不投</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>三阶段策略</h2>
+        <div class="phase">
+          <div class="phase-head"><h3>阶段 I · 偿债（2026.6～8）</h3><span class="phase-date">流动性优先</span></div>
+          <ul class="checklist">
+            <li>卖麦格米特、优必选、京东健康；8 月<strong>全赎基金</strong> + 卖 ~5,044 股平安 → <strong>仅为换现金，不是看空</strong></li>
+            <li>赛力斯全程不卖；详见「执行」页</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-head"><h3>阶段 II · 去杠杆（2026.9～2027.4）</h3><span class="phase-date">只还不投</span></div>
+          <ul class="checklist">
+            <li>每月储蓄 2 万 + 8 月留底缓冲 → 还平台债（基金已在 8 月用尽）</li>
+            <li><strong>不开新仓、不新定投</strong>（含主题基金）</li>
+          </ul>
+        </div>
+        <div class="phase">
+          <div class="phase-head"><h3>阶段 III · 积累（2027.4 后）</h3><span class="phase-date">无债 · 纪律加仓</span></div>
+          <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
+            <table>
+              <thead>
+                <tr><th>池子</th><th>原则</th><th>参考（按行情调）</th></tr>
+              </thead>
+              <tbody>
+                <tr class="plan-row-hold"><td>长线双核</td><td>赛力斯 + 平安，加仓 <strong>50/50</strong></td><td>~1～1.5 万/月</td></tr>
+                <tr><td>中短线趋势</td><td>1～3 月、1～2 只、<strong>设止损</strong>；熟悉行业</td><td>~0.3～0.8 万/月</td></tr>
+                <tr><td>操作金</td><td>银行卡机动，满 1～2 万不再堆</td><td>~1～2 万累计</td></tr>
+                <tr><td>富国医药（可选）</td><td>8 月赎清后重建；不买宽基/主题</td><td>~0.3 万/月</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>核心仓政策</h2>
+        <div class="plan-principles">
+          <div class="principle hold">
+            <div class="tag">赛力斯 · 信仰仓</div>
+            <strong>持有 + 无债后 50% 加仓</strong><br>
+            <span style="color:var(--muted)">目标价 200 · 两户 4,700 股</span>
+          </div>
+          <div class="principle hold">
+            <div class="tag">平安好医生 · 弹性仓</div>
+            <strong>8 月后留 ~90% · 无债后 50% 加仓</strong><br>
+            <span style="color:var(--muted)">目标价 20 HKD · 医疗 AI</span>
+          </div>
+          <div class="principle later">
+            <div class="tag">中短线 · 趋势仓</div>
+            <strong>1～3 月 · 1～2 只 · 止损</strong><br>
+            <span style="color:var(--muted)">汽车/医疗/AI 等熟悉方向</span>
+          </div>
+        </div>
+        <div class="tips">
+          <ul>
+            <li>8 月卖 ~5,044 股平安（~10%）+ 清京东 + 全赎基金 → <strong>还款需要</strong>，不改变长期看好。</li>
+            <li><strong>止盈</strong>：接近目标价（赛力斯 200 / 平安 20）时分批减，不是一把清仓。</li>
+            <li><strong>不新增第三只长线</strong>；中短线与长线分开记账；江铜可用后卖掉。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>基金政策</h2>
+        <div class="card" style="padding:0;overflow-x:auto;margin-bottom:14px;">
+          <table>
+            <thead>
+              <tr><th>时期</th><th>做法</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>2026.8</td><td><strong>7 只 C 类全部提前赎回</strong>（~7.46 万，弹药）</td></tr>
+              <tr><td>2026.9～2027.4</td><td><strong>不新开</strong>定投</td></tr>
+              <tr class="light"><td>2027.4 后</td><td>可选恢复 <strong>富国医药创新</strong> ~0.3 万/月；禁止动漫/军工/稀有金属/宽基</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>中短线趋势规则</h2>
+        <div class="tips">
+          <ul>
+            <li><strong>周期</strong>：持有 1～3 个月，跟趋势走，不恋战。</li>
+            <li><strong>数量</strong>：同时最多 1～2 只，与长线仓分开账户/表格记账。</li>
+            <li><strong>止损</strong>：必须设止损线（例如 −8%～−10%），触发即走。</li>
+            <li><strong>方向</strong>：优先汽车、医疗、AI 等熟悉行业；不碰陌生题材。</li>
+            <li><strong>比例</strong>：无债后暂不固定，按行情在 ~0.3～0.8 万/月浮动。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>三条红线（即使高波动也保留）</h2>
+        <div class="tips">
+          <ul>
+            <li><strong>永不再用平台贷/消费贷</strong>投股票。</li>
+            <li><strong>2027.4 前只还不投</strong>（不开新仓、不新定投）。</li>
+            <li><strong>不新增第三只长线</strong>；7 只主题基金 8 月赎清后不再拼凑。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>已确认方案（2026-06-06 对话）</h2>
+        <div class="phase">
+          <ul class="checklist">
+            <li>目标价：<strong>赛力斯 200</strong>、<strong>平安好医生 20 港元</strong>；接近时分批减</li>
+            <li>长线加仓：<strong>50/50</strong>（赛力斯 / 平安）；再跌 20% 仍加</li>
+            <li>8 月基金：<strong>7 只全赎</strong>（非因亏损，为最少卖平安）</li>
+            <li>8 月平安：仅卖 <strong>~5,044 股（~10%）</strong> 补缺口</li>
+            <li>无债后基金：<strong>可选富国医药 ~0.3 万/月</strong>；不买宽基</li>
+            <li>中短线：趋势 1～3 月；比例按行情定，不写死</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <!-- ========== 页5：财务诊断 ========== -->
+    <div id="page-diagnosis" class="page">
+      <p class="page-desc">整体财务健康度 · 投资评价 · 纠正项 · 未来预期 · 2026-06-06</p>
+
+      <div class="summary-grid">
+        <div class="card highlight">
+          <div class="card-label">粗略净资产</div>
+          <div class="card-value" id="diag-networth">—</div>
+          <div class="card-sub" id="diag-networth-sub">—</div>
+        </div>
+        <div class="card danger-card">
+          <div class="card-label">账面浮亏</div>
+          <div class="card-value" id="diag-floatloss">—</div>
+          <div class="card-sub" id="diag-floatloss-sub">—</div>
+        </div>
+        <div class="card warn-card">
+          <div class="card-label">负债/资产比</div>
+          <div class="card-value" id="diag-debtratio">—</div>
+          <div class="card-sub" id="diag-debtratio-sub">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">每月储蓄</div>
+          <div class="card-value">20,000</div>
+          <div class="card-sub">生活另算 · 偿债能力中等偏上</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>五维评价</h2>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table>
+            <thead><tr><th>维度</th><th>评分</th><th>诊断</th></tr></thead>
+            <tbody>
+              <tr><td>偿债能力</td><td class="score-ok">中等偏上</td><td>按计划 2027-04 可还清平台债；6 月清高息贷是关键</td></tr>
+              <tr><td>流动性</td><td class="score-warn">尚可</td><td>6～8 月宽；9～12 月需 8 月留底 ~11 万；7/4 京东最紧</td></tr>
+              <tr><td>投资质量</td><td class="score-warn">偏差</td><td>赛力斯+平安占 58% 且深套；基金为散主题 ETF</td></tr>
+              <tr><td>负债成本</td><td class="score-warn">需优化</td><td>6 月清抖音+滴滴正确；剩余京东 9～13.5%</td></tr>
+              <tr><td>规划执行力</td><td class="score-ok">好</td><td>六页总览 + 目标导向投资规划已就绪</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>投资纠正要点</h2>
+        <div class="tips">
+          <ul>
+            <li><strong>证券</strong>：8 月后剩赛力斯 ~35 万 + 平安 ~27 万（留 ~90%）→ 2027.4 后<strong>长线 50/50 + 中短线趋势</strong>。</li>
+            <li><strong>基金</strong>：8 月 7 只全赎（~7.46 万弹药）；无债后可恢复富国医药 ~0.3 万/月。</li>
+            <li><strong>江铜</strong>：~9 千非核心，可用后卖；勿与稀有金属 ETF 双倍押铜。</li>
+            <li><strong>禁止</strong>：2027-04 前不开新仓/新主题基金；勿为等反弹推迟清抖音滴滴。</li>
+          </ul>
+        </div>
+      </section>
+
+      <section>
+        <h2>未来预期（三路径）</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead><tr><th>路径</th><th>条件</th><th>2027-04 后大致状态</th></tr></thead>
+            <tbody>
+              <tr><td><span class="badge ok">基准</span></td><td>按计划执行</td><td>无平台债；双核 ~62 万；月投 ~2 万（长线+中短线+可选富国）</td></tr>
+              <tr><td><span class="badge ok">乐观</span></td><td>赛力斯→200 / 平安→20 附近</td><td>净资产 100 万+；接近目标价分批止盈</td></tr>
+              <tr><td><span class="badge danger">悲观</span></td><td>双票再跌 20%</td><td>无债但证券 ~48 万、仍亏 −40 万+；禁杠杆加仓</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>债务清零时间线</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead><tr><th>时点</th><th>里程碑</th></tr></thead>
+            <tbody>
+              <tr><td>2026-06</td><td>清抖音+滴滴；卖麦格米特+优必选</td></tr>
+              <tr><td>2026-08</td><td>还朋友 20 万；清京东；全赎基金；卖 ~5,044 股平安</td></tr>
+              <tr><td>2026-09～12</td><td>工资 2 万/月 + 8 月留底缓冲</td></tr>
+              <tr><td>2027-03</td><td>支付宝末笔 ~1.54 万</td></tr>
+              <tr class="light"><td>2027-04</td><td>京东末笔 ~0.89 万 → <strong>平台投资资金清零</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="tips">
+        <strong>总评</strong>
+        <ul>
+          <li>你能还得上；目标是<strong>赛力斯 200 / 平安 20</strong>，接受<strong>高波动双核 + 中短线趋势</strong>。</li>
+          <li>2027-04 后：从「偿债模式」切换为<strong>无债 + 长线 50/50 + 中短线（比例按行情）</strong>。</li>
+          <li>8 月策略：<strong>全赎基金 + 最小卖平安（~10%）</strong>，保住 ~90% 平安仓位。</li>
+          <li>唯一硬红线：<strong>永不再用平台贷投股票</strong>；操作备用 1～2 万即可。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ========== 页6：证券持仓 ========== -->
+    <div id="page-stock" class="page">
+      <p class="page-desc">国投证券 + 华宝证券 · 行情驱动市值 · 可手动改成本/现价</p>
+
+      <div class="quote-bar" id="quote-bar">
+        <span class="quote-bar-meta">行情加载中…</span>
+        <button type="button" class="edit-amount-btn" id="quote-reload">刷新页面</button>
+      </div>
+
+      <div class="summary-grid">
+        <div class="card">
+          <div class="platform-row"><span class="dot gt"></span><span class="card-label">国投证券</span></div>
+          <div class="card-value" id="acct-gt">—</div>
+          <div class="card-sub">仓位 97.4% · 当日 -6,471</div>
+        </div>
+        <div class="card">
+          <div class="platform-row"><span class="dot hb"></span><span class="card-label">华宝证券</span></div>
+          <div class="card-value" id="acct-hb">—</div>
+          <div class="card-sub">仓位 99.7% · 当日 -10,109</div>
+        </div>
+        <div class="card highlight">
+          <div class="card-label">证券总资产</div>
+          <div class="card-value" id="sec-total">—</div>
+          <div class="card-sub">可用现金约 2,410</div>
+        </div>
+        <div class="card">
+          <div class="card-label">持仓浮亏</div>
+          <div class="card-value loss" id="sec-pnl">—</div>
+        </div>
+        <div class="card warn-card">
+          <div class="card-label">成本口径（资产+|浮亏|）</div>
+          <div class="card-value" id="sec-cost">—</div>
+        </div>
+        <div class="card">
+          <div class="card-label">含基金净资产</div>
+          <div class="card-value" id="net-worth">—</div>
+          <div class="card-sub" id="net-worth-sub">—</div>
+        </div>
+      </div>
+
+      <section>
+        <h2>持仓明细</h2>
+        <div class="card" style="padding:0;overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>股票</th>
+                <th>账户</th>
+                <th>股数</th>
+                <th>成本</th>
+                <th>现价</th>
+                <th>市值</th>
+                <th>持仓盈亏</th>
+                <th>占比</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="holdings-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2>合并关注 · 赛力斯（两账户）</h2>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <table>
+            <thead>
+              <tr><th>账户</th><th>股数</th><th>市值</th><th>成本</th><th>浮亏</th></tr>
+            </thead>
+            <tbody id="seres-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div class="tips">
+        <strong>持仓提示</strong>
+        <ul>
+          <li>两账户几乎<strong>满仓</strong>；8 月还朋友 20 万 + 平台 ~6 万，见「执行」页。</li>
+          <li><strong>赛力斯</strong> 32% + <strong>平安好医生</strong> 28%，均为深套；执行后仍高度集中。</li>
+          <li><strong>江铜</strong> 非核心，可用后顺手卖；麦格米特、江铜当日可用可能为 0。</li>
+          <li>详见「诊断」页五维评价与未来路径。</li>
+        </ul>
+      </div>
+    </div>
+
+    <footer>生成日期：2026-06-06 · 执行（主页）+ 还款 + 现金流 + 投资规划 + 诊断 + 持仓</footer>
+  </div>
+
+  <script src="quotes-data.js"></script>
+  <script>
+    const TODO_STORAGE_KEY = "lcai-exec-todos-v2";
+    const TODO_STORAGE_KEY_V1 = "lcai-exec-todos-v1";
+    const OVERRIDES_KEY = "lcai-portfolio-overrides";
+
+    const BASELINE = {
+      debts: {
+        jd: 310943.38,
+        ali: 150254.22,
+        dy: 162179.31,
+        didi: 103111.27,
+        personal: 200000,
+      },
+      debtCounts: { jd: 13, ali: 1, dy: 1, didi: 1, personal: 1 },
+      holdings: [
+        { id: "pingan", name: "平安好医生", account: "gt", symbol: "116.01833", shares: 40700, costPerShare: 14.81, currency: "HKD", hk: true, fallbackPrice: 8.76, sold: false },
+        { id: "seres_hb", name: "赛力斯", account: "hb", symbol: "1.601127", shares: 4400, costPerShare: 133.96, currency: "CNY", hk: false, fallbackPrice: 75.02, sold: false },
+        { id: "jd_health", name: "京东健康", account: "gt", symbol: "116.06618", shares: 4650, costPerShare: 37.51, currency: "HKD", hk: true, fallbackPrice: 37.90, sold: false },
+        { id: "megmeet", name: "麦格米特", account: "hb", symbol: "0.002851", shares: 1100, costPerShare: 153.27, currency: "CNY", hk: false, fallbackPrice: 151.90, sold: false },
+        { id: "ubtech", name: "优必选", account: "gt", symbol: "116.09880", shares: 1150, costPerShare: 110.99, currency: "HKD", hk: true, fallbackPrice: 110.30, sold: false },
+        { id: "seres_gt", name: "赛力斯", account: "gt", symbol: "1.601127", shares: 300, costPerShare: 78.25, currency: "CNY", hk: false, fallbackPrice: 75.01, sold: false },
+        { id: "jiangtong", name: "江西铜业", account: "hb", symbol: "1.600362", shares: 200, costPerShare: 79.48, currency: "CNY", hk: false, fallbackPrice: 45.33, sold: false },
+      ],
+      funds: [
+        { id: "f1", name: "天弘创业板指数增强 C", amount: 412, pnl: -8, redeemed: false },
+        { id: "f2", name: "国金量化多因子股票 C", amount: 4881, pnl: -119, redeemed: false },
+        { id: "f3", name: "华夏中证动漫游戏 ETF 联接 C", amount: 15948, pnl: -3345, redeemed: false },
+        { id: "f4", name: "广发中证稀有金属 ETF 联接 C", amount: 14387, pnl: -2034, redeemed: false },
+        { id: "f5", name: "广发中证军工 ETF 联接 C", amount: 10448, pnl: -1467, redeemed: false },
+        { id: "f6", name: "易方达证券保险 ETF 联接 C", amount: 11114, pnl: -973, redeemed: false },
+        { id: "f7", name: "富国医药创新股票 C", amount: 17434, pnl: -3290, redeemed: false },
+      ],
+      accountCash: { gt: 15643, hb: 1690 },
+    };
+
+    const TODO_GROUPS = [
+      {
+        title: "6 月 9 日 · 卖股",
+        items: [
+          { id: "jun-mgt-check", text: "9:15 前确认麦格米特<strong>可用 ≥ 1,100</strong>（截图当日为 0）" },
+          { id: "jun-sell-mgt", text: "华宝 · 卖出麦格米特 <strong>1,100 股</strong>（T+1 约 6/10 到账）", effect: "sell_all", holdingId: "megmeet", defaultAmount: 167090 },
+          { id: "jun-sell-ubtech", text: "国投 · 卖出优必选 <strong>1,150 股</strong>（T+2 约 6/11～12 到账）", effect: "sell_all", holdingId: "ubtech", defaultAmount: 109712 },
+          { id: "jun-hk-check", text: "确认港股通额度、汇率、银证转账限额 · <strong>勿误卖赛力斯</strong>" },
+          { id: "jun-mgt-fallback", text: "（备选）麦格米特仍不可用 → 当天只卖优必选，解冻后再卖" },
+        ],
+      },
+      {
+        title: "6 月 · 还款",
+        items: [
+          { id: "jun-wait-cash", text: "等优必选 T+2 资金到账（约 6/11～12）" },
+          { id: "jun-dy-pay", text: "6/11～13 · 抖音 App <strong>提前结清</strong> 162,179", effect: "debt_clear", platform: "dy", defaultAmount: 162179.31 },
+          { id: "jun-didi-pay", text: "6/11～13 · 滴滴 App <strong>提前结清</strong> 103,111", effect: "debt_clear", platform: "didi", defaultAmount: 103111.27 },
+          { id: "jun-ali-pay", text: "6/22 前 · 支付宝还款 <strong>14,661</strong>", effect: "debt_pay", pay: { ali: 14660.75 }, defaultAmount: 14660.75 },
+        ],
+      },
+      {
+        title: "7 月 · 卖股 + 还款",
+        items: [
+          { id: "jul-sell-jd", text: "<strong>7/1 或 7/2</strong> · 卖出京东健康 ~1,185 股（赶 7/4 京东）", urgent: true, effect: "sell_partial", holdingId: "jd_health", sellShares: 1185, defaultAmount: 45480 },
+          { id: "jul-jd-pay", text: "7/4 前 · 京东金条还款 <strong>44,845</strong>", urgent: true, effect: "debt_pay", pay: { jd: 44844.97 }, defaultAmount: 44844.97 },
+          { id: "jul-ali-pay", text: "7/22 前 · 支付宝还款 <strong>14,761</strong>（用 7 月储蓄 2 万）", effect: "debt_pay", pay: { ali: 14761.30 }, defaultAmount: 14761.30 },
+        ],
+      },
+      {
+        title: "8 月 · 赎基金 + 卖股 + 还款",
+        items: [
+          { id: "aug-fund", text: "<strong>7/25 前</strong> · 理财通 7 只基金<strong>全部赎回</strong>（~7.46 万，T+1）", effect: "fund_redeem_all", defaultAmount: 74624 },
+          { id: "aug-sell-jd", text: "7/28～8/1 · 清仓京东健康剩余 ~3,465 股", effect: "sell_all", holdingId: "jd_health", defaultAmount: 106951 },
+          { id: "aug-sell-pa", text: "7/28～8/1 · 卖出平安好医生 ~5,044 股（仅补缺口，保留 ~90%）", effect: "sell_partial", holdingId: "pingan", sellShares: 5044, defaultAmount: 38216 },
+          { id: "aug-jd-pay", text: "8/4 前 · 京东金条还款 <strong>44,975</strong>", effect: "debt_pay", pay: { jd: 44974.94 }, defaultAmount: 44974.94 },
+          { id: "aug-friend", text: "8 月中下旬 · 还朋友 <strong>200,000</strong>（备注「还款」留记录）", effect: "debt_clear", platform: "personal", defaultAmount: 200000 },
+          { id: "aug-ali-pay", text: "8/22 前 · 支付宝还款 <strong>14,815</strong>", effect: "debt_pay", pay: { ali: 14815.43 }, defaultAmount: 14815.43 },
+          { id: "aug-buffer", text: "8 月末 · 账户留底 <strong>~11 万</strong>（衔接 9～12 月，勿花掉）" },
+        ],
+      },
+      {
+        title: "9～12 月 · 平台还款",
+        items: [
+          { id: "sep-pay", text: "2026-09 · 还平台 <strong>60,319</strong>（工资 2 万 + 缓冲）", effect: "debt_pay", pay: { jd: 45424.53, ali: 14894.26 }, defaultAmount: 60318.79 },
+          { id: "oct-pay", text: "2026-10 · 还平台 <strong>43,426</strong>", effect: "debt_pay", pay: { jd: 28434.81, ali: 14990.50 }, defaultAmount: 43425.31 },
+          { id: "nov-pay", text: "2026-11 · 还平台 <strong>43,752</strong>", effect: "debt_pay", pay: { jd: 28695.95, ali: 15055.54 }, defaultAmount: 43751.49 },
+          { id: "dec-pay", text: "2026-12 · 还平台 <strong>44,218</strong>", effect: "debt_pay", pay: { jd: 29068.96, ali: 15148.80 }, defaultAmount: 44217.76 },
+        ],
+      },
+      {
+        title: "2027 年 · 清尾",
+        items: [
+          { id: "y27-01", text: "2027-01 · 还平台 <strong>~44,580</strong>", effect: "debt_pay", pay: { jd: 29358.51, ali: 15221.38 }, defaultAmount: 44579.89 },
+          { id: "y27-02", text: "2027-02 · 还平台 <strong>~45,002</strong>", effect: "debt_pay", pay: { jd: 29695.29, ali: 15306.00 }, defaultAmount: 45001.29 },
+          { id: "y27-03", text: "2027-03 · 还平台 <strong>~36,903</strong>", effect: "debt_pay", pay: { jd: 21501.86, ali: 15400.26 }, defaultAmount: 36902.12 },
+          { id: "y27-04", text: "2027-04 · 京东末笔 <strong>~8,944</strong> → 平台债清零", effect: "debt_pay", pay: { jd: 8943.56 }, defaultAmount: 8943.56 },
+        ],
+      },
+    ];
+
+    const MONTH_TODO_MAP = {
+      "2026-06": ["jun-dy-pay", "jun-didi-pay", "jun-ali-pay"],
+      "2026-07": ["jul-sell-jd", "jul-jd-pay", "jul-ali-pay"],
+      "2026-08": ["aug-fund", "aug-sell-jd", "aug-sell-pa", "aug-jd-pay", "aug-friend", "aug-ali-pay"],
+      "2026-09": ["sep-pay"],
+      "2026-10": ["oct-pay"],
+      "2026-11": ["nov-pay"],
+      "2026-12": ["dec-pay"],
+      "2027-01": ["y27-01"],
+      "2027-02": ["y27-02"],
+      "2027-03": ["y27-03"],
+      "2027-04": ["y27-04"],
+    };
+
+    const months = [
+      { label: "2026-06", jd: null, didi: null, dy: null, ali: 14660.75, personal: null, peak: false },
+      { label: "2026-07", jd: 44844.97, didi: 34370.42, dy: 52619.77, ali: 14761.30, personal: null, peak: true },
+      { label: "2026-08", jd: 44974.94, didi: 34370.42, dy: 54779.77, ali: 14815.43, personal: 200000, aug: true },
+      { label: "2026-09", jd: 45424.53, didi: 34370.43, dy: 54779.77, ali: 14894.26, personal: null, peak: true },
+      { label: "2026-10", jd: 28434.81, didi: null, dy: null, ali: 14990.50, personal: null },
+      { label: "2026-11", jd: 28695.95, didi: null, dy: null, ali: 15055.54, personal: null },
+      { label: "2026-12", jd: 29068.96, didi: null, dy: null, ali: 15148.80, personal: null },
+      { label: "2027-01", jd: 29358.51, didi: null, dy: null, ali: 15221.38, personal: null },
+      { label: "2027-02", jd: 29695.29, didi: null, dy: null, ali: 15306.00, personal: null },
+      { label: "2027-03", jd: 21501.86, didi: null, dy: null, ali: 15400.26, personal: null },
+      { label: "2027-04", jd: 8943.56, didi: null, dy: null, ali: null, personal: null, light: true },
+    ];
+
+    function deepClone(o) { return JSON.parse(JSON.stringify(o)); }
+
+    function fmtInt(n) {
+      return Math.round(n).toLocaleString("zh-CN");
+    }
+
+    function fmtMoney(n, decimals) {
+      return n.toLocaleString("zh-CN", { minimumFractionDigits: decimals ?? 0, maximumFractionDigits: decimals ?? 0 });
+    }
+
+    function fmtTable(v) {
+      if (v == null) return '<span class="dash">—</span>';
+      return v.toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function ceilSum(row) {
+      return Math.ceil(
+        [row.jd, row.didi, row.dy, row.ali, row.personal].filter(v => v != null).reduce((a, b) => a + b, 0)
+      );
+    }
+
+    function getTodoEntry(state, id) {
+      const v = state[id];
+      if (!v) return { done: false, actual: null, actualPrice: null };
+      if (typeof v === "boolean") return { done: v, actual: null, actualPrice: null };
+      return {
+        done: !!v.done,
+        actual: v.actual != null ? Number(v.actual) : null,
+        actualPrice: v.actualPrice != null ? Number(v.actualPrice) : null,
+      };
+    }
+
+    function isTodoDone(state, id) {
+      return getTodoEntry(state, id).done;
+    }
+
+    function loadTodoState() {
+      try {
+        let raw = localStorage.getItem(TODO_STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+        const v1 = localStorage.getItem(TODO_STORAGE_KEY_V1);
+        if (v1) {
+          const old = JSON.parse(v1);
+          const migrated = {};
+          for (const [k, v] of Object.entries(old)) {
+            migrated[k] = typeof v === "boolean" ? { done: v } : v;
+          }
+          saveTodoState(migrated);
+          return migrated;
+        }
+        return {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveTodoState(state) {
+      localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(state));
+    }
+
+    function loadOverrides() {
+      try {
+        const raw = localStorage.getItem(OVERRIDES_KEY);
+        return raw ? JSON.parse(raw) : {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveOverrides(o) {
+      localStorage.setItem(OVERRIDES_KEY, JSON.stringify(o));
+    }
+
+    function getQuotes() {
+      return window.LCAI_QUOTES || { fx: { HKDCNY: 0.92 }, prices: {}, updatedAt: null };
+    }
+
+    function getFxRate(overrides) {
+      if (overrides?.fxHKDCNY != null && !isNaN(overrides.fxHKDCNY)) return overrides.fxHKDCNY;
+      return getQuotes().fx?.HKDCNY ?? 0.92;
+    }
+
+    function getNativePrice(h, overrides) {
+      const ov = overrides?.holdings?.[h.id];
+      if (ov?.manualPrice != null && !isNaN(ov.manualPrice)) {
+        return { price: ov.manualPrice, source: "manual" };
+      }
+      const q = getQuotes().prices?.[h.symbol];
+      if (q?.price != null) {
+        return { price: q.price, source: q.fallback ? "fallback" : "quote", changePct: q.changePct };
+      }
+      return { price: h.fallbackPrice, source: "baseline" };
+    }
+
+    function applyOverridesToState(s, overrides) {
+      for (const h of s.holdings) {
+        const ov = overrides?.holdings?.[h.id];
+        if (ov?.costPerShare != null && !isNaN(ov.costPerShare)) h.costPerShare = ov.costPerShare;
+      }
+    }
+
+    function applyQuotes(s, overrides) {
+      const fx = getFxRate(overrides);
+      s.fxRate = fx;
+      for (const h of s.holdings) {
+        if (h.sold) {
+          h.marketValue = 0;
+          h.pnl = 0;
+          h.pnlPct = 0;
+          continue;
+        }
+        const { price, source, changePct } = getNativePrice(h, overrides);
+        h.nativePrice = price;
+        h.priceSource = source;
+        h.changePct = changePct ?? null;
+        const priceCNY = h.currency === "HKD" ? price * fx : price;
+        h.marketValue = Math.round(h.shares * priceCNY);
+        const costBasis = h.shares * h.costPerShare * (h.currency === "HKD" ? fx : 1);
+        h.pnl = Math.round(h.marketValue - costBasis);
+        h.pnlPct = costBasis > 0 ? Math.round((h.pnl / costBasis) * 1000) / 10 : 0;
+      }
+    }
+
+    function getEffectAmount(item, entry, overrides) {
+      if (entry.actual != null && !isNaN(entry.actual)) return entry.actual;
+      if (entry.actualPrice != null && !isNaN(entry.actualPrice) && item.holdingId) {
+        const h = BASELINE.holdings.find(x => x.id === item.holdingId);
+        if (h) {
+          const fx = getFxRate(overrides);
+          const shares = item.sellShares ?? h.shares;
+          const priceCNY = h.currency === "HKD" ? entry.actualPrice * fx : entry.actualPrice;
+          return Math.round(shares * priceCNY);
+        }
+      }
+      return item.defaultAmount ?? 0;
+    }
+
+    function findHolding(s, id) {
+      return s.holdings.find(h => h.id === id && !h.sold);
+    }
+
+    function applyPartialSell(h, sellValue, defaultValue, sellShares) {
+      let toSell = sellShares ?? h.shares;
+      if (defaultValue && sellValue && Math.abs(sellValue - defaultValue) > 0.01) {
+        toSell = Math.round(toSell * (sellValue / defaultValue));
+      }
+      h.shares = Math.max(0, h.shares - toSell);
+      if (h.shares <= 0) h.sold = true;
+    }
+
+    function applyEffect(s, item, amount, entry) {
+      switch (item.effect) {
+        case "sell_all": {
+          const h = findHolding(s, item.holdingId);
+          if (h) h.sold = true;
+          break;
+        }
+        case "sell_partial": {
+          const h = findHolding(s, item.holdingId);
+          if (!h) break;
+          if (entry?.actualPrice != null && item.sellShares) {
+            h.shares = Math.max(0, h.shares - item.sellShares);
+            if (h.shares <= 0) h.sold = true;
+          } else {
+            applyPartialSell(h, amount, item.defaultAmount, item.sellShares);
+          }
+          break;
+        }
+        case "debt_clear":
+          s.debts[item.platform] = 0;
+          break;
+        case "debt_pay": {
+          const scale = item.defaultAmount ? amount / item.defaultAmount : 1;
+          for (const [plat, val] of Object.entries(item.pay)) {
+            s.debts[plat] = Math.max(0, s.debts[plat] - val * scale);
+          }
+          break;
+        }
+        case "fund_redeem_all":
+          s.funds.forEach(f => { f.redeemed = true; f.amount = 0; f.pnl = 0; });
+          break;
+      }
+    }
+
+    function computeState(todoState) {
+      const overrides = loadOverrides();
+      const s = {
+        debts: deepClone(BASELINE.debts),
+        holdings: deepClone(BASELINE.holdings),
+        funds: deepClone(BASELINE.funds),
+      };
+      applyOverridesToState(s, overrides);
+      for (const group of TODO_GROUPS) {
+        for (const item of group.items) {
+          if (!item.effect) continue;
+          const entry = getTodoEntry(todoState, item.id);
+          if (!entry.done) continue;
+          applyEffect(s, item, getEffectAmount(item, entry, overrides), entry);
+        }
+      }
+      applyQuotes(s, overrides);
+      const activeHoldings = s.holdings.filter(h => !h.sold);
+      s.stockPnl = activeHoldings.reduce((a, h) => a + h.pnl, 0);
+      const activeFunds = s.funds.filter(f => !f.redeemed);
+      s.fundsTotal = activeFunds.reduce((a, f) => a + f.amount, 0);
+      s.fundPnl = activeFunds.reduce((a, f) => a + f.pnl, 0);
+      s.liabilitiesTotal = Object.values(s.debts).reduce((a, b) => a + b, 0);
+      s.accounts = { gt: 0, hb: 0 };
+      activeHoldings.forEach(h => { s.accounts[h.account] += h.marketValue; });
+      s.accounts.gt += BASELINE.accountCash.gt;
+      s.accounts.hb += BASELINE.accountCash.hb;
+      s.securitiesTotal = s.accounts.gt + s.accounts.hb;
+      s.netWorth = s.securitiesTotal + s.fundsTotal - s.liabilitiesTotal;
+      s.floatingLoss = s.stockPnl + s.fundPnl;
+      const assets = s.securitiesTotal + s.fundsTotal;
+      s.debtRatio = assets > 0 ? (s.liabilitiesTotal / assets) * 100 : 0;
+      return s;
+    }
+
+    function renderDebts(state) {
+      const map = [
+        ["jd", "debt-jd", "card-debt-jd"],
+        ["ali", "debt-ali", "card-debt-ali"],
+        ["dy", "debt-dy", "card-debt-dy"],
+        ["didi", "debt-didi", "card-debt-didi"],
+        ["personal", "debt-personal", "card-debt-personal"],
+      ];
+      map.forEach(([key, elId, cardId]) => {
+        const val = state.debts[key];
+        const el = document.getElementById(elId);
+        const card = document.getElementById(cardId);
+        if (el) el.textContent = fmtInt(val);
+        if (card) card.classList.toggle("data-done", val < 1);
+      });
+      const totalEl = document.getElementById("debt-total");
+      if (totalEl) totalEl.textContent = fmtInt(state.liabilitiesTotal);
+
+      const labels = {
+        jd: ["京东金条", "jd", "13", "每月 4 日"],
+        ali: ["支付宝", "ali", "1", "每月 22 日"],
+        dy: ["抖音", "dy", "1", "每月 3 日"],
+        didi: ["滴滴", "didi", "1", "每月 4 日"],
+        personal: ["个人借款", "personal", "1", "2026 年 8 月"],
+      };
+      const tbody = document.getElementById("debt-detail-tbody");
+      if (!tbody) return;
+      tbody.innerHTML = Object.keys(labels).map(key => {
+        const val = state.debts[key];
+        const [name, dot, count, due] = labels[key];
+        const doneCls = val < 1 ? " class=\"data-done\"" : "";
+        return `<tr${doneCls}><td><span class="dot ${dot}"></span> ${name}</td><td>${count}</td><td>${fmtMoney(val, 2)}</td><td>${due}</td></tr>`;
+      }).join("");
+    }
+
+    function renderHoldings(state) {
+      const active = state.holdings.filter(h => !h.sold);
+      const holdTotal = active.reduce((a, h) => a + h.marketValue, 0) || 1;
+      const acctGt = document.getElementById("acct-gt");
+      const acctHb = document.getElementById("acct-hb");
+      const secTotal = document.getElementById("sec-total");
+      const secPnl = document.getElementById("sec-pnl");
+      const secCost = document.getElementById("sec-cost");
+      const netWorth = document.getElementById("net-worth");
+      const netSub = document.getElementById("net-worth-sub");
+
+      if (acctGt) acctGt.textContent = fmtInt(state.accounts.gt);
+      if (acctHb) acctHb.textContent = fmtInt(state.accounts.hb);
+      if (secTotal) secTotal.textContent = fmtInt(state.securitiesTotal);
+      if (secPnl) {
+        secPnl.textContent = (state.stockPnl >= 0 ? "+" : "") + fmtInt(state.stockPnl);
+        secPnl.className = state.stockPnl >= 0 ? "card-value gain" : "card-value loss";
+      }
+      if (secCost) secCost.textContent = fmtInt(state.securitiesTotal + Math.abs(state.stockPnl));
+      if (netWorth) netWorth.textContent = fmtInt(state.netWorth);
+      if (netSub) netSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
+
+      const tbody = document.getElementById("holdings-tbody");
+      if (tbody) {
+        if (active.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;color:var(--muted)">暂无持仓</td></tr>';
+        } else {
+          tbody.innerHTML = active.map(h => {
+            const pct = (h.marketValue / holdTotal * 100).toFixed(1);
+            const pnlCls = h.pnl >= 0 ? "gain" : "loss";
+            const pnlSign = h.pnl >= 0 ? "+" : "";
+            const hk = h.hk ? '<span class="badge hk">HK</span>' : "";
+            const acct = h.account === "gt" ? "gt" : "hb";
+            const cur = h.currency === "HKD" ? "HKD" : "CNY";
+            const priceLabel = h.priceSource === "manual"
+              ? `<span class="price-manual">${fmtMoney(h.nativePrice, 2)} ${cur}*</span>`
+              : `${fmtMoney(h.nativePrice, 2)} ${cur}`;
+            const manualBtn = h.priceSource === "manual"
+              ? `<button type="button" data-clear-price="${h.id}">恢复自动</button>`
+              : "";
+            return `<tr>
+              <td>${h.name}${hk}</td>
+              <td><span class="account-tag ${acct}">${acct === "gt" ? "国投" : "华宝"}</span></td>
+              <td>${h.shares.toLocaleString()}</td>
+              <td>${fmtMoney(h.costPerShare, 2)} ${cur}</td>
+              <td>${priceLabel}</td>
+              <td>${fmtInt(h.marketValue)}</td>
+              <td class="${pnlCls}">${pnlSign}${fmtInt(h.pnl)} (${pnlSign}${h.pnlPct}%)</td>
+              <td>${pct}%</td>
+              <td><div class="holding-actions">
+                <button type="button" data-edit-cost="${h.id}">改成本</button>
+                <button type="button" data-edit-price="${h.id}">改现价</button>
+                ${manualBtn}
+              </div></td>
+            </tr>`;
+          }).join("");
+        }
+        tbody.querySelectorAll("[data-edit-cost]").forEach(btn => {
+          btn.addEventListener("click", () => editHoldingCost(btn.dataset.editCost));
+        });
+        tbody.querySelectorAll("[data-edit-price]").forEach(btn => {
+          btn.addEventListener("click", () => editHoldingPrice(btn.dataset.editPrice));
+        });
+        tbody.querySelectorAll("[data-clear-price]").forEach(btn => {
+          btn.addEventListener("click", () => clearHoldingPrice(btn.dataset.clearPrice));
+        });
+      }
+
+      const seresRows = state.holdings.filter(h => h.name === "赛力斯" && !h.sold);
+      const seresBody = document.getElementById("seres-tbody");
+      if (seresBody) {
+        let totalShares = 0, totalMv = 0, totalPnl = 0, costSum = 0;
+        const rows = seresRows.map(h => {
+          totalShares += h.shares;
+          totalMv += h.marketValue;
+          totalPnl += h.pnl;
+          costSum += h.costPerShare * h.shares;
+          const acct = h.account === "gt" ? "gt" : "hb";
+          const label = h.account === "gt" ? "国投" : "华宝";
+          return `<tr><td><span class="account-tag ${acct}">${label}</span></td><td>${h.shares.toLocaleString()}</td><td>${fmtInt(h.marketValue)}</td><td>${fmtMoney(h.costPerShare, 2)}</td><td class="loss">${fmtInt(h.pnl)}</td></tr>`;
+        }).join("");
+        const avgCost = totalShares > 0 ? (costSum / totalShares).toFixed(2) : "—";
+        seresBody.innerHTML = rows + `<tr style="font-weight:600;">
+          <td>合计</td><td>${totalShares.toLocaleString()}</td><td>${fmtInt(totalMv)}</td><td>${avgCost}</td><td class="loss">${fmtInt(totalPnl)}</td></tr>`;
+      }
+    }
+
+    function renderQuoteBar() {
+      const bar = document.getElementById("quote-bar");
+      if (!bar) return;
+      const q = getQuotes();
+      const meta = bar.querySelector(".quote-bar-meta") || bar;
+      const updatedAt = q.updatedAt;
+      let stale = false;
+      if (updatedAt) {
+        const age = Date.now() - new Date(updatedAt).getTime();
+        stale = age > 24 * 3600 * 1000;
+      } else {
+        stale = true;
+      }
+      bar.classList.toggle("stale", stale);
+      const fx = q.fx?.HKDCNY ?? 0.92;
+      const timeStr = updatedAt ? updatedAt.replace("T", " ").slice(0, 16) : "无行情文件";
+      const staleHint = stale ? " · <span style='color:var(--warn)'>行情可能过期</span>" : "";
+      const metaEl = bar.querySelector(".quote-bar-meta");
+      if (metaEl) {
+        metaEl.innerHTML = `行情更新：<strong>${timeStr}</strong> · HKD/CNY <strong>${fx}</strong>${staleHint}`;
+      }
+    }
+
+    function editHoldingCost(id) {
+      const h = BASELINE.holdings.find(x => x.id === id);
+      if (!h) return;
+      const ov = loadOverrides();
+      const cur = ov.holdings?.[id]?.costPerShare ?? h.costPerShare;
+      const curLabel = h.currency === "HKD" ? "HKD" : "CNY";
+      const input = prompt(`${h.name} 成本价（${curLabel}）：`, String(cur));
+      if (input === null) return;
+      const num = parseFloat(input.replace(/,/g, ""));
+      if (isNaN(num) || num <= 0) { alert("请输入有效数字"); return; }
+      ov.holdings = ov.holdings || {};
+      ov.holdings[id] = { ...ov.holdings[id], costPerShare: num };
+      saveOverrides(ov);
+      renderAll();
+    }
+
+    function editHoldingPrice(id) {
+      const h = BASELINE.holdings.find(x => x.id === id);
+      if (!h) return;
+      const ov = loadOverrides();
+      const state = computeState(loadTodoState());
+      const live = state.holdings.find(x => x.id === id);
+      const cur = ov.holdings?.[id]?.manualPrice ?? live?.nativePrice ?? h.fallbackPrice;
+      const curLabel = h.currency === "HKD" ? "HKD" : "CNY";
+      const input = prompt(`${h.name} 现价（${curLabel}，覆盖行情）：`, String(cur));
+      if (input === null) return;
+      const num = parseFloat(input.replace(/,/g, ""));
+      if (isNaN(num) || num <= 0) { alert("请输入有效数字"); return; }
+      ov.holdings = ov.holdings || {};
+      ov.holdings[id] = { ...ov.holdings[id], manualPrice: num };
+      saveOverrides(ov);
+      renderAll();
+    }
+
+    function clearHoldingPrice(id) {
+      const ov = loadOverrides();
+      if (ov.holdings?.[id]) {
+        delete ov.holdings[id].manualPrice;
+        if (Object.keys(ov.holdings[id]).length === 0) delete ov.holdings[id];
+      }
+      saveOverrides(ov);
+      renderAll();
+    }
+
+    function renderFunds(state) {
+      const active = state.funds.filter(f => !f.redeemed);
+      const fundTotal = document.getElementById("fund-total");
+      const fundSub = document.getElementById("fund-sub");
+      if (fundTotal) fundTotal.textContent = fmtInt(state.fundsTotal);
+      if (fundSub) {
+        const pnlStr = state.fundPnl >= 0 ? `+${fmtInt(state.fundPnl)}` : fmtInt(state.fundPnl);
+        fundSub.innerHTML = active.length === 0
+          ? "已全部赎回"
+          : `持仓收益 ${pnlStr} · 8 月全赎计划`;
+      }
+      const tbody = document.getElementById("funds-tbody");
+      if (!tbody) return;
+      if (active.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted)">已赎回 · 无持仓</td></tr>';
+      } else {
+        tbody.innerHTML = active.map((f, i) => {
+          const pnlCls = f.pnl >= 0 ? "gain" : "loss";
+          const pnlSign = f.pnl >= 0 ? "+" : "−";
+          return `<tr><td>${f.name}</td><td>${fmtInt(f.amount)}</td><td class="${pnlCls}">${pnlSign}${Math.abs(f.pnl).toLocaleString()}</td><td><span class="badge danger">${i + 1}</span></td><td>待赎回</td></tr>`;
+        }).join("");
+      }
+    }
+
+    function renderDiagnosis(state) {
+      const nw = document.getElementById("diag-networth");
+      const nwSub = document.getElementById("diag-networth-sub");
+      const fl = document.getElementById("diag-floatloss");
+      const flSub = document.getElementById("diag-floatloss-sub");
+      const dr = document.getElementById("diag-debtratio");
+      const drSub = document.getElementById("diag-debtratio-sub");
+      if (nw) nw.textContent = fmtInt(state.netWorth);
+      if (nwSub) nwSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
+      if (fl) fl.textContent = fmtInt(state.floatingLoss);
+      if (flSub) flSub.textContent = `证券 ${fmtInt(state.stockPnl)} + 基金 ${fmtInt(state.fundPnl)}`;
+      if (dr) dr.textContent = state.debtRatio.toFixed(0) + "%";
+      if (drSub) {
+        drSub.textContent = state.debtRatio > 50 ? "高杠杆 · 继续降负债" : state.debtRatio > 20 ? "杠杆下降中" : "低杠杆";
+      }
+    }
+
+    function renderMonthlyTable(todoState) {
+      const tbody = document.querySelector("#monthly-table tbody");
+      if (!tbody) return;
+      tbody.innerHTML = "";
+      months.forEach(row => {
+        const total = ceilSum(row);
+        const tr = document.createElement("tr");
+        const monthTodos = MONTH_TODO_MAP[row.label] || [];
+        const allDone = monthTodos.length > 0 && monthTodos.every(id => isTodoDone(todoState, id));
+        if (row.peak && !allDone) tr.classList.add("peak");
+        if (row.aug) tr.classList.add("aug");
+        if (row.light || allDone) tr.classList.add("light");
+
+        let badge = "";
+        if (allDone) badge = '<span class="badge-done">已还</span>';
+        else if (row.peak) badge = '<span class="badge danger">高峰</span>';
+        else if (row.aug) badge = '<span class="badge purple">含个人20万</span>';
+        else if (row.light) badge = '<span class="badge ok">末月</span>';
+
+        tr.innerHTML = `
+          <td>${row.label}${badge}</td>
+          <td>${fmtTable(row.jd)}</td>
+          <td>${fmtTable(row.didi)}</td>
+          <td>${fmtTable(row.dy)}</td>
+          <td>${fmtTable(row.ali)}</td>
+          <td>${row.personal ? "200,000.00" : '<span class="dash">—</span>'}</td>
+          <td class="month-total">${total.toLocaleString("zh-CN")}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function renderAll() {
+      const todoState = loadTodoState();
+      const state = computeState(todoState);
+      renderQuoteBar();
+      renderDebts(state);
+      renderHoldings(state);
+      renderFunds(state);
+      renderDiagnosis(state);
+      renderMonthlyTable(todoState);
+    }
+
+    function getTodoItemById(id) {
+      for (const g of TODO_GROUPS) {
+        const item = g.items.find(i => i.id === id);
+        if (item) return item;
+      }
+      return null;
+    }
+
+    function editTodoAmount(id) {
+      const item = getTodoItemById(id);
+      if (!item || item.defaultAmount == null) return;
+      const state = loadTodoState();
+      const entry = getTodoEntry(state, id);
+      const current = entry.actual != null ? entry.actual : item.defaultAmount;
+      const input = prompt(`「${id}」实际金额（计划 ${fmtInt(item.defaultAmount)}）：`, String(Math.round(current)));
+      if (input === null) return;
+      const num = parseFloat(input.replace(/,/g, ""));
+      if (isNaN(num) || num < 0) { alert("请输入有效数字"); return; }
+      state[id] = { done: true, actual: num, actualPrice: entry.actualPrice };
+      saveTodoState(state);
+      renderTodos();
+      renderAll();
+    }
+
+    function editTodoPrice(id) {
+      const item = getTodoItemById(id);
+      if (!item || !item.holdingId) return;
+      const h = BASELINE.holdings.find(x => x.id === item.holdingId);
+      if (!h) return;
+      const state = loadTodoState();
+      const entry = getTodoEntry(state, id);
+      const curLabel = h.currency === "HKD" ? "HKD" : "CNY";
+      const shares = item.sellShares ?? h.shares;
+      const input = prompt(`${h.name} 卖出单价（${curLabel}，${shares} 股）：`, entry.actualPrice != null ? String(entry.actualPrice) : "");
+      if (input === null) return;
+      const num = parseFloat(input.replace(/,/g, ""));
+      if (isNaN(num) || num <= 0) { alert("请输入有效数字"); return; }
+      state[id] = { done: true, actualPrice: num, actual: null };
+      saveTodoState(state);
+      renderTodos();
+      renderAll();
+    }
+
+    function renderTodos() {
+      const state = loadTodoState();
+      const container = document.getElementById("todo-container");
+      let total = 0, done = 0;
+
+      container.innerHTML = TODO_GROUPS.map(group => {
+        let groupDone = 0;
+        const itemsHtml = group.items.map(item => {
+          total++;
+          const entry = getTodoEntry(state, item.id);
+          const checked = entry.done;
+          if (checked) done++, groupDone++;
+          const urgent = item.urgent && !checked ? " urgent" : "";
+          const doneCls = checked ? " done" : "";
+          const hasAmount = item.defaultAmount != null;
+          const isSell = item.effect === "sell_all" || item.effect === "sell_partial";
+          const actualTag = entry.actual != null && entry.actual !== item.defaultAmount
+            ? `<span class="todo-actual-tag">（实际 ${fmtInt(entry.actual)}）</span>` : "";
+          const priceTag = entry.actualPrice != null
+            ? `<span class="todo-actual-tag">（单价 ${entry.actualPrice}）</span>` : "";
+          const editBtn = checked && hasAmount
+            ? `<button type="button" class="edit-amount-btn" data-edit="${item.id}">改金额</button>` : "";
+          const editPriceBtn = checked && isSell
+            ? `<button type="button" class="edit-amount-btn" data-edit-price="${item.id}">改单价</button>` : "";
+          return `
+            <li class="todo-item${doneCls}${urgent}" data-id="${item.id}">
+              <input type="checkbox" id="${item.id}" ${checked ? "checked" : ""} aria-label="完成">
+              <label for="${item.id}">${item.text}${actualTag}${priceTag}</label>
+              ${editBtn}${editPriceBtn}
+            </li>`;
+        }).join("");
+        return `
+          <div class="todo-group">
+            <div class="todo-group-head">
+              <h3>${group.title}</h3>
+              <span class="todo-group-count">${groupDone}/${group.items.length}</span>
+            </div>
+            <ul class="todo-list">${itemsHtml}</ul>
+          </div>`;
+      }).join("");
+
+      document.getElementById("todo-done").textContent = done;
+      document.getElementById("todo-total").textContent = total;
+      document.getElementById("todo-bar").style.width = total ? (done / total * 100) + "%" : "0%";
+
+      container.querySelectorAll(".todo-item").forEach(row => {
+        const id = row.dataset.id;
+        const cb = row.querySelector('input[type="checkbox"]');
+        const toggle = () => {
+          const s = loadTodoState();
+          const prev = getTodoEntry(s, id);
+          if (cb.checked) {
+            s[id] = { done: true, actual: prev.actual, actualPrice: prev.actualPrice };
+          } else {
+            s[id] = { done: false, actual: prev.actual, actualPrice: prev.actualPrice };
+          }
+          saveTodoState(s);
+          renderTodos();
+          renderAll();
+        };
+        cb.addEventListener("change", toggle);
+        row.addEventListener("click", e => {
+          if (e.target.classList.contains("edit-amount-btn")) return;
+          if (e.target.dataset.editPrice) return;
+          if (e.target.tagName === "INPUT" || e.target.tagName === "LABEL" || e.target.tagName === "BUTTON") return;
+          cb.checked = !cb.checked;
+          toggle();
+        });
+      });
+
+      container.querySelectorAll(".edit-amount-btn[data-edit]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          editTodoAmount(btn.dataset.edit);
+        });
+      });
+
+      container.querySelectorAll(".edit-amount-btn[data-edit-price]").forEach(btn => {
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          editTodoPrice(btn.dataset.editPrice);
+        });
+      });
+    }
+
+    document.getElementById("quote-reload")?.addEventListener("click", () => location.reload());
+
+    document.getElementById("todo-reset").addEventListener("click", () => {
+      if (confirm("确定重置全部待办勾选？财务数据将恢复基准。")) {
+        localStorage.removeItem(TODO_STORAGE_KEY);
+        localStorage.removeItem(TODO_STORAGE_KEY_V1);
+        renderTodos();
+        renderAll();
+      }
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("page-" + btn.dataset.page).classList.add("active");
+      });
+    });
+
+    renderTodos();
+    renderAll();
+
+    // 开发断言
+    (function smokeBaseline() {
+      const base = computeState({});
+      const debtSum = Object.values(BASELINE.debts).reduce((a, b) => a + b, 0);
+      console.assert(Math.abs(base.liabilitiesTotal - debtSum) < 1, "baseline debt mismatch");
+      console.assert(base.holdings.filter(h => !h.sold).length === 7, "baseline holdings count");
+      console.assert(base.securitiesTotal > 1000000, "securities total: " + base.securitiesTotal);
+      console.assert(typeof base.holdings[0].marketValue === "number", "quotes applied");
+      const jun = computeState({ "jun-sell-mgt": { done: true }, "jun-sell-ubtech": { done: true }, "jun-dy-pay": { done: true }, "jun-didi-pay": { done: true } });
+      console.assert(jun.debts.dy === 0 && jun.debts.didi === 0, "jun debt clear");
+      console.assert(!jun.holdings.find(h => h.id === "megmeet" && !h.sold), "megmeet sold");
+      const ov = loadOverrides();
+      ov.holdings = { pingan: { costPerShare: 10 } };
+      saveOverrides(ov);
+      const withCost = computeState({});
+      console.assert(withCost.holdings.find(h => h.id === "pingan").costPerShare === 10, "override cost");
+      localStorage.removeItem(OVERRIDES_KEY);
+    })();
+  </script>
+</body>
+</html>
