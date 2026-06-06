@@ -639,6 +639,7 @@ const ScreenEngine = (() => {
   }
 
   function buildCachedAnalysis(lcai, unified) {
+    const detail = unified?.analysis || lcai?.analysis || {};
     const layers = (unified?.layers || []).map(l => ({
       layer: l.layer,
       title: l.title,
@@ -647,8 +648,13 @@ const ScreenEngine = (() => {
       score: LAYER_SCORE_MAP[l.lcai_status] || 60,
     }));
     const mos = lcai.margin_of_safety_pct;
+    const keyMetrics = unified?.key_metrics || detail.key_metrics;
+    const decisionPath = unified?.decision_path || detail.decision_path;
+    const detailedSummary = unified?.summary_detailed || detail.summary_detailed;
+
     return {
       executive: unified?.executive || `${lcai.name}：${lcai.verdict} — ${lcai.verdict_action}`,
+      detailed_summary: detailedSummary,
       valuation: {
         narrative: unified?.valuation?.narrative
           || (lcai.fair_value != null
@@ -658,18 +664,22 @@ const ScreenEngine = (() => {
       strengths: unified?.strengths || [],
       weaknesses: unified?.weaknesses || [],
       watch_points: unified?.divergences || [],
-      decision_path: [
-        { step: 1, title: '缓存模式', ok: lcai.verdict !== '排除', detail: 'GitHub 在线页无法直连行情，以下为每周 Actions 缓存结果，非实时。' },
-        { step: 6, title: '最终判定', ok: !['排除', '卖出'].includes(lcai.verdict), detail: `${lcai.verdict}：${lcai.verdict_action}` },
-      ],
+      decision_path: decisionPath && decisionPath.length
+        ? decisionPath
+        : [
+          { step: 1, title: '缓存模式', ok: lcai.verdict !== '排除', detail: '以下为 Actions 缓存研判，非实时行情。' },
+          { step: 6, title: '最终判定', ok: !['排除', '卖出'].includes(lcai.verdict), detail: `${lcai.verdict}：${lcai.verdict_action}` },
+        ],
       layers,
-      key_metrics: [
-        { label: '现价', value: lcai.price != null ? `${lcai.price} 元` : '—' },
-        { label: 'PE', value: lcai.pe != null ? fmt(lcai.pe) : '—' },
-        { label: 'ROE 均值', value: lcai.roe_avg != null ? `${fmt(lcai.roe_avg)}%` : '—' },
-        { label: '安全边际', value: mos != null ? `${mos}%` : '—' },
-        { label: '公允价', value: lcai.fair_value != null ? `${lcai.fair_value} 元` : '—' },
-        { label: 'DCF 公允', value: lcai.dcf_fair_value != null ? `${lcai.dcf_fair_value} 元` : '—' },
+      key_metrics: keyMetrics && keyMetrics.length ? keyMetrics : [
+        { label: '现价', value: lcai.price != null ? `${lcai.price} 元` : '—', threshold: '—' },
+        { label: 'PE', value: lcai.pe != null ? fmt(lcai.pe) : '—', threshold: '见行业上限' },
+        { label: 'ROE 均值', value: lcai.roe_avg != null ? `${fmt(lcai.roe_avg)}%` : '—', threshold: '≥15%' },
+        { label: 'OCF/EPS', value: lcai.ocf_ratio != null ? fmt(lcai.ocf_ratio) : '—', threshold: '≥0.8' },
+        { label: '安全边际', value: mos != null ? `${mos}%` : '—', threshold: '≥25%' },
+        { label: '公允价', value: lcai.fair_value != null ? `${lcai.fair_value} 元` : '—', threshold: '—' },
+        { label: 'DCF 公允', value: lcai.dcf_fair_value != null ? `${lcai.dcf_fair_value} 元` : '—', threshold: '—' },
+        { label: 'PEG', value: lcai.peg != null ? fmt(lcai.peg) : '—', threshold: '≤2' },
       ],
     };
   }

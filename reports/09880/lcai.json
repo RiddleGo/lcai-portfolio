@@ -1,5 +1,198 @@
 {
   "source": "lcai",
   "symbol": "09880",
-  "error": "Traceback (most recent call last):\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 189, in <module>\n    main()\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 159, in main\n    data = load_stock(sys.argv[1])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 125, in load_stock\n    fin = fetch_financials(parsed[\"code\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 103, in fetch_financials\n    raise ValueError(\"δ��ȡ��������\")\nValueError: δ��ȡ��������\n"
+  "error": "Traceback (most recent call last):\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 189, in <module>\n    main()\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 159, in main\n    data = load_stock(sys.argv[1])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 125, in load_stock\n    fin = fetch_financials(parsed[\"code\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 103, in fetch_financials\n    raise ValueError(\"δ��ȡ��������\")\nValueError: δ��ȡ��������\n",
+  "analysis": {
+    "summary_detailed": "【一句话结论】09880（09880）— LCAI 判定「—」：。评级 None，总分 None。\n\n【公司与行业】\n所属行业：未知行业；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 — 元；PE —；ROE 五年均值 —%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n无否决；L1–L3 硬指标全部通过。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：通过。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：— — 。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "key_metrics": [
+      {
+        "label": "现价",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "行情或缓存价"
+      },
+      {
+        "label": "PE",
+        "value": "—",
+        "threshold": "≤40",
+        "status": "fail",
+        "note": "行业上限 40"
+      },
+      {
+        "label": "PB",
+        "value": "—",
+        "threshold": "≤8",
+        "status": "ok",
+        "note": "资产定价"
+      },
+      {
+        "label": "PEG",
+        "value": "—",
+        "threshold": "≤2",
+        "status": "ok",
+        "note": "彼得·林奇"
+      },
+      {
+        "label": "ROE 均值",
+        "value": "—%",
+        "threshold": "≥15%",
+        "status": "fail",
+        "note": "5年加权"
+      },
+      {
+        "label": "盈利年数",
+        "value": "—",
+        "threshold": "≥4年",
+        "status": "fail",
+        "note": "近5年"
+      },
+      {
+        "label": "毛利率",
+        "value": "—%",
+        "threshold": "≥20%",
+        "status": "ok",
+        "note": "最新年报"
+      },
+      {
+        "label": "利润 YoY",
+        "value": "—%",
+        "threshold": "≥0%",
+        "status": "ok",
+        "note": "最新期"
+      },
+      {
+        "label": "OCF/EPS",
+        "value": "—",
+        "threshold": "≥0.8",
+        "status": "fail",
+        "note": "现金流质量"
+      },
+      {
+        "label": "公允 PE",
+        "value": "20",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "default"
+      },
+      {
+        "label": "公允价",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "EPS×20"
+      },
+      {
+        "label": "安全边际",
+        "value": "—",
+        "threshold": "≥25%",
+        "status": "fail",
+        "note": "=(公允−现价)/公允"
+      },
+      {
+        "label": "DCF 公允",
+        "value": "— 元",
+        "threshold": "—",
+        "status": "neutral",
+        "note": "简化两阶段"
+      },
+      {
+        "label": "DCF 边际",
+        "value": "—",
+        "threshold": "≥25%",
+        "status": "fail",
+        "note": "与 L3-01 交叉"
+      },
+      {
+        "label": "EPS",
+        "value": "—",
+        "threshold": ">0",
+        "status": "fail",
+        "note": "估值基础"
+      },
+      {
+        "label": "成交额",
+        "value": "0.00 亿",
+        "threshold": "A股≥0.5亿",
+        "status": "neutral",
+        "note": "流动性 L0-03"
+      }
+    ],
+    "decision_path": [
+      {
+        "step": 1,
+        "title": "L0 门禁",
+        "ok": true,
+        "detail": "否决：无；ST/流动性等见规则表。"
+      },
+      {
+        "step": 2,
+        "title": "L1–L3 硬指标",
+        "ok": true,
+        "detail": "ROE、盈利年数、OCF、安全边际、PE 等硬门槛全部 Pass。"
+      },
+      {
+        "step": 3,
+        "title": "综合评分",
+        "ok": false,
+        "detail": "总分 None，评级 None（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+      },
+      {
+        "step": 4,
+        "title": "安全边际",
+        "ok": false,
+        "detail": "安全边际 —，建仓要求 ≥25%。"
+      },
+      {
+        "step": 5,
+        "title": "仓位上限",
+        "ok": true,
+        "detail": "按评级 None：A→25% / B→10% / 其他→0%。"
+      },
+      {
+        "step": 6,
+        "title": "最终判定",
+        "ok": true,
+        "detail": "—："
+      }
+    ],
+    "rule_highlights": [
+      {
+        "id": "L1-01",
+        "name": "ROE均值",
+        "actual": "—%",
+        "threshold": "≥15%",
+        "result": "fail",
+        "pass": false,
+        "reason": "未达标：实际 —%，要求 ≥15%"
+      },
+      {
+        "id": "L2-01",
+        "name": "现金流质量",
+        "actual": "—",
+        "threshold": "≥0.8",
+        "result": "fail",
+        "pass": false,
+        "reason": "未达标：实际 —，要求 ≥0.8"
+      },
+      {
+        "id": "L3-01",
+        "name": "安全边际",
+        "actual": "—",
+        "threshold": "≥25%",
+        "result": "fail",
+        "pass": false,
+        "reason": "未达标：实际 —，要求 ≥25%"
+      },
+      {
+        "id": "L3-02",
+        "name": "PE合理",
+        "actual": "—",
+        "threshold": "≤40",
+        "result": "fail",
+        "pass": false,
+        "reason": "未达标：实际 —，要求 ≤40"
+      }
+    ]
+  }
 }

@@ -27,13 +27,33 @@ const ScreenUI = (() => {
 
   function renderAnalysis(report) {
     const a = report.analysis || {};
-    el('logic-summary').textContent = a.executive || report.logic_summary || '';
+    const brief = a.executive || report.logic_summary || '';
+    const detailed = a.detailed_summary || '';
+    el('logic-summary').textContent = brief;
+
+    const detailBlock = el('analysis-detailed');
+    const detailText = el('analysis-detailed-text');
+    if (detailBlock && detailText) {
+      if (detailed) {
+        detailText.textContent = detailed;
+        detailBlock.hidden = false;
+      } else {
+        detailText.textContent = '';
+        detailBlock.hidden = true;
+      }
+    }
 
     const metricsBox = el('analysis-metrics');
     if (metricsBox) {
-      metricsBox.innerHTML = (a.key_metrics || []).map(m =>
-        `<div class="screen-metric-item"><div class="m-val">${m.value}</div><div class="m-lbl">${m.label}</div></div>`
-      ).join('');
+      metricsBox.innerHTML = (a.key_metrics || []).map(m => {
+        const st = m.status === 'ok' ? 'metric-ok' : m.status === 'fail' ? 'metric-fail' : '';
+        const th = m.threshold && m.threshold !== '—' ? `<div class="m-th">阈值 ${m.threshold}</div>` : '';
+        const note = m.note ? `<div class="m-note">${m.note}</div>` : '';
+        return `<div class="screen-metric-item ${st}">
+          <div class="m-val">${m.value}</div>
+          <div class="m-lbl">${m.label}</div>${th}${note}
+        </div>`;
+      }).join('');
     }
 
     const valText = el('analysis-valuation-text');

@@ -81,6 +81,8 @@ def build_metrics(parsed, quote, fin_rows, cfg):
         "price": quote["price"],
         "pe": pe,
         "pb": quote.get("pb"),
+        "eps": eps,
+        "amount": quote.get("amount"),
         "roe_avg": roe_avg,
         "profit_years": profit_years,
         "gross_margin": la.get("grossMargin"),
@@ -93,6 +95,7 @@ def build_metrics(parsed, quote, fin_rows, cfg):
         "sector": sector,
         "peg": peg,
         "profit_yoy": latest.get("profitYoy"),
+        "revenue_yoy": latest.get("revenueYoy"),
         "profit_collapse": profit_collapse,
         "is_st": "ST" in quote["name"].upper(),
         "fraud_suspect": fraud,
@@ -165,10 +168,18 @@ def main():
         "name": m["name"],
         "price": round(m["price"], 2),
         "pe": round(m["pe"], 2) if m["pe"] else None,
+        "pb": round(m["pb"], 2) if m.get("pb") else None,
+        "eps": round(m["eps"], 3) if m.get("eps") else None,
+        "amount": m.get("amount"),
         "roe_avg": round(m["roe_avg"], 2) if m["roe_avg"] else None,
         "profit_years": m["profit_years"],
+        "gross_margin": round(m["gross_margin"], 2) if m.get("gross_margin") else None,
         "ocf_ratio": round(m["ocf_ratio"], 2) if m["ocf_ratio"] else None,
+        "profit_yoy": round(m["profit_yoy"], 2) if m.get("profit_yoy") else None,
+        "revenue_yoy": round(m["revenue_yoy"], 2) if m.get("revenue_yoy") else None,
+        "peg": round(m["peg"], 2) if m.get("peg") else None,
         "industry": m["industry"],
+        "sector": m["sector"],
         "is_st": m["is_st"],
         "trap_suspect": m["trap_suspect"],
         "margin_of_safety_pct": round(m["margin_of_safety"] * 100, 1) if m["margin_of_safety"] is not None else None,
@@ -178,6 +189,10 @@ def main():
         "trap_flags": m["trap_flags"],
         **d,
     }
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from build_lcai_detail import build_lcai_detail  # noqa: WPS433
+
+    report["analysis"] = build_lcai_detail(report)
     try:
         sys.stdout.reconfigure(encoding="utf-8")
     except Exception:

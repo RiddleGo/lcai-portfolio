@@ -48,6 +48,9 @@ const ScreenUnified = (() => {
         max_weight: maxWeight(live.rating),
       },
       executive: live.analysis?.executive || live.logic_summary || '',
+      summaryDetailed: live.analysis?.detailed_summary || '',
+      keyMetrics: live.analysis?.key_metrics || [],
+      decisionPath: live.analysis?.decision_path || [],
       valuationNarrative: live.analysis?.valuation?.narrative || '',
       layers: layersFromLive(live),
       strengths: live.analysis?.strengths || [],
@@ -64,6 +67,9 @@ const ScreenUnified = (() => {
     }
 
     base.executive = unified.executive || base.executive;
+    base.summaryDetailed = unified.summary_detailed || base.summaryDetailed;
+    base.keyMetrics = unified.key_metrics?.length ? unified.key_metrics : base.keyMetrics;
+    base.decisionPath = unified.decision_path?.length ? unified.decision_path : base.decisionPath;
     base.valuationNarrative = unified.valuation?.narrative || base.valuationNarrative;
     base.layers = unified.layers?.length ? unified.layers : base.layers;
     base.strengths = mergeLists(base.strengths, unified.strengths);
@@ -94,6 +100,41 @@ const ScreenUnified = (() => {
   function applyMerged(data) {
     const summary = el('logic-summary');
     if (summary) summary.textContent = data.executive || '';
+
+    const detailBlock = el('analysis-detailed');
+    const detailText = el('analysis-detailed-text');
+    const detailed = data.summaryDetailed || '';
+    if (detailBlock && detailText) {
+      if (detailed && detailed !== (data.executive || '')) {
+        detailText.textContent = detailed;
+        detailBlock.hidden = false;
+      } else {
+        detailBlock.hidden = true;
+      }
+    }
+
+    const metricsBox = el('analysis-metrics');
+    if (metricsBox && data.keyMetrics?.length) {
+      metricsBox.innerHTML = data.keyMetrics.map(m => {
+        const st = m.status === 'ok' ? 'metric-ok' : m.status === 'fail' ? 'metric-fail' : '';
+        const th = m.threshold && m.threshold !== '—' ? `<div class="m-th">阈值 ${m.threshold}</div>` : '';
+        return `<div class="screen-metric-item ${st}"><div class="m-val">${m.value}</div><div class="m-lbl">${m.label}</div>${th}</div>`;
+      }).join('');
+    }
+
+    const stepsBox = el('analysis-decision-steps');
+    if (stepsBox && data.decisionPath?.length) {
+      stepsBox.innerHTML = data.decisionPath.map(s => {
+        const cls = s.ok ? 'pass' : 'fail';
+        return `<div class="screen-decision-step ${cls}">
+          <div class="step-num">${s.step}</div>
+          <div class="step-body">
+            <div class="step-title">${s.title}</div>
+            <div class="step-detail">${s.detail}</div>
+          </div>
+        </div>`;
+      }).join('');
+    }
 
     const valText = el('analysis-valuation-text');
     const valBlock = el('analysis-valuation');

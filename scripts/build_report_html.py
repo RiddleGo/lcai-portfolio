@@ -36,6 +36,8 @@ def build_report_html(
     rating = lcai.get("rating") or (unified.get("verdict") or {}).get("rating") or "—"
     score = lcai.get("overall_score") or (unified.get("verdict") or {}).get("score") or "—"
     executive = unified.get("executive") or compare.get("executive") or ""
+    detailed = unified.get("summary_detailed") or (lcai.get("analysis") or {}).get("summary_detailed") or ""
+    key_metrics = unified.get("key_metrics") or (lcai.get("analysis") or {}).get("key_metrics") or []
     valuation = (unified.get("valuation") or {}).get("narrative") or ""
     uzi = unified.get("uzi") or {}
     uzi_ready = bool(uzi.get("ready"))
@@ -43,6 +45,26 @@ def build_report_html(
     layers = unified.get("layers") or []
     strengths = unified.get("strengths") or []
     weaknesses = unified.get("weaknesses") or []
+
+    metrics_rows = ""
+    for m in key_metrics:
+        st = m.get("status") or "neutral"
+        st_cls = "ok" if st == "ok" else "bad" if st == "fail" else ""
+        metrics_rows += f"""<tr class="{st_cls}">
+          <td>{_esc(m.get('label'))}</td>
+          <td><strong>{_esc(m.get('value'))}</strong></td>
+          <td>{_esc(m.get('threshold'))}</td>
+          <td>{_esc(m.get('note'))}</td>
+        </tr>"""
+
+    decision_rows = ""
+    decision_path = unified.get("decision_path") or (lcai.get("analysis") or {}).get("decision_path") or []
+    for s in decision_path:
+        ok_cls = "ok" if s.get("ok") else "bad"
+        decision_rows += f"""<div class="decision-step {ok_cls}">
+          <span class="step-n">{_esc(s.get('step'))}</span>
+          <div><strong>{_esc(s.get('title'))}</strong><br>{_esc(s.get('detail'))}</div>
+        </div>"""
 
     layer_rows = ""
     for layer in layers:
@@ -103,6 +125,16 @@ def build_report_html(
     .uzi-note {{ font-size: 0.88rem; color: #94a3b8; }}
     footer {{ margin-top: 24px; font-size: 0.8rem; color: #64748b; }}
     pre {{ white-space: pre-wrap; font-family: inherit; margin: 0; }}
+    table.metrics {{ width: 100%; border-collapse: collapse; font-size: 0.88rem; }}
+    table.metrics th, table.metrics td {{ padding: 8px 10px; border-bottom: 1px solid #2d3748; text-align: left; }}
+    table.metrics th {{ color: #94a3b8; font-weight: 600; }}
+    table.metrics tr.ok td:nth-child(2) {{ color: #6ee7b7; }}
+    table.metrics tr.bad td:nth-child(2) {{ color: #fca5a5; }}
+    .decision-step {{ display: flex; gap: 12px; margin-bottom: 10px; padding: 10px; border-radius: 8px; background: #0f1419; }}
+    .decision-step .step-n {{ flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.85rem; background: #334155; }}
+    .decision-step.ok .step-n {{ background: rgba(16,185,129,0.25); color: #6ee7b7; }}
+    .decision-step.bad .step-n {{ background: rgba(239,68,68,0.25); color: #fca5a5; }}
   </style>
 </head>
 <body>
@@ -115,6 +147,24 @@ def build_report_html(
     <h2>Executive Summary</h2>
     <p>{_esc(executive)}</p>
   </section>
+
+  {f'''<section class="card">
+    <h2>详细总结</h2>
+    <pre>{_esc(detailed)}</pre>
+  </section>''' if detailed else ''}
+
+  {f'''<section class="card">
+    <h2>关键指标与阈值</h2>
+    <table class="metrics">
+      <thead><tr><th>指标</th><th>实际值</th><th>阈值</th><th>说明</th></tr></thead>
+      <tbody>{metrics_rows}</tbody>
+    </table>
+  </section>''' if metrics_rows else ''}
+
+  {f'''<section class="card">
+    <h2>判定逻辑链</h2>
+    {decision_rows}
+  </section>''' if decision_rows else ''}
 
   <section class="card">
     <h2>估值测算</h2>

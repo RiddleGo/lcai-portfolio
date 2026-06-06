@@ -269,10 +269,13 @@ def build_unified_report(
     compare: dict,
     symbol: str,
 ) -> dict:
+    from build_lcai_detail import build_lcai_detail  # noqa: WPS433
+
     uzi_e = parse_uzi_enrichment(uzi_raw)
     rating = lcai.get("rating") or compare.get("lcai_rating")
     verdict = lcai.get("verdict") or compare.get("lcai_verdict")
     action = lcai.get("verdict_action") or compare.get("lcai_verdict_action")
+    detail = lcai.get("analysis") or build_lcai_detail(lcai)
 
     layers = []
     for layer, title_suffix in LAYER_META.items():
@@ -310,6 +313,10 @@ def build_unified_report(
             "max_weight": max_weight_for_rating(rating),
         },
         "executive": build_executive(lcai, uzi_e, compare),
+        "summary_detailed": detail.get("summary_detailed") or build_executive(lcai, uzi_e, compare),
+        "key_metrics": detail.get("key_metrics") or [],
+        "decision_path": detail.get("decision_path") or [],
+        "rule_highlights": detail.get("rule_highlights") or [],
         "valuation": valuation,
         "layers": layers,
         "strengths": strengths,
