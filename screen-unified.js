@@ -165,9 +165,21 @@ const ScreenUnified = (() => {
 
     const divBox = el('unified-divergences');
     if (divBox) {
-      if (data.divergences?.length) {
+      const items = data.divergence_notes?.length ? data.divergence_notes : data.divergences;
+      if (items?.length) {
         divBox.hidden = false;
-        divBox.innerHTML = `<p style="font-size:0.82rem;color:var(--warn);margin:0">分歧 / 提示：${data.divergences.join('；')}</p>`;
+        divBox.innerHTML = `<h3 style="margin:0 0 10px;font-size:0.9rem">分歧 / 提示</h3>` + items.map(d => {
+          if (typeof d === 'string') {
+            return `<div class="divergence-item warning"><p style="margin:0;font-size:0.82rem;color:var(--warn)">${d}</p></div>`;
+          }
+          const kind = d.kind || 'warning';
+          const metrics = (d.actual && d.threshold && d.threshold !== '—')
+            ? `<div class="div-metrics">实际值 ${d.actual} · 阈值 ${d.threshold}</div>` : '';
+          return `<div class="divergence-item ${kind}">
+            <div class="div-title">${d.title || d.rule_id || '提示'}</div>
+            <p class="div-summary">${d.summary || ''}</p>${metrics}
+          </div>`;
+        }).join('');
       } else {
         divBox.hidden = true;
       }

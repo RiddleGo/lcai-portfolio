@@ -227,7 +227,13 @@ def build_executive(lcai: dict, uzi_e: dict, compare: dict) -> str:
     if uzi_e.get("ready") and uzi_e.get("tone"):
         parts.append(f"UZI 价值派（A,E）参考：{uzi_e['tone']}（共识 {uzi_e.get('consensus', '—')}）。")
     if compare.get("divergences"):
-        parts.append("分歧：" + "；".join(compare["divergences"]) + "。")
+        div_parts = []
+        for d in compare["divergences"]:
+            if isinstance(d, dict):
+                div_parts.append(d.get("title") or d.get("summary", ""))
+            else:
+                div_parts.append(str(d))
+        parts.append("分歧 / 提示：" + "；".join(div_parts) + "。")
     parts.append("买卖结论以 LCAI 规则为准。")
     return " ".join(parts)
 
@@ -275,7 +281,10 @@ def build_unified_report(
     rating = lcai.get("rating") or compare.get("lcai_rating")
     verdict = lcai.get("verdict") or compare.get("lcai_verdict")
     action = lcai.get("verdict_action") or compare.get("lcai_verdict_action")
-    detail = lcai.get("analysis") or build_lcai_detail(lcai)
+    uzi_tone = compare.get("uzi_tone") or (uzi_e.get("tone") if uzi_e.get("ready") else None)
+    detail = lcai.get("analysis") or {}
+    if not detail.get("rule_details"):
+        detail = build_lcai_detail(lcai, uzi_tone)
 
     layers = []
     for layer, title_suffix in LAYER_META.items():
@@ -317,11 +326,13 @@ def build_unified_report(
         "key_metrics": detail.get("key_metrics") or [],
         "decision_path": detail.get("decision_path") or [],
         "rule_highlights": detail.get("rule_highlights") or [],
+        "rule_details": detail.get("rule_details") or [],
+        "divergence_notes": detail.get("divergence_notes") or compare.get("divergence_notes") or [],
         "valuation": valuation,
         "layers": layers,
         "strengths": strengths,
         "weaknesses": weaknesses,
-        "divergences": compare.get("divergences") or [],
+        "divergences": detail.get("divergence_notes") or compare.get("divergence_notes") or compare.get("divergences") or [],
         "depth": {
             "lcai_ready": True,
             "uzi_ready": uzi_e.get("ready", False),

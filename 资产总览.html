@@ -708,6 +708,15 @@
     .screen-metric-item .m-note { font-size: 0.65rem; color: var(--muted); opacity: 0.85; }
     .screen-metric-item.metric-ok { border: 1px solid rgba(16,185,129,0.35); }
     .screen-metric-item.metric-fail { border: 1px solid rgba(239,68,68,0.35); }
+    .divergence-item {
+      background: var(--bg); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+      border-left: 3px solid var(--warn);
+    }
+    .divergence-item.veto { border-left-color: var(--danger); }
+    .divergence-item.hard_fail { border-left-color: #f97316; }
+    .divergence-item .div-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 4px; }
+    .divergence-item .div-summary { font-size: 0.82rem; line-height: 1.6; margin: 0; color: var(--text); }
+    .divergence-item .div-metrics { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
     .screen-analysis-cols {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;
     }
@@ -2780,13 +2789,13 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748011"></script>
-  <script src="screen-data.js?v=748011"></script>
-  <script src="screen-engine.js?v=748011"></script>
-  <script src="screen-watchlist.js?v=748011"></script>
-  <script src="screen-cloud.js?v=748011"></script>
-  <script src="screen-unified.js?v=748011"></script>
-  <script src="screen-ui.js?v=748011"></script>
+  <script src="watchlist-data.js?v=748012"></script>
+  <script src="screen-data.js?v=748012"></script>
+  <script src="screen-engine.js?v=748012"></script>
+  <script src="screen-watchlist.js?v=748012"></script>
+  <script src="screen-cloud.js?v=748012"></script>
+  <script src="screen-unified.js?v=748012"></script>
+  <script src="screen-ui.js?v=748012"></script>
   <script>
     if (location.hash === "#screen") {
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));

@@ -607,7 +607,14 @@ const ScreenEngine = (() => {
 
   const LAYER_SCORE_MAP = { '通过': 88, '有缺口': 52, '未通过': 15, '偏弱': 42 };
 
-  function buildCachedRules(lcai) {
+  function buildCachedRules(lcai, unified) {
+    const stored = unified?.rule_details || lcai?.analysis?.rule_details;
+    if (stored?.length) {
+      return stored.map(r => ({
+        ...r,
+        sources: r.sources || [],
+      }));
+    }
     const vetoes = new Set(lcai.vetoes_triggered || []);
     const fails = new Set(lcai.hard_failures || []);
     return criteria.rules.map(rule => {
@@ -663,7 +670,9 @@ const ScreenEngine = (() => {
       },
       strengths: unified?.strengths || [],
       weaknesses: unified?.weaknesses || [],
-      watch_points: unified?.divergences || [],
+      watch_points: (unified?.divergence_notes || unified?.divergences || []).map(d =>
+        typeof d === 'string' ? d : (d.summary || d.title || '')
+      ),
       decision_path: decisionPath && decisionPath.length
         ? decisionPath
         : [
@@ -728,7 +737,7 @@ const ScreenEngine = (() => {
         reason: lcai.verdict_action,
       },
       layer_scores: layerScores,
-      rules: buildCachedRules(lcai),
+      rules: buildCachedRules(lcai, unified),
       analysis: buildCachedAnalysis(lcai, unified),
       logic_summary: unified?.executive || '',
       fromCache: true,

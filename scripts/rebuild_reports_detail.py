@@ -11,7 +11,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from build_lcai_detail import build_lcai_detail  # noqa: E402
+from build_lcai_detail import build_divergence_notes, build_lcai_detail  # noqa: E402
 from build_report_html import write_report_html  # noqa: E402
 from build_unified_report import build_unified_report, write_unified_report  # noqa: E402
 
@@ -36,6 +36,14 @@ def rebuild_symbol(symbol: str) -> None:
 
     compare_path = out_dir / "lcai-vs-uzi.json"
     compare = json.loads(compare_path.read_text(encoding="utf-8")) if compare_path.exists() else {}
+    uzi_tone = compare.get("uzi_tone")
+    compare["divergences"] = build_divergence_notes(lcai, uzi_tone)
+    compare["divergence_notes"] = compare["divergences"]
+    if compare_path.exists() or compare.get("symbol"):
+        compare.setdefault("symbol", symbol)
+        compare.setdefault("name", lcai.get("name"))
+        (out_dir / "lcai-vs-uzi.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
+        (out_dir / "meta.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
     uzi_path = out_dir / "uzi.json"
     uzi = json.loads(uzi_path.read_text(encoding="utf-8")) if uzi_path.exists() else None
 

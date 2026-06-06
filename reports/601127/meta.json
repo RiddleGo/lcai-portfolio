@@ -12,9 +12,60 @@
   "dcf_fair_value": 57.75,
   "dcf_margin_pct": -29.9,
   "margin_gap": "LCAI PE×EPS -1.9% vs DCF -29.9%",
-  "divergences": [],
+  "divergences": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 -4.79%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "-4.79%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-02",
+      "title": "L1-02 盈利稳定性（硬指标 Fail）",
+      "summary": "近 5 年仅 2/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+      "actual": "2/5年",
+      "threshold": "≥4年"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
+      "actual": "-1.9% (公允73.60元)",
+      "threshold": "≥25%"
+    }
+  ],
   "trap_flags": [],
   "report_url": "reports/601127/index.html",
   "generated_at": "2026-06-07T00:17:03+08:00",
-  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
+  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考",
+  "divergence_notes": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 -4.79%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "-4.79%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-02",
+      "title": "L1-02 盈利稳定性（硬指标 Fail）",
+      "summary": "近 5 年仅 2/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+      "actual": "2/5年",
+      "threshold": "≥4年"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
+      "actual": "-1.9% (公允73.60元)",
+      "threshold": "≥25%"
+    }
+  ]
 }

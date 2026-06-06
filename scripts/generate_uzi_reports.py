@@ -125,6 +125,8 @@ def find_uzi_html(uzi_path: Path, symbol: str) -> Path | None:
 
 
 def build_compare(lcai: dict, uzi: dict | None, symbol: str) -> dict:
+    from build_lcai_detail import build_divergence_notes  # noqa: WPS433
+
     lcai_mos = lcai.get("margin_of_safety_pct")
     dcf_fv = lcai.get("dcf_fair_value")
     uzi_tone = None
@@ -136,11 +138,7 @@ def build_compare(lcai: dict, uzi: dict | None, symbol: str) -> dict:
     if lcai_mos is not None and dcf_fv:
         dcf_mos = lcai.get("dcf_margin_of_safety_pct")
         margin_gap = f"LCAI PE×EPS {lcai_mos}% vs DCF {dcf_mos}%"
-    divergences = []
-    if lcai.get("verdict") == "观察" and uzi_tone and "蹲" in str(uzi_tone):
-        divergences.append("LCAI 观察 vs UZI 可蹲：生意尚可但价格/边际未达 LCAI 建仓线")
-    if lcai.get("vetoes_triggered"):
-        divergences.append(f"LCAI 否决：{'、'.join(lcai['vetoes_triggered'])}")
+    divergences = build_divergence_notes(lcai, uzi_tone)
     return {
         "symbol": symbol,
         "name": lcai.get("name"),
@@ -156,6 +154,7 @@ def build_compare(lcai: dict, uzi: dict | None, symbol: str) -> dict:
         "dcf_margin_pct": lcai.get("dcf_margin_of_safety_pct"),
         "margin_gap": margin_gap,
         "divergences": divergences,
+        "divergence_notes": divergences,
         "trap_flags": lcai.get("trap_flags", []),
         "report_url": f"reports/{symbol}/index.html",
         "generated_at": datetime.now(BJ).strftime("%Y-%m-%dT%H:%M:%S+08:00"),
