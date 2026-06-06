@@ -749,12 +749,24 @@
     }
     .cloud-status[data-type="ok"] { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); color: var(--ok); }
     .cloud-status[data-type="warn"] { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: var(--warn); }
-    .cloud-settings { margin-top: 10px; font-size: 0.82rem; }
-    .cloud-settings summary { cursor: pointer; color: var(--muted); }
-    .cloud-settings input[type=text] {
-      width: 100%; max-width: 420px; margin-top: 6px; padding: 7px 10px;
-      border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text);
+    .watchlist-box { margin-bottom: 14px; }
+    .watchlist-box h3 { font-size: 0.88rem; margin-bottom: 8px; color: var(--muted); font-weight: 600; }
+    .watchlist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .watchlist-chip {
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; cursor: pointer;
     }
+    .watchlist-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .watchlist-empty { font-size: 0.82rem; color: var(--muted); }
+    .report-cta {
+      margin: 14px 0; padding: 14px; border-radius: 10px;
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+    }
+    .report-cta .cta-title { font-weight: 600; margin: 0 0 6px; }
+    .report-cta .cta-steps { font-size: 0.84rem; color: var(--muted); margin: 0 0 10px; line-height: 1.6; }
+    .report-cta .cta-ok { color: var(--ok); margin: 0 0 10px; font-weight: 600; }
+    .screen-hero-btn { font-size: 1rem; padding: 11px 22px; }
+    .screen-help { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
 
     @media (max-width: 768px) {
       .screen-analysis-cols { grid-template-columns: 1fr; }
@@ -1761,29 +1773,29 @@
 
     <!-- ========== 页7：选股研判 ========== -->
     <div id="page-screen" class="page">
-      <p class="page-desc">价值投资五层漏斗 · 自动拉取财报与估值 · 输出买卖判定与逐条逻辑 · 已持仓标的自动识别</p>
+      <p class="page-desc">输入代码，点一下「帮我看看」—— 秒出能不能买。收藏后每周自动更新，不用懂技术。</p>
+
+      <div class="card watchlist-box" style="margin-bottom:16px">
+        <h3>⭐ 我的关注（点一下就能再看）</h3>
+        <div id="watchlist-chips" class="watchlist-chips"></div>
+      </div>
 
       <div class="card" style="margin-bottom:16px">
         <div class="screen-input-row">
-          <input type="text" id="symbol-input" placeholder="A股 600519 / 港股 00700" value="">
-          <button type="button" class="screen-btn" id="btn-screen">研判</button>
-          <button type="button" class="screen-btn screen-btn-ghost" id="btn-cloud-report" title="触发 GitHub Actions 生成 UZI 深度研报">云端研报</button>
+          <input type="text" id="symbol-input" placeholder="例如 600519、601127、00700" value="">
+          <button type="button" class="screen-btn screen-hero-btn" id="btn-screen">帮我看看</button>
         </div>
-        <div class="screen-chk-row">
-          <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
-          <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
-        </div>
-        <details class="cloud-settings">
-          <summary>高级：Worker 一键触发（可选，需 PAT）</summary>
-          <p style="color:var(--muted);margin:8px 0 4px;line-height:1.5">默认方式：<strong>点「云端研报」→ 提交 GitHub Issue</strong> 即可，无需 PAT。若部署 Cloudflare Worker 可跳过 Issue 一步。</p>
-          <label>Worker URL <input type="text" id="cloud-trigger-url" placeholder="https://xxx.workers.dev"></label>
-          <label style="display:block;margin-top:6px">触发密钥 <input type="text" id="cloud-trigger-key" placeholder="TRIGGER_KEY"></label>
-          <button type="button" class="screen-btn screen-btn-ghost" id="btn-save-cloud-config" style="margin-top:8px">保存</button>
-          <span style="margin-left:8px;font-size:0.75rem;color:var(--muted)">见 <code>workers/README.md</code></span>
+        <p class="screen-help">就这两步：输入代码 → 点按钮。下面两个勾一般不用动。</p>
+        <details style="margin-top:8px">
+          <summary style="cursor:pointer;color:var(--muted);font-size:0.82rem">更多选项（一般不用改）</summary>
+          <div class="screen-chk-row" style="margin-top:8px">
+            <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
+            <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
+          </div>
         </details>
         <div id="cloud-status" class="cloud-status" hidden></div>
         <div id="screen-error" class="screen-error" hidden></div>
-        <p id="screen-loading" class="screen-loading" hidden>正在拉取数据并计算…</p>
+        <p id="screen-loading" class="screen-loading" hidden>正在帮你看… 几秒钟就好</p>
       </div>
 
       <div id="report-panel" hidden>
@@ -1803,6 +1815,14 @@
           </div>
           <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
 
+          <div id="report-cta" class="report-cta" hidden>
+            <div id="report-cta-text"></div>
+            <div class="dual-track-actions">
+              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并生成完整报告</button>
+              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden>打开完整报告</button>
+            </div>
+          </div>
+
           <div id="dual-track-panel" class="screen-analysis-block" hidden>
             <h3>双轨对比（LCAI 裁决 × UZI 参考）</h3>
             <div id="dual-track-content" class="dual-track-grid"></div>
@@ -1810,7 +1830,7 @@
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-deep-report" hidden>深度研报 (UZI)</button>
               <span id="dual-track-meta" style="font-size:0.75rem;color:var(--muted)"></span>
             </div>
-            <p class="uzi-disclaimer">UZI 深度报告在 GitHub 云端生成。点「云端研报」→ 提交预填 Issue → 约 3–10 分钟后本页自动更新。无需 PAT。</p>
+            <p class="uzi-disclaimer">带 ☁️ 的票每周一自动更新完整报告。买卖结论以本页「帮我看看」为准。</p>
           </div>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
@@ -1860,7 +1880,7 @@
         </div>
       </div>
 
-      <p class="page-desc" style="margin-top:16px;margin-bottom:0">免责声明：研究辅助，不构成投资建议。规则详见 <code style="font-size:0.8rem">投资系统/</code> · UZI 深度研报见 <code style="font-size:0.8rem">reports/</code> · 对照 <code style="font-size:0.8rem">投资系统/08-UZI对照说明.md</code></p>
+      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。收藏的股票每周自动更新报告。</p>
     </div>
 
     <footer>生成日期：2026-06-06 · 执行 + 还款 + 现金流 + 投资规划 + 诊断 + 持仓 + 选股</footer>
@@ -2763,8 +2783,10 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
+  <script src="watchlist-data.js"></script>
   <script src="screen-data.js"></script>
   <script src="screen-engine.js"></script>
+  <script src="screen-watchlist.js"></script>
   <script src="screen-cloud.js"></script>
   <script src="screen-ui.js"></script>
   <script>

@@ -92,7 +92,7 @@ const ScreenUI = (() => {
         uzi_value_consensus: null,
         dcf_fair_value: liveReport.metrics?.dcfFairValue,
         margin_gap: null,
-        divergences: ['UZI 深度报告未生成 — 点上方「云端研报」触发'],
+        divergences: ['完整报告还没生成 — 点上面「⭐ 收藏并生成完整报告」'],
         report_url: `reports/${code}/index.html`,
       });
       return;
@@ -172,6 +172,8 @@ const ScreenUI = (() => {
 
     renderAnalysis(report);
     loadDualTrack(report.symbol, report);
+    ScreenCloud?.checkAndShowCta?.(report.symbol, report.name);
+    ScreenWatchlist?.add?.(report.symbol, report.name);
 
     const layers = el('layer-scores');
     layers.innerHTML = '';
@@ -274,6 +276,7 @@ const ScreenUI = (() => {
 })();
 
 if (document.getElementById('btn-screen')) {
+  ScreenWatchlist?.init?.();
   ScreenUI.init();
   ScreenCloud?.init?.();
 }

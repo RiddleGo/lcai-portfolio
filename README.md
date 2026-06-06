@@ -24,14 +24,20 @@ python scripts/lcai_screen_json.py 600519          # 完整 JSON
 bash scripts/run_dual_analysis.sh 600519           # LCAI + UZI 双轨（需 clone UZI）
 ```
 
+## 怎么用（给完全不懂技术的人）
+
+1. 打开 [资产总览 → 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
+2. 输入代码，点 **「帮我看看」** → 几秒出结论
+3. 想每周自动更新完整报告 → 点 **「⭐ 收藏并生成完整报告」** → 新页面点一下绿色 Submit → 回来等着
+4. 以后在 **「我的关注」** 里点一下就能再看；**每周一自动更新**，不用重复操作
+
 ## 网页触发（无需 PAT）
 
-| 操作 | 步骤 |
-|------|------|
-| **LCAI 研判** | 选股 Tab → **研判**（浏览器即时） |
-| **UZI 云端研报** | **云端研报** → 提交 GitHub Issue → 本页自动轮询（约 3–10 分钟） |
-
-确保仓库 [Issues 已开启](https://github.com/RiddleGo/lcai-portfolio/settings)。可选 Worker 见 [`workers/README.md`](workers/README.md)。
+| 你想干什么 | 点哪个 |
+|------------|--------|
+| 看能不能买 | **帮我看看** |
+| 第一次要完整报告 | **⭐ 收藏并生成完整报告**（每只票只需一次） |
+| 以后再来看 | **我的关注** 里点一下 |
 
 ## 部署
 

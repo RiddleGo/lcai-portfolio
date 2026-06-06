@@ -39,6 +39,13 @@ def parse_holdings_from_quotes() -> list[str]:
     return sorted(codes)
 
 
+def parse_all_auto_symbols() -> list[str]:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    from watchlist_utils import merge_all_symbols  # noqa: WPS433
+
+    return merge_all_symbols(parse_holdings_from_quotes)
+
+
 def run_lcai(symbol: str) -> dict:
     proc = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "lcai_screen_json.py"), symbol],
@@ -185,13 +192,16 @@ def main():
     ap = argparse.ArgumentParser(description="Generate LCAI vs UZI report bundles")
     ap.add_argument("--symbol", help="Single symbol")
     ap.add_argument("--holdings", action="store_true", help="All symbols from quotes-data.js")
+    ap.add_argument("--all", action="store_true", help="Holdings + watchlist-data.js (weekly auto)")
     ap.add_argument("--uzi-path", default=str(ROOT / ".vendor" / "UZI-Skill"))
     ap.add_argument("--run-uzi", action="store_true", help="Execute UZI run.py (slow)")
     ap.add_argument("--skip-uzi", action="store_true", help="LCAI only")
     args = ap.parse_args()
     uzi_path = Path(args.uzi_path) if not args.skip_uzi else None
     symbols = [args.symbol] if args.symbol else []
-    if args.holdings or not symbols:
+    if args.all:
+        symbols = parse_all_auto_symbols()
+    elif args.holdings or not symbols:
         symbols = parse_holdings_from_quotes()
     if not symbols:
         print("No symbols", file=sys.stderr)
