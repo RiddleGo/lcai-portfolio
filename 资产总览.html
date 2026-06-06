@@ -1764,7 +1764,7 @@
 
     <!-- ========== 页7：选股研判 ========== -->
     <div id="page-screen" class="page">
-      <p class="page-desc">输入代码，点「帮我看看」看能不能买。持仓与关注里的票，<strong>每周一自动更新深度分析</strong>，不用开 Issue。</p>
+      <p class="page-desc">输入代码，点「帮我看看」。<strong>持仓 + 云端关注</strong>每周一自动深度分析；<strong>新票首次</strong>收藏需 GitHub 点一次 Submit。</p>
 
       <div class="card watchlist-box" style="margin-bottom:16px">
         <h3>⭐ 我的关注（点一下就能再看）</h3>
@@ -1810,7 +1810,7 @@
           <div id="report-cta" class="report-cta" hidden>
             <div id="report-cta-text"></div>
             <div class="unified-actions">
-              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏到我的关注</button>
+              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并加入云端队列</button>
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden>查看 UZI 完整 HTML</button>
             </div>
           </div>
@@ -2768,13 +2768,13 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748003"></script>
-  <script src="screen-data.js?v=748003"></script>
-  <script src="screen-engine.js?v=748003"></script>
-  <script src="screen-watchlist.js?v=748003"></script>
-  <script src="screen-cloud.js?v=748003"></script>
-  <script src="screen-unified.js?v=748003"></script>
-  <script src="screen-ui.js?v=748003"></script>
+  <script src="watchlist-data.js?v=748004"></script>
+  <script src="screen-data.js?v=748004"></script>
+  <script src="screen-engine.js?v=748004"></script>
+  <script src="screen-watchlist.js?v=748004"></script>
+  <script src="screen-cloud.js?v=748004"></script>
+  <script src="screen-unified.js?v=748004"></script>
+  <script src="screen-ui.js?v=748004"></script>
   <script>
     if (location.hash === "#screen") {
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));

@@ -17,8 +17,9 @@
 |------|------|
 | 日常快速筛 | **帮我看看**（秒出，已有 unified 则自动 enrich） |
 | 观察池反复看 | **我的关注** 点一下 |
-| 建仓前 / 要 DCF+排雷厚材料 | 已在持仓/关注 → **每周一自动**；新票加入 `watchlist-data.js` 或 Actions 手动跑一次 |
-| 每周 | Actions **全量**刷新 LCAI + UZI + `unified.json`（`--all --run-uzi`） |
+| 建仓前 / 要 DCF+排雷厚材料 | 已在持仓/云端关注 → **每周一自动** |
+| **新票第一次** | 网页 **收藏** → Issue **Submit 一次** → 入 `watchlist-data.js` + 生成报告 |
+| 每周 | Actions **全量**刷新持仓 + 云端关注（`--all --run-uzi`） |
 
 ## 融合报告结构（`reports/{code}/unified.json`）
 
