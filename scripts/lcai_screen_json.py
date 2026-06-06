@@ -166,6 +166,11 @@ def main():
         "price": round(m["price"], 2),
         "pe": round(m["pe"], 2) if m["pe"] else None,
         "roe_avg": round(m["roe_avg"], 2) if m["roe_avg"] else None,
+        "profit_years": m["profit_years"],
+        "ocf_ratio": round(m["ocf_ratio"], 2) if m["ocf_ratio"] else None,
+        "industry": m["industry"],
+        "is_st": m["is_st"],
+        "trap_suspect": m["trap_suspect"],
         "margin_of_safety_pct": round(m["margin_of_safety"] * 100, 1) if m["margin_of_safety"] is not None else None,
         "fair_value": round(m["fair_value"], 2) if m["fair_value"] else None,
         "dcf_fair_value": round(m["dcf_fair_value"], 2) if m["dcf_fair_value"] else None,
@@ -173,6 +178,10 @@ def main():
         "trap_flags": m["trap_flags"],
         **d,
     }
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
 

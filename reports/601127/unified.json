@@ -1,0 +1,89 @@
+{
+  "symbol": "601127",
+  "name": "赛力斯",
+  "verdict": {
+    "value": "观察",
+    "action": "硬指标未过：L1-01、L1-02、L3-01",
+    "rating": "D",
+    "score": 58,
+    "source": "lcai",
+    "max_weight": "0%"
+  },
+  "executive": "赛力斯：LCAI 判定「观察」——硬指标未过：L1-01、L1-02、L3-01 硬指标 Fail：L1-01、L1-02、L3-01。 买卖结论以 LCAI 规则为准。",
+  "valuation": {
+    "lcai_fair_value": 73.6,
+    "lcai_margin_pct": -1.9,
+    "dcf_fair_value": 57.75,
+    "dcf_margin_pct": -29.9,
+    "uzi_dcf_fair_value": null,
+    "uzi_dcf_margin_pct": null,
+    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 73.6 元，安全边际 -1.9%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 57.75 元，DCF 安全边际 -29.9%。\n现价 75.01 元。\nLCAI PE×EPS -1.9% vs DCF -29.9%。"
+  },
+  "layers": [
+    {
+      "layer": "L0",
+      "title": "L0 门禁",
+      "lcai_status": "通过",
+      "lcai_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。",
+      "uzi_insight": null,
+      "merged_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。"
+    },
+    {
+      "layer": "L1",
+      "title": "L1 生意",
+      "lcai_status": "有缺口",
+      "lcai_summary": "ROE 均值 -4.79% 未达 15%；5 年盈利年数不足",
+      "uzi_insight": null,
+      "merged_summary": "ROE 均值 -4.79% 未达 15%；5 年盈利年数不足"
+    },
+    {
+      "layer": "L2",
+      "title": "L2 财务",
+      "lcai_status": "通过",
+      "lcai_summary": "OCF/EPS 约 4.15",
+      "uzi_insight": null,
+      "merged_summary": "OCF/EPS 约 4.15"
+    },
+    {
+      "layer": "L3",
+      "title": "L3 估值",
+      "lcai_status": "有缺口",
+      "lcai_summary": "安全边际 -1.9% 未达 25%；公允价约 73.6 元；DCF 公允 57.75 元（边际 -29.9%）",
+      "uzi_insight": null,
+      "merged_summary": "安全边际 -1.9% 未达 25%；公允价约 73.6 元；DCF 公允 57.75 元（边际 -29.9%）"
+    },
+    {
+      "layer": "L4",
+      "title": "L4 执行",
+      "lcai_status": "通过",
+      "lcai_summary": "能力圈与心理纪律需用户在网页勾选确认。",
+      "uzi_insight": null,
+      "merged_summary": "能力圈与心理纪律需用户在网页勾选确认。"
+    },
+    {
+      "layer": "L5",
+      "title": "L5 行业",
+      "lcai_status": "通过",
+      "lcai_summary": "行业：乘用车",
+      "uzi_insight": null,
+      "merged_summary": "行业：乘用车"
+    }
+  ],
+  "strengths": [],
+  "weaknesses": [
+    "LCAI: ROE 均值 -4.79% 未达 15%",
+    "LCAI: 安全边际 -1.9% 未达 25%",
+    "LCAI: 硬指标 Fail L1-01",
+    "LCAI: 硬指标 Fail L1-02",
+    "LCAI: 硬指标 Fail L3-01"
+  ],
+  "divergences": [],
+  "uzi": {
+    "tone": null,
+    "consensus": null,
+    "report_url": "reports/601127/index.html",
+    "ready": false
+  },
+  "generated_at": "2026-06-06T23:49:56+08:00",
+  "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
+}

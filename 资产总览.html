@@ -733,15 +733,7 @@
     .screen-layer-card .layer-status.danger { color: var(--danger); }
     .screen-layer-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
     .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
-    .dual-track-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 8px;
-    }
-    .dual-track-col {
-      background: var(--bg); border-radius: 8px; padding: 10px 12px; font-size: 0.84rem;
-    }
-    .dual-track-col h4 { font-size: 0.78rem; color: var(--muted); margin: 0 0 6px; }
-    .dual-track-col .dt-val { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
-    .dual-track-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+    .unified-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
     .uzi-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
     .cloud-status {
       margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; line-height: 1.5;
@@ -770,7 +762,6 @@
 
     @media (max-width: 768px) {
       .screen-analysis-cols { grid-template-columns: 1fr; }
-      .dual-track-grid { grid-template-columns: 1fr; }
     }
 
     @media (max-width: 640px) {
@@ -1814,24 +1805,18 @@
             <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
           </div>
           <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
+          <p id="unified-disclaimer" class="uzi-disclaimer" hidden>买卖结论以 LCAI 规则为准；UZI 价值派材料已并入下方解读。</p>
 
           <div id="report-cta" class="report-cta" hidden>
             <div id="report-cta-text"></div>
-            <div class="dual-track-actions">
-              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并生成完整报告</button>
-              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden>打开完整报告</button>
+            <div class="unified-actions">
+              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并补全深度分析</button>
+              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden>查看 UZI 完整 HTML</button>
             </div>
           </div>
 
-          <div id="dual-track-panel" class="screen-analysis-block" hidden>
-            <h3>双轨对比（LCAI 裁决 × UZI 参考）</h3>
-            <div id="dual-track-content" class="dual-track-grid"></div>
-            <div class="dual-track-actions">
-              <button type="button" class="screen-btn screen-btn-ghost" id="btn-deep-report" hidden>深度研报 (UZI)</button>
-              <span id="dual-track-meta" style="font-size:0.75rem;color:var(--muted)"></span>
-            </div>
-            <p class="uzi-disclaimer">带 ☁️ 的票每周一自动更新完整报告。买卖结论以本页「帮我看看」为准。</p>
-          </div>
+          <div id="unified-divergences" class="screen-analysis-block" hidden></div>
+          <div id="unified-uzi-footer" class="screen-analysis-block" hidden></div>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
 
@@ -1855,7 +1840,7 @@
           <div id="layer-scores"></div>
 
           <div class="screen-analysis-block">
-            <h3>分层解读</h3>
+            <h3>综合研判 · 分层解读</h3>
             <div id="analysis-layer-cards"></div>
           </div>
         </div>
@@ -1880,7 +1865,7 @@
         </div>
       </div>
 
-      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。收藏的股票每周自动更新报告。</p>
+      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。一份综合研判：LCAI 裁决 + UZI 深度材料（可选）。</p>
     </div>
 
     <footer>生成日期：2026-06-06 · 执行 + 还款 + 现金流 + 投资规划 + 诊断 + 持仓 + 选股</footer>
@@ -2788,6 +2773,7 @@
   <script src="screen-engine.js"></script>
   <script src="screen-watchlist.js"></script>
   <script src="screen-cloud.js"></script>
+  <script src="screen-unified.js"></script>
   <script src="screen-ui.js"></script>
   <script>
     if (location.hash === "#screen") {

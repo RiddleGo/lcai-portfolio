@@ -1,15 +1,33 @@
-# LCAI × UZI 对照说明
+# LCAI × UZI 融合说明
 
-> LCAI 裁决优先；UZI 提供多维度研报与价值派第二意见。详见 [AGENTS.md](../AGENTS.md)。
+> **网页已合并为一份「综合研判」**：买卖仍只认 LCAI；UZI 价值派材料写入各层解读。详见 [AGENTS.md](../AGENTS.md)。
 
 ## 定位
 
 | | LCAI | UZI-Skill |
 |--|------|-----------|
-| 角色 | 个人投资宪法 + 资产总览 | 研究助理 + HTML 研报 |
-| 规则 | 25+ 条（criteria.json） | 236 条 × 65 评委 |
-| 判定 | 买入/观察/持有/减仓/卖出/排除 | 值得重仓/可以蹲/观望/回避 |
-| 深度 | 浏览器秒级 | lite 1min / medium 5–8min |
+| 角色 | 个人投资宪法 + 资产总览 | 研究助理，材料并入综合研判 |
+| 规则 | 25+ 条（criteria.json） | 236 条 × 65 评委（锁 A,E） |
+| 判定 | 买入/观察/持有/减仓/卖出/排除 | 定调/共识 → **不覆盖** LCAI 裁决 |
+| 深度 | 浏览器秒级 | Issue 触发 lite，约 5–10 分钟 |
+
+## 何时只跑 LCAI / 何时补 UZI
+
+| 场景 | 操作 |
+|------|------|
+| 日常快速筛 | **帮我看看**（秒出，已有 unified 则自动 enrich） |
+| 观察池反复看 | **我的关注** 点一下 |
+| 建仓前 / 要 DCF+排雷厚材料 | **⭐ 收藏并补全深度分析**（Issue 一次） |
+| 每周 | Actions 刷新 LCAI + `unified.json`（UZI 深度需 Issue 或 `--run-uzi`） |
+
+## 融合报告结构（`reports/{code}/unified.json`）
+
+| 字段 | 来源 |
+|------|------|
+| `verdict` | **仅 LCAI** |
+| `executive` / `valuation` / `layers` | LCAI 为主 + UZI 并入 |
+| `divergences` | 两边不一致时显式列出 |
+| `uzi.ready` | 是否已跑 UZI lite |
 
 ## 规则对照
 
@@ -53,12 +71,12 @@
 - **UZI DCF**：完整 WACC 拆解 + 敏感性表
 - **解读**：三者方向一致即可；数值差 10–20% 正常
 
-## 双轨输出模板
+## 综合研判输出模板
 
 ```
-LCAI：观察 · 硬指标 Fail L3-01 · 评级 B · 上限 10%
-UZI（A,E）：可以蹲一蹲 · 共识 57 · DCF 公允 XXX
-分歧：安全边际 22.5% vs DCF -28% — 均未达建仓线
+【最终】LCAI：观察 · Fail L3-01 · 评级 D · 上限 0%
+【并入】UZI（A,E）：可以蹲一蹲 · 共识 57 · DCF 公允 XXX
+分歧：LCAI 未达 25% 边际；UZI 亦偏贵 — 均建议观察
 行动：观察池，触发价 = 公允 × 0.75
 ```
 
@@ -66,7 +84,8 @@ UZI（A,E）：可以蹲一蹲 · 共识 57 · DCF 公允 XXX
 
 ```bash
 bash scripts/run_dual_analysis.sh 600519
+python scripts/generate_uzi_reports.py --symbol 600519 --skip-uzi
 python scripts/lcai_screen_json.py 600519
-# 网页：资产总览.html#screen
-# 缓存报告：reports/600519/lcai-vs-uzi.json
+# 网页：资产总览.html#screen → 综合研判
+# 缓存：reports/600519/unified.json（兼容 lcai-vs-uzi.json）
 ```

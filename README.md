@@ -21,24 +21,24 @@ Personal investment portfolio dashboard with value-investing stock screener.
 ```bash
 python 投资系统/engine/screen_stock.py 600519
 python scripts/lcai_screen_json.py 600519          # 完整 JSON
-bash scripts/run_dual_analysis.sh 600519           # LCAI + UZI 双轨（需 clone UZI）
+bash scripts/run_dual_analysis.sh 600519           # 本地 CLI 融合（需 clone UZI）
 ```
 
 ## 怎么用（给完全不懂技术的人）
 
 1. 打开 [资产总览 → 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
-2. 输入代码，点 **「帮我看看」** → 几秒出结论
-3. 想每周自动更新完整报告 → 点 **「⭐ 收藏并生成完整报告」** → 新页面点一下绿色 Submit → 回来等着
-4. 以后在 **「我的关注」** 里点一下就能再看；**每周一自动更新**，不用重复操作
+2. 输入代码，点 **「帮我看看」** → 几秒出 **综合研判**（买卖结论以 LCAI 为准）
+3. 需要更厚的价值派深度 → 点 **「⭐ 收藏并补全深度分析」** → 新页面点绿色 Submit → 回来等着
+4. 以后在 **「我的关注」** 里点一下；**每周一** 自动更新 LCAI 部分
 
 ## 网页触发（无需 PAT）
 
 | 你想干什么 | 点哪个 |
 |------------|--------|
 | 看能不能买 | **帮我看看** |
-| 第一次要完整报告 | **⭐ 收藏并生成完整报告**（每只票只需一次） |
-| 以后再来看 | **我的关注** 里点一下 |
+| 补 UZI 深度材料 | **⭐ 收藏并补全深度分析**（每只票 Issue 一次） |
+| 以后再来看 | **我的关注** |
 
 ## 部署
 
-GitHub Pages 托管于 `main` 分支根目录。行情由 Actions 工作日自动更新 `quotes-data.js`；研报由 `uzi-reports.yml` 每周更新 `reports/`。
+GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports/*/unified.json` 每周由 Actions 刷新。

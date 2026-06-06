@@ -1,0 +1,95 @@
+{
+  "symbol": "002851",
+  "name": "麦格米特",
+  "verdict": {
+    "value": "排除",
+    "action": "不建议投资",
+    "rating": "D",
+    "score": 35,
+    "source": "lcai",
+    "max_weight": "0%"
+  },
+  "executive": "麦格米特：LCAI 判定「排除」——不建议投资 硬指标 Fail：L1-01、L2-01、L3-01、L3-02。 否决项：L0-05、L2-04、L3-05。 分歧：LCAI 否决：L0-05、L2-04、L3-05。 买卖结论以 LCAI 规则为准。",
+  "valuation": {
+    "lcai_fair_value": 5.35,
+    "lcai_margin_pct": -2636.3,
+    "dcf_fair_value": 4.4,
+    "dcf_margin_pct": -3226.6,
+    "uzi_dcf_fair_value": null,
+    "uzi_dcf_margin_pct": null,
+    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 5.35 元，安全边际 -2636.3%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 4.4 元，DCF 安全边际 -3226.6%。\n现价 146.5 元。\nLCAI PE×EPS -2636.3% vs DCF -3226.6%。"
+  },
+  "layers": [
+    {
+      "layer": "L0",
+      "title": "L0 门禁",
+      "lcai_status": "未通过",
+      "lcai_summary": "造假嫌疑（OCF/利润背离）",
+      "uzi_insight": null,
+      "merged_summary": "造假嫌疑（OCF/利润背离）"
+    },
+    {
+      "layer": "L1",
+      "title": "L1 生意",
+      "lcai_status": "有缺口",
+      "lcai_summary": "ROE 均值 10.72% 未达 15%",
+      "uzi_insight": null,
+      "merged_summary": "ROE 均值 10.72% 未达 15%"
+    },
+    {
+      "layer": "L2",
+      "title": "L2 财务",
+      "lcai_status": "有缺口",
+      "lcai_summary": "现金流质量 OCF/EPS -0.06 未达 0.8",
+      "uzi_insight": null,
+      "merged_summary": "现金流质量 OCF/EPS -0.06 未达 0.8"
+    },
+    {
+      "layer": "L3",
+      "title": "L3 估值",
+      "lcai_status": "有缺口",
+      "lcai_summary": "安全边际 -2636.3% 未达 25%；PE 547.25 超行业上限；公允价约 5.35 元；DCF 公允 4.4 元（边际 -3226.6%）",
+      "uzi_insight": null,
+      "merged_summary": "安全边际 -2636.3% 未达 25%；PE 547.25 超行业上限；公允价约 5.35 元；DCF 公允 4.4 元（边际 -3226.6%）"
+    },
+    {
+      "layer": "L4",
+      "title": "L4 执行",
+      "lcai_status": "通过",
+      "lcai_summary": "能力圈与心理纪律需用户在网页勾选确认。",
+      "uzi_insight": null,
+      "merged_summary": "能力圈与心理纪律需用户在网页勾选确认。"
+    },
+    {
+      "layer": "L5",
+      "title": "L5 行业",
+      "lcai_status": "通过",
+      "lcai_summary": "行业：其他电源设备Ⅱ",
+      "uzi_insight": null,
+      "merged_summary": "行业：其他电源设备Ⅱ"
+    }
+  ],
+  "strengths": [],
+  "weaknesses": [
+    "LCAI: ROE 均值 10.72% 未达 15%",
+    "LCAI: 安全边际 -2636.3% 未达 25%",
+    "LCAI: 否决 L0-05",
+    "LCAI: 否决 L2-04",
+    "LCAI: 否决 L3-05",
+    "LCAI: 硬指标 Fail L1-01",
+    "LCAI: 硬指标 Fail L2-01",
+    "LCAI: 硬指标 Fail L3-01",
+    "LCAI: 硬指标 Fail L3-02"
+  ],
+  "divergences": [
+    "LCAI 否决：L0-05、L2-04、L3-05"
+  ],
+  "uzi": {
+    "tone": null,
+    "consensus": null,
+    "report_url": "reports/002851/index.html",
+    "ready": false
+  },
+  "generated_at": "2026-06-06T23:49:28+08:00",
+  "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
+}

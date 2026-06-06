@@ -1,24 +1,28 @@
 {
   "source": "lcai",
   "symbol": "601127",
-  "name": "����˹",
+  "name": "赛力斯",
   "price": 75.01,
-  "pe": 43.3,
+  "pe": 20.38,
   "roe_avg": -4.79,
+  "profit_years": 2,
+  "ocf_ratio": 4.15,
+  "industry": "乘用车",
+  "is_st": false,
+  "trap_suspect": false,
   "margin_of_safety_pct": -1.9,
   "fair_value": 73.6,
   "dcf_fair_value": 57.75,
   "dcf_margin_of_safety_pct": -29.9,
   "trap_flags": [],
-  "verdict": "�۲�",
-  "verdict_action": "Ӳָ��δ����L1-01��L1-02��L3-01��L3-02",
+  "verdict": "观察",
+  "verdict_action": "硬指标未过：L1-01、L1-02、L3-01",
   "overall_score": 58,
   "rating": "D",
   "hard_failures": [
     "L1-01",
     "L1-02",
-    "L3-01",
-    "L3-02"
+    "L3-01"
   ],
   "vetoes_triggered": []
 }

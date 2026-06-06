@@ -1,8 +1,8 @@
 {
   "symbol": "601127",
-  "name": "����˹",
-  "lcai_verdict": "�۲�",
-  "lcai_verdict_action": "Ӳָ��δ����L1-01��L1-02��L3-01��L3-02",
+  "name": "赛力斯",
+  "lcai_verdict": "观察",
+  "lcai_verdict_action": "硬指标未过：L1-01、L1-02、L3-01",
   "lcai_rating": "D",
   "lcai_score": 58,
   "lcai_margin_pct": -1.9,
@@ -15,6 +15,6 @@
   "divergences": [],
   "trap_flags": [],
   "report_url": "reports/601127/index.html",
-  "generated_at": "2026-06-06T21:50:34+08:00",
+  "generated_at": "2026-06-06T23:49:56+08:00",
   "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
 }

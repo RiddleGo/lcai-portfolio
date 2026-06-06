@@ -66,10 +66,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --body "✅ 研报已生成并推送至 \`reports/${{ steps.parse.outputs.symbol }}/\`
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ 综合研判已生成并推送至 \`reports/${{ steps.parse.outputs.symbol }}/\`
 
-          - 摘要：[lcai-vs-uzi.json](https://github.com/${{ github.repository }}/blob/main/reports/${{ steps.parse.outputs.symbol }}/lcai-vs-uzi.json)
+          - 融合报告：[unified.json](https://github.com/${{ github.repository }}/blob/main/reports/${{ steps.parse.outputs.symbol }}/unified.json)
           - 网页：[资产总览 · 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
 
-          本页轮询会自动更新；也可刷新后重新研判。"
+          本页轮询会自动补全深度分析；也可刷新后重新点「帮我看看」。"
           gh issue close "${{ github.event.issue.number }}"

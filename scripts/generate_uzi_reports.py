@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BJ = timezone(timedelta(hours=8))
+sys.path.insert(0, str(ROOT / "scripts"))
 
 
 def normalize_symbol(raw: str) -> str:
@@ -66,29 +67,46 @@ def find_uzi_synthesis(uzi_path: Path, symbol: str) -> dict | None:
     if not cache.exists():
         return None
     sym = symbol.lower()
+
+    def enrich_from_raw(data: dict, ticker: str) -> dict:
+        consensus = data.get("consensus") or data.get("summary") or {}
+        dcf = data.get("dcf") if isinstance(data.get("dcf"), dict) else {}
+        return {
+            "ticker": data.get("ticker") or ticker,
+            "tone": data.get("tone") or data.get("verdict") or data.get("core_conclusion")
+            or consensus.get("tone") or consensus.get("verdict"),
+            "overall_score": data.get("overall_score") or consensus.get("overall") or consensus.get("score"),
+            "fund_score": data.get("fund_score") or data.get("fundamental_score"),
+            "cash_score": data.get("cash_score") or data.get("cashflow_score"),
+            "dcf_fair_value": data.get("dcf_fair_value") or data.get("intrinsic_value")
+            or dcf.get("fair_value") or dcf.get("intrinsic_value"),
+            "dcf_margin_pct": data.get("dcf_margin_pct") or dcf.get("margin_of_safety_pct"),
+            "risk_flags": data.get("risk_flags") or data.get("risks") or data.get("key_risks"),
+            "trap_flags": data.get("trap_flags") or data.get("trap_notes"),
+            "strengths": data.get("strengths") or data.get("bull_points"),
+            "weaknesses": data.get("weaknesses") or data.get("bear_points"),
+            "consensus_formula": data.get("consensus_formula"),
+        }
+
     candidates = list(cache.glob(f"*{sym}*/synthesis.json"))
     candidates += list(cache.glob(f"*/synthesis.json"))
     for p in sorted(candidates, key=lambda x: x.stat().st_mtime, reverse=True):
         try:
             data = json.loads(p.read_text(encoding="utf-8"))
-            if sym in p.parent.name.lower() or data.get("ticker", "").endswith(sym):
-                return data
+            if sym in p.parent.name.lower() or str(data.get("ticker", "")).lower().endswith(sym):
+                return enrich_from_raw(data, p.parent.name)
         except (json.JSONDecodeError, OSError):
             continue
     panel_dirs = sorted(cache.glob("*"), key=lambda x: x.stat().st_mtime if x.is_dir() else 0, reverse=True)
-    for d in panel_dirs[:5]:
+    for d in panel_dirs[:8]:
         panel = d / "panel.json"
         if not panel.exists():
             continue
         try:
             panel_data = json.loads(panel.read_text(encoding="utf-8"))
-            consensus = panel_data.get("consensus") or panel_data.get("summary") or {}
-            return {
-                "ticker": d.name,
-                "overall_score": consensus.get("overall") or consensus.get("score"),
-                "tone": consensus.get("tone") or consensus.get("verdict"),
-                "consensus_formula": panel_data.get("consensus_formula"),
-            }
+            if sym not in d.name.lower():
+                continue
+            return enrich_from_raw(panel_data, d.name)
         except (json.JSONDecodeError, OSError):
             continue
     return None
@@ -145,12 +163,16 @@ def build_compare(lcai: dict, uzi: dict | None, symbol: str) -> dict:
     }
 
 
-def write_report(symbol: str, lcai: dict, compare: dict, html_src: Path | None) -> Path:
+def write_report(symbol: str, lcai: dict, compare: dict, html_src: Path | None, uzi_data: dict | None = None) -> Path:
+    from build_unified_report import build_unified_report, write_unified_report  # noqa: WPS433
+
     out_dir = ROOT / "reports" / symbol
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "lcai.json").write_text(json.dumps(lcai, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "lcai-vs-uzi.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
     (out_dir / "meta.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
+    unified = build_unified_report(lcai, uzi_data, compare, symbol)
+    write_unified_report(symbol, unified, out_dir)
     if html_src and html_src.exists():
         (out_dir / "index.html").write_bytes(html_src.read_bytes())
     elif not (out_dir / "index.html").exists():
@@ -184,7 +206,7 @@ def process_symbol(symbol: str, uzi_path: Path | None, run_uzi: bool) -> dict:
         uzi_data = find_uzi_synthesis(uzi_path, sym)
         html_src = find_uzi_html(uzi_path, sym)
     compare = build_compare(lcai, uzi_data, sym)
-    write_report(sym, lcai, compare, html_src)
+    write_report(sym, lcai, compare, html_src, uzi_data)
     return compare
 
 

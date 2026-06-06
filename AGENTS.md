@@ -63,24 +63,23 @@ python run.py 600519 --depth lite --no-browser   # 仅 trap 时可: 见 scan-tra
 | 排雷 | `scan-trap` | L0-05 / L0-06 |
 | 估值交叉 | `dcf` | L3-01 / L3-06 |
 
-### Step 4 · 汇总输出（固定结构）
+### Step 4 · 汇总输出（综合研判）
 
 ```markdown
-## LCAI 裁决（最终）
-- 判定 / 动作 / 评级 / 总分
-- 关键 Fail 与否决项
-- 建议仓位
+## 最终结论（LCAI 裁决）
+- 判定 / 动作 / 评级 / 总分 / 仓位上限
 
-## UZI 价值派参考（第二意见）
-- 定调 / 价值派共识分（如有）
-- DCF 内在价值 vs 现价
-- 报告路径：.vendor/UZI-Skill/skills/deep-analysis/scripts/reports/...
+## 综合解读（LCAI + UZI 并入）
+- Executive 摘要
+- 估值：PE×EPS + DCF + UZI DCF 交叉
+- L0–L5 分层 merged_summary
+- 优势 / 风险（带来源 LCAI: / UZI:）
 
-## 分歧点
-- 例：LCAI 安全边际 22% 未达 25%；UZI DCF 显示 -28% 高估 → 均建议等待
+## 分歧点（如有）
+- 例：LCAI 观察 vs UZI 可蹲
 
 ## 建议下一步
-- 观察池 / 财报验证 / 触发价
+- 观察池 / 触发价 / 是否需补 UZI HTML
 ```
 
 ---
@@ -98,8 +97,9 @@ LCAI/
 ├── scripts/
 │   ├── run_dual_analysis.sh
 │   ├── lcai_screen_json.py
-│   └── generate_uzi_reports.py   # CI 批量报告
-├── reports/{symbol}/      # 预生成 UZI 报告 + lcai-vs-uzi.json
+│   ├── generate_uzi_reports.py   # CI 批量报告
+│   └── build_unified_report.py     # LCAI+UZI 融合 unified.json
+├── reports/{symbol}/      # unified.json + lcai-vs-uzi.json
 └── .vendor/UZI-Skill/     # 可选：git clone UZI（不提交）
 ```
 
@@ -123,7 +123,7 @@ Cursor 插件（可选）：`/add-plugin stock-deep-analyzer`
 
 - 浏览器研判：东方财富 + 新浪 fallback（GitHub Pages 可能 CORS 失败）
 - Python/Actions：通常更稳；CI 见 [`.github/workflows/uzi-reports.yml`](.github/workflows/uzi-reports.yml)
-- 预生成报告：[`reports/`](reports/) 目录挂链到网页「深度研报」
+- 预生成报告：[`reports/`](reports/) → 网页读 `unified.json` 综合研判
 
 ---
 

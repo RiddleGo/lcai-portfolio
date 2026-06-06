@@ -1,19 +1,24 @@
 {
   "source": "lcai",
   "symbol": "002851",
-  "name": "�������",
+  "name": "麦格米特",
   "price": 146.5,
-  "pe": 185.74,
+  "pe": 547.25,
   "roe_avg": 10.72,
+  "profit_years": 5,
+  "ocf_ratio": -0.06,
+  "industry": "其他电源设备Ⅱ",
+  "is_st": false,
+  "trap_suspect": false,
   "margin_of_safety_pct": -2636.3,
   "fair_value": 5.35,
   "dcf_fair_value": 4.4,
   "dcf_margin_of_safety_pct": -3226.6,
   "trap_flags": [
-    "���˹�ֵ"
+    "极端估值"
   ],
-  "verdict": "�ų�",
-  "verdict_action": "������Ͷ��",
+  "verdict": "排除",
+  "verdict_action": "不建议投资",
   "overall_score": 35,
   "rating": "D",
   "hard_failures": [

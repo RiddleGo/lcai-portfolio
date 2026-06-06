@@ -1,8 +1,8 @@
 {
   "symbol": "002851",
-  "name": "�������",
-  "lcai_verdict": "�ų�",
-  "lcai_verdict_action": "������Ͷ��",
+  "name": "麦格米特",
+  "lcai_verdict": "排除",
+  "lcai_verdict_action": "不建议投资",
   "lcai_rating": "D",
   "lcai_score": 35,
   "lcai_margin_pct": -2636.3,
@@ -16,9 +16,9 @@
     "LCAI 否决：L0-05、L2-04、L3-05"
   ],
   "trap_flags": [
-    "���˹�ֵ"
+    "极端估值"
   ],
   "report_url": "reports/002851/index.html",
-  "generated_at": "2026-06-06T21:50:32+08:00",
+  "generated_at": "2026-06-06T23:49:28+08:00",
   "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
 }

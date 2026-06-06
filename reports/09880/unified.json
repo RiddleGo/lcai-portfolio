@@ -1,0 +1,83 @@
+{
+  "symbol": "09880",
+  "name": null,
+  "verdict": {
+    "value": null,
+    "action": null,
+    "rating": null,
+    "score": null,
+    "source": "lcai",
+    "max_weight": "0%"
+  },
+  "executive": "09880：LCAI 判定「None」—— 买卖结论以 LCAI 规则为准。",
+  "valuation": {
+    "lcai_fair_value": null,
+    "lcai_margin_pct": null,
+    "dcf_fair_value": null,
+    "dcf_margin_pct": null,
+    "uzi_dcf_fair_value": null,
+    "uzi_dcf_margin_pct": null,
+    "narrative": "暂无估值数据。"
+  },
+  "layers": [
+    {
+      "layer": "L0",
+      "title": "L0 门禁",
+      "lcai_status": "通过",
+      "lcai_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。",
+      "uzi_insight": null,
+      "merged_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。"
+    },
+    {
+      "layer": "L1",
+      "title": "L1 生意",
+      "lcai_status": "通过",
+      "lcai_summary": "生意质量见规则明细。",
+      "uzi_insight": null,
+      "merged_summary": "生意质量见规则明细。"
+    },
+    {
+      "layer": "L2",
+      "title": "L2 财务",
+      "lcai_status": "通过",
+      "lcai_summary": "财务健康见规则明细。",
+      "uzi_insight": null,
+      "merged_summary": "财务健康见规则明细。"
+    },
+    {
+      "layer": "L3",
+      "title": "L3 估值",
+      "lcai_status": "通过",
+      "lcai_summary": "估值见规则明细。",
+      "uzi_insight": null,
+      "merged_summary": "估值见规则明细。"
+    },
+    {
+      "layer": "L4",
+      "title": "L4 执行",
+      "lcai_status": "通过",
+      "lcai_summary": "能力圈与心理纪律需用户在网页勾选确认。",
+      "uzi_insight": null,
+      "merged_summary": "能力圈与心理纪律需用户在网页勾选确认。"
+    },
+    {
+      "layer": "L5",
+      "title": "L5 行业",
+      "lcai_status": "通过",
+      "lcai_summary": "行业适配见规则明细。",
+      "uzi_insight": null,
+      "merged_summary": "行业适配见规则明细。"
+    }
+  ],
+  "strengths": [],
+  "weaknesses": [],
+  "divergences": [],
+  "uzi": {
+    "tone": null,
+    "consensus": null,
+    "report_url": "reports/09880/index.html",
+    "ready": false
+  },
+  "generated_at": "2026-06-06T23:49:45+08:00",
+  "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
+}
