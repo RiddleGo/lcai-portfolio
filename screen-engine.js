@@ -6,7 +6,9 @@ const ScreenEngine = (() => {
 
   async function loadCriteria() {
     if (criteria) return criteria;
-    const resp = await fetch('投资系统/criteria.json');
+    const url = window.lcaiAsset ? lcaiAsset('投资系统/criteria.json') : '投资系统/criteria.json';
+    const resp = await fetch(url);
+    if (!resp.ok) throw new Error(`规则库加载失败 (${resp.status})`);
     criteria = await resp.json();
     window.LCAI_CRITERIA = criteria;
     return criteria;
@@ -676,14 +678,15 @@ const ScreenEngine = (() => {
     await loadCriteria();
     const parsed = ScreenData.parseSymbol(input);
     const code = parsed.display;
-    const lcaiResp = await fetch(`reports/${code}/lcai.json?t=${Date.now()}`);
+    const lcaiUrl = lcaiAsset(`reports/${code}/lcai.json?t=${Date.now()}`);
+    const lcaiResp = await fetch(lcaiUrl);
     if (!lcaiResp.ok) {
       throw new Error('NO_CACHE');
     }
     const lcai = await lcaiResp.json();
     let unified = null;
     try {
-      const uResp = await fetch(`reports/${code}/unified.json?t=${Date.now()}`);
+      const uResp = await fetch(lcaiAsset(`reports/${code}/unified.json?t=${Date.now()}`));
       if (uResp.ok) unified = await uResp.json();
     } catch (_) { /* optional */ }
 

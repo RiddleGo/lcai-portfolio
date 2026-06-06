@@ -38,7 +38,7 @@ const ScreenCloud = (() => {
 
   async function fetchUnified(symbol) {
     const code = normalizeSymbol(symbol);
-    const resp = await fetch(`reports/${code}/unified.json?t=${Date.now()}`);
+    const resp = await fetch(lcaiAsset(`reports/${code}/unified.json?t=${Date.now()}`));
     if (!resp.ok) throw new Error('not ready');
     return resp.json();
   }

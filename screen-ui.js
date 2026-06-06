@@ -148,6 +148,62 @@ const ScreenUI = (() => {
     if (box) box.hidden = true;
   }
 
+  function isStaticHost() {
+    return /\.github\.io$/i.test(location.hostname);
+  }
+
+  function isInputError(err) {
+    const msg = String(err?.message || err || '');
+    return msg.includes('请输入') || msg.includes('代码格式');
+  }
+
+  function friendlyError(err) {
+    const msg = String(err?.message || err || '');
+    if (msg === 'NO_CACHE') {
+      return '这只票还没有缓存研判。请先点「⭐ 收藏并补全深度分析」生成一次；或下载 资产总览.html 到电脑本地打开（可连实时行情）。';
+    }
+    if (/failed to fetch|networkerror|load failed|network/i.test(msg)) {
+      return '数据加载失败。请按 Ctrl+F5 强制刷新页面后再试；若仍失败，请点「收藏并补全深度分析」生成缓存。';
+    }
+    return msg || '未知错误';
+  }
+
+  async function tryCacheReport(input, ctx) {
+    const report = await ScreenEngine.screenFromCache(input, ctx);
+    ScreenCloud?.setStatus?.(
+      report.cacheDate
+        ? `显示每周缓存研判（更新于 ${report.cacheDate}，非实时）。`
+        : '显示每周缓存研判（非实时）。',
+      'warn'
+    );
+    return report;
+  }
+
+  async function resolveReport(input, ctx) {
+    if (isStaticHost()) {
+      try {
+        return await tryCacheReport(input, ctx);
+      } catch (e) {
+        if (e.message !== 'NO_CACHE') throw e;
+        try {
+          return await ScreenEngine.screen(input, ctx);
+        } catch (_) { /* live blocked on Pages */ }
+        throw e;
+      }
+    }
+    try {
+      return await ScreenEngine.screen(input, ctx);
+    } catch (liveErr) {
+      if (isInputError(liveErr)) throw liveErr;
+      try {
+        return await tryCacheReport(input, ctx);
+      } catch (cacheErr) {
+        if (cacheErr.message === 'NO_CACHE') throw cacheErr;
+        throw liveErr;
+      }
+    }
+  }
+
   async function run() {
     clearError();
     const input = el('symbol-input').value.trim();
@@ -159,31 +215,10 @@ const ScreenUI = (() => {
     try {
       const competence = el('chk-competence').checked;
       const psychology = el('chk-psychology').checked;
-      let report;
-      try {
-        report = await ScreenEngine.screen(input, { competence, psychology });
-      } catch (liveErr) {
-        if (ScreenEngine.isLiveFetchError?.(liveErr)) {
-          report = await ScreenEngine.screenFromCache(input, { competence, psychology });
-          ScreenCloud?.setStatus?.(
-            report.cacheDate
-              ? `在线行情被浏览器拦截，已显示缓存研判（更新于 ${report.cacheDate}，非实时）。`
-              : '在线行情被浏览器拦截，已显示缓存研判（非实时）。',
-            'warn'
-          );
-        } else {
-          throw liveErr;
-        }
-      }
+      const report = await resolveReport(input, { competence, psychology });
       renderVerdict(report);
     } catch (e) {
-      if (String(e.message) === 'NO_CACHE') {
-        showError(
-          '在线页无法连接行情服务器，且这只票还没有缓存。请先点「⭐ 收藏并补全深度分析」生成一次；或把 资产总览.html 下载到电脑本地打开。'
-        );
-      } else {
-        showError(e.message || String(e));
-      }
+      showError(friendlyError(e));
       const panel = el('report-panel');
       if (panel) panel.hidden = true;
     } finally {

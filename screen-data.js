@@ -1,6 +1,20 @@
 /**
  * 东方财富数据拉取 + 指标计算
  */
+(function initLcaiBase() {
+  const cur = document.currentScript;
+  if (cur && cur.src) {
+    window.LCAI_BASE = new URL('.', cur.src).pathname;
+  } else {
+    const path = location.pathname;
+    const idx = path.lastIndexOf('/');
+    window.LCAI_BASE = idx >= 0 ? path.slice(0, idx + 1) : '/';
+  }
+  window.lcaiAsset = function lcaiAsset(rel) {
+    return `${window.LCAI_BASE}${String(rel).replace(/^\//, '')}`;
+  };
+})();
+
 const ScreenData = (() => {
   const UA_HEADERS = { Referer: 'https://quote.eastmoney.com/' };
 
