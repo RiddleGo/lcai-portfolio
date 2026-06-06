@@ -603,5 +603,133 @@ const ScreenEngine = (() => {
     return decide(metrics, results, ctx);
   }
 
-  return { loadCriteria, screen };
+  const LAYER_SCORE_MAP = { '通过': 88, '有缺口': 52, '未通过': 15, '偏弱': 42 };
+
+  function buildCachedRules(lcai) {
+    const vetoes = new Set(lcai.vetoes_triggered || []);
+    const fails = new Set(lcai.hard_failures || []);
+    return criteria.rules.map(rule => {
+      const isVeto = vetoes.has(rule.id);
+      const isFail = fails.has(rule.id);
+      const pass = !isVeto && !isFail;
+      return {
+        id: rule.id,
+        layer: rule.layer,
+        type: rule.type,
+        name: rule.name,
+        sources: rule.sources || [],
+        weight: rule.weight || 5,
+        pass,
+        actual: isVeto || isFail ? '见缓存摘要' : 'Pass',
+        threshold: String(rule.threshold ?? '—'),
+        score: pass ? 5 : 0,
+        veto: isVeto,
+        missing: false,
+        note: 'cache',
+        result: isVeto ? 'veto' : pass ? 'pass' : 'fail',
+        reason: isVeto
+          ? `缓存记录：触发否决 ${rule.id}`
+          : isFail
+            ? `缓存记录：硬指标 Fail ${rule.id}`
+            : '缓存记录：通过',
+      };
+    });
+  }
+
+  function buildCachedAnalysis(lcai, unified) {
+    const layers = (unified?.layers || []).map(l => ({
+      layer: l.layer,
+      title: l.title,
+      status: l.lcai_status || '—',
+      summary: l.merged_summary || l.lcai_summary || '',
+      score: LAYER_SCORE_MAP[l.lcai_status] || 60,
+    }));
+    const mos = lcai.margin_of_safety_pct;
+    return {
+      executive: unified?.executive || `${lcai.name}：${lcai.verdict} — ${lcai.verdict_action}`,
+      valuation: {
+        narrative: unified?.valuation?.narrative
+          || (lcai.fair_value != null
+            ? `公允价约 ${lcai.fair_value} 元，安全边际 ${mos != null ? mos + '%' : '—'}（缓存数据）`
+            : ''),
+      },
+      strengths: unified?.strengths || [],
+      weaknesses: unified?.weaknesses || [],
+      watch_points: unified?.divergences || [],
+      decision_path: [
+        { step: 1, title: '缓存模式', ok: lcai.verdict !== '排除', detail: 'GitHub 在线页无法直连行情，以下为每周 Actions 缓存结果，非实时。' },
+        { step: 6, title: '最终判定', ok: !['排除', '卖出'].includes(lcai.verdict), detail: `${lcai.verdict}：${lcai.verdict_action}` },
+      ],
+      layers,
+      key_metrics: [
+        { label: '现价', value: lcai.price != null ? `${lcai.price} 元` : '—' },
+        { label: 'PE', value: lcai.pe != null ? fmt(lcai.pe) : '—' },
+        { label: 'ROE 均值', value: lcai.roe_avg != null ? `${fmt(lcai.roe_avg)}%` : '—' },
+        { label: '安全边际', value: mos != null ? `${mos}%` : '—' },
+        { label: '公允价', value: lcai.fair_value != null ? `${lcai.fair_value} 元` : '—' },
+        { label: 'DCF 公允', value: lcai.dcf_fair_value != null ? `${lcai.dcf_fair_value} 元` : '—' },
+      ],
+    };
+  }
+
+  async function screenFromCache(input, ctx = {}) {
+    await loadCriteria();
+    const parsed = ScreenData.parseSymbol(input);
+    const code = parsed.display;
+    const lcaiResp = await fetch(`reports/${code}/lcai.json?t=${Date.now()}`);
+    if (!lcaiResp.ok) {
+      throw new Error('NO_CACHE');
+    }
+    const lcai = await lcaiResp.json();
+    let unified = null;
+    try {
+      const uResp = await fetch(`reports/${code}/unified.json?t=${Date.now()}`);
+      if (uResp.ok) unified = await uResp.json();
+    } catch (_) { /* optional */ }
+
+    const layerScores = { L0: 100, L1: 70, L2: 70, L3: 70, L4: 80, L5: 70 };
+    if (unified?.layers) {
+      for (const l of unified.layers) {
+        if (l.layer && l.lcai_status) {
+          layerScores[l.layer] = LAYER_SCORE_MAP[l.lcai_status] ?? 60;
+        }
+      }
+    }
+
+    const maxW = unified?.verdict?.max_weight || (lcai.rating === 'A' ? '25%' : lcai.rating === 'B' ? '10%' : '0%');
+    ctx.inPortfolio = ctx.inPortfolio ?? ScreenData.isInPortfolio(parsed.secid);
+
+    return {
+      symbol: lcai.symbol || code,
+      name: lcai.name,
+      market: parsed.market,
+      secid: parsed.secid,
+      verdict: lcai.verdict,
+      verdict_action: lcai.verdict_action,
+      overall_score: lcai.overall_score,
+      rating: lcai.rating,
+      in_portfolio: ctx.inPortfolio,
+      position_hint: {
+        suggested_weight: lcai.verdict === '买入' ? maxW : '0%',
+        max_weight: maxW,
+        reason: lcai.verdict_action,
+      },
+      layer_scores: layerScores,
+      rules: buildCachedRules(lcai),
+      analysis: buildCachedAnalysis(lcai, unified),
+      logic_summary: unified?.executive || '',
+      fromCache: true,
+      cacheDate: unified?.generated_at,
+    };
+  }
+
+  function isLiveFetchError(err) {
+    const msg = String(err?.message || err || '').toLowerCase();
+    return msg.includes('failed to fetch')
+      || msg.includes('network')
+      || msg.includes('请求失败')
+      || msg.includes('未获取到财务');
+  }
+
+  return { loadCriteria, screen, screenFromCache, isLiveFetchError };
 })();

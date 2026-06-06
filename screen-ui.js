@@ -159,10 +159,31 @@ const ScreenUI = (() => {
     try {
       const competence = el('chk-competence').checked;
       const psychology = el('chk-psychology').checked;
-      const report = await ScreenEngine.screen(input, { competence, psychology });
+      let report;
+      try {
+        report = await ScreenEngine.screen(input, { competence, psychology });
+      } catch (liveErr) {
+        if (ScreenEngine.isLiveFetchError?.(liveErr)) {
+          report = await ScreenEngine.screenFromCache(input, { competence, psychology });
+          ScreenCloud?.setStatus?.(
+            report.cacheDate
+              ? `在线行情被浏览器拦截，已显示缓存研判（更新于 ${report.cacheDate}，非实时）。`
+              : '在线行情被浏览器拦截，已显示缓存研判（非实时）。',
+            'warn'
+          );
+        } else {
+          throw liveErr;
+        }
+      }
       renderVerdict(report);
     } catch (e) {
-      showError(e.message || String(e));
+      if (String(e.message) === 'NO_CACHE') {
+        showError(
+          '在线页无法连接行情服务器，且这只票还没有缓存。请先点「⭐ 收藏并补全深度分析」生成一次；或把 资产总览.html 下载到电脑本地打开。'
+        );
+      } else {
+        showError(e.message || String(e));
+      }
       const panel = el('report-panel');
       if (panel) panel.hidden = true;
     } finally {

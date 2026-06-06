@@ -1,0 +1,22 @@
+---
+description: 完成代码改动后自动 commit 并 push 到 origin/main
+alwaysApply: true
+---
+
+# 自动推送到 GitHub
+
+用户要求：**有改动就自动推送到库上**（`RiddleGo/lcai-portfolio`，分支 `main`）。
+
+## 完成改动后
+
+1. 检查 `git status` / `git diff`，只提交与本次任务相关的文件。
+2. 不要提交可能含密钥的文件（`.env`、凭证等）。
+3. 不要提交用户未涉及的无关本地文件（如个人 `书籍/`、临时脚本），除非用户明确要求。
+4. 用简洁的中文或英文 commit message，说明「为什么」。
+5. 提交后立即 `git push origin main`（或当前分支），无需再向用户确认是否推送。
+6. 推送完成后告知用户 commit hash 与线上生效说明（GitHub Pages 约 1–2 分钟）。
+
+## 例外
+
+- 用户明确说「先别推」「只改本地」时，不推送。
+- 推送失败时：说明原因，保留本地 commit，请用户处理权限或网络后再试。
