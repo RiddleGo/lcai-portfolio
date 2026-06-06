@@ -1,10 +1,8 @@
 /**
- * 关注与深度分析：云端关注每周自动跑；新票首次收藏需一次 Issue 入队
+ * 关注与深度分析：Issue 触发 + 每周 Actions 自动更新
  */
 const ScreenCloud = (() => {
   const REPO = 'RiddleGo/lcai-portfolio';
-  const ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/uzi-reports.yml`;
-  const WORKER_CFG_KEY = 'lcai-worker-cfg-v1';
   const POLL_MS = 15000;
   const POLL_MAX = 48;
 
@@ -38,56 +36,7 @@ const ScreenCloud = (() => {
     return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
 
-  function loadWorkerCfg() {
-    try {
-      return JSON.parse(localStorage.getItem(WORKER_CFG_KEY) || '{}');
-    } catch {
-      return {};
-    }
-  }
-
-  function saveWorkerCfg(url, key) {
-    localStorage.setItem(WORKER_CFG_KEY, JSON.stringify({ url: String(url || '').trim(), key: String(key || '').trim() }));
-  }
-
-  function hasWorkerCfg() {
-    const cfg = loadWorkerCfg();
-    return !!(cfg.url && cfg.key);
-  }
-
-  async function dispatchViaWorker(symbol, mode = 'single') {
-    const cfg = loadWorkerCfg();
-    if (!cfg.url || !cfg.key) return false;
-    const resp = await fetch(cfg.url.replace(/\/$/, ''), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        symbol: symbol || '',
-        mode: mode === 'weekly' ? 'weekly' : 'single',
-        run_uzi: 'true',
-        key: cfg.key,
-      }),
-    });
-    let data = {};
-    try {
-      data = await resp.json();
-    } catch (_) { /* ignore */ }
-    if (!resp.ok) {
-      throw new Error(data.error || resp.statusText || 'Worker 请求失败');
-    }
-    return true;
-  }
-
-  async function requestWeeklyRefresh() {
-    if (hasWorkerCfg()) {
-      try {
-        await dispatchViaWorker('', 'weekly');
-        setStatus('已通过 Worker 触发 Actions 全量更新，约 30–60 分钟。完成后刷新本页即可。', 'pending');
-        return;
-      } catch (e) {
-        setStatus(`Worker 失败（${e.message}），改用 Issue 方式…`, 'warn');
-      }
-    }
+  function requestWeeklyRefresh() {
     window.open(weeklyRefreshUrl(), '_blank', 'noopener');
     setStatus('第 1 步：请在新页面点绿色 Submit。第 2 步：约 30–60 分钟后刷新本页，完整 HTML 按钮会变可点。', 'pending');
   }
@@ -150,24 +99,11 @@ const ScreenCloud = (() => {
     }
   }
 
-  function needsCloudEnqueue(code, data) {
-    return !ScreenWatchlist?.isInCloud?.(code) && !hasUnifiedDepth(data);
-  }
-
   async function fetchUnified(symbol) {
     const code = normalizeSymbol(symbol);
     const resp = await fetch(lcaiAsset(`reports/${code}/unified.json?t=${Date.now()}`));
     if (!resp.ok) throw new Error('not ready');
     return resp.json();
-  }
-
-  async function hasFullReport(symbol) {
-    try {
-      const data = await fetchUnified(symbol);
-      return hasUnifiedDepth(data);
-    } catch {
-      return false;
-    }
   }
 
   function stopPolling() {
@@ -247,7 +183,7 @@ const ScreenCloud = (() => {
     } else if (text) {
       text.innerHTML = `
         <p class="cta-title">📄 新票还没有云端缓存</p>
-        <p class="cta-steps">点「收藏并加入云端队列」→ 新页面点绿色 <strong>Submit</strong>（<strong>仅首次</strong>）→ 回到本页等着（约 5–10 分钟）。<br>之后每周一自动更新，不用再开 Issue。</p>`;
+        <p class="cta-steps">点「收藏并加入云端队列」→ 新页面点绿色 <strong>Submit</strong>（<strong>仅首次</strong>）→ 回到本页等着（约 5–10 分钟）。<br>之后每周一自动更新。</p>`;
     }
 
     syncFullReportButton(code, data);
@@ -277,17 +213,6 @@ const ScreenCloud = (() => {
         setStatus('已在云端关注列表。完整深度分析生成中或排队中，完成后按钮可点。', 'warn');
       }
       return;
-    }
-
-    if (hasWorkerCfg()) {
-      try {
-        await dispatchViaWorker(sym, 'single');
-        setStatus(`已通过 Worker 触发 ${sym} 深度分析，约 5–10 分钟。本页会自动等待。`, 'pending');
-        startPolling(sym, baselineTime);
-        return;
-      } catch (e) {
-        setStatus(`Worker 失败（${e.message}），改用 Issue…`, 'warn');
-      }
     }
 
     window.open(issueNewUrl(sym), '_blank', 'noopener');
@@ -320,19 +245,6 @@ const ScreenCloud = (() => {
       requestFullReport(sym, name);
     });
     el('btn-weekly-refresh')?.addEventListener('click', requestWeeklyRefresh);
-    el('btn-save-worker')?.addEventListener('click', () => {
-      const url = el('worker-url')?.value?.trim();
-      const key = el('worker-key')?.value?.trim();
-      if (!url || !key) {
-        setStatus('请填写 Worker 地址和触发密钥', 'warn');
-        return;
-      }
-      saveWorkerCfg(url, key);
-      setStatus('Worker 配置已保存（仅本机）。现在可一键触发，无需 Issue Submit。', 'ok');
-    });
-    const cfg = loadWorkerCfg();
-    if (cfg.url && el('worker-url')) el('worker-url').value = cfg.url;
-    if (cfg.key && el('worker-key')) el('worker-key').value = cfg.key;
   }
 
   return {
@@ -340,15 +252,10 @@ const ScreenCloud = (() => {
     requestFullReport,
     requestWeeklyRefresh,
     checkAndShowCta,
-    hasFullReport,
     normalizeSymbol,
     setLiveReport,
     fetchUnified,
-    actionsUrl: ACTIONS_URL,
-    needsCloudEnqueue,
     isFullDepthReady,
     hasUnifiedDepth,
-    saveWorkerCfg,
-    hasWorkerCfg,
   };
 })();
