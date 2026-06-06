@@ -24,14 +24,13 @@ python scripts/lcai_screen_json.py 600519          # 完整 JSON
 bash scripts/run_dual_analysis.sh 600519           # LCAI + UZI 双轨（需 clone UZI）
 ```
 
-## UZI-Skill 结合
+## 网页触发（无需命令行）
 
-- Agent 指令：[`AGENTS.md`](AGENTS.md)
-- 对照说明：[`投资系统/08-UZI对照说明.md`](投资系统/08-UZI对照说明.md)
-- 缓存研报：[`reports/`](reports/)（CI 每周为持仓生成 `lcai-vs-uzi.json`）
-- UZI 安装：`git clone https://github.com/wbh604/UZI-Skill.git .vendor/UZI-Skill`
-
-**原则**：LCAI `criteria.json` 为最终裁决；UZI 价值派（school A,E）为第二意见。
+| 操作 | 方式 |
+|------|------|
+| **LCAI 研判** | 选股 Tab → 输入代码 → **研判**（浏览器即时） |
+| **UZI 深度研报** | 同一页 → **云端研报** → 自动打开 GitHub Actions 并轮询；配置 Worker 后可一键触发 |
+| Worker 部署 | 见 [`workers/README.md`](workers/README.md) |
 
 ## 部署
 

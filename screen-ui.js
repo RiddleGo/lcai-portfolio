@@ -65,17 +65,46 @@ const ScreenUI = (() => {
     if (meta) meta.textContent = data.generated_at ? `缓存于 ${data.generated_at}` : '';
   }
 
-  async function loadDualTrack(symbol) {
-    const sym = String(symbol || '').replace(/\D/g, '');
-    const code = sym.length === 5 ? sym.padStart(5, '0') : sym.slice(-6).padStart(6, '0');
+  async function loadDualTrack(symbol, liveReport) {
+    const code = ScreenCloud?.normalizeSymbol?.(symbol) || normalizeSymbolLocal(symbol);
+    let cached = null;
     try {
       const resp = await fetch(`reports/${code}/lcai-vs-uzi.json?t=${Date.now()}`);
-      if (!resp.ok) throw new Error('no cache');
-      renderDualTrack(await resp.json());
-    } catch (_) {
-      const panel = el('dual-track-panel');
-      if (panel) panel.hidden = true;
+      if (resp.ok) cached = await resp.json();
+    } catch (_) { /* no cache */ }
+
+    if (cached) {
+      renderDualTrack(cached);
+      return;
     }
+    if (liveReport) {
+      renderDualTrack({
+        symbol: liveReport.symbol,
+        name: liveReport.name,
+        lcai_verdict: liveReport.verdict,
+        lcai_verdict_action: liveReport.verdict_action,
+        lcai_rating: liveReport.rating,
+        lcai_score: liveReport.overall_score,
+        lcai_margin_pct: liveReport.metrics?.marginOfSafety != null
+          ? Math.round(liveReport.metrics.marginOfSafety * 1000) / 10
+          : null,
+        uzi_tone: null,
+        uzi_value_consensus: null,
+        dcf_fair_value: liveReport.metrics?.dcfFairValue,
+        margin_gap: null,
+        divergences: ['UZI 深度报告未生成 — 点上方「云端研报」触发'],
+        report_url: `reports/${code}/index.html`,
+      });
+      return;
+    }
+    const panel = el('dual-track-panel');
+    if (panel) panel.hidden = true;
+  }
+
+  function normalizeSymbolLocal(symbol) {
+    const sym = String(symbol || '').replace(/\D/g, '');
+    if (sym.length === 5) return sym.padStart(5, '0');
+    return sym.slice(-6).padStart(6, '0');
   }
 
   function renderAnalysis(report) {
@@ -142,7 +171,7 @@ const ScreenUI = (() => {
       `建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）· ${report.position_hint.reason}`;
 
     renderAnalysis(report);
-    loadDualTrack(report.symbol);
+    loadDualTrack(report.symbol, report);
 
     const layers = el('layer-scores');
     layers.innerHTML = '';
@@ -241,9 +270,10 @@ const ScreenUI = (() => {
     window._screenInited = true;
   }
 
-  return { init, renderVerdict, run };
+  return { init, renderVerdict, run, renderDualTrack };
 })();
 
 if (document.getElementById('btn-screen')) {
   ScreenUI.init();
+  ScreenCloud?.init?.();
 }

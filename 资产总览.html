@@ -743,6 +743,18 @@
     .dual-track-col .dt-val { font-weight: 600; font-size: 1rem; margin-bottom: 4px; }
     .dual-track-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
     .uzi-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+    .cloud-status {
+      margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; line-height: 1.5;
+      background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.35); color: #93c5fd;
+    }
+    .cloud-status[data-type="ok"] { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); color: var(--ok); }
+    .cloud-status[data-type="warn"] { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: var(--warn); }
+    .cloud-settings { margin-top: 10px; font-size: 0.82rem; }
+    .cloud-settings summary { cursor: pointer; color: var(--muted); }
+    .cloud-settings input[type=text] {
+      width: 100%; max-width: 420px; margin-top: 6px; padding: 7px 10px;
+      border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text);
+    }
 
     @media (max-width: 768px) {
       .screen-analysis-cols { grid-template-columns: 1fr; }
@@ -1755,11 +1767,21 @@
         <div class="screen-input-row">
           <input type="text" id="symbol-input" placeholder="A股 600519 / 港股 00700" value="">
           <button type="button" class="screen-btn" id="btn-screen">研判</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-cloud-report" title="触发 GitHub Actions 生成 UZI 深度研报">云端研报</button>
         </div>
         <div class="screen-chk-row">
           <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
           <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
         </div>
+        <details class="cloud-settings">
+          <summary>云端研报设置（可选 · 一键触发需部署 Worker）</summary>
+          <p style="color:var(--muted);margin:8px 0 4px;line-height:1.5">LCAI 研判在浏览器即时完成。UZI 深度报告需在 GitHub 云端生成（约 3–10 分钟）。配置 Worker 后可网页一键触发；否则点「云端研报」会打开 Actions 并自动轮询。</p>
+          <label>Worker URL <input type="text" id="cloud-trigger-url" placeholder="https://xxx.workers.dev"></label>
+          <label style="display:block;margin-top:6px">触发密钥 <input type="text" id="cloud-trigger-key" placeholder="与 Worker TRIGGER_KEY 一致"></label>
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-save-cloud-config" style="margin-top:8px">保存设置</button>
+          <span style="margin-left:8px;font-size:0.75rem;color:var(--muted)">部署说明见 <code>workers/README.md</code></span>
+        </details>
+        <div id="cloud-status" class="cloud-status" hidden></div>
         <div id="screen-error" class="screen-error" hidden></div>
         <p id="screen-loading" class="screen-loading" hidden>正在拉取数据并计算…</p>
       </div>
@@ -1788,7 +1810,7 @@
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-deep-report" hidden>深度研报 (UZI)</button>
               <span id="dual-track-meta" style="font-size:0.75rem;color:var(--muted)"></span>
             </div>
-            <p class="uzi-disclaimer">UZI 报告为价值派研究参考（school A,E）；<strong>买卖以 LCAI 投资宪法为准</strong>。本地生成：<code style="font-size:0.72rem">bash scripts/run_dual_analysis.sh</code></p>
+            <p class="uzi-disclaimer">UZI 深度 HTML 无法在浏览器内运行，由 GitHub Actions 云端生成。配置 Worker 后可在本页一键触发；否则点「云端研报」打开 Actions 后本页自动轮询更新。</p>
           </div>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
@@ -2743,6 +2765,7 @@
   </script>
   <script src="screen-data.js"></script>
   <script src="screen-engine.js"></script>
+  <script src="screen-cloud.js"></script>
   <script src="screen-ui.js"></script>
   <script>
     if (location.hash === "#screen") {

@@ -6,6 +6,11 @@ on:
     - cron: "0 1 * * 1"
   workflow_dispatch:
     inputs:
+      symbol:
+        description: "Single symbol (empty = all holdings from quotes-data.js)"
+        required: false
+        default: ""
+        type: string
       run_uzi:
         description: "Run UZI run.py (slow, needs network)"
         required: false
@@ -41,6 +46,7 @@ jobs:
       - name: Generate LCAI report bundles
         env:
           RUN_UZI: ${{ github.event.inputs.run_uzi || 'false' }}
+          SYMBOL: ${{ github.event.inputs.symbol || '' }}
         run: |
           EXTRA=""
           if [ "$RUN_UZI" = "true" ] && [ -f .vendor/UZI-Skill/run.py ]; then
@@ -48,7 +54,11 @@ jobs:
           else
             EXTRA="--skip-uzi"
           fi
-          python scripts/generate_uzi_reports.py --holdings $EXTRA --uzi-path .vendor/UZI-Skill
+          if [ -n "$SYMBOL" ]; then
+            python scripts/generate_uzi_reports.py --symbol "$SYMBOL" $EXTRA --uzi-path .vendor/UZI-Skill
+          else
+            python scripts/generate_uzi_reports.py --holdings $EXTRA --uzi-path .vendor/UZI-Skill
+          fi
 
       - name: Commit reports
         run: |
