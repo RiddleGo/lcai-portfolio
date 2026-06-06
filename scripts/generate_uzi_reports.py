@@ -165,6 +165,7 @@ def build_compare(lcai: dict, uzi: dict | None, symbol: str) -> dict:
 
 def write_report(symbol: str, lcai: dict, compare: dict, html_src: Path | None, uzi_data: dict | None = None) -> Path:
     from build_unified_report import build_unified_report, write_unified_report  # noqa: WPS433
+    from build_report_html import write_report_html  # noqa: WPS433
 
     out_dir = ROOT / "reports" / symbol
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -175,13 +176,8 @@ def write_report(symbol: str, lcai: dict, compare: dict, html_src: Path | None, 
     write_unified_report(symbol, unified, out_dir)
     if html_src and html_src.exists():
         (out_dir / "index.html").write_bytes(html_src.read_bytes())
-    elif not (out_dir / "index.html").exists():
-        stub = f"""<!DOCTYPE html><html><head><meta charset="utf-8"><title>{symbol} 研报</title></head>
-<body><h1>{compare.get('name', symbol)}</h1>
-<p>LCAI 判定：{compare.get('lcai_verdict')} — {compare.get('lcai_verdict_action')}</p>
-<p>UZI 参考：{compare.get('uzi_tone') or '未生成'}</p>
-<p>完整 UZI HTML 请本地运行 <code>bash scripts/run_dual_analysis.sh {symbol}</code></p></body></html>"""
-        (out_dir / "index.html").write_text(stub, encoding="utf-8")
+    else:
+        write_report_html(out_dir, symbol, lcai, unified, compare)
     return out_dir
 
 

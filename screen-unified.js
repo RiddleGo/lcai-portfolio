@@ -140,10 +140,11 @@ const ScreenUnified = (() => {
         foot.innerHTML = `
           <p style="font-size:0.82rem;color:var(--muted);margin:0">
             价值派深度已并入上文解读（定调：${data.uzi.tone || '—'}，共识 ${data.uzi.consensus ?? '—'}）。${meta}
-            <a href="${data.uzi.report_url || '#'}" target="_blank" rel="noopener" style="margin-left:8px">查看 UZI 完整 HTML</a>
+            <a href="${lcaiAsset(`reports/${normalizeSymbol(data.symbol || '')}/index.html`)}" target="_blank" rel="noopener" style="margin-left:8px">查看 UZI 完整 HTML</a>
           </p>`;
       } else if (data.depth?.lcai_ready || data.layers?.length) {
-        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">LCAI 综合深度已就绪。UZI 价值派材料将在每周一自动补全并更新本页（持仓 + 关注列表，无需 Issue）。</p>`;
+        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">LCAI 综合深度已就绪。UZI 价值派材料将在每周一自动补全。
+          <a href="${lcaiAsset(`reports/${normalizeSymbol(data.symbol || '')}/index.html`)}" target="_blank" rel="noopener" style="margin-left:8px">查看完整研报</a></p>`;
       } else {
         foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">点「⭐ 收藏」加入关注；持仓与关注中的股票每周一自动生成深度分析。</p>`;
       }

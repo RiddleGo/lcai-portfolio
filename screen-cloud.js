@@ -142,9 +142,10 @@ const ScreenCloud = (() => {
     }
 
     if (btnOpen) {
-      if (uzi || (data?.uzi?.report_url && unified)) {
+      if (unified) {
         btnOpen.hidden = false;
-        btnOpen.onclick = () => window.open(data.uzi.report_url || lcaiAsset(`reports/${code}/index.html`), '_blank');
+        btnOpen.textContent = uzi ? '查看 UZI 完整 HTML' : '查看完整研报';
+        btnOpen.onclick = () => window.open(lcaiAsset(`reports/${code}/index.html`), '_blank');
       } else {
         btnOpen.hidden = true;
       }
