@@ -559,6 +559,64 @@
 
     .price-manual { color: var(--warn); font-size: 0.75rem; }
 
+    .effect-toast {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .effect-toast.hidden { display: none; }
+
+    .effect-toast-box {
+      width: min(420px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .effect-toast-box h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: #6ee7b7;
+    }
+
+    .effect-toast-box ul {
+      margin: 0 0 16px;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .effect-toast-box li { margin-bottom: 4px; }
+
+    .effect-toast-box .effect-toast-sub {
+      margin: -6px 0 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .effect-toast-close {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .effect-toast-close:hover { background: rgba(59, 130, 246, 0.25); }
+
     .score-ok { color: #6ee7b7; }
     .score-warn { color: #fbbf24; }
     .score-bad { color: #fca5a5; }
@@ -1574,6 +1632,15 @@
     <footer>生成日期：2026-06-06 · 执行（主页）+ 还款 + 现金流 + 投资规划 + 诊断 + 持仓</footer>
   </div>
 
+  <div id="effect-toast" class="effect-toast hidden" role="dialog" aria-modal="true" aria-labelledby="effect-toast-title">
+    <div class="effect-toast-box">
+      <h3 id="effect-toast-title">数据已更新</h3>
+      <p class="effect-toast-sub" id="effect-toast-sub"></p>
+      <ul id="effect-toast-list"></ul>
+      <button type="button" class="effect-toast-close" id="effect-toast-close">知道了</button>
+    </div>
+  </div>
+
   <script src="quotes-data.js"></script>
   <script>
     const TODO_STORAGE_KEY = "lcai-exec-todos-v2";
@@ -2197,6 +2264,82 @@
       return null;
     }
 
+    const DEBT_LABELS = {
+      jd: "京东金条", ali: "支付宝", dy: "抖音", didi: "滴滴", personal: "个人借款",
+    };
+
+    function deltaLine(label, before, after, suffix) {
+      if (before === after) return null;
+      const unit = suffix || "";
+      return `${label}：${fmtInt(before)}${unit} → ${fmtInt(after)}${unit}`;
+    }
+
+    function buildEffectSummary(item, before, after, checked) {
+      const lines = [];
+      const tag = checked ? "已应用" : "已撤销";
+
+      switch (item.effect) {
+        case "sell_all": {
+          const h = BASELINE.holdings.find(x => x.id === item.holdingId);
+          if (h) lines.push(`${tag} · ${h.name} 整仓卖出`);
+          break;
+        }
+        case "sell_partial": {
+          const bH = before.holdings.find(h => h.id === item.holdingId);
+          const aH = after.holdings.find(h => h.id === item.holdingId);
+          if (bH && aH) {
+            const tail = aH.sold || aH.shares <= 0 ? "已清仓" : `剩余 ${aH.shares.toLocaleString()} 股`;
+            lines.push(`${tag} · ${bH.name}：${bH.shares.toLocaleString()} 股 → ${tail}`);
+          }
+          break;
+        }
+        case "debt_clear":
+          lines.push(`${tag} · ${DEBT_LABELS[item.platform] || item.platform} 负债结清`);
+          break;
+        case "debt_pay": {
+          for (const [plat, val] of Object.entries(item.pay || {})) {
+            const b = before.debts[plat];
+            const a = after.debts[plat];
+            if (b !== a) lines.push(`${tag} · ${DEBT_LABELS[plat]}：${fmtInt(b)} → ${fmtInt(a)}`);
+          }
+          break;
+        }
+        case "fund_redeem_all":
+          lines.push(`${tag} · 理财通 7 只基金全部赎回`);
+          break;
+      }
+
+      const metrics = [
+        deltaLine("证券总资产", before.securitiesTotal, after.securitiesTotal),
+        deltaLine("基金总额", before.fundsTotal, after.fundsTotal),
+        deltaLine("负债合计", before.liabilitiesTotal, after.liabilitiesTotal),
+        deltaLine("净资产", before.netWorth, after.netWorth),
+      ].filter(Boolean);
+
+      return lines.concat(metrics);
+    }
+
+    function showEffectToast(title, subtitle, lines) {
+      const toast = document.getElementById("effect-toast");
+      const list = document.getElementById("effect-toast-list");
+      const titleEl = document.getElementById("effect-toast-title");
+      const subEl = document.getElementById("effect-toast-sub");
+      if (!toast || !list) return;
+      titleEl.textContent = title;
+      subEl.textContent = subtitle || "";
+      list.innerHTML = lines.map(l => `<li>${l}</li>`).join("");
+      toast.classList.remove("hidden");
+    }
+
+    function hideEffectToast() {
+      document.getElementById("effect-toast")?.classList.add("hidden");
+    }
+
+    document.getElementById("effect-toast-close")?.addEventListener("click", hideEffectToast);
+    document.getElementById("effect-toast")?.addEventListener("click", e => {
+      if (e.target.id === "effect-toast") hideEffectToast();
+    });
+
     function editTodoAmount(id) {
       const item = getTodoItemById(id);
       if (!item || item.defaultAmount == null) return;
@@ -2283,12 +2426,27 @@
         const toggle = () => {
           const s = loadTodoState();
           const prev = getTodoEntry(s, id);
+          const item = getTodoItemById(id);
+          const beforeState = item?.effect ? computeState(s) : null;
+
           if (cb.checked) {
             s[id] = { done: true, actual: prev.actual, actualPrice: prev.actualPrice };
           } else {
             s[id] = { done: false, actual: prev.actual, actualPrice: prev.actualPrice };
           }
           saveTodoState(s);
+
+          if (item?.effect && beforeState && prev.done !== cb.checked) {
+            const afterState = computeState(s);
+            const lines = buildEffectSummary(item, beforeState, afterState, cb.checked);
+            const plain = item.text.replace(/<[^>]+>/g, "");
+            showEffectToast(
+              cb.checked ? "财务数据已更新" : "操作已撤销，数据已恢复",
+              plain.slice(0, 60) + (plain.length > 60 ? "…" : ""),
+              lines.length ? lines : ["相关汇总指标暂无变化"]
+            );
+          }
+
           renderTodos();
           renderAll();
         };
