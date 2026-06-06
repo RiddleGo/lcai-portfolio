@@ -1,0 +1,30 @@
+{
+  "source": "lcai",
+  "symbol": "002851",
+  "name": "�������",
+  "price": 146.5,
+  "pe": 185.74,
+  "roe_avg": 10.72,
+  "margin_of_safety_pct": -2636.3,
+  "fair_value": 5.35,
+  "dcf_fair_value": 4.4,
+  "dcf_margin_of_safety_pct": -3226.6,
+  "trap_flags": [
+    "���˹�ֵ"
+  ],
+  "verdict": "�ų�",
+  "verdict_action": "������Ͷ��",
+  "overall_score": 35,
+  "rating": "D",
+  "hard_failures": [
+    "L1-01",
+    "L2-01",
+    "L3-01",
+    "L3-02"
+  ],
+  "vetoes_triggered": [
+    "L0-05",
+    "L2-04",
+    "L3-05"
+  ]
+}

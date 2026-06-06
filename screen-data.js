@@ -139,6 +139,25 @@ const ScreenData = (() => {
     const profitGrowth = latest.profitYoy != null ? latest.profitYoy : latest.revenueYoy;
     const peComputed = pe != null ? pe : (eps != null && eps > 0 && quote.price > 0 ? quote.price / eps : null);
     const peg = peComputed != null && profitGrowth != null && profitGrowth > 0 ? peComputed / profitGrowth : null;
+    const peExtreme = peComputed != null && peComputed > 80 && (profitGrowth == null || profitGrowth < 10);
+
+    const trapFlags = [];
+    if (peComputed != null && peComputed > 100 && (profitGrowth == null || profitGrowth < 5)) {
+      trapFlags.push('极高PE+低增速');
+    }
+    if (quote.amount < 30000000 && peComputed != null && peComputed > 60) {
+      trapFlags.push('低流动性+高估值');
+    }
+    if (peExtreme) trapFlags.push('极端估值');
+
+    const g = Math.min(Math.max((profitGrowth || 5) / 100, 0.02), 0.15);
+    const wacc = 0.09;
+    let dcfFairValue = null;
+    let dcfMarginOfSafety = null;
+    if (eps != null && eps > 0 && quote.price > 0 && wacc > 0.025) {
+      dcfFairValue = eps * (1 + g) / (wacc - 0.025);
+      dcfMarginOfSafety = (dcfFairValue - quote.price) / dcfFairValue;
+    }
 
     return {
       symbol: parsed.display,
@@ -171,7 +190,13 @@ const ScreenData = (() => {
       isSt: /ST/i.test(quote.name),
       fraudSuspect: ocfRatio != null && ocfRatio < 0.3 && (latest.netProfit || 0) > 0,
       ocfVeto: ocfRatios.length >= 2 && ocfRatios.every(v => v < 0.5),
-      peExtreme: pe != null && pe > 80 && (profitGrowth == null || profitGrowth < 10),
+      peExtreme,
+      trapFlags,
+      trapSuspect: trapFlags.length >= 2,
+      dcfFairValue,
+      dcfMarginOfSafety,
+      dcfGrowth: g,
+      dcfWacc: wacc,
     };
   }
 

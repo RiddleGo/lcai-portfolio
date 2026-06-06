@@ -138,6 +138,27 @@ const ScreenEngine = (() => {
       const ok = !m.peExtreme;
       return { pass: ok, actual: ok ? '否' : `PE=${fmt(m.pe)}`, threshold: '非极端泡沫', veto: !ok };
     },
+    trap_scan(m) {
+      const flags = m.trapFlags || [];
+      const ok = !m.trapSuspect;
+      return {
+        pass: ok,
+        actual: flags.length ? flags.join('、') : '无',
+        threshold: '异常特征≤1',
+        veto: !ok,
+      };
+    },
+    dcf_cross_check(m, rule) {
+      const v = m.dcfMarginOfSafety;
+      if (v == null) return { pass: true, actual: '—', threshold: 'DCF 未高估', score: 3, missing: true };
+      const ok = v >= rule.threshold;
+      return {
+        pass: ok,
+        actual: `${pct(v)} (DCF ${fmt(m.dcfFairValue)}元, g=${pct(m.dcfGrowth)}, WACC=${pct(m.dcfWacc)})`,
+        threshold: 'DCF 安全边际≥0%',
+        score: ok ? 5 : Math.max(1, 3 + v * 10),
+      };
+    },
     psychology_ok(m, rule, ctx) {
       const ok = ctx.psychology !== false;
       return { pass: ok, actual: ok ? '通过自检' : '未通过', threshold: '无 FOMO/翻本', score: ok ? 5 : 0, note: 'manual' };
@@ -249,6 +270,14 @@ const ScreenEngine = (() => {
       pe_extreme_veto: () => pass
         ? '未出现 PE>80 且低增长的极端泡沫组合。'
         : `PE ${fmt(m.pe)} 极高且增速不足，估值泡沫风险大，触发否决。`,
+      trap_scan: () => pass
+        ? '未发现多项异常票特征（参考 UZI trap-detector 启发式）。'
+        : `命中异常特征：${(m.trapFlags || []).join('、')}——杀猪盘/庄股风险，触发否决。`,
+      dcf_cross_check: () => out.missing
+        ? '无法计算简化 DCF，暂中性。'
+        : pass
+          ? `简化两阶段 DCF 公允 ${fmt(m.dcfFairValue)} 元，安全边际 ${pct(m.dcfMarginOfSafety)}，与 PE×EPS 方向一致。`
+          : `DCF 公允 ${fmt(m.dcfFairValue)} 元，安全边际 ${pct(m.dcfMarginOfSafety)} 为负——估值偏贵，与 L3-01 交叉验证。`,
       psychology_ok: () => pass
         ? '已通过「非 FOMO / 非翻本」心理自检，符合金钱心理学中的纪律要求。'
         : '未通过心理纪律自检——情绪化交易是最大敌人，暂缓操作。',
@@ -286,6 +315,8 @@ const ScreenEngine = (() => {
       marginOfSafety: m.marginOfSafety,
       peg: m.peg,
       amount: m.amount,
+      dcfFairValue: m.dcfFairValue,
+      dcfMarginOfSafety: m.dcfMarginOfSafety,
     };
   }
 
@@ -324,6 +355,9 @@ const ScreenEngine = (() => {
             `公允价值 = EPS ${fmt(metrics.eps)} × 公允 PE ${metrics.fairPe} = ${fmt(metrics.fairValue)} 元。`,
             `现价 ${fmt(metrics.price)} 元 → 安全边际 ${pct(metrics.marginOfSafety)}（=(公允−现价)/公允，建仓线 25%）。`,
             metrics.pe != null ? `当前 PE ${fmt(metrics.pe)}，PEG ${metrics.peg != null ? fmt(metrics.peg) : '—'}。` : '',
+            metrics.dcfFairValue != null
+              ? `DCF 交叉（WACC ${pct(metrics.dcfWacc)}，g ${pct(metrics.dcfGrowth)}）：公允 ${fmt(metrics.dcfFairValue)} 元，DCF 安全边际 ${pct(metrics.dcfMarginOfSafety)}。`
+              : '',
           ].filter(Boolean).join('\n')
         : '缺少 EPS 或行情，无法完成格雷厄姆式安全边际测算。',
     };
@@ -435,6 +469,8 @@ const ScreenEngine = (() => {
         { label: 'OCF/EPS', value: metrics.ocfRatio != null ? fmt(metrics.ocfRatio) : '—' },
         { label: '安全边际', value: metrics.marginOfSafety != null ? pct(metrics.marginOfSafety) : '—' },
         { label: '公允价', value: metrics.fairValue != null ? `${fmt(metrics.fairValue)} 元` : '—' },
+        { label: 'DCF 公允', value: metrics.dcfFairValue != null ? `${fmt(metrics.dcfFairValue)} 元` : '—' },
+        { label: 'DCF 边际', value: metrics.dcfMarginOfSafety != null ? pct(metrics.dcfMarginOfSafety) : '—' },
         { label: 'PEG', value: metrics.peg != null ? fmt(metrics.peg) : '—' },
       ],
     };

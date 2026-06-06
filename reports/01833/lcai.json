@@ -1,0 +1,5 @@
+{
+  "source": "lcai",
+  "symbol": "01833",
+  "error": "Traceback (most recent call last):\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 180, in <module>\n    main()\n  File \"D:\\LCAI\\scripts\\lcai_screen_json.py\", line 159, in main\n    data = load_stock(sys.argv[1])\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 125, in load_stock\n    fin = fetch_financials(parsed[\"code\"])\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"D:\\LCAI\\Ͷ��ϵͳ\\engine\\data_eastmoney.py\", line 103, in fetch_financials\n    raise ValueError(\"δ��ȡ��������\")\nValueError: δ��ȡ��������\n"
+}

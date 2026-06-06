@@ -25,6 +25,59 @@ const ScreenUI = (() => {
     box.innerHTML = `<h4>${title}</h4><ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
   }
 
+  function renderDualTrack(data) {
+    const panel = el('dual-track-panel');
+    const box = el('dual-track-content');
+    const btn = el('btn-deep-report');
+    const meta = el('dual-track-meta');
+    if (!panel || !box) return;
+    if (!data || !data.lcai_verdict) {
+      panel.hidden = true;
+      return;
+    }
+    panel.hidden = false;
+    box.innerHTML = `
+      <div class="dual-track-col">
+        <h4>LCAI 裁决（最终）</h4>
+        <div class="dt-val">${data.lcai_verdict}</div>
+        <div>${data.lcai_verdict_action || '—'}</div>
+        <div style="margin-top:6px;color:var(--muted)">评级 ${data.lcai_rating || '—'} · 总分 ${data.lcai_score ?? '—'}</div>
+        <div style="color:var(--muted)">安全边际 ${data.lcai_margin_pct != null ? data.lcai_margin_pct + '%' : '—'}</div>
+      </div>
+      <div class="dual-track-col">
+        <h4>UZI 价值派参考</h4>
+        <div class="dt-val">${data.uzi_tone || '未生成'}</div>
+        <div>共识分 ${data.uzi_value_consensus ?? '—'}</div>
+        <div style="margin-top:6px;color:var(--muted)">DCF 公允 ${data.dcf_fair_value ?? '—'}</div>
+        <div style="color:var(--muted)">${data.margin_gap || ''}</div>
+      </div>`;
+    if (data.divergences && data.divergences.length) {
+      box.innerHTML += `<div style="grid-column:1/-1;font-size:0.82rem;color:var(--warn);margin-top:4px">分歧：${data.divergences.join('；')}</div>`;
+    }
+    if (btn) {
+      if (data.report_url) {
+        btn.hidden = false;
+        btn.onclick = () => window.open(data.report_url, '_blank');
+      } else {
+        btn.hidden = true;
+      }
+    }
+    if (meta) meta.textContent = data.generated_at ? `缓存于 ${data.generated_at}` : '';
+  }
+
+  async function loadDualTrack(symbol) {
+    const sym = String(symbol || '').replace(/\D/g, '');
+    const code = sym.length === 5 ? sym.padStart(5, '0') : sym.slice(-6).padStart(6, '0');
+    try {
+      const resp = await fetch(`reports/${code}/lcai-vs-uzi.json?t=${Date.now()}`);
+      if (!resp.ok) throw new Error('no cache');
+      renderDualTrack(await resp.json());
+    } catch (_) {
+      const panel = el('dual-track-panel');
+      if (panel) panel.hidden = true;
+    }
+  }
+
   function renderAnalysis(report) {
     const a = report.analysis || {};
     el('logic-summary').textContent = a.executive || report.logic_summary || '';
@@ -89,6 +142,7 @@ const ScreenUI = (() => {
       `建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）· ${report.position_hint.reason}`;
 
     renderAnalysis(report);
+    loadDualTrack(report.symbol);
 
     const layers = el('layer-scores');
     layers.innerHTML = '';

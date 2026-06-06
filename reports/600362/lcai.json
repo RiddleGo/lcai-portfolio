@@ -1,0 +1,23 @@
+{
+  "source": "lcai",
+  "symbol": "600362",
+  "name": "����ͭҵ",
+  "price": 44.36,
+  "pe": 13.63,
+  "roe_avg": 8.96,
+  "margin_of_safety_pct": -7.1,
+  "fair_value": 41.4,
+  "dcf_fair_value": 36.62,
+  "dcf_margin_of_safety_pct": -21.1,
+  "trap_flags": [],
+  "verdict": "�۲�",
+  "verdict_action": "Ӳָ��δ����L1-01��L2-01��L3-01",
+  "overall_score": 58,
+  "rating": "D",
+  "hard_failures": [
+    "L1-01",
+    "L2-01",
+    "L3-01"
+  ],
+  "vetoes_triggered": []
+}

@@ -26,7 +26,10 @@ python 投资系统/engine/screen_stock.py 09880
 | `00-投资宪法.md` | 10 条不可违背原则 |
 | `01-选股筛选标准.md` | 五层漏斗标准全文 |
 | `06-评分与评级说明.md` | 打分与 A/B/C/D 评级 |
+| `08-UZI对照说明.md` | LCAI × UZI-Skill 双轨对照 |
 | `engine/` | Python 引擎 |
+| [`../AGENTS.md`](../AGENTS.md) | Cursor 双轨研判 SOP |
+| [`../scripts/run_dual_analysis.sh`](../scripts/run_dual_analysis.sh) | LCAI + UZI 一键脚本 |
 
 ## 判定说明
 
