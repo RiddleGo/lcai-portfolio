@@ -33,15 +33,11 @@
       "kind": "hard_fail",
       "rule_id": "L3-01",
       "title": "L3-01 安全边际（硬指标 Fail）",
-      "summary": "现价 44.36 元，公允价值 41.40 元（default 行业公允 PE 20 × EPS —），安全边际 -7.1%，未达 25%。好公司也需要好价格。",
+      "summary": "现价 44.36 元，公允价值 41.40 元（default 行业公允 PE 20 × EPS 2.070），安全边际 -7.1%，未达 25%。好公司也需要好价格。",
       "actual": "-7.1% (公允41.40元)",
       "threshold": "≥25%"
     }
   ],
-  "trap_flags": [],
-  "report_url": "reports/600362/index.html",
-  "generated_at": "2026-06-07T00:16:57+08:00",
-  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考",
   "divergence_notes": [
     {
       "kind": "hard_fail",
@@ -63,9 +59,13 @@
       "kind": "hard_fail",
       "rule_id": "L3-01",
       "title": "L3-01 安全边际（硬指标 Fail）",
-      "summary": "现价 44.36 元，公允价值 41.40 元（default 行业公允 PE 20 × EPS —），安全边际 -7.1%，未达 25%。好公司也需要好价格。",
+      "summary": "现价 44.36 元，公允价值 41.40 元（default 行业公允 PE 20 × EPS 2.070），安全边际 -7.1%，未达 25%。好公司也需要好价格。",
       "actual": "-7.1% (公允41.40元)",
       "threshold": "≥25%"
     }
-  ]
+  ],
+  "trap_flags": [],
+  "report_url": "reports/600362/index.html",
+  "generated_at": "2026-06-07T00:53:03+08:00",
+  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考"
 }

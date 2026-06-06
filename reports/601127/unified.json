@@ -35,9 +35,9 @@
     },
     {
       "label": "PEG",
-      "value": "—",
+      "value": "22.90",
       "threshold": "≤2",
-      "status": "ok",
+      "status": "fail",
       "note": "彼得·林奇"
     },
     {
@@ -56,14 +56,14 @@
     },
     {
       "label": "毛利率",
-      "value": "—%",
+      "value": "29.14%",
       "threshold": "≥20%",
       "status": "ok",
       "note": "最新年报"
     },
     {
       "label": "利润 YoY",
-      "value": "—%",
+      "value": "0.89%",
       "threshold": "≥0%",
       "status": "ok",
       "note": "最新期"
@@ -112,14 +112,14 @@
     },
     {
       "label": "EPS",
-      "value": "—",
+      "value": "3.680",
       "threshold": ">0",
-      "status": "fail",
+      "status": "ok",
       "note": "估值基础"
     },
     {
       "label": "成交额",
-      "value": "0.00 亿",
+      "value": "21.51 亿",
       "threshold": "A股≥0.5亿",
       "status": "neutral",
       "note": "流动性 L0-03"
@@ -189,7 +189,7 @@
       "threshold": "≥25%",
       "result": "fail",
       "pass": false,
-      "reason": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。"
+      "reason": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 -1.9%，未达 25%。好公司也需要好价格。"
     },
     {
       "id": "L3-02",
@@ -250,15 +250,15 @@
         "手把手教你投资港股"
       ],
       "weight": 5,
-      "pass": false,
-      "actual": "0.00亿",
+      "pass": true,
+      "actual": "21.51亿",
       "threshold": "≥0.50亿",
-      "score": 0,
+      "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "fail",
-      "reason": "日均成交额 0.00亿 低于门槛 ≥0.50亿，买卖冲击大，不适合重仓。"
+      "result": "pass",
+      "reason": "日均成交额 21.51亿，流动性充足，可正常建仓与退出。"
     },
     {
       "id": "L0-04",
@@ -270,14 +270,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "—",
+      "actual": "34.46%",
       "threshold": "≥0%",
       "score": 5,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "营收增长达标（— / ≥0%）。"
+      "reason": "营收增长达标（34.46% / ≥0%）。"
     },
     {
       "id": "L0-05",
@@ -367,14 +367,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "—",
+      "actual": "29.14%",
       "threshold": "≥20%",
       "score": 5,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "毛利率达标（— / ≥20%）。"
+      "reason": "毛利率达标（29.14% / ≥20%）。"
     },
     {
       "id": "L1-04",
@@ -405,14 +405,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "—",
+      "actual": "0.89%",
       "threshold": "≥0%",
       "score": 5,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "利润增长达标（— / ≥0%）。"
+      "reason": "利润增长达标（0.89% / ≥0%）。"
     },
     {
       "id": "L1-06",
@@ -481,14 +481,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "—",
+      "actual": "0.89%",
       "threshold": "≥0%",
       "score": 5,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "盈利趋势达标（— / ≥0%）。"
+      "reason": "盈利趋势达标（0.89% / ≥0%）。"
     },
     {
       "id": "L2-04",
@@ -526,7 +526,7 @@
       "missing": false,
       "note": "full",
       "result": "fail",
-      "reason": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。"
+      "reason": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 -1.9%，未达 25%。好公司也需要好价格。"
     },
     {
       "id": "L3-02",
@@ -575,15 +575,15 @@
         "彼得·林奇的成功投资"
       ],
       "weight": 8,
-      "pass": true,
-      "actual": "—",
+      "pass": false,
+      "actual": "22.90",
       "threshold": "≤2",
-      "score": 5,
+      "score": 0,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "PEG达标（— / ≤2）。"
+      "result": "fail",
+      "reason": "PEG未达标：实际 22.90，要求 ≤2。"
     },
     {
       "id": "L3-05",
@@ -703,7 +703,7 @@
       "kind": "hard_fail",
       "rule_id": "L3-01",
       "title": "L3-01 安全边际（硬指标 Fail）",
-      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
+      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
       "actual": "-1.9% (公允73.60元)",
       "threshold": "≥25%"
     }
@@ -796,7 +796,7 @@
       "kind": "hard_fail",
       "rule_id": "L3-01",
       "title": "L3-01 安全边际（硬指标 Fail）",
-      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS —），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
+      "summary": "现价 75.01 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 -1.9%，未达 25%。好公司也需要好价格。",
       "actual": "-1.9% (公允73.60元)",
       "threshold": "≥25%"
     }
@@ -814,6 +814,6 @@
     "report_url": "reports/601127/index.html",
     "ready": false
   },
-  "generated_at": "2026-06-07T00:17:03+08:00",
+  "generated_at": "2026-06-07T00:53:13+08:00",
   "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
 }
