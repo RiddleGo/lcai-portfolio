@@ -1772,7 +1772,16 @@
         <div class="unified-actions" style="margin-top:12px">
           <button type="button" class="screen-btn screen-btn-ghost" id="btn-weekly-refresh">🔄 立即更新全部深度分析</button>
         </div>
-        <p class="screen-help" style="margin-top:8px">点上面按钮 → GitHub 页再点一次绿色 <strong>Submit</strong> → 约 30–60 分钟更新持仓+关注全部研报（等同每周 Actions）。</p>
+        <p class="screen-help" style="margin-top:8px">点上面按钮 → GitHub 页再点一次绿色 <strong>Submit</strong> → 约 30–60 分钟更新（配置 Worker 后可真正一键，见下方高级）。</p>
+        <details style="margin-top:10px">
+          <summary style="cursor:pointer;color:var(--muted);font-size:0.82rem">高级：Worker 一键触发（可选）</summary>
+          <p class="screen-help" style="margin:8px 0">配置后无需 Issue Submit。完整步骤见仓库 <code>workers/README.md</code> 或 GitHub 上 <a href="https://github.com/RiddleGo/lcai-portfolio/blob/main/workers/README.md" target="_blank" rel="noopener">workers/README.md</a>。</p>
+          <div class="screen-input-row" style="margin-top:8px">
+            <input type="url" id="worker-url" placeholder="Worker 地址 https://xxx.workers.dev" style="flex:2">
+            <input type="password" id="worker-key" placeholder="TRIGGER_KEY" style="flex:1">
+            <button type="button" class="screen-btn screen-btn-ghost" id="btn-save-worker">保存</button>
+          </div>
+        </details>
       </div>
 
       <div class="card" style="margin-bottom:16px">
@@ -2776,7 +2785,7 @@
   <script src="screen-data.js?v=748004"></script>
   <script src="screen-engine.js?v=748004"></script>
   <script src="screen-watchlist.js?v=748004"></script>
-  <script src="screen-cloud.js?v=748007"></script>
+  <script src="screen-cloud.js?v=748008"></script>
   <script src="screen-unified.js?v=748006"></script>
   <script src="screen-ui.js?v=748004"></script>
   <script>

@@ -1,10 +1,10 @@
 /**
- * Cloudflare Worker：从网页触发 GitHub Actions 生成研报（绕过浏览器 CORS）
+ * Cloudflare Worker：从网页触发 GitHub Actions（绕过 CORS，真正一键）
  *
- * 部署后设置环境变量：
- *   GITHUB_TOKEN  - fine-grained PAT，权限：Actions R/W + Contents R/W
- *   TRIGGER_KEY   - 自定义密钥，与网页 localStorage 中一致
- *   GITHUB_REPO   - 默认 RiddleGo/lcai-portfolio
+ * Secrets（Cloudflare 控制台 → Settings → Variables）：
+ *   GITHUB_TOKEN  - GitHub PAT（Actions R/W + Contents R/W）
+ *   TRIGGER_KEY   - 自设随机字符串（与网页 localStorage 一致）
+ *   GITHUB_REPO   - 可选，默认 RiddleGo/lcai-portfolio
  */
 const REPO = 'RiddleGo/lcai-portfolio';
 const WORKFLOW = 'uzi-reports.yml';
@@ -29,13 +29,20 @@ export default {
     } catch {
       return Response.json({ error: 'Invalid JSON' }, { status: 400, headers: CORS });
     }
-    const { symbol, key, run_uzi = 'true' } = body || {};
-    if (!symbol || !key || key !== env.TRIGGER_KEY) {
-      return Response.json({ error: 'Unauthorized or missing symbol' }, { status: 401, headers: CORS });
+    const { symbol, key, run_uzi = 'true', mode } = body || {};
+    if (!key || key !== env.TRIGGER_KEY) {
+      return Response.json({ error: 'Unauthorized or missing key' }, { status: 401, headers: CORS });
     }
     if (!env.GITHUB_TOKEN) {
       return Response.json({ error: 'GITHUB_TOKEN not configured' }, { status: 500, headers: CORS });
     }
+
+    const sym = symbol != null ? String(symbol).replace(/\D/g, '') : '';
+    const weekly = mode === 'weekly' || mode === 'all' || sym === '' && mode !== 'single';
+    if (!weekly && !sym) {
+      return Response.json({ error: 'Missing symbol' }, { status: 400, headers: CORS });
+    }
+
     const repo = env.GITHUB_REPO || REPO;
     const url = `https://api.github.com/repos/${repo}/actions/workflows/${WORKFLOW}/dispatches`;
     const gh = await fetch(url, {
@@ -48,11 +55,17 @@ export default {
       },
       body: JSON.stringify({
         ref: 'main',
-        inputs: { symbol: String(symbol).replace(/\D/g, ''), run_uzi: String(run_uzi) },
+        inputs: {
+          symbol: weekly ? '' : sym,
+          run_uzi: String(run_uzi),
+        },
       }),
     });
     if (gh.status === 204) {
-      return Response.json({ ok: true, message: 'Workflow dispatched' }, { headers: CORS });
+      return Response.json(
+        { ok: true, message: weekly ? 'Weekly workflow dispatched' : 'Workflow dispatched', symbol: sym || 'all' },
+        { headers: CORS },
+      );
     }
     const text = await gh.text();
     return Response.json({ error: text || gh.statusText }, { status: gh.status, headers: CORS });

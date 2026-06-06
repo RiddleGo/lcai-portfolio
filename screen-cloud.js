@@ -4,6 +4,7 @@
 const ScreenCloud = (() => {
   const REPO = 'RiddleGo/lcai-portfolio';
   const ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/uzi-reports.yml`;
+  const WORKER_CFG_KEY = 'lcai-worker-cfg-v1';
   const POLL_MS = 15000;
   const POLL_MAX = 48;
 
@@ -37,7 +38,56 @@ const ScreenCloud = (() => {
     return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
 
-  function requestWeeklyRefresh() {
+  function loadWorkerCfg() {
+    try {
+      return JSON.parse(localStorage.getItem(WORKER_CFG_KEY) || '{}');
+    } catch {
+      return {};
+    }
+  }
+
+  function saveWorkerCfg(url, key) {
+    localStorage.setItem(WORKER_CFG_KEY, JSON.stringify({ url: String(url || '').trim(), key: String(key || '').trim() }));
+  }
+
+  function hasWorkerCfg() {
+    const cfg = loadWorkerCfg();
+    return !!(cfg.url && cfg.key);
+  }
+
+  async function dispatchViaWorker(symbol, mode = 'single') {
+    const cfg = loadWorkerCfg();
+    if (!cfg.url || !cfg.key) return false;
+    const resp = await fetch(cfg.url.replace(/\/$/, ''), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        symbol: symbol || '',
+        mode: mode === 'weekly' ? 'weekly' : 'single',
+        run_uzi: 'true',
+        key: cfg.key,
+      }),
+    });
+    let data = {};
+    try {
+      data = await resp.json();
+    } catch (_) { /* ignore */ }
+    if (!resp.ok) {
+      throw new Error(data.error || resp.statusText || 'Worker 请求失败');
+    }
+    return true;
+  }
+
+  async function requestWeeklyRefresh() {
+    if (hasWorkerCfg()) {
+      try {
+        await dispatchViaWorker('', 'weekly');
+        setStatus('已通过 Worker 触发 Actions 全量更新，约 30–60 分钟。完成后刷新本页即可。', 'pending');
+        return;
+      } catch (e) {
+        setStatus(`Worker 失败（${e.message}），改用 Issue 方式…`, 'warn');
+      }
+    }
     window.open(weeklyRefreshUrl(), '_blank', 'noopener');
     setStatus('第 1 步：请在新页面点绿色 Submit。第 2 步：约 30–60 分钟后刷新本页，完整 HTML 按钮会变可点。', 'pending');
   }
@@ -229,6 +279,17 @@ const ScreenCloud = (() => {
       return;
     }
 
+    if (hasWorkerCfg()) {
+      try {
+        await dispatchViaWorker(sym, 'single');
+        setStatus(`已通过 Worker 触发 ${sym} 深度分析，约 5–10 分钟。本页会自动等待。`, 'pending');
+        startPolling(sym, baselineTime);
+        return;
+      } catch (e) {
+        setStatus(`Worker 失败（${e.message}），改用 Issue…`, 'warn');
+      }
+    }
+
     window.open(issueNewUrl(sym), '_blank', 'noopener');
     setStatus('第 1 步：请在新页面点绿色 Submit。第 2 步：回到本页等着，会自动补全。', 'pending');
     startPolling(sym, baselineTime);
@@ -259,6 +320,19 @@ const ScreenCloud = (() => {
       requestFullReport(sym, name);
     });
     el('btn-weekly-refresh')?.addEventListener('click', requestWeeklyRefresh);
+    el('btn-save-worker')?.addEventListener('click', () => {
+      const url = el('worker-url')?.value?.trim();
+      const key = el('worker-key')?.value?.trim();
+      if (!url || !key) {
+        setStatus('请填写 Worker 地址和触发密钥', 'warn');
+        return;
+      }
+      saveWorkerCfg(url, key);
+      setStatus('Worker 配置已保存（仅本机）。现在可一键触发，无需 Issue Submit。', 'ok');
+    });
+    const cfg = loadWorkerCfg();
+    if (cfg.url && el('worker-url')) el('worker-url').value = cfg.url;
+    if (cfg.key && el('worker-key')) el('worker-key').value = cfg.key;
   }
 
   return {
@@ -274,5 +348,7 @@ const ScreenCloud = (() => {
     needsCloudEnqueue,
     isFullDepthReady,
     hasUnifiedDepth,
+    saveWorkerCfg,
+    hasWorkerCfg,
   };
 })();
