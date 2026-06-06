@@ -9,7 +9,7 @@
 | 角色 | 个人投资宪法 + 资产总览 | 研究助理，材料并入综合研判 |
 | 规则 | 25+ 条（criteria.json） | 236 条 × 65 评委（锁 A,E） |
 | 判定 | 买入/观察/持有/减仓/卖出/排除 | 定调/共识 → **不覆盖** LCAI 裁决 |
-| 深度 | 浏览器秒级 | Issue 触发 lite，约 5–10 分钟 |
+| 深度 | 浏览器秒级（缓存） | 每周一 Actions 自动 lite（持仓+关注） |
 
 ## 何时只跑 LCAI / 何时补 UZI
 
@@ -17,8 +17,8 @@
 |------|------|
 | 日常快速筛 | **帮我看看**（秒出，已有 unified 则自动 enrich） |
 | 观察池反复看 | **我的关注** 点一下 |
-| 建仓前 / 要 DCF+排雷厚材料 | **⭐ 收藏并补全深度分析**（Issue 一次） |
-| 每周 | Actions 刷新 LCAI + `unified.json`（UZI 深度需 Issue 或 `--run-uzi`） |
+| 建仓前 / 要 DCF+排雷厚材料 | 已在持仓/关注 → **每周一自动**；新票加入 `watchlist-data.js` 或 Actions 手动跑一次 |
+| 每周 | Actions **全量**刷新 LCAI + UZI + `unified.json`（`--all --run-uzi`） |
 
 ## 融合报告结构（`reports/{code}/unified.json`）
 

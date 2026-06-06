@@ -160,10 +160,10 @@ const ScreenUI = (() => {
   function friendlyError(err) {
     const msg = String(err?.message || err || '');
     if (msg === 'NO_CACHE') {
-      return '这只票还没有缓存研判。请先点「⭐ 收藏并补全深度分析」生成一次；或下载 资产总览.html 到电脑本地打开（可连实时行情）。';
+      return '这只票还没有缓存研判。若在持仓/关注列表中，每周一会自动生成；或下载 资产总览.html 到本地打开（可连实时行情）。';
     }
     if (/failed to fetch|networkerror|load failed|network/i.test(msg)) {
-      return '数据加载失败。请按 Ctrl+F5 强制刷新页面后再试；若仍失败，请点「收藏并补全深度分析」生成缓存。';
+      return '数据加载失败。请按 Ctrl+F5 强制刷新后再试。';
     }
     return msg || '未知错误';
   }

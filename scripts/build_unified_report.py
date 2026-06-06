@@ -315,6 +315,12 @@ def build_unified_report(
         "strengths": strengths,
         "weaknesses": weaknesses,
         "divergences": compare.get("divergences") or [],
+        "depth": {
+            "lcai_ready": True,
+            "uzi_ready": uzi_e.get("ready", False),
+            "ready": True,
+            "schedule": "weekly_monday",
+        },
         "uzi": {
             "tone": uzi_e.get("tone"),
             "consensus": uzi_e.get("consensus"),

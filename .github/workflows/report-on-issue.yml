@@ -1,6 +1,8 @@
 name: Report on issue request
 
-# 网页「云端研报」打开 GitHub Issue 并提交后自动运行（无需 PAT / Worker）
+# 网页「云端研报」可选：打开 GitHub Issue 并提交后自动运行（加急单票，非必需）
+
+**默认方式**：持仓 + `watchlist-data.js` 每周一 Actions 自动跑全量深度（`uzi-reports.yml`），**无需 Issue**。
 on:
   issues:
     types: [opened]

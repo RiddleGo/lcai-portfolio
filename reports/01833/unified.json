@@ -72,6 +72,12 @@
   "strengths": [],
   "weaknesses": [],
   "divergences": [],
+  "depth": {
+    "lcai_ready": true,
+    "uzi_ready": false,
+    "ready": true,
+    "schedule": "weekly_monday"
+  },
   "uzi": {
     "tone": null,
     "consensus": null,

@@ -2,23 +2,27 @@ name: Generate UZI reports
 
 on:
   schedule:
-    # 每周一 UTC 01:00 ≈ 北京时间 09:00
+    # 每周一 UTC 01:00 ≈ 北京时间 09:00 — 持仓 + 关注列表全量深度分析
     - cron: "0 1 * * 1"
   workflow_dispatch:
     inputs:
       symbol:
-        description: "Single symbol (empty = all holdings from quotes-data.js)"
+        description: "Single symbol (empty = all holdings + watchlist)"
         required: false
         default: ""
         type: string
       run_uzi:
-        description: "Run UZI run.py (slow, needs network)"
+        description: "Run UZI run.py (full depth)"
         required: false
-        default: "false"
+        default: "true"
         type: choice
         options:
-          - "false"
           - "true"
+          - "false"
+  push:
+    branches: [main]
+    paths:
+      - watchlist-data.js
 
 permissions:
   contents: write
@@ -26,6 +30,7 @@ permissions:
 jobs:
   uzi-reports:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
 
@@ -36,16 +41,16 @@ jobs:
       - name: Install LCAI dependencies
         run: pip install requests urllib3
 
-      - name: Clone UZI-Skill (optional)
+      - name: Clone UZI-Skill
         run: |
           git clone --depth 1 https://github.com/wbh604/UZI-Skill.git .vendor/UZI-Skill || true
           if [ -f .vendor/UZI-Skill/requirements.txt ]; then
             pip install -r .vendor/UZI-Skill/requirements.txt || true
           fi
 
-      - name: Generate LCAI report bundles
+      - name: Generate unified reports (LCAI + UZI depth)
         env:
-          RUN_UZI: ${{ github.event.inputs.run_uzi || 'false' }}
+          RUN_UZI: ${{ github.event_name == 'schedule' && 'true' || (github.event.inputs.run_uzi || 'true') }}
           SYMBOL: ${{ github.event.inputs.symbol || '' }}
         run: |
           EXTRA=""
@@ -65,5 +70,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/ watchlist-data.js
-          git diff --staged --quiet || git commit -m "chore: update unified reports for holdings and watchlist"
+          git diff --staged --quiet || git commit -m "chore: weekly unified depth reports for holdings and watchlist"
           git push

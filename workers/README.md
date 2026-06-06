@@ -1,10 +1,16 @@
 # 云端研报触发（可选 Worker）
 
-## 推荐方式：GitHub Issue（无需 PAT）
+## 推荐方式：每周自动（无需 Issue）
 
-网页点 **「云端研报」** → 自动打开预填 Issue → 登录 GitHub 点 **Submit new issue** → Actions 自动生成 `reports/` → 网页轮询更新。
+持仓（`quotes-data.js`）+ 云端关注（`watchlist-data.js`）**每周一**由 Actions 自动跑 LCAI + UZI 深度，写入 `reports/*/unified.json`。
 
-**前提**：仓库 Settings → General → Features → **Issues 已开启**（公开仓库默认开启）。
+网页点 **「⭐ 收藏」** 只加入本机关注；云端列表由 Actions 维护。
+
+---
+
+## 可选：GitHub Issue（单票加急）
+
+仍可用 Issue `[report] 代码` 触发单票生成（见 `report-on-issue.yml`），一般不必。
 
 ---
 

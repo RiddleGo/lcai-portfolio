@@ -1,14 +1,10 @@
 /**
- * 补全深度分析：Issue 触发 + 自动等待 unified.json
+ * 关注与深度分析：每周 Actions 自动跑 UZI，网页只负责收藏与展示
  */
 const ScreenCloud = (() => {
   const REPO = 'RiddleGo/lcai-portfolio';
-  const POLL_MS = 15000;
-  const POLL_MAX = 48;
+  const ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/uzi-reports.yml`;
 
-  let pollTimer = null;
-  let pollCount = 0;
-  let currentSymbol = null;
   let lastLiveReport = null;
 
   function el(id) {
@@ -17,13 +13,6 @@ const ScreenCloud = (() => {
 
   function normalizeSymbol(input) {
     return ScreenWatchlist?.normalize?.(input) || String(input || '').replace(/\D/g, '');
-  }
-
-  function issueNewUrl(symbol) {
-    const code = normalizeSymbol(symbol);
-    const title = encodeURIComponent(`[report] ${code}`);
-    const body = encodeURIComponent(`帮我补全 ${code} 的深度分析（网页自动触发，请勿修改标题）。`);
-    return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
 
   function setStatus(msg, type = 'info') {
@@ -36,6 +25,14 @@ const ScreenCloud = (() => {
     }
   }
 
+  function hasUnifiedDepth(data) {
+    return !!(data && data.verdict?.value && Array.isArray(data.layers) && data.layers.length >= 4);
+  }
+
+  function hasUziLayer(data) {
+    return !!(data && data.uzi && data.uzi.ready);
+  }
+
   async function fetchUnified(symbol) {
     const code = normalizeSymbol(symbol);
     const resp = await fetch(lcaiAsset(`reports/${code}/unified.json?t=${Date.now()}`));
@@ -46,51 +43,10 @@ const ScreenCloud = (() => {
   async function hasFullReport(symbol) {
     try {
       const data = await fetchUnified(symbol);
-      return !!(data && data.uzi && data.uzi.ready);
+      return hasUnifiedDepth(data);
     } catch {
       return false;
     }
-  }
-
-  function stopPolling() {
-    if (pollTimer) clearInterval(pollTimer);
-    pollTimer = null;
-    pollCount = 0;
-    ['btn-favorite-generate', 'btn-open-full-report'].forEach(id => {
-      const b = el(id);
-      if (b) b.disabled = false;
-    });
-  }
-
-  function startPolling(symbol, baselineTime) {
-    stopPolling();
-    currentSymbol = normalizeSymbol(symbol);
-    pollCount = 0;
-    setStatus('正在补全深度分析，大约 5–10 分钟。你可以先干别的，本页会自动刷新。', 'pending');
-
-    pollTimer = setInterval(async () => {
-      pollCount += 1;
-      try {
-        const data = await fetchUnified(currentSymbol);
-        const gen = data.generated_at ? new Date(data.generated_at).getTime() : 0;
-        const isNew = !baselineTime || gen > baselineTime;
-        if (isNew && data.verdict?.value) {
-          updateReportCta(currentSymbol, data);
-          if (lastLiveReport && ScreenUnified?.applyMerged) {
-            ScreenUnified.applyMerged(ScreenUnified.mergeLiveWithCache(lastLiveReport, data));
-          }
-        }
-        if (isNew && data.uzi?.ready) {
-          setStatus('好了！深度分析已并入下方综合研判。', 'ok');
-          stopPolling();
-        }
-      } catch (_) { /* wait */ }
-
-      if (pollCount >= POLL_MAX) {
-        setStatus('等得有点久了。若 GitHub 新页面还没点绿色按钮，请去点一下；点过了就稍后再打开本页。', 'warn');
-        stopPolling();
-      }
-    }, POLL_MS);
   }
 
   function updateReportCta(symbol, data) {
@@ -100,66 +56,58 @@ const ScreenCloud = (() => {
     const btnOpen = el('btn-open-full-report');
     if (!box) return;
 
-    const hasUzi = data && data.uzi && data.uzi.ready;
     const code = normalizeSymbol(symbol);
+    const unified = hasUnifiedDepth(data);
+    const uzi = hasUziLayer(data);
     box.hidden = false;
 
-    if (hasUzi) {
-      if (text) text.innerHTML = '<p class="cta-ok">✅ 深度分析已就绪，已并入下方综合研判。</p>';
-      if (btnGen) {
-        btnGen.hidden = false;
-        btnGen.textContent = '⭐ 已收藏（每周自动更新）';
-        btnGen.onclick = () => {
-          ScreenWatchlist?.add?.(code, data.name);
-          setStatus('已加入「我的关注」，每周一会自动更新。', 'ok');
-        };
-      }
-      if (btnOpen) {
-        btnOpen.hidden = false;
-        btnOpen.onclick = () => window.open(data.uzi.report_url || `reports/${code}/index.html`, '_blank');
-      }
-      return;
-    }
-
-    if (text) {
-      text.innerHTML = `
-        <p class="cta-title">📄 深度分析还没做好</p>
-        <p class="cta-steps">点下面按钮 → 新页面再点一次绿色 <strong>Submit</strong> → 回到本页等着（约 5–10 分钟）。<br>收藏后<strong>每周一自动更新</strong> LCAI 研判；完整 UZI 深度需此步骤一次。</p>`;
-    }
     if (btnGen) {
       btnGen.hidden = false;
-      btnGen.textContent = '⭐ 收藏并补全深度分析';
-      btnGen.onclick = () => requestFullReport(symbol, data?.name);
+      btnGen.textContent = unified ? '⭐ 已收藏（每周自动更新）' : '⭐ 收藏到我的关注';
+      btnGen.onclick = () => favoriteSymbol(code, data?.name);
     }
-    if (btnOpen) btnOpen.hidden = true;
+
+    if (unified) {
+      const uziNote = uzi
+        ? 'UZI 价值派材料已并入下方解读。'
+        : 'LCAI 综合研判已就绪；UZI 价值派层将在<strong>每周一</strong>自动补全（无需 Issue）。';
+      if (text) {
+        text.innerHTML = `<p class="cta-ok">✅ 深度研判已就绪</p><p class="cta-steps">${uziNote}</p>`;
+      }
+    } else if (text) {
+      text.innerHTML = `
+        <p class="cta-title">📄 这只票还没有深度缓存</p>
+        <p class="cta-steps">点「收藏」加入关注；持仓与关注列表会在<strong>每周一</strong>自动生成深度分析。若急需，可到 GitHub Actions 手动运行一次。</p>`;
+    }
+
+    if (btnOpen) {
+      if (uzi || (data?.uzi?.report_url && unified)) {
+        btnOpen.hidden = false;
+        btnOpen.onclick = () => window.open(data.uzi.report_url || lcaiAsset(`reports/${code}/index.html`), '_blank');
+      } else {
+        btnOpen.hidden = true;
+      }
+    }
   }
 
-  async function requestFullReport(symbol, name) {
-    const code = normalizeSymbol(symbol);
+  function favoriteSymbol(code, name) {
     if (!code) {
       setStatus('请先输入股票代码', 'warn');
       return;
     }
-
     ScreenWatchlist?.add?.(code, name);
+    if (ScreenWatchlist?.isInCloud?.(code)) {
+      setStatus('已在云端关注列表，每周一自动更新深度分析。', 'ok');
+    } else {
+      setStatus('已加入本机关注。持仓/云端关注列表中的股票每周一自动跑深度分析，无需再开 Issue。', 'ok');
+    }
+    fetchUnified(code)
+      .then(data => updateReportCta(code, data))
+      .catch(() => updateReportCta(code, null));
+  }
 
-    let baselineTime = Date.now() - 1;
-    try {
-      const prev = await fetchUnified(code);
-      baselineTime = prev.generated_at ? new Date(prev.generated_at).getTime() : Date.now() - 1;
-      if (prev.uzi?.ready) {
-        setStatus('深度分析已经有了，直接往下看。', 'ok');
-        updateReportCta(code, prev);
-        if (lastLiveReport && ScreenUnified?.applyMerged) {
-          ScreenUnified.applyMerged(ScreenUnified.mergeLiveWithCache(lastLiveReport, prev));
-        }
-        return;
-      }
-    } catch (_) { /* first time */ }
-
-    window.open(issueNewUrl(code), '_blank', 'noopener');
-    setStatus('第 1 步完成：请在新页面点绿色 Submit。第 2 步：回到本页等着，会自动补全。', 'pending');
-    startPolling(code, baselineTime);
+  async function requestFullReport(symbol, name) {
+    favoriteSymbol(normalizeSymbol(symbol), name);
   }
 
   async function checkAndShowCta(symbol, name) {
@@ -167,9 +115,6 @@ const ScreenCloud = (() => {
     try {
       const data = await fetchUnified(code);
       updateReportCta(code, data);
-      if (!data.uzi?.ready) {
-        setStatus('', 'info');
-      }
     } catch {
       updateReportCta(code, null);
     }
@@ -181,7 +126,7 @@ const ScreenCloud = (() => {
 
   function init() {
     el('btn-favorite-generate')?.addEventListener('click', () => {
-      const sym = el('symbol-input')?.value?.trim() || currentSymbol;
+      const sym = el('symbol-input')?.value?.trim();
       const name = el('stock-title')?.textContent?.split('(')[0]?.trim();
       requestFullReport(sym, name);
     });
@@ -192,9 +137,9 @@ const ScreenCloud = (() => {
     requestFullReport,
     checkAndShowCta,
     hasFullReport,
-    stopPolling,
     normalizeSymbol,
     setLiveReport,
     fetchUnified,
+    actionsUrl: ACTIONS_URL,
   };
 })();

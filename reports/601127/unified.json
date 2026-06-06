@@ -78,12 +78,18 @@
     "LCAI: 硬指标 Fail L3-01"
   ],
   "divergences": [],
+  "depth": {
+    "lcai_ready": true,
+    "uzi_ready": false,
+    "ready": true,
+    "schedule": "weekly_monday"
+  },
   "uzi": {
     "tone": null,
     "consensus": null,
     "report_url": "reports/601127/index.html",
     "ready": false
   },
-  "generated_at": "2026-06-06T23:49:56+08:00",
+  "generated_at": "2026-06-07T00:17:03+08:00",
   "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
 }
