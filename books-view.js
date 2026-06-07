@@ -48,9 +48,9 @@ const BooksView = (() => {
     }
     listEl.innerHTML = books.map(b => {
       const active = b.id === selectedId ? ' books-item-active' : '';
-      const stub = b.status === 'stub' ? '<span class="books-stub">待完善</span>' : '';
+      const stub = statusBadge(b.status || 'stub');
       return `<button type="button" class="books-item${active}" data-book-id="${b.id}">
-        <span class="books-item-title">${b.title}${stub}</span>
+        <span class="books-item-title">${b.title} ${stub}</span>
         <span class="books-item-meta">${tierLabel(b.tier)}</span>
       </button>`;
     }).join('');
@@ -68,6 +68,31 @@ const BooksView = (() => {
       searchQuery = e.target.value.trim();
       renderList();
     });
+  }
+
+  function statusBadge(status) {
+    const map = {
+      stub: '<span class="books-stub">待完善</span>',
+      analyzed: '<span class="books-stub" style="background:hsl(200 80% 45% / 0.12);color:hsl(200 70% 40%)">已分析</span>',
+      needs_review: '<span class="books-stub">待审阅</span>',
+      reviewed: '<span class="books-stub" style="background:hsl(140 60% 40% / 0.12);color:hsl(140 50% 35%)">已合并</span>',
+    };
+    return map[status] || map.stub;
+  }
+
+  function getCandidate(bookId) {
+    const data = window.LCAI_BOOK_RULE_CANDIDATES || { candidates: [] };
+    return (data.candidates || []).find(c => c.book_id === bookId);
+  }
+
+  function renderCandidateCard(bookId) {
+    const c = getCandidate(bookId);
+    if (!c) return '';
+    return `<div class="books-candidate card" style="margin:12px 0;padding:12px">
+      <strong>候选规则</strong> · ${c.id}
+      <p class="books-meta">${c.name} · ${c.category} · eval: ${c.eval_hint || '—'} · 置信度 ${c.confidence ?? '—'}</p>
+      <p style="font-size:0.82rem;margin:8px 0 0">${(c.principle || '').slice(0, 280)}${(c.principle || '').length > 280 ? '…' : ''}</p>
+    </div>`;
   }
 
   function renderRuleChips(book) {
@@ -108,12 +133,12 @@ const BooksView = (() => {
       const md = await resp.text();
       const htmlFn = window.HandbookView?.mdToHtml;
       const bodyHtml = htmlFn ? htmlFn(md) : `<pre>${md}</pre>`;
-      const stubBadge = book.status === 'stub'
-        ? '<span class="books-stub-badge">待完善</span>' : '';
+      const stubBadge = statusBadge(book.status || 'stub');
       pane.innerHTML = `
         <div class="books-detail-head">
           <h2>${book.title} ${stubBadge}</h2>
-          <p class="books-meta">大类：${tierLabel(book.tier)} · <code>${book.id}</code></p>
+          <p class="books-meta">大类：${tierLabel(book.tier)} · <code>${book.id}</code> · ${book.status || 'stub'}</p>
+          ${renderCandidateCard(bookId)}
           <div class="books-related">
             <span class="books-related-label">关联规则</span>
             ${renderRuleChips(book)}

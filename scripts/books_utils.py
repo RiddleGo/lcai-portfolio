@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BOOKS_DIR = ROOT / "书籍" / "books"
 BOOKS_INDEX_PATH = ROOT / "书籍" / "books-index.json"
 BOOKS_INDEX_JS_PATH = ROOT / "books-index-data.js"
+CANDIDATES_JS_PATH = ROOT / "book-rule-candidates-data.js"
 BOOK_LIST_PATH = ROOT / "书籍" / "投资书单.md"
 META_SOURCES_PATH = ROOT / "投资系统" / "meta-sources.json"
 RULE_CATEGORIES_PATH = ROOT / "投资系统" / "rule-categories.json"
@@ -98,7 +99,7 @@ def parse_frontmatter(text: str) -> tuple[dict[str, Any], str]:
 
 def dump_frontmatter(fm: dict[str, Any]) -> str:
     lines = ["---"]
-    for key in ("id", "title", "tier", "section", "categories", "aliases", "related_rules", "status"):
+    for key in ("id", "title", "tier", "section", "categories", "aliases", "related_rules", "candidate_rule_id", "status"):
         if key not in fm:
             continue
         val = fm[key]
@@ -113,10 +114,14 @@ def dump_frontmatter(fm: dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def stub_body(title: str) -> str:
+def analysis_body(title: str) -> str:
     return f"""# {title}
 
 ## 一句话
+
+（待补充）
+
+## 全书脉络
 
 （待补充）
 
@@ -124,14 +129,26 @@ def stub_body(title: str) -> str:
 
 - （待补充）
 
-## 与 LCAI 规则的对应
+## 可执行原则
 
-（待补充：关联规则编号，如 L3-01）
+（待补充）
+
+## 与 LCAI 的对应
+
+（合并后回填规则编号）
+
+## 参考资料
+
+- （待补充）
 
 ## 读书笔记
 
 （自由编辑区）
 """
+
+
+def stub_body(title: str) -> str:
+    return analysis_body(title)
 
 
 def parse_investment_booklist(md_text: str) -> list[BookEntry]:

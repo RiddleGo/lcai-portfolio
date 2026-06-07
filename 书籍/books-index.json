@@ -11,11 +11,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b030",
       "aliases": [],
       "related_rules": [
         "L0-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b030-8b0bcd.md"
     },
     {
@@ -26,13 +27,14 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b031",
       "aliases": [],
       "related_rules": [
         "L0-05",
         "L2-01",
         "L2-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b031-7e1015.md"
     },
     {
@@ -43,9 +45,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b032",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b032-5dbeb7.md"
     },
     {
@@ -56,9 +61,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b033",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b033-80f23e.md"
     },
     {
@@ -69,9 +77,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b034",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b034-3d14b3.md"
     },
     {
@@ -82,9 +93,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b035",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b035-80df58.md"
     },
     {
@@ -95,11 +109,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b036",
       "aliases": [],
       "related_rules": [
         "L3-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b036-a63908.md"
     },
     {
@@ -110,9 +125,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b037",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b037-c27b47.md"
     },
     {
@@ -123,9 +141,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b038",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b038-af4341.md"
     },
     {
@@ -136,9 +157,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b039",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b039-f6fca8.md"
     },
     {
@@ -149,11 +173,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b040",
       "aliases": [],
       "related_rules": [
         "L2-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b040-86279b.md"
     },
     {
@@ -164,9 +189,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b041",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b041-9d78d2.md"
     },
     {
@@ -177,11 +205,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b042",
       "aliases": [],
       "related_rules": [
         "L0-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b042-b4b7c8.md"
     },
     {
@@ -192,13 +221,14 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b043",
       "aliases": [],
       "related_rules": [
         "L0-06",
         "L2-02",
         "L3-05"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b043-66413b.md"
     },
     {
@@ -209,9 +239,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b044",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b044-5dffc2.md"
     },
     {
@@ -222,9 +255,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b045",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b045-ce0014.md"
     },
     {
@@ -235,9 +271,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b046",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b046-1cba1e.md"
     },
     {
@@ -248,9 +287,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b047",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b047-c4558f.md"
     },
     {
@@ -261,9 +303,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b048",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b048-1087a1.md"
     },
     {
@@ -274,9 +319,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b049",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b049-ac4158.md"
     },
     {
@@ -287,9 +335,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b050",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b050-df12f4.md"
     },
     {
@@ -300,9 +351,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b051",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b051-d924ca.md"
     },
     {
@@ -313,9 +367,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b052",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b052-703915.md"
     },
     {
@@ -326,11 +383,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b053",
       "aliases": [],
       "related_rules": [
         "L3-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b053-4bf089.md"
     },
     {
@@ -341,9 +399,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b054",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b054-c20c01.md"
     },
     {
@@ -354,9 +415,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b055",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b055-c2c7f9.md"
     },
     {
@@ -367,9 +431,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b056",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b056-0e4cca.md"
     },
     {
@@ -380,9 +447,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b057",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b057-c3292a.md"
     },
     {
@@ -393,9 +463,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b058",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b058-bc71f7.md"
     },
     {
@@ -406,9 +479,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b059",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b059-a50467.md"
     },
     {
@@ -419,9 +495,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b060",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b060-1c0692.md"
     },
     {
@@ -432,9 +511,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b061",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b061-dffa34.md"
     },
     {
@@ -445,9 +527,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b062",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b062-cef8c1.md"
     },
     {
@@ -458,9 +543,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b001",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b001-a4e2a8.md"
     },
     {
@@ -471,9 +559,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b002",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b002-93b7b1.md"
     },
     {
@@ -484,9 +575,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b003",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b003-1b6e73.md"
     },
     {
@@ -497,9 +591,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b004",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b004-0027ff.md"
     },
     {
@@ -510,9 +607,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b005",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b005-3b8e1c.md"
     },
     {
@@ -523,9 +623,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b006",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b006-dfc4a7.md"
     },
     {
@@ -536,9 +639,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b007",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b007-e0f6df.md"
     },
     {
@@ -549,11 +655,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b008",
       "aliases": [],
       "related_rules": [
         "L1-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b008-a3730d.md"
     },
     {
@@ -564,9 +671,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b009",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b009-3fb5f3.md"
     },
     {
@@ -577,12 +687,13 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b010",
       "aliases": [],
       "related_rules": [
         "L1-01",
         "L1-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b010-624244.md"
     },
     {
@@ -593,9 +704,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b011",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b011-0022aa.md"
     },
     {
@@ -606,11 +720,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b012",
       "aliases": [],
       "related_rules": [
         "L3-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b012-e5777d.md"
     },
     {
@@ -621,11 +736,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b013",
       "aliases": [],
       "related_rules": [
         "L1-05"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b013-dc149b.md"
     },
     {
@@ -636,9 +752,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b014",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b014-30fa94.md"
     },
     {
@@ -649,9 +768,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b015",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b015-375a44.md"
     },
     {
@@ -662,9 +784,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b016",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b016-491b3b.md"
     },
     {
@@ -675,9 +800,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b017",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b017-cf7c10.md"
     },
     {
@@ -688,9 +816,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b018",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b018-348765.md"
     },
     {
@@ -701,11 +832,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b019",
       "aliases": [],
       "related_rules": [
         "L0-01"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b019-9a3426.md"
     },
     {
@@ -716,12 +848,13 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b020",
       "aliases": [],
       "related_rules": [
         "L3-01",
         "L3-06"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b020-f78bfe.md"
     },
     {
@@ -732,11 +865,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b021",
       "aliases": [],
       "related_rules": [
         "L1-01"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b021-924543.md"
     },
     {
@@ -747,9 +881,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b022",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b022-983056.md"
     },
     {
@@ -760,9 +897,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b023",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b023-8fd65f.md"
     },
     {
@@ -773,11 +913,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b024",
       "aliases": [],
       "related_rules": [
         "L4-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b024-110133.md"
     },
     {
@@ -788,9 +929,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b025",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b025-5cbf1a.md"
     },
     {
@@ -801,9 +945,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b066",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b066-f5f014.md"
     },
     {
@@ -814,9 +961,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b067",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b067-5ad3ea.md"
     },
     {
@@ -827,11 +977,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b068",
       "aliases": [],
       "related_rules": [
         "L0-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b068-d1830c.md"
     },
     {
@@ -842,9 +993,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b069",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b069-d667c4.md"
     },
     {
@@ -855,9 +1009,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b070",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b070-21c5d2.md"
     },
     {
@@ -868,9 +1025,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b071",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b071-167a22.md"
     },
     {
@@ -881,9 +1041,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b063",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b063-fb7663.md"
     },
     {
@@ -894,9 +1057,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b064",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b064-c48a53.md"
     },
     {
@@ -907,11 +1073,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b065",
       "aliases": [],
       "related_rules": [
         "L4-01"
       ],
-      "status": "stub",
+      "status": "needs_review",
       "file": "书籍/books/b065-d00099.md"
     },
     {
@@ -922,11 +1089,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b026",
       "aliases": [],
       "related_rules": [
         "L0-01"
       ],
-      "status": "stub",
+      "status": "needs_review",
       "file": "书籍/books/b026-06f62d.md"
     },
     {
@@ -937,9 +1105,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b027",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b027-11715e.md"
     },
     {
@@ -950,9 +1121,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b028",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b028-6785dd.md"
     },
     {
@@ -963,9 +1137,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b029",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b029-a5b9c1.md"
     },
     {
@@ -976,9 +1153,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b072",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b072-20b71e.md"
     },
     {
@@ -989,9 +1169,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b073",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b073-e63846.md"
     },
     {
@@ -1002,9 +1185,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b074",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b074-0af8b2.md"
     },
     {
@@ -1015,9 +1201,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b075",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b075-c04292.md"
     },
     {
@@ -1028,9 +1217,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b076",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b076-833728.md"
     },
     {
@@ -1041,9 +1233,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b077",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b077-fd8491.md"
     },
     {
@@ -1054,9 +1249,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b078",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b078-4ee3d7.md"
     },
     {
@@ -1067,9 +1265,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b079",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b079-2a50a2.md"
     },
     {
@@ -1080,9 +1281,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b080",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b080-dfe90a.md"
     },
     {
@@ -1093,11 +1297,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b081",
       "aliases": [],
       "related_rules": [
         "L1-06"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b081-ffdb49.md"
     },
     {
@@ -1108,9 +1313,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b082",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b082-54c9e7.md"
     },
     {
@@ -1121,11 +1329,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b083",
       "aliases": [],
       "related_rules": [
         "L1-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b083-4c8246.md"
     },
     {
@@ -1136,9 +1345,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b084",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b084-4ff96d.md"
     },
     {
@@ -1149,9 +1361,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b085",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b085-eb8539.md"
     },
     {
@@ -1162,9 +1377,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b086",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b086-3646aa.md"
     },
     {
@@ -1175,9 +1393,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b087",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b087-beca73.md"
     },
     {
@@ -1188,9 +1409,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b088",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b088-43d061.md"
     },
     {
@@ -1201,9 +1425,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b089",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b089-15b6c8.md"
     },
     {
@@ -1214,9 +1441,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b090",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b090-c9b988.md"
     },
     {
@@ -1227,9 +1457,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b091",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b091-22e965.md"
     },
     {
@@ -1240,9 +1473,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b092",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b092-76d548.md"
     },
     {
@@ -1253,9 +1489,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b093",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b093-6b041a.md"
     },
     {
@@ -1266,9 +1505,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b094",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b094-87c0a9.md"
     },
     {
@@ -1279,9 +1521,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b095",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b095-2317af.md"
     },
     {
@@ -1292,9 +1537,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b102",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b102-f59fd3.md"
     },
     {
@@ -1305,9 +1553,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b103",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b103-aaa1e8.md"
     },
     {
@@ -1318,9 +1569,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b104",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b104-0cf06b.md"
     },
     {
@@ -1331,9 +1585,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b105",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b105-4b17ec.md"
     },
     {
@@ -1344,9 +1601,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b096",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b096-f2b963.md"
     },
     {
@@ -1357,9 +1617,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b097",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b097-998eaf.md"
     },
     {
@@ -1370,9 +1633,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b098",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b098-cc442b.md"
     },
     {
@@ -1383,9 +1649,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b099",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b099-20d2ab.md"
     },
     {
@@ -1396,9 +1665,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b100",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b100-67ac7d.md"
     },
     {
@@ -1409,9 +1681,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b101",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b101-3427a6.md"
     },
     {
@@ -1422,9 +1697,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b106",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b106-1207bc.md"
     },
     {
@@ -1435,9 +1713,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b110",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b110-dab538.md"
     },
     {
@@ -1448,9 +1729,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b107",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b107-5fd727.md"
     },
     {
@@ -1461,9 +1745,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b108",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b108-9b05bf.md"
     },
     {
@@ -1474,9 +1761,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b109",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b109-a1705b.md"
     }
   ],
@@ -1489,9 +1779,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b001",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b001-a4e2a8.md"
     },
     "b002-93b7b1": {
@@ -1502,9 +1795,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b002",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b002-93b7b1.md"
     },
     "b003-1b6e73": {
@@ -1515,9 +1811,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b003",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b003-1b6e73.md"
     },
     "b004-0027ff": {
@@ -1528,9 +1827,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b004",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b004-0027ff.md"
     },
     "b005-3b8e1c": {
@@ -1541,9 +1843,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b005",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b005-3b8e1c.md"
     },
     "b006-dfc4a7": {
@@ -1554,9 +1859,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b006",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b006-dfc4a7.md"
     },
     "b007-e0f6df": {
@@ -1567,9 +1875,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b007",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b007-e0f6df.md"
     },
     "b008-a3730d": {
@@ -1580,11 +1891,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b008",
       "aliases": [],
       "related_rules": [
         "L1-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b008-a3730d.md"
     },
     "b009-3fb5f3": {
@@ -1595,9 +1907,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b009",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b009-3fb5f3.md"
     },
     "b010-624244": {
@@ -1608,12 +1923,13 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b010",
       "aliases": [],
       "related_rules": [
         "L1-01",
         "L1-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b010-624244.md"
     },
     "b011-0022aa": {
@@ -1624,9 +1940,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b011",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b011-0022aa.md"
     },
     "b012-e5777d": {
@@ -1637,11 +1956,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b012",
       "aliases": [],
       "related_rules": [
         "L3-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b012-e5777d.md"
     },
     "b013-dc149b": {
@@ -1652,11 +1972,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b013",
       "aliases": [],
       "related_rules": [
         "L1-05"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b013-dc149b.md"
     },
     "b014-30fa94": {
@@ -1667,9 +1988,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b014",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b014-30fa94.md"
     },
     "b015-375a44": {
@@ -1680,9 +2004,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b015",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b015-375a44.md"
     },
     "b016-491b3b": {
@@ -1693,9 +2020,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b016",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b016-491b3b.md"
     },
     "b017-cf7c10": {
@@ -1706,9 +2036,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b017",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b017-cf7c10.md"
     },
     "b018-348765": {
@@ -1719,9 +2052,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b018",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b018-348765.md"
     },
     "b019-9a3426": {
@@ -1732,11 +2068,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b019",
       "aliases": [],
       "related_rules": [
         "L0-01"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b019-9a3426.md"
     },
     "b020-f78bfe": {
@@ -1747,12 +2084,13 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b020",
       "aliases": [],
       "related_rules": [
         "L3-01",
         "L3-06"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b020-f78bfe.md"
     },
     "b021-924543": {
@@ -1763,11 +2101,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b021",
       "aliases": [],
       "related_rules": [
         "L1-01"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b021-924543.md"
     },
     "b022-983056": {
@@ -1778,9 +2117,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b022",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b022-983056.md"
     },
     "b023-8fd65f": {
@@ -1791,9 +2133,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b023",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b023-8fd65f.md"
     },
     "b024-110133": {
@@ -1804,11 +2149,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b024",
       "aliases": [],
       "related_rules": [
         "L4-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b024-110133.md"
     },
     "b025-5cbf1a": {
@@ -1819,9 +2165,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b025",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b025-5cbf1a.md"
     },
     "b026-06f62d": {
@@ -1832,11 +2181,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b026",
       "aliases": [],
       "related_rules": [
         "L0-01"
       ],
-      "status": "stub",
+      "status": "needs_review",
       "file": "书籍/books/b026-06f62d.md"
     },
     "b027-11715e": {
@@ -1847,9 +2197,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b027",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b027-11715e.md"
     },
     "b028-6785dd": {
@@ -1860,9 +2213,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b028",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b028-6785dd.md"
     },
     "b029-a5b9c1": {
@@ -1873,9 +2229,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b029",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b029-a5b9c1.md"
     },
     "b030-8b0bcd": {
@@ -1886,11 +2245,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b030",
       "aliases": [],
       "related_rules": [
         "L0-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b030-8b0bcd.md"
     },
     "b031-7e1015": {
@@ -1901,13 +2261,14 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b031",
       "aliases": [],
       "related_rules": [
         "L0-05",
         "L2-01",
         "L2-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b031-7e1015.md"
     },
     "b032-5dbeb7": {
@@ -1918,9 +2279,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b032",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b032-5dbeb7.md"
     },
     "b033-80f23e": {
@@ -1931,9 +2295,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b033",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b033-80f23e.md"
     },
     "b034-3d14b3": {
@@ -1944,9 +2311,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b034",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b034-3d14b3.md"
     },
     "b035-80df58": {
@@ -1957,9 +2327,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b035",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b035-80df58.md"
     },
     "b036-a63908": {
@@ -1970,11 +2343,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b036",
       "aliases": [],
       "related_rules": [
         "L3-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b036-a63908.md"
     },
     "b037-c27b47": {
@@ -1985,9 +2359,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b037",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L3-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b037-c27b47.md"
     },
     "b038-af4341": {
@@ -1998,9 +2375,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b038",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b038-af4341.md"
     },
     "b039-f6fca8": {
@@ -2011,9 +2391,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b039",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b039-f6fca8.md"
     },
     "b040-86279b": {
@@ -2024,11 +2407,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b040",
       "aliases": [],
       "related_rules": [
         "L2-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b040-86279b.md"
     },
     "b041-9d78d2": {
@@ -2039,9 +2423,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b041",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b041-9d78d2.md"
     },
     "b042-b4b7c8": {
@@ -2052,11 +2439,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b042",
       "aliases": [],
       "related_rules": [
         "L0-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b042-b4b7c8.md"
     },
     "b043-66413b": {
@@ -2067,13 +2455,14 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b043",
       "aliases": [],
       "related_rules": [
         "L0-06",
         "L2-02",
         "L3-05"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b043-66413b.md"
     },
     "b044-5dffc2": {
@@ -2084,9 +2473,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b044",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b044-5dffc2.md"
     },
     "b045-ce0014": {
@@ -2097,9 +2489,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b045",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b045-ce0014.md"
     },
     "b046-1cba1e": {
@@ -2110,9 +2505,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b046",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b046-1cba1e.md"
     },
     "b047-c4558f": {
@@ -2123,9 +2521,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b047",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b047-c4558f.md"
     },
     "b048-1087a1": {
@@ -2136,9 +2537,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b048",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b048-1087a1.md"
     },
     "b049-ac4158": {
@@ -2149,9 +2553,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b049",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b049-ac4158.md"
     },
     "b050-df12f4": {
@@ -2162,9 +2569,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b050",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b050-df12f4.md"
     },
     "b051-d924ca": {
@@ -2175,9 +2585,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b051",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b051-d924ca.md"
     },
     "b052-703915": {
@@ -2188,9 +2601,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b052",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b052-703915.md"
     },
     "b053-4bf089": {
@@ -2201,11 +2617,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b053",
       "aliases": [],
       "related_rules": [
         "L3-02"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b053-4bf089.md"
     },
     "b054-c20c01": {
@@ -2216,9 +2633,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b054",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b054-c20c01.md"
     },
     "b055-c2c7f9": {
@@ -2229,9 +2649,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b055",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b055-c2c7f9.md"
     },
     "b056-0e4cca": {
@@ -2242,9 +2665,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b056",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b056-0e4cca.md"
     },
     "b057-c3292a": {
@@ -2255,9 +2681,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b057",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b057-c3292a.md"
     },
     "b058-bc71f7": {
@@ -2268,9 +2697,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b058",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b058-bc71f7.md"
     },
     "b059-a50467": {
@@ -2281,9 +2713,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b059",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b059-a50467.md"
     },
     "b060-1c0692": {
@@ -2294,9 +2729,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b060",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b060-1c0692.md"
     },
     "b061-dffa34": {
@@ -2307,9 +2745,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b061",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b061-dffa34.md"
     },
     "b062-cef8c1": {
@@ -2320,9 +2761,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b062",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b062-cef8c1.md"
     },
     "b063-fb7663": {
@@ -2333,9 +2777,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b063",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b063-fb7663.md"
     },
     "b064-c48a53": {
@@ -2346,9 +2793,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b064",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "needs_review",
       "file": "书籍/books/b064-c48a53.md"
     },
     "b065-d00099": {
@@ -2359,11 +2809,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b065",
       "aliases": [],
       "related_rules": [
         "L4-01"
       ],
-      "status": "stub",
+      "status": "needs_review",
       "file": "书籍/books/b065-d00099.md"
     },
     "b066-f5f014": {
@@ -2374,9 +2825,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b066",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b066-f5f014.md"
     },
     "b067-5ad3ea": {
@@ -2387,9 +2841,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b067",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b067-5ad3ea.md"
     },
     "b068-d1830c": {
@@ -2400,11 +2857,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b068",
       "aliases": [],
       "related_rules": [
         "L0-04"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b068-d1830c.md"
     },
     "b069-d667c4": {
@@ -2415,9 +2873,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b069",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b069-d667c4.md"
     },
     "b070-21c5d2": {
@@ -2428,9 +2889,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b070",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b070-21c5d2.md"
     },
     "b071-167a22": {
@@ -2441,9 +2905,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b071",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b071-167a22.md"
     },
     "b072-20b71e": {
@@ -2454,9 +2921,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b072",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b072-20b71e.md"
     },
     "b073-e63846": {
@@ -2467,9 +2937,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b073",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b073-e63846.md"
     },
     "b074-0af8b2": {
@@ -2480,9 +2953,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b074",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b074-0af8b2.md"
     },
     "b075-c04292": {
@@ -2493,9 +2969,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b075",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b075-c04292.md"
     },
     "b076-833728": {
@@ -2506,9 +2985,12 @@
       "categories": [
         "核心投资"
       ],
+      "candidate_rule_id": "BR-b076",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b076-833728.md"
     },
     "b077-fd8491": {
@@ -2519,9 +3001,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b077",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b077-fd8491.md"
     },
     "b078-4ee3d7": {
@@ -2532,9 +3017,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b078",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b078-4ee3d7.md"
     },
     "b079-2a50a2": {
@@ -2545,9 +3033,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b079",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b079-2a50a2.md"
     },
     "b080-dfe90a": {
@@ -2558,9 +3049,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b080",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b080-dfe90a.md"
     },
     "b081-ffdb49": {
@@ -2571,11 +3065,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b081",
       "aliases": [],
       "related_rules": [
         "L1-06"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b081-ffdb49.md"
     },
     "b082-54c9e7": {
@@ -2586,9 +3081,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b082",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b082-54c9e7.md"
     },
     "b083-4c8246": {
@@ -2599,11 +3097,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b083",
       "aliases": [],
       "related_rules": [
         "L1-03"
       ],
-      "status": "stub",
+      "status": "reviewed",
       "file": "书籍/books/b083-4c8246.md"
     },
     "b084-4ff96d": {
@@ -2614,9 +3113,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b084",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b084-4ff96d.md"
     },
     "b085-eb8539": {
@@ -2627,9 +3129,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b085",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b085-eb8539.md"
     },
     "b086-3646aa": {
@@ -2640,9 +3145,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b086",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b086-3646aa.md"
     },
     "b087-beca73": {
@@ -2653,9 +3161,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b087",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b087-beca73.md"
     },
     "b088-43d061": {
@@ -2666,9 +3177,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b088",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L0-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b088-43d061.md"
     },
     "b089-15b6c8": {
@@ -2679,9 +3193,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b089",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b089-15b6c8.md"
     },
     "b090-c9b988": {
@@ -2692,9 +3209,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b090",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b090-c9b988.md"
     },
     "b091-22e965": {
@@ -2705,9 +3225,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b091",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b091-22e965.md"
     },
     "b092-76d548": {
@@ -2718,9 +3241,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b092",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b092-76d548.md"
     },
     "b093-6b041a": {
@@ -2731,9 +3257,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b093",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L4-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b093-6b041a.md"
     },
     "b094-87c0a9": {
@@ -2744,9 +3273,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b094",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b094-87c0a9.md"
     },
     "b095-2317af": {
@@ -2757,9 +3289,12 @@
       "categories": [
         "投资辅助"
       ],
+      "candidate_rule_id": "BR-b095",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L1-04"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b095-2317af.md"
     },
     "b096-f2b963": {
@@ -2770,9 +3305,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b096",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b096-f2b963.md"
     },
     "b097-998eaf": {
@@ -2783,9 +3321,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b097",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b097-998eaf.md"
     },
     "b098-cc442b": {
@@ -2796,9 +3337,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b098",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b098-cc442b.md"
     },
     "b099-20d2ab": {
@@ -2809,9 +3353,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b099",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b099-20d2ab.md"
     },
     "b100-67ac7d": {
@@ -2822,9 +3369,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b100",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b100-67ac7d.md"
     },
     "b101-3427a6": {
@@ -2835,9 +3385,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b101",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b101-3427a6.md"
     },
     "b102-f59fd3": {
@@ -2848,9 +3401,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b102",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b102-f59fd3.md"
     },
     "b103-aaa1e8": {
@@ -2861,9 +3417,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b103",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b103-aaa1e8.md"
     },
     "b104-0cf06b": {
@@ -2874,9 +3433,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b104",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b104-0cf06b.md"
     },
     "b105-4b17ec": {
@@ -2887,9 +3449,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b105",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b105-4b17ec.md"
     },
     "b106-1207bc": {
@@ -2900,9 +3465,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b106",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b106-1207bc.md"
     },
     "b107-5fd727": {
@@ -2913,9 +3481,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b107",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b107-5fd727.md"
     },
     "b108-9b05bf": {
@@ -2926,9 +3497,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b108",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b108-9b05bf.md"
     },
     "b109-a1705b": {
@@ -2939,9 +3513,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b109",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b109-a1705b.md"
     },
     "b110-dab538": {
@@ -2952,9 +3529,12 @@
       "categories": [
         "行业研究"
       ],
+      "candidate_rule_id": "BR-b110",
       "aliases": [],
-      "related_rules": [],
-      "status": "stub",
+      "related_rules": [
+        "L5-01"
+      ],
+      "status": "reviewed",
       "file": "书籍/books/b110-dab538.md"
     }
   },

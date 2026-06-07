@@ -11,11 +11,13 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
+from book_rules_utils import CANDIDATES_PATH  # noqa: E402
 from books_utils import (
     BOOKS_DIR,
     BOOKS_INDEX_JS_PATH,
     BOOKS_INDEX_PATH,
     BOOK_LIST_PATH,
+    CANDIDATES_JS_PATH,
     META_SOURCES_PATH,
     TIER_LABELS,
     dump_frontmatter,
@@ -42,6 +44,7 @@ def build_index() -> dict:
             "tier": fm.get("tier", 1),
             "section": fm.get("section", ""),
             "categories": tier_categories(int(fm.get("tier", 1))),
+            "candidate_rule_id": fm.get("candidate_rule_id", ""),
             "aliases": fm.get("aliases") or [],
             "related_rules": fm.get("related_rules") or [],
             "status": fm.get("status", "stub"),
@@ -167,6 +170,12 @@ def main() -> int:
     BOOKS_INDEX_JS_PATH.write_text(js, encoding="utf-8")
     print(f"wrote {BOOKS_INDEX_PATH} ({index['count']} books)")
     print(f"wrote {BOOKS_INDEX_JS_PATH}")
+
+    if CANDIDATES_PATH.exists():
+        cand = json.loads(CANDIDATES_PATH.read_text(encoding="utf-8"))
+        cjs = "window.LCAI_BOOK_RULE_CANDIDATES = " + json.dumps(cand, ensure_ascii=False, indent=2) + ";\n"
+        CANDIDATES_JS_PATH.write_text(cjs, encoding="utf-8")
+        print(f"wrote {CANDIDATES_JS_PATH}")
 
     if not args.no_booklist:
         BOOK_LIST_PATH.write_text(render_booklist_md(index), encoding="utf-8")

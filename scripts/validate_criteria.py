@@ -10,8 +10,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CRITERIA_PATH = ROOT / "投资系统" / "criteria.json"
 RULE_CATEGORIES_PATH = ROOT / "投资系统" / "rule-categories.json"
+CANDIDATES_PATH = ROOT / "投资系统" / "book-rule-candidates.json"
+MERGED_PATH = ROOT / "投资系统" / "book-rules-merged.json"
 
 sys.path.insert(0, str(ROOT / "scripts"))
+from book_rules_utils import validate_candidates_file  # noqa: E402
 from books_utils import load_books_index, load_meta_sources  # noqa: E402
 
 KNOWN_EVALS = {
@@ -156,6 +159,30 @@ def validate(cfg: dict) -> list[str]:
     return errors
 
 
+def validate_book_rules_files(index: dict) -> list[str]:
+    errors: list[str] = []
+    if CANDIDATES_PATH.exists():
+        data = json.loads(CANDIDATES_PATH.read_text(encoding="utf-8"))
+        errors.extend(validate_candidates_file(data, index))
+    if MERGED_PATH.exists():
+        merged = json.loads(MERGED_PATH.read_text(encoding="utf-8"))
+        by_id = index.get("by_id") or {}
+        cfg = json.loads(CRITERIA_PATH.read_text(encoding="utf-8")) if CRITERIA_PATH.exists() else {}
+        rule_ids = {r["id"] for r in cfg.get("rules") or []}
+        cand_ids = {c["id"] for c in json.loads(CANDIDATES_PATH.read_text(encoding="utf-8")).get("candidates", [])} if CANDIDATES_PATH.exists() else set()
+        for m in merged.get("merged_rules") or []:
+            tid = m.get("target_id")
+            if m.get("action") == "extend" and tid and tid not in rule_ids:
+                errors.append(f"merged target_id 不存在: {tid}")
+            for bid in m.get("book_ids") or []:
+                if bid not in by_id:
+                    errors.append(f"merged 未知 book_id {bid}")
+            for cid in m.get("candidate_ids") or []:
+                if cand_ids and cid not in cand_ids:
+                    errors.append(f"merged 未知 candidate_id {cid}")
+    return errors
+
+
 def main() -> int:
     if not CRITERIA_PATH.exists():
         print(f"找不到 {CRITERIA_PATH}", file=sys.stderr)
@@ -163,6 +190,7 @@ def main() -> int:
     cfg = json.loads(CRITERIA_PATH.read_text(encoding="utf-8"))
     index = load_books_index()
     errors = validate(cfg)
+    errors.extend(validate_book_rules_files(index))
     warnings = validate_warnings(cfg, index)
     if errors:
         print("criteria.json 校验失败:", file=sys.stderr)

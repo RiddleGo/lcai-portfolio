@@ -1,0 +1,568 @@
+{
+  "version": 1,
+  "merged_rules": [
+    {
+      "target_id": "L4-01",
+      "action": "extend",
+      "book_ids": [
+        "b032-5dbeb7",
+        "b033-80f23e",
+        "b034-3d14b3",
+        "b035-80df58",
+        "b038-af4341",
+        "b039-f6fca8",
+        "b044-5dffc2",
+        "b045-ce0014",
+        "b046-1cba1e",
+        "b047-c4558f",
+        "b048-1087a1",
+        "b049-ac4158",
+        "b050-df12f4",
+        "b051-d924ca",
+        "b052-703915",
+        "b054-c20c01",
+        "b056-0e4cca",
+        "b057-c3292a",
+        "b058-bc71f7",
+        "b059-a50467",
+        "b060-1c0692",
+        "b061-dffa34",
+        "b062-cef8c1",
+        "b063-fb7663",
+        "b064-c48a53",
+        "b065-d00099",
+        "b072-20b71e",
+        "b073-e63846",
+        "b074-0af8b2",
+        "b075-c04292",
+        "b076-833728",
+        "b089-15b6c8",
+        "b090-c9b988",
+        "b091-22e965",
+        "b092-76d548",
+        "b093-6b041a"
+      ],
+      "candidate_ids": [
+        "BR-b063",
+        "BR-b032",
+        "BR-b033",
+        "BR-b034",
+        "BR-b035",
+        "BR-b072",
+        "BR-b073",
+        "BR-b074",
+        "BR-b038",
+        "BR-b039",
+        "BR-b064",
+        "BR-b044",
+        "BR-b045",
+        "BR-b046",
+        "BR-b047",
+        "BR-b048",
+        "BR-b049",
+        "BR-b050",
+        "BR-b051",
+        "BR-b052",
+        "BR-b075",
+        "BR-b054",
+        "BR-b056",
+        "BR-b057",
+        "BR-b058",
+        "BR-b059",
+        "BR-b060",
+        "BR-b065",
+        "BR-b061",
+        "BR-b062",
+        "BR-b076",
+        "BR-b089",
+        "BR-b090",
+        "BR-b091",
+        "BR-b092",
+        "BR-b093"
+      ],
+      "merged_name": "心理纪律",
+      "merged_principle": "借鉴《一位投资人的阅读、思考与见闻》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《不焦虑的投资》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《人生财富靠康波：涛动周期论》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《以交易为生》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《以交易为生(II)：卖出的艺术》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《全情投入：人生最重要的事》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychology_ok 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《原则》：在能力圈内选择商业模式清晰、财务可验证的标的，以 psychol",
+      "eval": "psychology_ok",
+      "category": "execution",
+      "layer": "L4",
+      "type": "soft",
+      "auto": "manual",
+      "threshold": true,
+      "weight": 10
+    },
+    {
+      "target_id": "L0-02",
+      "action": "extend",
+      "book_ids": [
+        "b030-8b0bcd"
+      ],
+      "candidate_ids": [
+        "BR-b030"
+      ],
+      "merged_name": "非ST",
+      "merged_principle": "借鉴《一本书看透A股》：在能力圈内选择商业模式清晰、财务可验证的标的，以 not_st 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "not_st",
+      "category": "gate",
+      "layer": "L0",
+      "type": "hard",
+      "auto": "full",
+      "threshold": true,
+      "weight": null
+    },
+    {
+      "target_id": "L0-05",
+      "action": "extend",
+      "book_ids": [
+        "b031-7e1015"
+      ],
+      "candidate_ids": [
+        "BR-b031"
+      ],
+      "merged_name": "财务造假嫌疑",
+      "merged_principle": "借鉴《一本书看透财报》：在能力圈内选择商业模式清晰、财务可验证的标的，以 fraud_suspect 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "fraud_suspect",
+      "category": "gate",
+      "layer": "L0",
+      "type": "veto",
+      "auto": "full",
+      "threshold": false,
+      "weight": null
+    },
+    {
+      "target_id": "L0-04",
+      "action": "extend",
+      "book_ids": [
+        "b055-c2c7f9",
+        "b066-f5f014",
+        "b067-5ad3ea",
+        "b068-d1830c",
+        "b069-d667c4",
+        "b070-21c5d2",
+        "b071-167a22",
+        "b085-eb8539",
+        "b086-3646aa",
+        "b087-beca73",
+        "b088-43d061"
+      ],
+      "candidate_ids": [
+        "BR-b066",
+        "BR-b067",
+        "BR-b068",
+        "BR-b069",
+        "BR-b055",
+        "BR-b070",
+        "BR-b071",
+        "BR-b085",
+        "BR-b086",
+        "BR-b087",
+        "BR-b088"
+      ],
+      "merged_name": "营收增长",
+      "merged_principle": "借鉴《中国大趋势4：中国经济未来十年》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《中国经济2025：结构筑底与化危为机》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《时势：周期波动下的国家、社会和个人》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《稳定币（稳定币：AI智能体经济的未来探索 / 稳定币：新一轮货币革命）》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《股票投资如何把握行业和周期》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《财经爆点：AI泡沫、巴菲特隐退…》：在能力圈内选择商业模式清晰、财务可验证的标的，以 revenue_growth 所代表的标准",
+      "eval": "revenue_growth",
+      "category": "gate",
+      "layer": "L0",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 0,
+      "weight": 5
+    },
+    {
+      "target_id": "L3-01",
+      "action": "extend",
+      "book_ids": [
+        "b001-a4e2a8",
+        "b002-93b7b1",
+        "b004-0027ff",
+        "b005-3b8e1c",
+        "b006-dfc4a7",
+        "b007-e0f6df",
+        "b009-3fb5f3",
+        "b011-0022aa",
+        "b015-375a44",
+        "b016-491b3b",
+        "b017-cf7c10",
+        "b018-348765",
+        "b020-f78bfe",
+        "b022-983056",
+        "b025-5cbf1a",
+        "b037-c27b47"
+      ],
+      "candidate_ids": [
+        "BR-b001",
+        "BR-b002",
+        "BR-b004",
+        "BR-b005",
+        "BR-b006",
+        "BR-b007",
+        "BR-b037",
+        "BR-b009",
+        "BR-b011",
+        "BR-b015",
+        "BR-b016",
+        "BR-b017",
+        "BR-b018",
+        "BR-b020",
+        "BR-b022",
+        "BR-b025"
+      ],
+      "merged_name": "安全边际",
+      "merged_principle": "借鉴《中国式价值投资（修订版）》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《价值》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《价值投资之茅台大博弈》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《价值投资五部曲》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《价值投资：从格雷厄姆到巴菲特》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《伟大的时代：深度解读价值投资》：在能力圈内选择商业模式清晰、财务可验证的标的，以 margin_of_safety 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《医疗行业估值》：在能力圈内选择商业模式清晰、财务",
+      "eval": "margin_of_safety",
+      "category": "valuation",
+      "layer": "L3",
+      "type": "hard",
+      "auto": "full",
+      "threshold": 0.25,
+      "weight": null
+    },
+    {
+      "target_id": "L1-01",
+      "action": "extend",
+      "book_ids": [
+        "b003-1b6e73",
+        "b010-624244",
+        "b021-924543",
+        "b023-8fd65f",
+        "b041-9d78d2",
+        "b077-fd8491",
+        "b078-4ee3d7",
+        "b079-2a50a2",
+        "b080-dfe90a",
+        "b082-54c9e7",
+        "b084-4ff96d"
+      ],
+      "candidate_ids": [
+        "BR-b003",
+        "BR-b010",
+        "BR-b041",
+        "BR-b021",
+        "BR-b023",
+        "BR-b077",
+        "BR-b078",
+        "BR-b079",
+        "BR-b080",
+        "BR-b082",
+        "BR-b084"
+      ],
+      "merged_name": "ROE均值",
+      "merged_principle": "借鉴《价值投资3.0：数字经济时代如何寻找成长股》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《巴菲特的护城河》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《成长股的投资之道》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《股市稳赚》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《超级强势股：如何投资小盘价值成长股》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《专注竞争优势》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_roe_avg 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《人生护城河：如何建立自己真正的护城河》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_r",
+      "eval": "min_roe_avg",
+      "category": "business",
+      "layer": "L1",
+      "type": "hard",
+      "auto": "full",
+      "threshold": 15,
+      "weight": null
+    },
+    {
+      "target_id": "L3-03",
+      "action": "extend",
+      "book_ids": [
+        "b036-a63908"
+      ],
+      "candidate_ids": [
+        "BR-b036"
+      ],
+      "merged_name": "PB合理",
+      "merged_principle": "借鉴《估值：难点、解决方案及相关案例》：在能力圈内选择商业模式清晰、财务可验证的标的，以 pb_reasonable 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "pb_reasonable",
+      "category": "valuation",
+      "layer": "L3",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 8,
+      "weight": 6
+    },
+    {
+      "target_id": "L1-02",
+      "action": "extend",
+      "book_ids": [
+        "b008-a3730d"
+      ],
+      "candidate_ids": [
+        "BR-b008"
+      ],
+      "merged_name": "盈利稳定性",
+      "merged_principle": "借鉴《回归投资常识：策略思考的价值》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_profit_years 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "min_profit_years",
+      "category": "business",
+      "layer": "L1",
+      "type": "hard",
+      "auto": "full",
+      "threshold": 4,
+      "weight": null
+    },
+    {
+      "target_id": "L0-01",
+      "action": "extend",
+      "book_ids": [
+        "b014-30fa94",
+        "b019-9a3426",
+        "b026-06f62d",
+        "b027-11715e",
+        "b028-6785dd",
+        "b029-a5b9c1"
+      ],
+      "candidate_ids": [
+        "BR-b026",
+        "BR-b027",
+        "BR-b014",
+        "BR-b019",
+        "BR-b028",
+        "BR-b029"
+      ],
+      "merged_name": "能力圈",
+      "merged_principle": "借鉴《大道无形：段永平》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competence 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《对话段永平：做自己能够喜欢的事》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competence 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《投资的本质（段永平数十年投资精华）》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competence 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《穷查理宝典》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competence 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《芒格之道——查理·芒格股东会讲话 1987-2022》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competence 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《雪球专刊·特别版：段永平投资问答》：在能力圈内选择商业模式清晰、财务可验证的标的，以 circle_of_competen",
+      "eval": "circle_of_competence",
+      "category": "gate",
+      "layer": "L0",
+      "type": "soft",
+      "auto": "manual",
+      "threshold": null,
+      "weight": 5
+    },
+    {
+      "target_id": "L3-04",
+      "action": "extend",
+      "book_ids": [
+        "b012-e5777d"
+      ],
+      "candidate_ids": [
+        "BR-b012"
+      ],
+      "merged_name": "PEG",
+      "merged_principle": "借鉴《彼得·林奇的成功投资（典藏版）》：在能力圈内选择商业模式清晰、财务可验证的标的，以 peg_score 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "peg_score",
+      "category": "valuation",
+      "layer": "L3",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 2,
+      "weight": 8
+    },
+    {
+      "target_id": "L1-05",
+      "action": "extend",
+      "book_ids": [
+        "b013-dc149b"
+      ],
+      "candidate_ids": [
+        "BR-b013"
+      ],
+      "merged_name": "利润增长",
+      "merged_principle": "借鉴《怎样选择成长股》：在能力圈内选择商业模式清晰、财务可验证的标的，以 profit_yoy 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "profit_yoy",
+      "category": "business",
+      "layer": "L1",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 0,
+      "weight": 5
+    },
+    {
+      "target_id": "L2-03",
+      "action": "extend",
+      "book_ids": [
+        "b040-86279b"
+      ],
+      "candidate_ids": [
+        "BR-b040"
+      ],
+      "merged_name": "盈利趋势",
+      "merged_principle": "借鉴《慢即是快：一个投资者20年的思考与实践》：在能力圈内选择商业模式清晰、财务可验证的标的，以 profit_trend 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "profit_trend",
+      "category": "financial",
+      "layer": "L2",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 0,
+      "weight": 8
+    },
+    {
+      "target_id": "L0-03",
+      "action": "extend",
+      "book_ids": [
+        "b042-b4b7c8"
+      ],
+      "candidate_ids": [
+        "BR-b042"
+      ],
+      "merged_name": "流动性",
+      "merged_principle": "借鉴《手把手教你投资港股》：在能力圈内选择商业模式清晰、财务可验证的标的，以 min_avg_amount 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "min_avg_amount",
+      "category": "gate",
+      "layer": "L0",
+      "type": "hard",
+      "auto": "full",
+      "threshold": 50000000,
+      "weight": null
+    },
+    {
+      "target_id": "L0-06",
+      "action": "extend",
+      "book_ids": [
+        "b043-66413b"
+      ],
+      "candidate_ids": [
+        "BR-b043"
+      ],
+      "merged_name": "异常票特征",
+      "merged_principle": "借鉴《投资中最常犯的错》：在能力圈内选择商业模式清晰、财务可验证的标的，以 trap_scan 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "trap_scan",
+      "category": "gate",
+      "layer": "L0",
+      "type": "veto",
+      "auto": "proxy",
+      "threshold": false,
+      "weight": null
+    },
+    {
+      "target_id": "L3-02",
+      "action": "extend",
+      "book_ids": [
+        "b053-4bf089"
+      ],
+      "candidate_ids": [
+        "BR-b053"
+      ],
+      "merged_name": "PE合理",
+      "merged_principle": "借鉴《穿透估值：读懂估值中的共识与博弈》：在能力圈内选择商业模式清晰、财务可验证的标的，以 pe_reasonable 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "pe_reasonable",
+      "category": "valuation",
+      "layer": "L3",
+      "type": "hard",
+      "auto": "full",
+      "threshold": 40,
+      "weight": null
+    },
+    {
+      "target_id": "L4-02",
+      "action": "extend",
+      "book_ids": [
+        "b024-110133"
+      ],
+      "candidate_ids": [
+        "BR-b024"
+      ],
+      "merged_name": "仓位建议",
+      "merged_principle": "借鉴《集中投资》：在能力圈内选择商业模式清晰、财务可验证的标的，以 position_cap 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "position_cap",
+      "category": "execution",
+      "layer": "L4",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 25,
+      "weight": 5
+    },
+    {
+      "target_id": "L1-06",
+      "action": "extend",
+      "book_ids": [
+        "b081-ffdb49"
+      ],
+      "candidate_ids": [
+        "BR-b081"
+      ],
+      "merged_name": "利润崩塌",
+      "merged_principle": "借鉴《创新者的窘境》：在能力圈内选择商业模式清晰、财务可验证的标的，以 profit_collapse 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "profit_collapse",
+      "category": "business",
+      "layer": "L1",
+      "type": "veto",
+      "auto": "full",
+      "threshold": false,
+      "weight": null
+    },
+    {
+      "target_id": "L1-04",
+      "action": "extend",
+      "book_ids": [
+        "b010-624244",
+        "b094-87c0a9",
+        "b095-2317af"
+      ],
+      "candidate_ids": [
+        "BR-b094",
+        "BR-b095"
+      ],
+      "merged_name": "护城河代理",
+      "merged_principle": "借鉴《制造消费者：消费主义全球史》：在能力圈内选择商业模式清晰、财务可验证的标的，以 moat_proxy 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《奢侈品经济学》：在能力圈内选择商业模式清晰、财务可验证的标的，以 moat_proxy 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "moat_proxy",
+      "category": "business",
+      "layer": "L1",
+      "type": "soft",
+      "auto": "proxy",
+      "threshold": 60,
+      "weight": 10
+    },
+    {
+      "target_id": "L1-03",
+      "action": "extend",
+      "book_ids": [
+        "b083-4c8246"
+      ],
+      "candidate_ids": [
+        "BR-b083"
+      ],
+      "merged_name": "毛利率",
+      "merged_principle": "借鉴《竞争优势：透视企业护城河》：在能力圈内选择商业模式清晰、财务可验证的标的，以 gross_margin_score 所代表的标准做纪律化筛选，避免情绪化交易。",
+      "eval": "gross_margin_score",
+      "category": "business",
+      "layer": "L1",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 20,
+      "weight": 8
+    },
+    {
+      "target_id": "L5-01",
+      "action": "extend",
+      "book_ids": [
+        "b096-f2b963",
+        "b097-998eaf",
+        "b098-cc442b",
+        "b099-20d2ab",
+        "b100-67ac7d",
+        "b101-3427a6",
+        "b102-f59fd3",
+        "b103-aaa1e8",
+        "b104-0cf06b",
+        "b105-4b17ec",
+        "b106-1207bc",
+        "b107-5fd727",
+        "b108-9b05bf",
+        "b109-a1705b",
+        "b110-dab538"
+      ],
+      "candidate_ids": [
+        "BR-b102",
+        "BR-b096",
+        "BR-b097",
+        "BR-b107",
+        "BR-b110",
+        "BR-b098",
+        "BR-b108",
+        "BR-b099",
+        "BR-b103",
+        "BR-b104",
+        "BR-b109",
+        "BR-b105",
+        "BR-b100",
+        "BR-b101",
+        "BR-b106"
+      ],
+      "merged_name": "行业适配",
+      "merged_principle": "借鉴《2049：未来10000天的可能》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《AI Chip》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《Chip War（芯片战争）》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《专访创始人王宁：泡泡玛特的「美…」》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《中国人形机器人创新发展报告2025》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《半导体综研》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所代表的标准做纪律化筛选，避免情绪化交易。；借鉴《因为独特》：在能力圈内选择商业模式清晰、财务可验证的标的，以 sector_fit 所",
+      "eval": "sector_fit",
+      "category": "sector",
+      "layer": "L5",
+      "type": "soft",
+      "auto": "full",
+      "threshold": 60,
+      "weight": 10
+    }
+  ],
+  "pending_threshold": [],
+  "updated": "2026-06-07"
+}

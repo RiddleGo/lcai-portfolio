@@ -127,8 +127,9 @@ const CriteriaView = (() => {
       const title = idx.by_id?.[bid]?.title || bid;
       return `<button type="button" class="books-rule-chip criteria-book-link" data-book-id="${bid}">${title}</button>`;
     }).join('');
+    const bookCount = (rule.book_ids || []).length;
     return `
-      <label>参考书籍（多选，Ctrl/⌘ 点选）
+      <label>参考书籍（${bookCount} 本，多选 Ctrl/⌘）
         <select multiple class="criteria-inp criteria-book-select" id="books-${sid}" size="4">${opts}</select>
       </label>
       ${metaHtml}
@@ -152,6 +153,7 @@ const CriteriaView = (() => {
         </div>
         <div id="criteria-status" class="cloud-status" hidden></div>
         <div id="criteria-fallback" class="criteria-fallback" hidden></div>
+        <p class="criteria-hint" id="criteria-merge-hint" style="margin-top:8px"></p>
       </div>
 
       <div class="card" style="margin-bottom:16px">
@@ -384,6 +386,20 @@ const CriteriaView = (() => {
     }
   }
 
+  async function loadMergeHint() {
+    const box = el('criteria-merge-hint');
+    if (!box) return;
+    try {
+      const resp = await fetch(lcaiAsset('投资系统/book-rules-merge-report.md?t=' + Date.now()));
+      if (!resp.ok) { box.textContent = ''; return; }
+      const md = await resp.text();
+      const m = md.match(/候选规则：\*\*(\d+)\*\*.*合并后：\*\*(\d+)\*\*/s);
+      if (m) {
+        box.innerHTML = `书籍→规则合并：110 本候选已合并进现有规则（见 <a href="${lcaiAsset('投资系统/book-rules-merge-report.md')}" target="_blank" rel="noopener">合并报告</a>）。`;
+      }
+    } catch (_) { /* optional */ }
+  }
+
   async function loadMeta() {
     try {
       const [catResp, booksResp] = await Promise.all([
@@ -413,6 +429,7 @@ const CriteriaView = (() => {
     setStatus('');
     try {
       await loadMeta();
+      await loadMergeHint();
       const resp = await fetch(lcaiAsset(`投资系统/criteria.json?t=${Date.now()}`));
       if (!resp.ok) throw new Error(String(resp.status));
       serverCfg = await resp.json();
