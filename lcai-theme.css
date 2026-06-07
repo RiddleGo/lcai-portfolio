@@ -1,0 +1,386 @@
+/**
+ * LCAI 视觉主题 — 参考 daily_stock_analysis 工作台 token 与壳层布局
+ * https://github.com/ZhuLinsen/daily_stock_analysis
+ */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+/* ── DSA 设计 token（浅色默认，与参考项目 :root 对齐）── */
+:root {
+  --background: 216 33% 97%;
+  --foreground: 228 35% 12%;
+  --card: 0 0% 100%;
+  --primary: 193 100% 43%;
+  --primary-foreground: 216 33% 97%;
+  --muted-foreground: 224 12% 42%;
+  --border: 217 28% 84%;
+  --elevated: 0 0% 100%;
+  --hover: 214 29% 90%;
+  --radius: 1rem;
+
+  --shadow-soft-card: 0 12px 24px hsl(220 20% 34% / 0.09), 0 3px 8px hsl(220 16% 28% / 0.05);
+  --shadow-soft-card-strong: 0 18px 34px hsl(220 20% 32% / 0.12), 0 6px 16px hsl(220 16% 28% / 0.07);
+  --nav-active-bg: hsl(var(--primary) / 0.09);
+  --nav-active-border: hsl(var(--primary) / 0.24);
+  --nav-hover-bg: hsl(var(--primary) / 0.05);
+  --nav-indicator-bg: hsl(var(--primary));
+  --shell-sidebar-border: hsl(193 100% 43% / 0.35);
+  --input-surface-bg: hsl(var(--card));
+  --input-surface-border: hsl(218 24% 80% / 0.92);
+  --input-surface-border-focus: hsl(var(--primary) / 0.38);
+  --input-surface-focus-ring: 0 0 0 4px hsl(var(--primary) / 0.15);
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.74));
+  --panel-gradient: linear-gradient(135deg, hsl(193 100% 43% / 0.08), hsl(247 84% 66% / 0.06));
+}
+
+html.dark {
+  color-scheme: dark;
+  --background: 228 35% 7%;
+  --foreground: 210 33% 98%;
+  --card: 230 24% 10%;
+  --primary: 190 100% 50%;
+  --primary-foreground: 228 35% 8%;
+  --muted-foreground: 228 13% 66%;
+  --border: 226 19% 20%;
+  --elevated: 230 22% 12%;
+  --hover: 231 20% 16%;
+
+  --shadow-soft-card: 0 12px 28px hsl(228 40% 4% / 0.45), 0 2px 8px hsl(228 40% 4% / 0.25);
+  --shadow-soft-card-strong: 0 20px 40px hsl(228 40% 4% / 0.55), 0 6px 16px hsl(228 40% 4% / 0.3);
+  --nav-active-bg: hsl(var(--primary) / 0.12);
+  --nav-active-border: hsl(var(--primary) / 0.28);
+  --nav-hover-bg: hsl(var(--primary) / 0.07);
+  --shell-sidebar-border: hsl(190 100% 50% / 0.22);
+  --input-surface-bg: hsl(var(--elevated));
+  --input-surface-border: hsl(var(--foreground) / 0.1);
+  --input-surface-border-focus: hsl(var(--primary) / 0.42);
+  --input-surface-focus-ring: 0 0 0 4px hsl(var(--primary) / 0.18);
+  --panel-gradient: linear-gradient(135deg, hsl(190 100% 50% / 0.1), hsl(247 84% 72% / 0.08));
+}
+
+/* ── 映射到现有页面变量 ── */
+:root {
+  --bg: hsl(var(--background));
+  --card: hsl(var(--card));
+  --text: hsl(var(--foreground));
+  --muted: hsl(var(--muted-foreground));
+  --border: hsl(var(--border));
+  --accent: hsl(var(--primary));
+  --ok: hsl(152 69% 40%);
+  --warn: hsl(37 92% 50%);
+  --danger: hsl(0 90% 55%);
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -20%, hsl(var(--primary) / 0.08), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, hsl(247 84% 66% / 0.06), transparent 50%);
+}
+
+/* ── App Shell ── */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.shell-sidebar {
+  width: 15.5rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--shell-sidebar-border);
+  background: linear-gradient(180deg, hsl(var(--card) / 0.98), hsl(var(--background) / 0.96));
+  box-shadow: var(--shadow-soft-card);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+}
+
+.shell-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 1.25rem 1rem 1rem;
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+}
+
+.shell-brand-mark {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.75rem;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: hsl(var(--primary-foreground));
+  background: var(--gradient-primary);
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.25);
+}
+
+.shell-brand-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.shell-brand-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 1px;
+}
+
+.shell-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.75rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+
+.shell-nav .tab-btn {
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.85rem 0.65rem 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid transparent;
+  position: relative;
+  font-size: 0.84rem;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.shell-nav .tab-btn:hover {
+  background: var(--nav-hover-bg);
+  color: var(--text);
+}
+
+.shell-nav .tab-btn.active {
+  background: var(--nav-active-bg);
+  border-color: var(--nav-active-border);
+  color: hsl(var(--primary));
+  font-weight: 600;
+  box-shadow: inset 0 0 0 1px hsl(var(--primary) / 0.06);
+}
+
+.shell-nav .tab-btn.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.25rem;
+  height: 1.35rem;
+  border-radius: 0 4px 4px 0;
+  background: var(--nav-indicator-bg);
+  box-shadow: 0 0 12px hsl(var(--primary) / 0.45);
+}
+
+.shell-sidebar-foot {
+  padding: 0.75rem;
+  border-top: 1px solid hsl(var(--border) / 0.6);
+}
+
+.theme-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.65rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid hsl(var(--border) / 0.8);
+  background: hsl(var(--elevated) / 0.5);
+  color: var(--text);
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.theme-toggle:hover {
+  border-color: hsl(var(--primary) / 0.35);
+  background: var(--nav-hover-bg);
+}
+
+.shell-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.shell-header {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid hsl(var(--border) / 0.7);
+  background: hsl(var(--card) / 0.85);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.shell-menu-btn {
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--elevated));
+  color: var(--text);
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.65rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.shell-page-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.shell-content.wrap {
+  max-width: 1120px;
+  padding-top: 1.5rem;
+}
+
+.shell-overlay {
+  display: none;
+}
+
+/* ── 组件增强（覆盖内联样式中的旧视觉）── */
+.top-bar { display: none; }
+
+.card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft-card);
+  background: hsl(var(--card));
+  border-color: hsl(var(--border) / 0.85);
+}
+
+.card.highlight {
+  border-color: hsl(var(--primary) / 0.35);
+  background: var(--panel-gradient);
+  box-shadow: var(--shadow-soft-card-strong);
+}
+
+.card.highlight .card-value { color: hsl(var(--primary)); }
+
+.card.warn-card {
+  border-color: hsl(37 92% 50% / 0.35);
+  background: linear-gradient(135deg, hsl(var(--card)), hsl(37 92% 50% / 0.06));
+}
+
+.card.danger-card {
+  border-color: hsl(0 90% 55% / 0.35);
+  background: linear-gradient(135deg, hsl(var(--card)), hsl(0 90% 55% / 0.06));
+}
+
+.todo-section {
+  border-color: hsl(var(--primary) / 0.35);
+  box-shadow: var(--shadow-soft-card);
+}
+
+.screen-btn {
+  border-radius: 0.75rem;
+  background: var(--gradient-primary);
+  color: hsl(var(--primary-foreground));
+  box-shadow: 0 4px 14px hsl(var(--primary) / 0.22);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.screen-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px hsl(var(--primary) / 0.28);
+}
+
+.screen-btn-ghost {
+  background: transparent;
+  border: 1px solid hsl(var(--border));
+  color: var(--text);
+  box-shadow: none;
+}
+
+.screen-btn-ghost:hover:not(:disabled) {
+  border-color: hsl(var(--primary) / 0.35);
+  background: var(--nav-hover-bg);
+  transform: none;
+}
+
+.screen-input-row input[type=text],
+.holding-form-row input,
+.holding-form-row select,
+.criteria-inp,
+input[type=text],
+input[type=number],
+select,
+textarea {
+  border-radius: 0.75rem;
+  border: 1px solid var(--input-surface-border);
+  background: var(--input-surface-bg);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.screen-input-row input[type=text]:focus,
+.holding-form-row input:focus,
+.holding-form-row select:focus,
+.criteria-inp:focus {
+  outline: none;
+  border-color: var(--input-surface-border-focus);
+  box-shadow: var(--input-surface-focus-ring);
+}
+
+.screen-score-item .val,
+.todo-progress strong { color: hsl(var(--primary)); }
+
+.final-conclusion {
+  background: var(--panel-gradient);
+  border-color: hsl(var(--primary) / 0.28);
+}
+
+.holding-modal-card {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft-card-strong);
+}
+
+.handbook-table th {
+  background: hsl(var(--primary) / 0.06);
+}
+
+footer {
+  opacity: 0.85;
+  padding-top: 8px;
+}
+
+@media (max-width: 900px) {
+  .shell-header { display: flex; }
+
+  .shell-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    transform: translateX(-105%);
+    transition: transform 0.22s ease;
+    z-index: 50;
+  }
+
+  .shell-sidebar.open { transform: translateX(0); }
+
+  .shell-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: hsl(0 0% 0% / 0.55);
+    z-index: 45;
+  }
+
+  .shell-overlay[hidden] { display: none; }
+
+  .shell-content.wrap {
+    padding-top: 0.5rem;
+  }
+}
