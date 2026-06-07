@@ -1,0 +1,19 @@
+name: 更新判定标准（网页）
+description: 从资产总览「规则」Tab 提交后，粘贴 JSON 正文
+title: "[criteria] update"
+labels:
+  - criteria-bot
+body:
+  - type: markdown
+    value: |
+      标题请保持：`[criteria] update`
+
+      正文请粘贴网页编辑器生成的 **完整 JSON 代码块**（含 \`\`\`json ... \`\`\`）。
+      提交后 Actions 约 5–10 分钟更新标准并重算全部报告。
+  - type: textarea
+    id: payload
+    attributes:
+      label: JSON 正文（从网页「复制正文」粘贴）
+      description: 须包含 ```json 代码块
+    validations:
+      required: true

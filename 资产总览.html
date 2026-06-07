@@ -781,6 +781,31 @@
       background: var(--bg); color: var(--text); font-size: 0.9rem;
     }
     .holding-modal-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+    .criteria-toolbar { margin-bottom: 16px; }
+    .criteria-lead { font-size: 0.88rem; color: var(--muted); margin: 0 0 12px; line-height: 1.55; }
+    .criteria-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .criteria-h2 { font-size: 0.95rem; margin: 0 0 12px; }
+    .criteria-hint { font-size: 0.78rem; color: var(--muted); margin: 6px 0 0; }
+    .criteria-muted { color: var(--muted); font-size: 0.85rem; }
+    .criteria-inp {
+      display: block; width: 100%; max-width: 280px; margin-top: 4px;
+      padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-size: 0.88rem;
+    }
+    .criteria-inp-sm { max-width: 100px; display: inline-block; width: auto; }
+    .criteria-field { display: block; font-size: 0.85rem; margin-bottom: 8px; }
+    .criteria-weights { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .criteria-weights label { font-size: 0.82rem; }
+    .criteria-table .criteria-inp { max-width: none; width: 100%; margin: 0; }
+    .criteria-layer { margin-bottom: 12px; }
+    .criteria-rule { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .criteria-rule-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.9rem; }
+    .criteria-badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; background: rgba(59,130,246,0.12); color: var(--accent); }
+    .criteria-rule-body label { display: block; font-size: 0.82rem; margin-bottom: 8px; }
+    .criteria-unit { font-size: 0.82rem; color: var(--muted); }
+    .criteria-readonly { font-size: 0.82rem; color: var(--muted); }
+    .criteria-fallback { margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px dashed var(--border); font-size: 0.82rem; }
+    .criteria-copy-area { width: 100%; min-height: 120px; margin: 8px 0; font-family: monospace; font-size: 0.75rem; }
     .watchlist-box { margin-bottom: 14px; }
     .watchlist-box h3 { font-size: 0.88rem; margin-bottom: 8px; color: var(--muted); font-weight: 600; }
     .watchlist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -1935,7 +1960,7 @@
 
     <!-- ========== 页8：判定标准 ========== -->
     <div id="page-criteria" class="page">
-      <p class="page-desc">LCAI 买卖裁决的唯一标准源。此处只读展示；改阈值请编辑 <code>投资系统/criteria.json</code> 后运行 <code>python scripts/apply_criteria.py --reports</code>。</p>
+      <p class="page-desc">在这里直接改判定门槛，点 <strong>「提交到云端」</strong> → GitHub 点 Submit，约 5–10 分钟生效（不用懂代码）。</p>
       <div id="criteria-content"></div>
     </div>
 
@@ -2881,8 +2906,8 @@
   <script src="screen-cloud.js?v=748019"></script>
   <script src="screen-holdings.js?v=748019"></script>
   <script src="screen-unified.js?v=748020"></script>
-  <script src="criteria-view.js?v=748020"></script>
-  <script src="screen-ui.js?v=748020"></script>
+  <script src="criteria-view.js?v=748021"></script>
+  <script src="screen-ui.js?v=748021"></script>
   <script>
     CriteriaView?.init?.();
     if (location.hash === "#screen") {

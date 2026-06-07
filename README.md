@@ -51,7 +51,6 @@ GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports
 
 完整操作说明见 **[投资系统/08-日常维护手册.md](投资系统/08-日常维护手册.md)**。
 
-**新增持仓（摘要）：**
+**维护判定标准：** [资产总览 → 规则](资产总览.html#criteria) 网页改数字 → 提交到云端
 
-1. **网页：** 选股 → 帮我看看 → **加入持仓** → GitHub Submit  
-2. **或编辑** [`holdings.json`](holdings.json) → `python scripts/sync_holdings.py` → `python scripts/fetch_quotes.py`
+**新增持仓：** 选股 → **加入持仓** → GitHub Submit（或改 `holdings.json`）

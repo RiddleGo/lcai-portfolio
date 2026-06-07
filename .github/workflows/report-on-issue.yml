@@ -121,6 +121,50 @@ jobs:
           - 研判页 [选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen) 将显示「已持仓」分支"
           gh issue close "${{ github.event.issue.number }}"
 
+  criteria-from-issue:
+    if: |
+      contains(github.event.issue.title, '[criteria]') &&
+      (github.event.issue.author_association == 'OWNER' ||
+       github.event.issue.author_association == 'COLLABORATOR' ||
+       github.event.issue.author_association == 'MEMBER')
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests urllib3
+
+      - name: Apply criteria from issue
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/apply_criteria_from_issue.py
+
+      - name: Commit criteria and reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 投资系统/criteria.json 投资系统/criteria-摘要.md reports/
+          git diff --staged --quiet || git commit -m "chore: update criteria via issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Close issue with comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ 判定标准已更新，并已重算 LCAI 报告。
+
+          - 网页查看：[资产总览 · 规则](https://riddlego.github.io/lcai-portfolio/资产总览.html#criteria)
+          - 选股研判：[资产总览 · 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
+
+          约 1 分钟后刷新页面即可。"
+          gh issue close "${{ github.event.issue.number }}"
+
   weekly-from-issue:
     if: |
       contains(github.event.issue.title, '[weekly]') &&
