@@ -70,22 +70,38 @@ const ScreenHoldings = (() => {
     return `https://github.com/${REPO}/issues/new?title=${title}&labels=holding-bot&body=${body}`;
   }
 
-    def openModal(code, name, fallbackPrice) {
+  function openModal(code, name, fallbackPrice) {
     const modal = el('holding-modal');
     if (!modal) return;
     const c = symbolCodeKey(code);
-    el('holding-code').value = c;
-    el('holding-name').value = name || c;
-    el('holding-shares').value = '';
-    el('holding-cost').value = fallbackPrice != null ? String(fallbackPrice) : '';
-    el('holding-fallback').value = fallbackPrice != null ? String(fallbackPrice) : '';
-    el('holding-account').value = 'hb';
+    const codeEl = el('holding-code');
+    const nameEl = el('holding-name');
+    if (codeEl) codeEl.value = c;
+    if (nameEl) nameEl.value = name || c;
+    if (el('holding-shares')) el('holding-shares').value = '';
+    if (el('holding-cost')) el('holding-cost').value = fallbackPrice != null ? String(fallbackPrice) : '';
+    if (el('holding-fallback')) el('holding-fallback').value = fallbackPrice != null ? String(fallbackPrice) : '';
+    if (el('holding-account')) el('holding-account').value = 'hb';
+    const err = el('holding-modal-error');
+    if (err) { err.hidden = true; err.textContent = ''; }
     modal.hidden = false;
+    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     const modal = el('holding-modal');
     if (modal) modal.hidden = true;
+    document.body.style.overflow = '';
+  }
+
+  function showModalError(msg) {
+    const err = el('holding-modal-error');
+    if (err) {
+      err.textContent = msg;
+      err.hidden = false;
+    } else {
+      setStatus(msg, 'warn');
+    }
   }
 
   function stopPolling() {
@@ -142,16 +158,16 @@ const ScreenHoldings = (() => {
     const account = el('holding-account')?.value || 'hb';
 
     if (!code || !Number.isFinite(shares) || shares <= 0) {
-      setStatus('请填写有效股数', 'warn');
+      showModalError('请填写有效股数');
       return;
     }
     if (!Number.isFinite(cost) || cost <= 0) {
-      setStatus('请填写有效成本价', 'warn');
+      showModalError('请填写有效成本价');
       return;
     }
 
     if (findEntry(code, account)) {
-      setStatus('该账户已有此持仓；如需改股数请去 GitHub 编辑 holdings.json', 'warn');
+      showModalError('该账户已有此持仓');
       return;
     }
 
@@ -188,11 +204,24 @@ const ScreenHoldings = (() => {
   }
 
   function init() {
-    el('holding-modal-close')?.addEventListener('click', closeModal);
-    el('holding-modal-cancel')?.addEventListener('click', closeModal);
-    el('holding-modal-submit')?.addEventListener('click', submitModal);
+    el('holding-modal-cancel')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+    });
+    el('holding-modal-submit')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      submitModal();
+    });
     el('holding-modal')?.addEventListener('click', (e) => {
       if (e.target?.id === 'holding-modal') closeModal();
+    });
+    el('holding-modal')?.querySelector('.holding-modal-card')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && el('holding-modal') && !el('holding-modal').hidden) closeModal();
     });
   }
 
