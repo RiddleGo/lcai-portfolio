@@ -65,6 +65,62 @@ jobs:
           刷新后重新点「帮我看看」即可读取缓存。"
           gh issue close "${{ github.event.issue.number }}"
 
+  add-holding-from-issue:
+    if: |
+      contains(github.event.issue.title, '[holding]') &&
+      (github.event.issue.author_association == 'OWNER' ||
+       github.event.issue.author_association == 'COLLABORATOR' ||
+       github.event.issue.author_association == 'MEMBER')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Parse holding request
+        id: parse
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          SYMBOL=$(echo "$ISSUE_TITLE" | sed -n 's/.*\[holding\][[:space:]]*\([0-9][0-9]*\).*/\1/p' | head -1)
+          if [ -z "$SYMBOL" ]; then
+            echo "Could not parse symbol from: $ISSUE_TITLE" >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+          echo "symbol=$SYMBOL" >> "$GITHUB_OUTPUT"
+          echo "Parsed holding: **$SYMBOL**" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install requests urllib3
+
+      - name: Add holding and sync
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/add_holding_from_issue.py
+
+      - name: Commit holdings and reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add holdings.json holdings-data.js quotes-data.js reports/ watchlist-data.js
+          git diff --staged --quiet || git commit -m "chore: add holding ${{ steps.parse.outputs.symbol }} via issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Close issue with comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ 已写入 \`holdings.json\` 并同步行情与 LCAI 报告。
+
+          - 持仓页刷新 [资产总览](https://riddlego.github.io/lcai-portfolio/资产总览.html#stock) 即可看到（约 1 分钟）
+          - 研判页 [选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen) 将显示「已持仓」分支"
+          gh issue close "${{ github.event.issue.number }}"
+
   weekly-from-issue:
     if: |
       contains(github.event.issue.title, '[weekly]') &&

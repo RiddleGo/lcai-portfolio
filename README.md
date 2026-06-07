@@ -40,6 +40,7 @@ bash scripts/run_lcai_analysis.sh 600519           # 写入 reports/
 | 常看的票 | **⭐ 收藏** → **我的关注** |
 | 持仓 / 云端关注 | **每周一自动**刷新 |
 | **新票第一次** | 收藏 → GitHub **Submit 一次** → 等 2–5 分钟 |
+| **买入加入持仓** | 研判后点 **「加入持仓」** → 填表 → GitHub **Submit** |
 | **立刻更新全部** | 选股页 **🔄 立即更新全部报告** → GitHub **Run workflow** → 约 5–15 分钟 |
 
 ## 部署
@@ -52,7 +53,5 @@ GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports
 
 **新增持仓（摘要）：**
 
-1. 编辑 [`holdings.json`](holdings.json)
-2. `python scripts/sync_holdings.py` → `holdings-data.js`
-3. `python scripts/fetch_quotes.py` → `quotes-data.js`
-4. `bash scripts/run_lcai_analysis.sh <代码>` → `reports/`
+1. **网页：** 选股 → 帮我看看 → **加入持仓** → GitHub Submit  
+2. **或编辑** [`holdings.json`](holdings.json) → `python scripts/sync_holdings.py` → `python scripts/fetch_quotes.py`

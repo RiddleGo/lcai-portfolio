@@ -1,0 +1,48 @@
+name: 加入持仓（网页）
+description: 从选股页提交，自动写入 holdings.json 并生成 LCAI 报告
+title: "[holding] "
+labels:
+  - holding-bot
+body:
+  - type: markdown
+    value: |
+      **标题格式：** `[holding] 600519`（不要改 `[holding]` 前缀）
+
+      正文请保留网页自动生成的 JSON 块；提交后 Actions 约 2–5 分钟完成。
+  - type: input
+    id: code
+    attributes:
+      label: 股票代码
+      placeholder: "600519"
+    validations:
+      required: true
+  - type: input
+    id: shares
+    attributes:
+      label: 股数
+      placeholder: "100"
+    validations:
+      required: true
+  - type: input
+    id: cost
+    attributes:
+      label: 成本价（单股）
+      placeholder: "1500"
+    validations:
+      required: true
+  - type: dropdown
+    id: account
+    attributes:
+      label: 账户
+      options:
+        - gt
+        - hb
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: 确认
+      options:
+        - label: 我确认以上持仓信息正确
+          required: true

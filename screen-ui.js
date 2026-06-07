@@ -171,6 +171,7 @@ const ScreenUI = (() => {
     renderAnalysis(report);
     ScreenUnified?.attach?.(report);
     ScreenCloud?.checkAndShowCta?.(report.symbol, report.name);
+    ScreenHoldings?.prefillFromReport?.(report);
     ScreenWatchlist?.add?.(report.symbol, report.name);
 
     const layers = el('layer-scores');
@@ -317,6 +318,7 @@ const ScreenUI = (() => {
 
 if (document.getElementById('btn-screen')) {
   ScreenWatchlist?.init?.();
+  ScreenHoldings?.init?.();
   ScreenUI.init();
   ScreenCloud?.init?.();
 }
