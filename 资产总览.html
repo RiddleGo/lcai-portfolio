@@ -10,7 +10,7 @@
       document.documentElement.classList.toggle("dark", t === "dark");
     })();
   </script>
-  <link rel="stylesheet" href="lcai-theme.css?v=748025">
+  <link rel="stylesheet" href="lcai-theme.css?v=748026">
   <style>
     :root {
       /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
@@ -395,7 +395,7 @@
 
     .todo-item:last-child { border-bottom: none; }
 
-    .todo-item:hover { background: rgba(255,255,255,0.03); }
+    .todo-item:hover { background: hsl(var(--foreground) / 0.04); }
 
     .todo-item input[type="checkbox"] {
       width: 18px;
@@ -831,15 +831,18 @@
         </div>
       </div>
       <nav class="shell-nav tabs" aria-label="主导航">
-        <button class="tab-btn active" data-page="plan">执行</button>
+        <div class="nav-group-label">投资</div>
+        <button class="tab-btn active" data-page="home">首页</button>
+        <button class="tab-btn" data-page="screen">选股</button>
+        <button class="tab-btn" data-page="stock">持仓</button>
+        <button class="tab-btn" data-page="criteria">规则</button>
+        <button class="tab-btn" data-page="handbook">手册</button>
+        <div class="nav-group-label">财务计划</div>
+        <button class="tab-btn" data-page="plan">执行</button>
         <button class="tab-btn" data-page="repay">还款</button>
         <button class="tab-btn" data-page="cashflow">现金流</button>
         <button class="tab-btn" data-page="invest">投资规划</button>
         <button class="tab-btn" data-page="diagnosis">诊断</button>
-        <button class="tab-btn" data-page="stock">持仓</button>
-        <button class="tab-btn" data-page="screen">选股</button>
-        <button class="tab-btn" data-page="criteria">规则</button>
-        <button class="tab-btn" data-page="handbook">手册</button>
       </nav>
       <div class="shell-sidebar-foot">
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换浅色/深色主题">
@@ -852,9 +855,50 @@
     <div class="shell-main">
       <header class="shell-header">
         <button type="button" class="shell-menu-btn" id="shell-menu-btn" aria-label="打开菜单">☰</button>
-        <h1 class="shell-page-title" id="shell-page-title">执行</h1>
+        <h1 class="shell-page-title" id="shell-page-title">首页</h1>
       </header>
       <div class="wrap shell-content">
+
+    <!-- ========== 首页 Dashboard ========== -->
+    <div id="page-home" class="page active">
+      <p class="page-desc">常用入口 · 输入代码快速研判 · 下方可跳转持仓与执行计划</p>
+
+      <div class="card home-hero">
+        <p class="home-hero-lead">输入股票代码，一键进入 LCAI 研判（与「选股」页相同）</p>
+        <div class="screen-input-row">
+          <input type="text" id="home-symbol-input" placeholder="例如 600519、601127、09880" value="">
+          <button type="button" class="screen-btn screen-hero-btn" id="btn-home-screen">帮我看看</button>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="card home-card">
+          <h3>☁️ 云端关注</h3>
+          <div id="home-watchlist-chips" class="watchlist-chips"></div>
+        </div>
+        <div class="card home-card">
+          <h3>📊 持仓摘要</h3>
+          <div class="home-stat"><span>证券市值</span><span class="val" id="home-sec-total">—</span></div>
+          <div class="home-stat"><span>浮动盈亏</span><span class="val" id="home-sec-pnl">—</span></div>
+          <div class="home-stat"><span>持仓只数</span><span class="val" id="home-holdings-count">—</span></div>
+          <p class="home-stat-sub" id="home-net-worth-sub">—</p>
+          <button type="button" class="home-link-btn" data-goto="stock">查看全部持仓 →</button>
+        </div>
+        <div class="card home-card">
+          <h3>✅ 执行待办</h3>
+          <div class="home-stat"><span>进度</span><span class="val"><span id="home-todo-done">0</span> / <span id="home-todo-total">0</span></span></div>
+          <div class="home-todo-bar-wrap"><span id="home-todo-bar"></span></div>
+          <button type="button" class="home-link-btn" data-goto="plan">打开执行计划 →</button>
+        </div>
+      </div>
+
+      <div class="home-quick-links">
+        <button type="button" class="home-quick-btn" data-goto="screen">🔍 选股研判</button>
+        <button type="button" class="home-quick-btn" data-goto="criteria">⚙️ 改规则</button>
+        <button type="button" class="home-quick-btn" data-goto="handbook">📖 维护手册</button>
+        <button type="button" class="home-quick-btn" data-goto="repay">💳 还款计划</button>
+      </div>
+    </div>
 
     <!-- ========== 页1：还款计划 ========== -->
     <div id="page-repay" class="page">
@@ -956,7 +1000,7 @@
     </div>
 
     <!-- ========== 页1：执行计划（主页） ========== -->
-    <div id="page-plan" class="page active">
+    <div id="page-plan" class="page">
       <p class="page-desc">6～8 月卖股 + 还款 · 做完一项勾一项 · 赛力斯不动 · 更新于 2026-06-06</p>
 
       <section class="todo-section" id="todo-section">
@@ -1892,10 +1936,14 @@
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-add-holding" hidden>📥 加入持仓（网页提交）</button>
               <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden disabled>报告生成中…</button>
             </div>
+            <p class="screen-help" style="margin-top:10px">⭐ 常看、未买入 → 收藏（云端每周刷新） · 📥 已买入 → 加入持仓</p>
           </div>
 
           <div id="unified-divergences" class="screen-analysis-block" hidden></div>
           <div id="unified-cache-footer" class="screen-analysis-block" hidden></div>
+
+          <details class="screen-fold">
+            <summary>展开详细分析（指标 · 估值 · 优劣势 · 逻辑链）</summary>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
 
@@ -1922,10 +1970,12 @@
             <h3>综合研判 · 分层解读</h3>
             <div id="analysis-layer-cards"></div>
           </div>
+          </details>
         </div>
 
-        <div class="card">
-          <h3 style="margin-bottom:6px;font-size:0.9rem">规则明细（含分析说明）</h3>
+        <details class="screen-fold">
+          <summary>规则明细（含分析说明）</summary>
+        <div class="card" style="margin-top:0;box-shadow:none;border:none;padding:0;background:transparent">
           <p id="rules-fail-count" style="font-size:0.78rem;color:var(--muted);margin:0 0 10px"></p>
           <div style="overflow-x:auto">
             <table>
@@ -1956,6 +2006,7 @@
             <pre id="report-json" class="screen-json"></pre>
           </details>
         </div>
+        </details>
       </div>
 
       <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。买卖以 LCAI 投资宪法为准。规则见 <a href="投资系统/criteria.json">criteria.json</a>。</p>
@@ -2629,9 +2680,36 @@
       renderQuoteBar();
       renderDebts(state);
       renderHoldings(state);
+      renderHome(state);
       renderFunds(state);
       renderDiagnosis(state);
       renderMonthlyTable(todoState);
+    }
+
+    function renderHome(state) {
+      const active = state.holdings.filter(h => !h.sold);
+      const secTotal = document.getElementById("home-sec-total");
+      const secPnl = document.getElementById("home-sec-pnl");
+      const holdCount = document.getElementById("home-holdings-count");
+      const netSub = document.getElementById("home-net-worth-sub");
+      if (secTotal) secTotal.textContent = fmtInt(state.securitiesTotal);
+      if (secPnl) {
+        secPnl.textContent = (state.stockPnl >= 0 ? "+" : "") + fmtInt(state.stockPnl);
+        secPnl.className = "val " + (state.stockPnl >= 0 ? "gain" : "loss");
+      }
+      if (holdCount) holdCount.textContent = String(active.length);
+      if (netSub) netSub.textContent = `净资产 ${fmtInt(state.netWorth)} · 负债 ${fmtInt(state.liabilitiesTotal)}`;
+    }
+
+    function runHomeScreen() {
+      const sym = document.getElementById("home-symbol-input")?.value?.trim();
+      switchTab("screen");
+      if (sym) {
+        const input = document.getElementById("symbol-input");
+        if (input) input.value = sym;
+        window.ScreenUI?.init?.();
+        document.getElementById("btn-screen")?.click();
+      }
     }
 
     function getTodoItemById(id) {
@@ -2798,6 +2876,13 @@
       document.getElementById("todo-total").textContent = total;
       document.getElementById("todo-bar").style.width = total ? (done / total * 100) + "%" : "0%";
 
+      const homeDone = document.getElementById("home-todo-done");
+      const homeTotal = document.getElementById("home-todo-total");
+      const homeBar = document.getElementById("home-todo-bar");
+      if (homeDone) homeDone.textContent = done;
+      if (homeTotal) homeTotal.textContent = total;
+      if (homeBar) homeBar.style.width = total ? (done / total * 100) + "%" : "0%";
+
       container.querySelectorAll(".todo-item").forEach(row => {
         const id = row.dataset.id;
         const cb = row.querySelector('input[type="checkbox"]');
@@ -2869,7 +2954,7 @@
     });
 
     const PAGE_TITLES = {
-      plan: "执行", repay: "还款", cashflow: "现金流", invest: "投资规划",
+      home: "首页", plan: "执行", repay: "还款", cashflow: "现金流", invest: "投资规划",
       diagnosis: "诊断", stock: "持仓", screen: "选股", criteria: "规则", handbook: "手册",
     };
 
@@ -2893,6 +2978,8 @@
       if (page === "screen") {
         history.replaceState(null, "", "#screen");
         window.ScreenUI?.init();
+      } else if (page === "home") {
+        if (location.hash) history.replaceState(null, "", location.pathname);
       } else if (page === "criteria") {
         history.replaceState(null, "", "#criteria");
         window.CriteriaView?.load?.();
@@ -2903,6 +2990,15 @@
         history.replaceState(null, "", location.pathname);
       }
     }
+    window.switchTab = switchTab;
+
+    document.getElementById("btn-home-screen")?.addEventListener("click", runHomeScreen);
+    document.getElementById("home-symbol-input")?.addEventListener("keydown", e => {
+      if (e.key === "Enter") runHomeScreen();
+    });
+    document.querySelectorAll("[data-goto]").forEach(btn => {
+      btn.addEventListener("click", () => switchTab(btn.dataset.goto));
+    });
 
     if (location.hash === "#screen") switchTab("screen");
     if (location.hash === "#criteria") switchTab("criteria");
@@ -2954,16 +3050,16 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748019"></script>
-  <script src="screen-data.js?v=748019"></script>
-  <script src="screen-engine.js?v=748019"></script>
-  <script src="screen-watchlist.js?v=748019"></script>
-  <script src="screen-cloud.js?v=748019"></script>
-  <script src="screen-holdings.js?v=748023"></script>
-  <script src="screen-unified.js?v=748020"></script>
-  <script src="criteria-view.js?v=748022"></script>
-  <script src="handbook-view.js?v=748022"></script>
-  <script src="screen-ui.js?v=748024"></script>
+  <script src="watchlist-data.js?v=748026"></script>
+  <script src="screen-data.js?v=748026"></script>
+  <script src="screen-engine.js?v=748026"></script>
+  <script src="screen-watchlist.js?v=748026"></script>
+  <script src="screen-cloud.js?v=748026"></script>
+  <script src="screen-holdings.js?v=748026"></script>
+  <script src="screen-unified.js?v=748026"></script>
+  <script src="criteria-view.js?v=748026"></script>
+  <script src="handbook-view.js?v=748026"></script>
+  <script src="screen-ui.js?v=748026"></script>
   <script>
     CriteriaView?.init?.();
     HandbookView?.init?.();

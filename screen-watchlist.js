@@ -59,26 +59,45 @@ const ScreenWatchlist = (() => {
     render();
   }
 
-  function render() {
-    const box = el('watchlist-chips');
-    if (!box) return;
-    const items = getAll();
+  function chipsHtml(items) {
     if (!items.length) {
-      box.innerHTML = '<span class="watchlist-empty">还没有收藏。看完一只股票后点「⭐ 收藏」即可。</span>';
-      return;
+      return '<span class="watchlist-empty">还没有关注。研判后点「⭐ 收藏」加入云端队列。</span>';
     }
-    box.innerHTML = items.map(it =>
+    return items.map(it =>
       `<button type="button" class="watchlist-chip" data-symbol="${it.symbol}" title="点我再看一次">
         ${it.name !== it.symbol ? it.name : it.symbol}${it.cloud ? ' ☁️' : ''}
       </button>`
     ).join('');
+  }
+
+  function wireChips(box, onPick) {
+    if (!box) return;
     box.querySelectorAll('.watchlist-chip').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const sym = btn.dataset.symbol;
-        const input = el('symbol-input');
-        if (input) input.value = sym;
-        el('btn-screen')?.click();
-      });
+      btn.addEventListener('click', () => onPick(btn.dataset.symbol));
+    });
+  }
+
+  function runOnScreen(symbol) {
+    if (typeof window.switchTab === 'function') window.switchTab('screen');
+    const input = el('symbol-input');
+    if (input) input.value = symbol;
+    window.ScreenUI?.init?.();
+    el('btn-screen')?.click();
+  }
+
+  function renderBox(boxId, onPick) {
+    const box = el(boxId);
+    if (!box) return;
+    box.innerHTML = chipsHtml(getAll());
+    wireChips(box, onPick);
+  }
+
+  function render() {
+    renderBox('watchlist-chips', runOnScreen);
+    renderBox('home-watchlist-chips', (sym) => {
+      const homeInput = el('home-symbol-input');
+      if (homeInput) homeInput.value = sym;
+      runOnScreen(sym);
     });
   }
 
