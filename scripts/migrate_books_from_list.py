@@ -27,7 +27,7 @@ def write_book(entry: BookEntry, force: bool = False) -> Path:
     path = BOOKS_DIR / f"{book_id}.md"
     if path.exists() and not force:
         return path
-    categories = SECTION_CATEGORIES.get(entry.section, ["投资"])
+    categories = tier_categories(entry.tier)
     fm = {
         "id": book_id,
         "title": entry.title,

@@ -9,9 +9,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -26,9 +24,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -45,9 +41,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -60,9 +54,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -75,9 +67,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -90,9 +80,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -105,9 +93,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -122,9 +108,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -137,9 +121,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -152,9 +134,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -167,9 +147,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -184,9 +162,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -199,9 +175,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -216,9 +190,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -235,9 +207,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -250,9 +220,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -265,9 +233,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -280,9 +246,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -295,9 +259,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -310,9 +272,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -325,9 +285,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -340,9 +298,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -355,9 +311,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -370,9 +324,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -387,9 +339,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -402,9 +352,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -417,9 +365,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -432,9 +378,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -447,9 +391,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -462,9 +404,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -477,9 +417,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -492,9 +430,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -507,9 +443,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -522,7 +456,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -535,7 +469,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -548,7 +482,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -561,7 +495,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -574,7 +508,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -587,7 +521,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -600,7 +534,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -613,7 +547,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -628,7 +562,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -641,7 +575,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -657,7 +591,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -670,7 +604,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -685,7 +619,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -700,7 +634,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -713,7 +647,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -726,7 +660,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -739,7 +673,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -752,7 +686,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -765,7 +699,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -780,7 +714,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -796,7 +730,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -811,7 +745,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -824,7 +758,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -837,7 +771,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -852,7 +786,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -865,8 +799,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -879,8 +812,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -893,8 +825,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -909,8 +840,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -923,8 +853,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -937,8 +866,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -951,8 +879,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -965,8 +892,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -979,8 +905,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -995,8 +920,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1011,8 +935,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1025,8 +948,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1039,8 +961,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1053,8 +974,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1067,8 +987,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1081,8 +1000,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1095,8 +1013,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1109,8 +1026,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1123,8 +1039,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1137,8 +1052,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1151,8 +1065,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1165,8 +1078,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1179,8 +1091,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [
@@ -1195,8 +1106,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1209,8 +1119,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [
@@ -1225,8 +1134,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1239,8 +1147,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1253,8 +1160,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1267,8 +1173,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1281,8 +1186,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1295,8 +1199,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1309,8 +1212,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1323,8 +1225,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1337,8 +1238,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1351,8 +1251,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1365,8 +1264,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "消费与商业洞察",
       "categories": [
-        "消费",
-        "商业"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1379,8 +1277,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "消费与商业洞察",
       "categories": [
-        "消费",
-        "商业"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1393,8 +1290,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1407,8 +1303,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1421,8 +1316,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1435,8 +1329,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1449,8 +1342,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1463,8 +1355,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1477,8 +1368,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1491,8 +1381,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1505,8 +1394,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1519,8 +1407,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1533,8 +1420,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "标杆企业与案例",
       "categories": [
-        "商业",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1547,9 +1433,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "汽车/机器人产业",
       "categories": [
-        "汽车",
-        "机器人",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1562,8 +1446,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1576,8 +1459,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1590,8 +1472,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1606,7 +1487,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1619,7 +1500,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1632,7 +1513,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1645,7 +1526,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1658,7 +1539,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1671,7 +1552,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1684,7 +1565,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1697,7 +1578,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1712,7 +1593,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1725,7 +1606,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1741,7 +1622,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1754,7 +1635,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1769,7 +1650,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1784,7 +1665,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1797,7 +1678,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1810,7 +1691,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1823,7 +1704,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1836,7 +1717,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1849,7 +1730,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1864,7 +1745,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1880,7 +1761,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1895,7 +1776,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1908,7 +1789,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1921,7 +1802,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1936,7 +1817,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "价值投资经典",
       "categories": [
-        "价值投资"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1949,8 +1830,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -1965,8 +1845,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1979,8 +1858,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -1993,8 +1871,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "段永平/芒格体系",
       "categories": [
-        "价值投资",
-        "思维模型"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2007,9 +1884,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2024,9 +1899,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2043,9 +1916,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2058,9 +1929,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2073,9 +1942,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2088,9 +1955,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2103,9 +1968,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2120,9 +1983,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2135,9 +1996,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2150,9 +2009,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2165,9 +2022,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2182,9 +2037,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2197,9 +2050,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2214,9 +2065,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2233,9 +2082,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2248,9 +2095,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2263,9 +2108,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2278,9 +2121,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2293,9 +2134,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2308,9 +2147,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2323,9 +2160,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2338,9 +2173,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2353,9 +2186,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2368,9 +2199,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2385,9 +2214,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2400,9 +2227,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2415,9 +2240,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2430,9 +2253,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2445,9 +2266,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2460,9 +2279,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2475,9 +2292,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2490,9 +2305,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2505,9 +2318,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "交易与实战",
       "categories": [
-        "实战",
-        "估值",
-        "财报"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2520,8 +2331,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2534,8 +2344,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2548,8 +2357,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "投资心理与行为",
       "categories": [
-        "心理",
-        "行为金融"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2564,8 +2372,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2578,8 +2385,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2592,8 +2398,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [
@@ -2608,8 +2413,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2622,8 +2426,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2636,8 +2439,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "宏观与周期",
       "categories": [
-        "宏观",
-        "周期"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2650,8 +2452,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2664,8 +2465,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2678,8 +2478,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2692,8 +2491,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2706,8 +2504,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 1,
       "section": "风险与财富观",
       "categories": [
-        "风险",
-        "财富观"
+        "核心投资"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2720,8 +2517,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2734,8 +2530,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2748,8 +2543,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2762,8 +2556,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2776,8 +2569,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [
@@ -2792,8 +2584,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2806,8 +2597,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [
@@ -2822,8 +2612,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "商业与护城河",
       "categories": [
-        "商业",
-        "护城河"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2836,8 +2625,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2850,8 +2638,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2864,8 +2651,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2878,8 +2664,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "宏观与政策",
       "categories": [
-        "宏观",
-        "政策"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2892,8 +2677,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2906,8 +2690,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2920,8 +2703,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2934,8 +2716,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2948,8 +2729,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "心理与认知",
       "categories": [
-        "心理",
-        "认知"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2962,8 +2742,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "消费与商业洞察",
       "categories": [
-        "消费",
-        "商业"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2976,8 +2755,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 2,
       "section": "消费与商业洞察",
       "categories": [
-        "消费",
-        "商业"
+        "投资辅助"
       ],
       "aliases": [],
       "related_rules": [],
@@ -2990,8 +2768,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3004,8 +2781,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3018,8 +2794,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3032,8 +2807,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3046,8 +2820,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3060,8 +2833,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "半导体/算力",
       "categories": [
-        "半导体",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3074,8 +2846,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3088,8 +2859,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3102,8 +2872,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3116,8 +2885,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "AI产业与投研",
       "categories": [
-        "AI",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3130,8 +2898,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "标杆企业与案例",
       "categories": [
-        "商业",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3144,8 +2911,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3158,8 +2924,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3172,8 +2937,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "消费品牌案例（泡泡玛特）",
       "categories": [
-        "消费",
-        "案例"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],
@@ -3186,9 +2950,7 @@ window.LCAI_BOOKS_INDEX = {
       "tier": 3,
       "section": "汽车/机器人产业",
       "categories": [
-        "汽车",
-        "机器人",
-        "行业"
+        "行业研究"
       ],
       "aliases": [],
       "related_rules": [],

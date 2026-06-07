@@ -42,6 +42,16 @@ TIER_MAP = {
     "Tier 3 行业研究": 3,
 }
 
+TIER_LABELS = {
+    1: "核心投资",
+    2: "投资辅助",
+    3: "行业研究",
+}
+
+
+def tier_categories(tier: int) -> list[str]:
+    return [TIER_LABELS.get(tier, TIER_LABELS[1])]
+
 
 @dataclass
 class BookEntry:

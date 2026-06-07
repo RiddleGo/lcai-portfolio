@@ -17,8 +17,11 @@ from books_utils import (
     BOOKS_INDEX_PATH,
     BOOK_LIST_PATH,
     META_SOURCES_PATH,
+    TIER_LABELS,
+    dump_frontmatter,
     load_meta_sources,
     parse_frontmatter,
+    tier_categories,
 )
 
 
@@ -38,7 +41,7 @@ def build_index() -> dict:
             "title": fm.get("title") or fm["id"],
             "tier": fm.get("tier", 1),
             "section": fm.get("section", ""),
-            "categories": fm.get("categories") or [],
+            "categories": tier_categories(int(fm.get("tier", 1))),
             "aliases": fm.get("aliases") or [],
             "related_rules": fm.get("related_rules") or [],
             "status": fm.get("status", "stub"),
@@ -75,8 +78,7 @@ def render_booklist_md(index: dict) -> str:
         "",
     ]
     current_tier = None
-    current_section = None
-    tier_labels = {1: "Tier 1 核心投资", 2: "Tier 2 投资辅助", 3: "Tier 3 行业研究"}
+    tier_labels = {k: f"Tier {k} {v}" for k, v in TIER_LABELS.items()}
     tier_counts: dict[int, int] = {}
     for b in index["books"]:
         tier_counts[b["tier"]] = tier_counts.get(b["tier"], 0) + 1
@@ -84,13 +86,8 @@ def render_booklist_md(index: dict) -> str:
     for b in index["books"]:
         if b["tier"] != current_tier:
             current_tier = b["tier"]
-            current_section = None
             n = tier_counts.get(current_tier, 0)
             lines.append(f"### {tier_labels.get(current_tier, f'Tier {current_tier}')}（{n}）")
-            lines.append("")
-        if b.get("section") != current_section:
-            current_section = b.get("section")
-            lines.append(f"#### {current_section}")
             lines.append("")
             lines.append("| 书名 | 状态 | 文件 |")
             lines.append("|------|------|------|")
@@ -115,18 +112,37 @@ def render_booklist_md(index: dict) -> str:
     return "\n".join(lines)
 
 
+def normalize_all_books() -> int:
+    n = 0
+    for path in sorted(BOOKS_DIR.glob("*.md")):
+        text = path.read_text(encoding="utf-8")
+        fm, body = parse_frontmatter(text)
+        tier = int(fm.get("tier", 1))
+        cats = tier_categories(tier)
+        if fm.get("categories") == cats:
+            continue
+        fm["categories"] = cats
+        path.write_text(dump_frontmatter(fm) + "\n\n" + body.rstrip() + "\n", encoding="utf-8")
+        n += 1
+    return n
+
+
 def main() -> int:
     import argparse
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--no-booklist", action="store_true", help="Skip regenerating 投资书单.md")
     ap.add_argument("--check", action="store_true", help="Verify index matches books/*.md without writing")
+    ap.add_argument("--normalize", action="store_true", help="Rewrite book categories to 3 tier labels")
     args = ap.parse_args()
 
     if not BOOKS_DIR.exists():
         print(f"error: {BOOKS_DIR} not found; run migrate_books_from_list.py first", file=sys.stderr)
         return 1
 
+    if args.normalize:
+        changed = normalize_all_books()
+        print(f"normalized categories on {changed} book files")
     index = build_index()
 
     if args.check:
