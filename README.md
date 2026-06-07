@@ -45,3 +45,14 @@ bash scripts/run_lcai_analysis.sh 600519           # 写入 reports/
 ## 部署
 
 GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports/*/unified.json` **每周一**由 Actions 全量刷新。
+
+## 维护与新增股票
+
+完整操作说明见 **[投资系统/08-日常维护手册.md](投资系统/08-日常维护手册.md)**。
+
+**新增持仓（摘要）：**
+
+1. 编辑 [`holdings.json`](holdings.json)
+2. `python scripts/sync_holdings.py` → `holdings-data.js`
+3. `python scripts/fetch_quotes.py` → `quotes-data.js`
+4. `bash scripts/run_lcai_analysis.sh <代码>` → `reports/`

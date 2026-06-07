@@ -19,13 +19,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Fetch quotes
-        run: python scripts/fetch_quotes.py
+      - name: Sync holdings and fetch quotes
+        run: |
+          python scripts/sync_holdings.py
+          python scripts/fetch_quotes.py
 
-      - name: Commit quotes-data.js
+      - name: Commit holdings and quotes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add quotes-data.js
+          git add holdings-data.js quotes-data.js
           git diff --staged --quiet || git commit -m "chore: update stock quotes"
           git push

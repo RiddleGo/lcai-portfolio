@@ -71,14 +71,18 @@ LCAI/
 ├── 资产总览.html          # 主站（含选股 Tab）
 ├── screen-*.js            # 浏览器研判引擎
 ├── quotes-data.js         # 持仓行情
+├── holdings.json          # 持仓唯一数据源
+├── holdings-data.js       # 由 sync_holdings.py 生成
 ├── 投资系统/
 │   ├── criteria.json      # 25+ 条规则（唯一标准源）
+│   ├── 08-日常维护手册.md  # 维护与新增股票 SOP
 │   └── engine/            # Python 数据 + CLI
 ├── scripts/
 │   ├── run_lcai_analysis.sh
 │   ├── lcai_screen_json.py
 │   ├── generate_reports.py      # CI 批量报告
-│   ├── fetch_quotes.py          # 行情更新
+│   ├── fetch_quotes.py          # 行情更新（读 holdings.json）
+│   ├── sync_holdings.py         # holdings.json → holdings-data.js
 │   ├── calc_fund_scenarios.py   # 基金赎回测算
 │   └── build_unified_report.py  # unified.json
 ├── reports/{symbol}/      # lcai.json + unified.json + index.html
