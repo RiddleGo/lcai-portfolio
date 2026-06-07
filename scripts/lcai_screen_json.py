@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""输出 LCAI 完整研判 JSON（供 CLI / CI / 双轨对比）。"""
+"""输出 LCAI 完整研判 JSON（供 CLI / CI / 与 UZI 材料对照）。"""
 import json
 import sys
 from pathlib import Path

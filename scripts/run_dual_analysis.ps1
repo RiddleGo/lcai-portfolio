@@ -1,4 +1,4 @@
-# LCAI + UZI 双轨研判 (PowerShell)
+# LCAI 裁决 + UZI 深度材料 (PowerShell)
 # 用法: .\scripts\run_dual_analysis.ps1 600519
 param(
     [Parameter(Mandatory = $true)][string]$Symbol,

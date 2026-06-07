@@ -1,5 +1,5 @@
 /**
- * LCAI × UZI 综合研判（单页融合，裁决仍来自 LCAI）
+ * LCAI 综合研判（LCAI 裁决 + 可选 UZI 深度附录）
  */
 const ScreenUnified = (() => {
   function el(id) {

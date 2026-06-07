@@ -24,6 +24,7 @@
 - [`投资系统/00-投资宪法.md`](投资系统/00-投资宪法.md)
 - [`投资系统/criteria.json`](投资系统/criteria.json)
 - 对照说明：[`投资系统/08-UZI对照说明.md`](投资系统/08-UZI对照说明.md)
+- UZI 引擎逻辑：[`投资系统/09-UZI逻辑说明.md`](投资系统/09-UZI逻辑说明.md)
 
 ### Step 2 · LCAI 快速裁决（必做）
 
@@ -47,7 +48,7 @@ python scripts/lcai_screen_json.py 600519
 **前置**：UZI 已 clone 到 `.vendor/UZI-Skill` 或设置 `UZI_SKILL_PATH`。
 
 ```bash
-# 一键双轨（推荐）
+# 一键：LCAI 裁决 + UZI 深度材料（推荐）
 bash scripts/run_dual_analysis.sh 600519
 
 # 或分步

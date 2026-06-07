@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# LCAI + UZI 双轨研判
+# LCAI 裁决 + UZI 深度材料
 # 用法: bash scripts/run_dual_analysis.sh 600519
 set -euo pipefail
 

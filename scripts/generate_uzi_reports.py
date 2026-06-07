@@ -206,7 +206,7 @@ def process_symbol(symbol: str, uzi_path: Path | None, run_uzi: bool) -> dict:
 
 
 def main():
-    ap = argparse.ArgumentParser(description="Generate LCAI vs UZI report bundles")
+    ap = argparse.ArgumentParser(description="Generate LCAI reports with optional UZI enrichment")
     ap.add_argument("--symbol", help="Single symbol")
     ap.add_argument("--holdings", action="store_true", help="All symbols from quotes-data.js")
     ap.add_argument("--all", action="store_true", help="Holdings + watchlist-data.js (weekly auto)")
