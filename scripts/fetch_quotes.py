@@ -6,7 +6,7 @@ import urllib.request
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "quotes-data.js"
 
 SYMBOLS = {
@@ -55,7 +55,6 @@ def fetch_stock(secid: str) -> dict | None:
         raw = d.get("f43")
         if raw is None:
             return None
-        # A股 f43/100；港股 f43/1000
         div = 1000.0 if secid.startswith("116.") else 100.0
         price = raw / div
         change_pct = (d.get("f170") or 0) / 100.0
@@ -67,7 +66,6 @@ def fetch_stock(secid: str) -> dict | None:
 
 
 def fetch_hkd_cny() -> float:
-    # 离岸人民币 / 港币 近似汇率：CNY per 1 HKD
     url = "https://push2.eastmoney.com/api/qt/stock/get?secid=133.900007&fields=f43"
     try:
         data = fetch_json(url)

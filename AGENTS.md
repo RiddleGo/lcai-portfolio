@@ -78,6 +78,8 @@ LCAI/
 │   ├── run_lcai_analysis.sh
 │   ├── lcai_screen_json.py
 │   ├── generate_reports.py      # CI 批量报告
+│   ├── fetch_quotes.py          # 行情更新
+│   ├── calc_fund_scenarios.py   # 基金赎回测算
 │   └── build_unified_report.py  # unified.json
 ├── reports/{symbol}/      # unified.json + meta.json + index.html
 ```

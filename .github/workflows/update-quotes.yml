@@ -20,7 +20,7 @@ jobs:
           python-version: "3.12"
 
       - name: Fetch quotes
-        run: python fetch_quotes.py
+        run: python scripts/fetch_quotes.py
 
       - name: Commit quotes-data.js
         run: |

@@ -4,3 +4,7 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .vendor/
+
+# 书籍目录 OCR 中间产物（正文以 .md 为准）
+书籍/*.png
+书籍/*.csv
