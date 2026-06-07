@@ -6,6 +6,7 @@
 
 /* ── DSA 设计 token（浅色默认，与参考项目 :root 对齐）── */
 :root {
+  color-scheme: light;
   --background: 216 33% 97%;
   --foreground: 228 35% 12%;
   --card: 0 0% 100%;
@@ -65,9 +66,21 @@ html.dark {
   --muted: hsl(var(--muted-foreground));
   --border: hsl(var(--border));
   --accent: hsl(var(--primary));
+  --ok: hsl(152 69% 32%);
+  --warn: hsl(32 95% 38%);
+  --danger: hsl(0 72% 45%);
+  --gain-text: hsl(152 69% 32%);
+  --loss-text: hsl(0 72% 45%);
+  --warn-text: hsl(32 95% 38%);
+}
+
+html.dark {
   --ok: hsl(152 69% 40%);
   --warn: hsl(37 92% 50%);
   --danger: hsl(0 90% 55%);
+  --gain-text: hsl(152 69% 55%);
+  --loss-text: hsl(0 90% 72%);
+  --warn-text: hsl(37 92% 58%);
 }
 
 body {

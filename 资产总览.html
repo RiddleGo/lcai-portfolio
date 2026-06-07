@@ -7,10 +7,10 @@
   <script>
     (function () {
       var t = localStorage.getItem("lcai-theme");
-      document.documentElement.classList.toggle("dark", t !== "light");
+      document.documentElement.classList.toggle("dark", t === "dark");
     })();
   </script>
-  <link rel="stylesheet" href="lcai-theme.css?v=748024">
+  <link rel="stylesheet" href="lcai-theme.css?v=748025">
   <style>
     :root {
       /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
@@ -70,13 +70,13 @@
     }
 
     .card.warn-card {
-      border-color: var(--warn);
-      background: linear-gradient(135deg, #1a2332 0%, #2a2318 100%);
+      border-color: hsl(37 92% 50% / 0.45);
+      background: linear-gradient(135deg, hsl(var(--card)), hsl(37 92% 50% / 0.08));
     }
 
     .card.danger-card {
-      border-color: var(--danger);
-      background: linear-gradient(135deg, #1a2332 0%, #2a1818 100%);
+      border-color: hsl(0 90% 55% / 0.45);
+      background: linear-gradient(135deg, hsl(var(--card)), hsl(0 90% 55% / 0.08));
     }
 
     .card-label {
@@ -92,8 +92,8 @@
     }
 
     .card.highlight .card-value { color: hsl(var(--primary)); }
-    .card.warn-card .card-value { color: #fbbf24; }
-    .card.danger-card .card-value { color: #fca5a5; }
+    .card.warn-card .card-value { color: hsl(32 95% 38%); }
+    .card.danger-card .card-value { color: hsl(0 72% 45%); }
 
     .card-sub {
       font-size: 0.75rem;
@@ -159,7 +159,7 @@
 
     tbody td:first-child { text-align: left; font-weight: 500; }
 
-    tbody tr:hover { background: rgba(255,255,255,0.03); }
+    tbody tr:hover { background: hsl(var(--foreground) / 0.04); }
     tbody tr.peak { background: rgba(239, 68, 68, 0.1); }
     tbody tr.peak td:last-child { color: #fca5a5; font-weight: 700; }
     tbody tr.aug { background: rgba(168, 85, 247, 0.1); }
@@ -168,9 +168,9 @@
     tbody tr.light td:last-child { color: #6ee7b7; }
 
     .dash { color: var(--border); }
-    .loss { color: #fca5a5; }
-    .gain { color: #6ee7b7; }
-    .warn { color: #fbbf24; }
+    .loss { color: var(--loss-text); }
+    .gain { color: var(--gain-text); }
+    .warn { color: var(--warn-text); }
     .month-total { font-weight: 700; }
 
     .badge {
@@ -584,9 +584,9 @@
 
     .effect-toast-close:hover { background: rgba(59, 130, 246, 0.25); }
 
-    .score-ok { color: #6ee7b7; }
-    .score-warn { color: #fbbf24; }
-    .score-bad { color: #fca5a5; }
+    .score-ok { color: var(--gain-text); }
+    .score-warn { color: var(--warn-text); }
+    .score-bad { color: var(--loss-text); }
 
     tbody tr.plan-row-sell { background: rgba(239,68,68,0.08); }
     tbody tr.plan-row-hold { background: rgba(16,185,129,0.06); }
@@ -786,7 +786,7 @@
     .handbook-pre { overflow-x: auto; padding: 12px; border-radius: 8px; background: rgba(15,23,42,0.05); border: 1px solid var(--border); margin: 0 0 12px; font-size: 0.8rem; }
     .handbook-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.84rem; }
     .handbook-table th, .handbook-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
-    .handbook-table th { background: rgba(15,23,42,0.04); font-weight: 600; }
+    .handbook-table th { background: hsl(var(--foreground) / 0.04); font-weight: 600; }
     .handbook-article a { color: var(--accent); }
     .handbook-article hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     .watchlist-box { margin-bottom: 14px; }
