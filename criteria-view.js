@@ -19,6 +19,8 @@ const CriteriaView = (() => {
 
   let serverCfg = null;
   let draftCfg = null;
+  let categoriesMeta = null;
+  let booksIndex = null;
   let pollTimer = null;
   let pollCount = 0;
   let submitFingerprint = null;
@@ -109,6 +111,30 @@ const CriteriaView = (() => {
     return `<input type="number" class="criteria-inp" id="th-${id}" value="${val}" step="any">`;
   }
 
+  function renderBookSelect(rule) {
+    const sid = rule.id.replace(/[^a-zA-Z0-9]/g, '_');
+    const idx = booksIndex || window.LCAI_BOOKS_INDEX || { books: [] };
+    const selected = new Set(rule.book_ids || []);
+    const opts = (idx.books || []).map(b =>
+      `<option value="${b.id}"${selected.has(b.id) ? ' selected' : ''}>${b.title}</option>`
+    ).join('');
+    const metaNames = (rule.meta_ids || []).map(mid =>
+      (window.LCAI_META_SOURCES || {})[mid] || mid
+    );
+    const metaHtml = metaNames.length
+      ? `<p class="criteria-hint">非书籍来源：${metaNames.join('、')}</p>` : '';
+    const links = (rule.book_ids || []).map(bid => {
+      const title = idx.by_id?.[bid]?.title || bid;
+      return `<button type="button" class="books-rule-chip criteria-book-link" data-book-id="${bid}">${title}</button>`;
+    }).join('');
+    return `
+      <label>参考书籍（多选，Ctrl/⌘ 点选）
+        <select multiple class="criteria-inp criteria-book-select" id="books-${sid}" size="4">${opts}</select>
+      </label>
+      ${metaHtml}
+      ${links ? `<div class="criteria-book-links">${links}</div>` : ''}`;
+  }
+
   function renderEditor(cfg) {
     const box = el('criteria-content');
     if (!box || !cfg) return;
@@ -165,15 +191,23 @@ const CriteriaView = (() => {
       <td class="criteria-muted">—</td></tr>`;
     html += '</tbody></table></div></div>';
 
-    for (const layer of ['L0', 'L1', 'L2', 'L3', 'L4', 'L5']) {
-      const items = (cfg.rules || []).filter(r => r.layer === layer);
+    const catOrder = (categoriesMeta?.categories || []).slice().sort((a, b) => (a.order || 0) - (b.order || 0));
+    const rulesByCat = {};
+    for (const r of cfg.rules || []) {
+      const cat = r.category || 'gate';
+      (rulesByCat[cat] = rulesByCat[cat] || []).push(r);
+    }
+
+    for (const cat of catOrder) {
+      const items = rulesByCat[cat.id] || [];
       if (!items.length) continue;
-      html += `<div class="card criteria-layer"><h2 class="criteria-h2">${layer} · ${LAYER_HINT[layer] || ''}</h2>`;
+      html += `<div class="card criteria-layer"><h2 class="criteria-h2">${cat.name} <span class="criteria-muted">(${cat.id})</span></h2>`;
       for (const r of items) {
         const sid = r.id.replace(/[^a-zA-Z0-9]/g, '_');
-        html += `<div class="criteria-rule">
+        html += `<div class="criteria-rule" data-rule-id="${r.id}">
           <div class="criteria-rule-head">
             <strong>${r.id}</strong> ${r.name}
+            <span class="criteria-badge">${r.layer}</span>
             <span class="criteria-badge">${TYPE_LABEL[r.type] || r.type}</span>
           </div>
           <div class="criteria-rule-body">
@@ -181,9 +215,7 @@ const CriteriaView = (() => {
               ${renderThresholdInputs(r)}
             </label>
             ${r.type === 'soft' ? `<label>权重 <input type="number" class="criteria-inp criteria-inp-sm" id="wt-${sid}" value="${r.weight ?? 5}" min="1" max="20"></label>` : ''}
-            <label>参考书籍（逗号分隔，仅展示用）
-              <input type="text" class="criteria-inp" id="src-${sid}" value="${(r.sources || []).join('，')}">
-            </label>
+            ${renderBookSelect(r)}
             <p class="criteria-hint">${thresholdHint(r)}</p>
           </div>
         </div>`;
@@ -192,6 +224,9 @@ const CriteriaView = (() => {
     }
 
     box.innerHTML = html;
+    box.querySelectorAll('.criteria-book-link').forEach(btn => {
+      btn.addEventListener('click', () => window.BooksView?.openBook?.(btn.dataset.bookId));
+    });
     el('btn-criteria-submit')?.addEventListener('click', submitToCloud);
     el('btn-criteria-draft')?.addEventListener('click', saveDraft);
     el('btn-criteria-reset')?.addEventListener('click', () => {
@@ -241,9 +276,11 @@ const CriteriaView = (() => {
       const sid = rule.id.replace(/[^a-zA-Z0-9]/g, '_');
       const wt = el(`wt-${sid}`);
       if (wt) rule.weight = parseInt(wt.value, 10) || rule.weight;
-      const src = el(`src-${sid}`);
-      if (src) {
-        rule.sources = src.value.split(/[,，、]/).map(s => s.trim()).filter(Boolean);
+      const bookSel = el(`books-${sid}`);
+      if (bookSel) {
+        rule.book_ids = Array.from(bookSel.selectedOptions).map(o => o.value);
+        const idx = booksIndex || window.LCAI_BOOKS_INDEX || { by_id: {} };
+        rule.sources = rule.book_ids.map(id => idx.by_id?.[id]?.title).filter(Boolean);
       }
     }
     return cfg;
@@ -347,12 +384,35 @@ const CriteriaView = (() => {
     }
   }
 
+  async function loadMeta() {
+    try {
+      const [catResp, booksResp] = await Promise.all([
+        fetch(lcaiAsset('投资系统/rule-categories.json')),
+        Promise.resolve(window.LCAI_BOOKS_INDEX || null),
+      ]);
+      if (catResp.ok) categoriesMeta = await catResp.json();
+      booksIndex = booksResp || window.LCAI_BOOKS_INDEX;
+    } catch (_) {
+      categoriesMeta = categoriesMeta || { categories: [] };
+      booksIndex = window.LCAI_BOOKS_INDEX;
+    }
+  }
+
+  function highlightRule(ruleId) {
+    const node = document.querySelector(`.criteria-rule[data-rule-id="${ruleId}"]`);
+    if (!node) return;
+    node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    node.classList.add('criteria-rule-highlight');
+    setTimeout(() => node.classList.remove('criteria-rule-highlight'), 2500);
+  }
+
   async function load() {
     const box = el('criteria-content');
     if (!box) return;
     box.innerHTML = '<p class="screen-loading">加载判定标准…</p>';
     setStatus('');
     try {
+      await loadMeta();
       const resp = await fetch(lcaiAsset(`投资系统/criteria.json?t=${Date.now()}`));
       if (!resp.ok) throw new Error(String(resp.status));
       serverCfg = await resp.json();
@@ -377,5 +437,5 @@ const CriteriaView = (() => {
     document.querySelector('.tab-btn[data-page="criteria"]')?.addEventListener('click', load);
   }
 
-  return { init, load };
+  return { init, load, highlightRule };
 })();

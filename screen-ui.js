@@ -50,7 +50,7 @@ const ScreenUI = (() => {
         <td>${r.threshold}</td>
         <td class="rule-${rc}">${r.result === 'veto' ? '否决' : r.pass ? 'Pass' : 'Fail'}</td>
         <td class="rule-reason">${r.reason || '—'}</td>
-        <td style="color:var(--muted);font-size:0.78rem">${(r.sources || []).join('、')}</td>
+        <td style="color:var(--muted);font-size:0.78rem">${renderSources(r)}</td>
       </tr>`;
     };
 
@@ -67,10 +67,36 @@ const ScreenUI = (() => {
         ? `展示 ${failRules.length} 条未通过 / 否决（Pass ${passRules.length} 条已折叠）`
         : `全部 ${passRules.length} 条规则 Pass（无 Fail/Veto）`;
     }
+    bindSourceLinks(tbody);
+    if (passBody) bindSourceLinks(passBody);
   }
 
   function el(id) {
     return document.getElementById(id);
+  }
+
+  function renderSources(r) {
+    const idx = window.LCAI_BOOKS_INDEX;
+    const meta = window.LCAI_META_SOURCES || {};
+    const parts = [];
+    for (const bid of r.book_ids || []) {
+      const title = idx?.by_id?.[bid]?.title || bid;
+      parts.push(`<a href="#books" class="book-source-link" data-book-id="${bid}">${title}</a>`);
+    }
+    for (const mid of r.meta_ids || []) {
+      parts.push(meta[mid] || mid);
+    }
+    if (!parts.length) return (r.sources || []).join('、');
+    return parts.join('、');
+  }
+
+  function bindSourceLinks(root) {
+    (root || document).querySelectorAll('.book-source-link').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        window.BooksView?.openBook?.(a.dataset.bookId);
+      });
+    });
   }
 
   function renderListBlock(containerId, title, items, emptyText) {

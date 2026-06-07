@@ -21,6 +21,7 @@ const HandbookView = (() => {
     if (href.includes('资产总览.html#screen') || href === '#screen') return '#screen';
     if (href.includes('资产总览.html#criteria') || href === '#criteria') return '#criteria';
     if (href.includes('资产总览.html#handbook') || href === '#handbook') return '#handbook';
+    if (href.includes('资产总览.html#books') || href === '#books') return '#books';
     if (href.endsWith('criteria.json') || href === 'criteria.json') {
       return lcaiAsset('投资系统/criteria.json');
     }
@@ -177,5 +178,5 @@ const HandbookView = (() => {
     document.querySelector('.tab-btn[data-page="handbook"]')?.addEventListener('click', load);
   }
 
-  return { init, load };
+  return { init, load, mdToHtml };
 })();

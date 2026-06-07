@@ -9,6 +9,10 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CRITERIA_PATH = ROOT / "投资系统" / "criteria.json"
+RULE_CATEGORIES_PATH = ROOT / "投资系统" / "rule-categories.json"
+
+sys.path.insert(0, str(ROOT / "scripts"))
+from books_utils import load_books_index, load_meta_sources  # noqa: E402
 
 KNOWN_EVALS = {
     "circle_of_competence",
@@ -42,8 +46,44 @@ VALID_TYPES = {"hard", "soft", "veto"}
 VALID_LAYERS = {"L0", "L1", "L2", "L3", "L4", "L5"}
 
 
+def load_category_ids() -> set[str]:
+    data = json.loads(RULE_CATEGORIES_PATH.read_text(encoding="utf-8"))
+    return {c["id"] for c in data.get("categories", [])}
+
+
+def validate_warnings(cfg: dict, index: dict) -> list[str]:
+    warnings: list[str] = []
+    by_id = index.get("by_id") or {}
+    rule_map = {r["id"]: r for r in cfg.get("rules") or [] if r.get("id")}
+
+    for rule in cfg.get("rules") or []:
+        rid = rule.get("id")
+        if not rid:
+            continue
+        for bid in rule.get("book_ids") or []:
+            book = by_id.get(bid)
+            if book and rid not in (book.get("related_rules") or []):
+                warnings.append(
+                    f"{rid} → {bid}: 书籍 frontmatter 未列入 related_rules（建议同步）"
+                )
+
+    for book in index.get("books") or []:
+        bid = book.get("id")
+        for rr in book.get("related_rules") or []:
+            rule = rule_map.get(rr)
+            if rule and bid not in (rule.get("book_ids") or []):
+                warnings.append(
+                    f"{bid} related_rules 含 {rr}，但该规则 book_ids 未引用此书"
+                )
+    return warnings
+
+
 def validate(cfg: dict) -> list[str]:
     errors: list[str] = []
+    valid_cats = load_category_ids()
+    index = load_books_index()
+    by_id = index.get("by_id") or {}
+    meta = load_meta_sources()
 
     scoring = cfg.get("scoring") or {}
     weights = scoring.get("weights") or {}
@@ -99,6 +139,20 @@ def validate(cfg: dict) -> list[str]:
         if rtype == "soft" and not rule.get("weight"):
             errors.append(f"{rid}: soft 规则缺少 weight")
 
+        cat = rule.get("category")
+        if not cat:
+            errors.append(f"{rid}: 缺少 category")
+        elif cat not in valid_cats:
+            errors.append(f"{rid}: category `{cat}` 不在 rule-categories.json")
+
+        for bid in rule.get("book_ids") or []:
+            if bid not in by_id:
+                errors.append(f"{rid}: 未知 book_id `{bid}`")
+
+        for mid in rule.get("meta_ids") or []:
+            if mid not in meta:
+                errors.append(f"{rid}: 未知 meta_id `{mid}`")
+
     return errors
 
 
@@ -107,12 +161,18 @@ def main() -> int:
         print(f"找不到 {CRITERIA_PATH}", file=sys.stderr)
         return 1
     cfg = json.loads(CRITERIA_PATH.read_text(encoding="utf-8"))
+    index = load_books_index()
     errors = validate(cfg)
+    warnings = validate_warnings(cfg, index)
     if errors:
         print("criteria.json 校验失败:", file=sys.stderr)
         for e in errors:
             print(f"  - {e}", file=sys.stderr)
         return 1
+    if warnings:
+        print("警告（非阻断）:", file=sys.stderr)
+        for w in warnings:
+            print(f"  - {w}", file=sys.stderr)
     print(f"OK: {len(cfg.get('rules', []))} 条规则, version {cfg.get('version', '?')}")
     return 0
 

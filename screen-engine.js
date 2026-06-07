@@ -14,6 +14,21 @@ const ScreenEngine = (() => {
     return criteria;
   }
 
+  function resolveRuleSources(rule) {
+    const idx = window.LCAI_BOOKS_INDEX;
+    const meta = window.LCAI_META_SOURCES || {};
+    const names = [];
+    for (const bid of rule.book_ids || []) {
+      const b = idx?.by_id?.[bid];
+      names.push(b?.title || bid);
+    }
+    for (const mid of rule.meta_ids || []) {
+      names.push(meta[mid] || mid);
+    }
+    if (!names.length && rule.sources?.length) return rule.sources;
+    return names;
+  }
+
   function fmt(v, digits = 2) {
     if (v == null || !Number.isFinite(v)) return '—';
     return Number(v).toFixed(digits);
@@ -650,7 +665,9 @@ const ScreenEngine = (() => {
         layer: rule.layer,
         type: rule.type,
         name: rule.name,
-        sources: rule.sources,
+        sources: resolveRuleSources(rule),
+        book_ids: rule.book_ids || [],
+        meta_ids: rule.meta_ids || [],
         weight: rule.weight || 5,
         pass: out.pass !== false,
         actual: out.actual,

@@ -165,6 +165,47 @@ jobs:
           约 1 分钟后刷新页面即可。"
           gh issue close "${{ github.event.issue.number }}"
 
+  book-from-issue:
+    if: |
+      contains(github.event.issue.title, '[book]') &&
+      (github.event.issue.author_association == 'OWNER' ||
+       github.event.issue.author_association == 'COLLABORATOR' ||
+       github.event.issue.author_association == 'MEMBER')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Apply book update from issue
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/apply_book_from_issue.py
+
+      - name: Commit book files and index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add 书籍/books/ 书籍/books-index.json 书籍/投资书单.md books-index-data.js
+          git diff --staged --quiet || git commit -m "chore: update book via issue #${{ github.event.issue.number }}"
+          git push
+
+      - name: Close issue with comment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ 书籍笔记已更新并重建索引。
+
+          - 网页查看：[资产总览 · 书籍](https://riddlego.github.io/lcai-portfolio/资产总览.html#books)
+          - 本地文件：\`书籍/books/\`
+
+          约 1 分钟后刷新页面即可。"
+          gh issue close "${{ github.event.issue.number }}"
+
   weekly-from-issue:
     if: |
       contains(github.event.issue.title, '[weekly]') &&

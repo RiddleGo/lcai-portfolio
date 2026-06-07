@@ -1,0 +1,7 @@
+{
+  "meta_sources": [
+    { "id": "trap_scan", "name": "trap_scan 启发式", "description": "异常票启发式扫描，非书籍来源" },
+    { "id": "simplified_dcf", "name": "简化 DCF", "description": "简化现金流折现交叉验证" },
+    { "id": "industry_overlay", "name": "04-行业叠加规则", "description": "LCAI 行业 PE/公允 PE 叠加规则" }
+  ]
+}

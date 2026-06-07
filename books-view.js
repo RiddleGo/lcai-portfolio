@@ -1,0 +1,292 @@
+/**
+ * 书籍知识库：筛选、阅读、关联规则跳转、Issue 提交
+ */
+const BooksView = (() => {
+  const REPO = 'RiddleGo/lcai-portfolio';
+  const DRAFT_PREFIX = 'lcai-book-draft-';
+
+  let index = null;
+  let categories = null;
+  let selectedId = null;
+  let filterTier = '';
+  let filterSection = '';
+  let filterCategory = '';
+  let searchQuery = '';
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+
+  function getIndex() {
+    return index || window.LCAI_BOOKS_INDEX || { books: [], by_id: {} };
+  }
+
+  function tierLabel(tier) {
+    return { 1: 'Tier 1 核心', 2: 'Tier 2 辅助', 3: 'Tier 3 行业' }[tier] || `Tier ${tier}`;
+  }
+
+  function filteredBooks() {
+    const idx = getIndex();
+    let list = idx.books || [];
+    if (filterTier) list = list.filter(b => String(b.tier) === filterTier);
+    if (filterSection) list = list.filter(b => b.section === filterSection);
+    if (filterCategory) {
+      list = list.filter(b => (b.categories || []).includes(filterCategory));
+    }
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      list = list.filter(b =>
+        (b.title || '').toLowerCase().includes(q) ||
+        (b.id || '').toLowerCase().includes(q)
+      );
+    }
+    return list;
+  }
+
+  function renderList() {
+    const listEl = el('books-list');
+    if (!listEl) return;
+    const books = filteredBooks();
+    if (!books.length) {
+      listEl.innerHTML = '<p class="books-empty">无匹配书籍</p>';
+      return;
+    }
+    listEl.innerHTML = books.map(b => {
+      const active = b.id === selectedId ? ' books-item-active' : '';
+      const stub = b.status === 'stub' ? '<span class="books-stub">待完善</span>' : '';
+      return `<button type="button" class="books-item${active}" data-book-id="${b.id}">
+        <span class="books-item-title">${b.title}${stub}</span>
+        <span class="books-item-meta">${tierLabel(b.tier)} · ${b.section || '—'}</span>
+      </button>`;
+    }).join('');
+    listEl.querySelectorAll('.books-item').forEach(btn => {
+      btn.addEventListener('click', () => selectBook(btn.dataset.bookId));
+    });
+  }
+
+  function renderFilters() {
+    const idx = getIndex();
+    const sections = [...new Set((idx.books || []).map(b => b.section).filter(Boolean))].sort();
+    const cats = new Set();
+    (idx.books || []).forEach(b => (b.categories || []).forEach(c => cats.add(c)));
+
+    const secEl = el('books-filter-section');
+    if (secEl) {
+      secEl.innerHTML = '<option value="">全部分类小节</option>' +
+        sections.map(s => `<option value="${s}"${s === filterSection ? ' selected' : ''}>${s}</option>`).join('');
+    }
+    const catEl = el('books-filter-category');
+    if (catEl) {
+      catEl.innerHTML = '<option value="">全部主题</option>' +
+        [...cats].sort().map(c => `<option value="${c}"${c === filterCategory ? ' selected' : ''}>${c}</option>`).join('');
+    }
+    const tierEl = el('books-filter-tier');
+    if (tierEl) tierEl.value = filterTier;
+  }
+
+  function renderRuleChips(book) {
+    const rules = book.related_rules || [];
+    if (!rules.length) return '<p class="books-muted">暂无关联规则</p>';
+    return rules.map(rid =>
+      `<button type="button" class="books-rule-chip" data-rule-id="${rid}">${rid}</button>`
+    ).join('');
+  }
+
+  async function renderBookDetail(bookId) {
+    const pane = el('books-detail');
+    if (!pane) return;
+    const book = getIndex().by_id?.[bookId];
+    if (!book) {
+      pane.innerHTML = '<p class="books-empty">未找到书籍</p>';
+      return;
+    }
+    pane.innerHTML = '<p class="screen-loading">加载正文…</p>';
+    try {
+      const resp = await fetch(lcaiAsset(`${book.file}?t=${Date.now()}`));
+      if (!resp.ok) throw new Error(String(resp.status));
+      const md = await resp.text();
+      const htmlFn = window.HandbookView?.mdToHtml;
+      const bodyHtml = htmlFn ? htmlFn(md) : `<pre>${md}</pre>`;
+      const stubBadge = book.status === 'stub'
+        ? '<span class="books-stub-badge">待完善</span>' : '';
+      pane.innerHTML = `
+        <div class="books-detail-head">
+          <h2>${book.title} ${stubBadge}</h2>
+          <p class="books-meta">${tierLabel(book.tier)} · ${book.section || '—'} · <code>${book.id}</code></p>
+          <p class="books-meta">主题：${(book.categories || []).join('、') || '—'}</p>
+          <div class="books-related">
+            <span class="books-related-label">关联规则</span>
+            ${renderRuleChips(book)}
+          </div>
+          <div class="books-actions">
+            <button type="button" class="screen-btn" id="btn-book-submit">☁️ 提交到云端</button>
+            <button type="button" class="screen-btn screen-btn-ghost" id="btn-book-draft">💾 保存草稿（本机）</button>
+          </div>
+          <div id="books-status" class="cloud-status" hidden></div>
+          <div id="books-fallback" class="criteria-fallback" hidden></div>
+        </div>
+        <article class="handbook-article books-article">${bodyHtml}</article>`;
+      pane.querySelectorAll('.books-rule-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+          if (typeof switchTab === 'function') switchTab('criteria');
+          setTimeout(() => window.CriteriaView?.highlightRule?.(chip.dataset.ruleId), 200);
+        });
+      });
+      el('btn-book-submit')?.addEventListener('click', () => submitBook(bookId, md));
+      el('btn-book-draft')?.addEventListener('click', () => saveDraft(bookId, md));
+    } catch (e) {
+      pane.innerHTML = `<p class="screen-error">加载失败：${e.message}</p>`;
+    }
+  }
+
+  function selectBook(bookId) {
+    selectedId = bookId;
+    history.replaceState(null, '', `#books?book=${encodeURIComponent(bookId)}`);
+    renderList();
+    renderBookDetail(bookId);
+  }
+
+  function issuePayload(bookId, md) {
+    const fmMatch = md.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+    const bodyMd = fmMatch ? fmMatch[2].trim() : md;
+    return {
+      book_id: bookId,
+      frontmatter_patch: {},
+      body_md: bodyMd,
+    };
+  }
+
+  function issueBody(payload) {
+    return `请更新 LCAI 书籍笔记（网页提交，请勿修改下方 JSON）。\n\n\`\`\`json\n${JSON.stringify(payload, null, 2)}\n\`\`\``;
+  }
+
+  function setStatus(msg, type = 'info') {
+    const box = el('books-status');
+    if (!box) return;
+    box.hidden = !msg;
+    if (msg) {
+      box.textContent = msg;
+      box.dataset.type = type;
+    }
+  }
+
+  function showFallback(payload) {
+    const box = el('books-fallback');
+    if (!box) return;
+    const text = issueBody(payload);
+    box.hidden = false;
+    box.innerHTML = `
+      <p><strong>若 GitHub 新页面正文为空</strong>，请复制下面内容粘贴到 Issue 正文后再 Submit：</p>
+      <textarea class="criteria-copy-area" id="books-copy-text" readonly></textarea>
+      <button type="button" class="screen-btn screen-btn-ghost" id="btn-books-copy">复制正文</button>`;
+    const ta = el('books-copy-text');
+    if (ta) ta.value = text;
+    el('btn-books-copy')?.addEventListener('click', async () => {
+      try { await navigator.clipboard.writeText(text); } catch { ta?.select(); document.execCommand('copy'); }
+      setStatus('已复制，请粘贴到 GitHub Issue 正文', 'ok');
+    });
+  }
+
+  function submitBook(bookId, md) {
+    const payload = issuePayload(bookId, md);
+    const title = encodeURIComponent(`[book] ${bookId}`);
+    const body = encodeURIComponent(issueBody(payload));
+    const url = `https://github.com/${REPO}/issues/new?title=${title}&labels=book-bot&body=${body}`;
+    if (url.length > 7500) {
+      window.open(`https://github.com/${REPO}/issues/new?title=${title}&labels=book-bot`, '_blank', 'noopener');
+    } else {
+      window.open(url, '_blank', 'noopener');
+    }
+    showFallback(payload);
+    setStatus('请在新开的 GitHub Issue 页点绿色 Submit（约 2–5 分钟生效）', 'pending');
+  }
+
+  function saveDraft(bookId, md) {
+    localStorage.setItem(DRAFT_PREFIX + bookId, md);
+    setStatus('草稿已保存在本浏览器（未提交前仅本机可见）', 'ok');
+  }
+
+  function bindFilterEvents() {
+    el('books-filter-tier')?.addEventListener('change', e => {
+      filterTier = e.target.value;
+      renderList();
+    });
+    el('books-filter-section')?.addEventListener('change', e => {
+      filterSection = e.target.value;
+      renderList();
+    });
+    el('books-filter-category')?.addEventListener('change', e => {
+      filterCategory = e.target.value;
+      renderList();
+    });
+    el('books-search')?.addEventListener('input', e => {
+      searchQuery = e.target.value.trim();
+      renderList();
+    });
+  }
+
+  function renderShell() {
+    const box = el('books-content');
+    if (!box) return;
+    box.innerHTML = `
+      <div class="books-layout">
+        <aside class="books-sidebar card">
+          <p class="books-lead">本地改 <code>书籍/books/*.md</code> 或网页「提交到云端」。索引由脚本自动生成。</p>
+          <label class="books-filter-label">分层
+            <select id="books-filter-tier" class="criteria-inp">
+              <option value="">全部</option>
+              <option value="1">Tier 1 核心</option>
+              <option value="2">Tier 2 辅助</option>
+              <option value="3">Tier 3 行业</option>
+            </select>
+          </label>
+          <label class="books-filter-label">小节
+            <select id="books-filter-section" class="criteria-inp"></select>
+          </label>
+          <label class="books-filter-label">主题
+            <select id="books-filter-category" class="criteria-inp"></select>
+          </label>
+          <label class="books-filter-label">搜索
+            <input type="text" id="books-search" class="criteria-inp" placeholder="书名或 id">
+          </label>
+          <div id="books-list" class="books-list"></div>
+        </aside>
+        <div id="books-detail" class="books-detail card">
+          <p class="books-empty">← 选择一本书阅读</p>
+        </div>
+      </div>`;
+    bindFilterEvents();
+    renderFilters();
+    renderList();
+  }
+
+  function parseHashBookId() {
+    const hash = location.hash || '';
+    const m = hash.match(/[#&?]book=([^&]+)/) || hash.match(/^#books\/(.+)/);
+    return m ? decodeURIComponent(m[1]) : null;
+  }
+
+  async function load() {
+    index = window.LCAI_BOOKS_INDEX;
+    if (!index?.books?.length) {
+      const box = el('books-content');
+      if (box) box.innerHTML = '<p class="screen-error">书籍索引未加载（缺少 books-index-data.js）</p>';
+      return;
+    }
+    renderShell();
+    const fromHash = parseHashBookId();
+    const first = fromHash && index.by_id?.[fromHash] ? fromHash : (index.books[0]?.id || null);
+    if (first) selectBook(first);
+  }
+
+  function openBook(bookId) {
+    if (typeof switchTab === 'function') switchTab('books');
+    setTimeout(() => selectBook(bookId), 100);
+  }
+
+  function init() {
+    document.querySelector('.tab-btn[data-page="books"]')?.addEventListener('click', load);
+  }
+
+  return { init, load, openBook };
+})();

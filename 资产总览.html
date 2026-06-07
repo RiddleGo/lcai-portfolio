@@ -774,6 +774,29 @@
     .criteria-readonly { font-size: 0.82rem; color: var(--muted); }
     .criteria-fallback { margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px dashed var(--border); font-size: 0.82rem; }
     .criteria-copy-area { width: 100%; min-height: 120px; margin: 8px 0; font-family: monospace; font-size: 0.75rem; }
+    .criteria-book-select { min-height: 88px; }
+    .criteria-book-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .criteria-rule-highlight { outline: 2px solid hsl(var(--primary) / 0.55); box-shadow: 0 0 0 4px hsl(var(--primary) / 0.12); }
+    .books-layout { display: grid; grid-template-columns: minmax(240px, 320px) 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 900px) { .books-layout { grid-template-columns: 1fr; } }
+    .books-sidebar { padding: 14px; max-height: calc(100vh - 160px); overflow: auto; }
+    .books-detail { padding: 16px; min-height: 320px; }
+    .books-lead { font-size: 0.82rem; color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+    .books-filter-label { display: block; font-size: 0.82rem; margin-bottom: 8px; }
+    .books-list { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+    .books-item { text-align: left; border: 1px solid var(--border); background: transparent; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--text); }
+    .books-item:hover, .books-item-active { border-color: hsl(var(--primary) / 0.4); background: hsl(var(--primary) / 0.06); }
+    .books-item-title { display: block; font-size: 0.85rem; font-weight: 600; }
+    .books-item-meta { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .books-stub, .books-stub-badge { font-size: 0.68rem; padding: 1px 6px; border-radius: 999px; background: hsl(37 92% 50% / 0.15); color: hsl(37 80% 40%); margin-left: 4px; }
+    .books-empty { color: var(--muted); font-size: 0.85rem; }
+    .books-meta { font-size: 0.82rem; color: var(--muted); margin: 4px 0; }
+    .books-related { margin: 10px 0; }
+    .books-related-label { font-size: 0.78rem; color: var(--muted); margin-right: 8px; }
+    .books-rule-chip, .book-source-link { display: inline-block; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; border: 1px solid hsl(var(--primary) / 0.25); background: hsl(var(--primary) / 0.08); color: var(--accent); cursor: pointer; text-decoration: none; margin: 2px; }
+    .books-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 8px; }
+    .books-article { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .books-muted { font-size: 0.82rem; color: var(--muted); }
     .handbook-article { font-size: 0.9rem; line-height: 1.65; color: var(--text); }
     .handbook-article h1 { font-size: 1.35rem; margin: 0 0 12px; }
     .handbook-article h2 { font-size: 1.05rem; margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
@@ -838,6 +861,7 @@
             <button class="tab-btn" data-page="screen">选股</button>
             <button class="tab-btn" data-page="stock">持仓</button>
             <button class="tab-btn" data-page="criteria">规则</button>
+            <button class="tab-btn" data-page="books">书籍</button>
             <button class="tab-btn" data-page="handbook">手册</button>
           </div>
         </details>
@@ -2026,6 +2050,12 @@
       <div id="criteria-content"></div>
     </div>
 
+    <!-- ========== 页8b：书籍知识库 ========== -->
+    <div id="page-books" class="page">
+      <p class="page-desc">110 本书独立笔记 · 按分层/主题筛选 · 关联规则可跳转 · 本地改 <code>书籍/books/*.md</code> 或网页提交。</p>
+      <div id="books-content"></div>
+    </div>
+
     <!-- ========== 页9：维护手册 ========== -->
     <div id="page-handbook" class="page">
       <p class="page-desc">LCAI 使用与维护说明（与仓库 <code>08-日常维护手册.md</code> 同步）。</p>
@@ -2963,7 +2993,7 @@
 
     const PAGE_TITLES = {
       home: "首页", plan: "执行", repay: "还款", cashflow: "现金流", invest: "投资规划",
-      diagnosis: "诊断", stock: "持仓", screen: "选股", criteria: "规则", handbook: "手册",
+      diagnosis: "诊断", stock: "持仓", screen: "选股", criteria: "规则", books: "书籍", handbook: "手册",
     };
 
     function closeShellDrawer() {
@@ -2994,10 +3024,13 @@
       } else if (page === "criteria") {
         history.replaceState(null, "", "#criteria");
         window.CriteriaView?.load?.();
+      } else if (page === "books") {
+        history.replaceState(null, "", "#books");
+        window.BooksView?.load?.();
       } else if (page === "handbook") {
         history.replaceState(null, "", "#handbook");
         window.HandbookView?.load?.();
-      } else if (location.hash === "#screen" || location.hash === "#criteria" || location.hash === "#handbook") {
+      } else if (location.hash === "#screen" || location.hash === "#criteria" || location.hash === "#books" || location.hash.startsWith("#books") || location.hash === "#handbook") {
         history.replaceState(null, "", location.pathname);
       }
     }
@@ -3013,6 +3046,7 @@
 
     if (location.hash === "#screen") switchTab("screen");
     if (location.hash === "#criteria") switchTab("criteria");
+    if (location.hash === "#books" || location.hash.startsWith("#books")) switchTab("books");
     if (location.hash === "#handbook") switchTab("handbook");
 
     document.getElementById("shell-menu-btn")?.addEventListener("click", () => {
@@ -3076,18 +3110,21 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748026"></script>
-  <script src="screen-data.js?v=748026"></script>
-  <script src="screen-engine.js?v=748026"></script>
-  <script src="screen-watchlist.js?v=748026"></script>
-  <script src="screen-cloud.js?v=748026"></script>
-  <script src="screen-holdings.js?v=748026"></script>
-  <script src="screen-unified.js?v=748026"></script>
-  <script src="criteria-view.js?v=748026"></script>
-  <script src="handbook-view.js?v=748026"></script>
-  <script src="screen-ui.js?v=748026"></script>
+  <script src="watchlist-data.js?v=748028"></script>
+  <script src="books-index-data.js?v=748028"></script>
+  <script src="screen-data.js?v=748028"></script>
+  <script src="screen-engine.js?v=748028"></script>
+  <script src="screen-watchlist.js?v=748028"></script>
+  <script src="screen-cloud.js?v=748028"></script>
+  <script src="screen-holdings.js?v=748028"></script>
+  <script src="screen-unified.js?v=748028"></script>
+  <script src="criteria-view.js?v=748028"></script>
+  <script src="books-view.js?v=748028"></script>
+  <script src="handbook-view.js?v=748028"></script>
+  <script src="screen-ui.js?v=748028"></script>
   <script>
     CriteriaView?.init?.();
+    BooksView?.init?.();
     HandbookView?.init?.();
     ScreenHoldings?.init?.();
     if (location.hash === "#screen") {

@@ -24,6 +24,7 @@ def main() -> int:
     py = sys.executable
 
     steps = [
+        [py, "scripts/build_books_index.py", "--no-booklist"],
         [py, "scripts/validate_criteria.py"],
         [py, "scripts/export_criteria_summary.py"],
         [py, "scripts/check_engine_parity.py"],

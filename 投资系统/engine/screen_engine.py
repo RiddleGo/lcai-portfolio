@@ -9,6 +9,41 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 CRITERIA_PATH = ROOT / "criteria.json"
+BOOKS_INDEX_PATH = ROOT.parent / "书籍" / "books-index.json"
+META_SOURCES_PATH = ROOT / "meta-sources.json"
+
+_books_index: dict | None = None
+_meta_sources: dict[str, str] | None = None
+
+
+def _load_books_index() -> dict:
+    global _books_index
+    if _books_index is None:
+        _books_index = json.loads(BOOKS_INDEX_PATH.read_text(encoding="utf-8"))
+    return _books_index
+
+
+def _load_meta_sources() -> dict[str, str]:
+    global _meta_sources
+    if _meta_sources is None:
+        data = json.loads(META_SOURCES_PATH.read_text(encoding="utf-8"))
+        _meta_sources = {m["id"]: m["name"] for m in data.get("meta_sources", [])}
+    return _meta_sources
+
+
+def resolve_rule_sources(rule: dict) -> list[str]:
+    index = _load_books_index()
+    meta = _load_meta_sources()
+    by_id = index.get("by_id") or {}
+    names: list[str] = []
+    for bid in rule.get("book_ids") or []:
+        book = by_id.get(bid)
+        names.append(book.get("title") if book else bid)
+    for mid in rule.get("meta_ids") or []:
+        names.append(meta.get(mid, mid))
+    if not names and rule.get("sources"):
+        return list(rule["sources"])
+    return names
 
 
 def load_criteria() -> dict:
@@ -344,7 +379,9 @@ def evaluate_rule(rule: dict, m: dict, ctx: dict) -> dict[str, Any]:
         "layer": rule["layer"],
         "type": rule["type"],
         "name": rule["name"],
-        "sources": rule.get("sources") or [],
+        "sources": resolve_rule_sources(rule),
+        "book_ids": rule.get("book_ids") or [],
+        "meta_ids": rule.get("meta_ids") or [],
         "weight": rule.get("weight") or 5,
         "pass": out.get("pass", True) is not False,
         "actual": out.get("actual", "—"),

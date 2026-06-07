@@ -1,0 +1,18 @@
+{
+  "categories": [
+    { "id": "gate", "name": "门禁筛选", "layer": "L0", "order": 1 },
+    { "id": "business", "name": "生意与护城河", "layer": "L1", "order": 2 },
+    { "id": "financial", "name": "财报质量", "layer": "L2", "order": 3 },
+    { "id": "valuation", "name": "估值与安全边际", "layer": "L3", "order": 4 },
+    { "id": "execution", "name": "心理与仓位", "layer": "L4", "order": 5 },
+    { "id": "sector", "name": "行业匹配", "layer": "L5", "order": 6 }
+  ],
+  "layer_default_category": {
+    "L0": "gate",
+    "L1": "business",
+    "L2": "financial",
+    "L3": "valuation",
+    "L4": "execution",
+    "L5": "sector"
+  }
+}
