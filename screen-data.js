@@ -266,16 +266,19 @@ const ScreenData = (() => {
     const cfg = window.LCAI_CRITERIA || {};
     const peCaps = cfg.sector_pe_caps || {};
     const fairPes = cfg.fair_pe_by_sector || {};
-    const rules = [
-      ['白酒', ['白酒', '酒']],
-      ['银行', ['银行']],
-      ['金融', ['保险', '证券', '金融']],
-      ['半导体', ['半导体', '芯片', '集成电路']],
-      ['软件', ['软件', '互联网', '计算机']],
-      ['汽车', ['汽车', '新能源车', '汽']],
-      ['医药', ['医药', '生物', '医疗', '保健']],
-      ['消费', ['消费', '食品', '零售', '家电']],
-    ];
+    const kwMap = cfg.sector_keywords || {};
+    const rules = Object.keys(kwMap).length
+      ? Object.entries(kwMap)
+      : [
+        ['白酒', ['白酒', '酒']],
+        ['银行', ['银行']],
+        ['金融', ['保险', '证券', '金融']],
+        ['半导体', ['半导体', '芯片', '集成电路']],
+        ['软件', ['软件', '互联网', '计算机']],
+        ['汽车', ['汽车', '新能源车', '汽']],
+        ['医药', ['医药', '生物', '医疗', '保健']],
+        ['消费', ['消费', '食品', '零售', '家电']],
+      ];
     for (const [key, kws] of rules) {
       if (kws.some(k => industry.includes(k))) {
         return { key, peCap: peCaps[key] || peCaps.default || 40, fairPe: fairPes[key] || fairPes.default || 20 };

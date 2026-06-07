@@ -30,5 +30,7 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run engine unit tests
-        run: python scripts/check_engine_parity.py
+      - name: Validate criteria and run engine tests
+        run: |
+          python scripts/validate_criteria.py
+          python scripts/check_engine_parity.py

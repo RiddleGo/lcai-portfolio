@@ -18,7 +18,8 @@ def load_criteria() -> dict:
 def detect_sector(industry: str, cfg: dict) -> dict[str, Any]:
     pe_caps = cfg.get("sector_pe_caps", {})
     fair_pes = cfg.get("fair_pe_by_sector", {})
-    rules = [
+    kw_map = cfg.get("sector_keywords") or {}
+    rules = list(kw_map.items()) if kw_map else [
         ("白酒", ["白酒", "酒"]),
         ("银行", ["银行"]),
         ("金融", ["保险", "证券", "金融"]),
