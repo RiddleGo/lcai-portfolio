@@ -159,11 +159,11 @@ body {
 .shell-nav .tab-btn {
   width: 100%;
   text-align: left;
-  padding: 0.65rem 0.85rem 0.65rem 1rem;
+  padding: 0.6rem 0.85rem 0.6rem 1.15rem;
   border-radius: 0.75rem;
   border: 1px solid transparent;
   position: relative;
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
@@ -369,18 +369,53 @@ footer {
   padding-top: 8px;
 }
 
-/* ── 侧边栏分组 ── */
-.nav-group-label {
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 0.85rem 0.85rem 0.35rem;
-  margin-top: 4px;
+/* ── 侧边栏分组（可折叠）── */
+.nav-group {
+  margin-bottom: 6px;
 }
 
-.nav-group-label:first-child { margin-top: 0; }
+.nav-group-label {
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  padding: 0.55rem 0.85rem;
+  margin-top: 2px;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.nav-group-label::-webkit-details-marker { display: none; }
+
+.nav-group-label::after {
+  content: "▾";
+  font-size: 0.8rem;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.nav-group:not([open]) .nav-group-label::after {
+  transform: rotate(-90deg);
+}
+
+.nav-group-label:hover {
+  background: var(--nav-hover-bg);
+}
+
+.nav-group-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 4px 0 8px 0.25rem;
+}
 
 /* ── 首页 Dashboard ── */
 .home-hero {

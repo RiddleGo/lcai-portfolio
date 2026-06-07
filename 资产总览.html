@@ -10,7 +10,7 @@
       document.documentElement.classList.toggle("dark", t === "dark");
     })();
   </script>
-  <link rel="stylesheet" href="lcai-theme.css?v=748026">
+  <link rel="stylesheet" href="lcai-theme.css?v=748027">
   <style>
     :root {
       /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
@@ -831,18 +831,26 @@
         </div>
       </div>
       <nav class="shell-nav tabs" aria-label="主导航">
-        <div class="nav-group-label">投资</div>
-        <button class="tab-btn active" data-page="home">首页</button>
-        <button class="tab-btn" data-page="screen">选股</button>
-        <button class="tab-btn" data-page="stock">持仓</button>
-        <button class="tab-btn" data-page="criteria">规则</button>
-        <button class="tab-btn" data-page="handbook">手册</button>
-        <div class="nav-group-label">财务计划</div>
-        <button class="tab-btn" data-page="plan">执行</button>
-        <button class="tab-btn" data-page="repay">还款</button>
-        <button class="tab-btn" data-page="cashflow">现金流</button>
-        <button class="tab-btn" data-page="invest">投资规划</button>
-        <button class="tab-btn" data-page="diagnosis">诊断</button>
+        <details class="nav-group" open data-nav-group="invest">
+          <summary class="nav-group-label">投资</summary>
+          <div class="nav-group-items">
+            <button class="tab-btn active" data-page="home">首页</button>
+            <button class="tab-btn" data-page="screen">选股</button>
+            <button class="tab-btn" data-page="stock">持仓</button>
+            <button class="tab-btn" data-page="criteria">规则</button>
+            <button class="tab-btn" data-page="handbook">手册</button>
+          </div>
+        </details>
+        <details class="nav-group" open data-nav-group="finance">
+          <summary class="nav-group-label">财务计划</summary>
+          <div class="nav-group-items">
+            <button class="tab-btn" data-page="plan">执行</button>
+            <button class="tab-btn" data-page="repay">还款</button>
+            <button class="tab-btn" data-page="cashflow">现金流</button>
+            <button class="tab-btn" data-page="invest">投资规划</button>
+            <button class="tab-btn" data-page="diagnosis">诊断</button>
+          </div>
+        </details>
       </nav>
       <div class="shell-sidebar-foot">
         <button type="button" class="theme-toggle" id="theme-toggle" aria-label="切换浅色/深色主题">
@@ -2970,7 +2978,10 @@
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
       const btn = document.querySelector(`.tab-btn[data-page="${page}"]`);
-      if (btn) btn.classList.add("active");
+      if (btn) {
+        btn.classList.add("active");
+        btn.closest(".nav-group")?.setAttribute("open", "");
+      }
       const el = document.getElementById("page-" + page);
       if (el) el.classList.add("active");
       const titleEl = document.getElementById("shell-page-title");
@@ -3010,6 +3021,21 @@
       if (ov) ov.hidden = false;
     });
     document.getElementById("shell-overlay")?.addEventListener("click", closeShellDrawer);
+
+    (function initNavGroups() {
+      const KEY = "lcai-nav-groups";
+      let saved = {};
+      try { saved = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch (_) {}
+      document.querySelectorAll(".nav-group").forEach(group => {
+        const id = group.dataset.navGroup;
+        if (id && saved[id] === false) group.removeAttribute("open");
+        group.addEventListener("toggle", () => {
+          if (!id) return;
+          saved[id] = group.open;
+          localStorage.setItem(KEY, JSON.stringify(saved));
+        });
+      });
+    })();
 
     (function initThemeToggle() {
       const html = document.documentElement;
