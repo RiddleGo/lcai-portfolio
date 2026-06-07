@@ -1,20 +1,70 @@
 {
   "symbol": "01833",
-  "name": null,
-  "lcai_verdict": null,
-  "lcai_verdict_action": null,
-  "lcai_rating": null,
-  "lcai_score": null,
-  "lcai_margin_pct": null,
-  "lcai_fair_value": null,
-  "dcf_fair_value": null,
-  "dcf_margin_pct": null,
-  "margin_gap": null,
-  "divergences": [],
-  "divergence_notes": [],
+  "name": "平安好医生",
+  "lcai_verdict": "观察",
+  "lcai_verdict_action": "硬指标未过：L1-01、L3-01、L3-02",
+  "lcai_rating": "D",
+  "lcai_score": 58,
+  "lcai_margin_pct": -143.3,
+  "lcai_fair_value": 3.6,
+  "dcf_fair_value": 3.18,
+  "dcf_margin_pct": -175.1,
+  "margin_gap": "LCAI PE×EPS -143.3% vs DCF -175.1%",
+  "divergences": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 1.32%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "1.32%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 8.76 元，公允价值 3.60 元（default 行业公允 PE 20 × EPS 0.180），安全边际 -143.3%，未达 25%。好公司也需要好价格。",
+      "actual": "-143.3% (公允3.60元)",
+      "threshold": "≥25%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-02",
+      "title": "L3-02 PE合理（硬指标 Fail）",
+      "summary": "PE 48.67 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "48.67",
+      "threshold": "≤40（default）"
+    }
+  ],
+  "divergence_notes": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 1.32%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "1.32%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 8.76 元，公允价值 3.60 元（default 行业公允 PE 20 × EPS 0.180），安全边际 -143.3%，未达 25%。好公司也需要好价格。",
+      "actual": "-143.3% (公允3.60元)",
+      "threshold": "≥25%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-02",
+      "title": "L3-02 PE合理（硬指标 Fail）",
+      "summary": "PE 48.67 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "48.67",
+      "threshold": "≤40（default）"
+    }
+  ],
   "trap_flags": [],
   "report_url": "reports/01833/index.html",
-  "generated_at": "2026-06-07T10:50:37+08:00",
+  "generated_at": "2026-06-07T11:02:34+08:00",
   "disclaimer": "买卖结论以 LCAI 投资宪法为准",
   "in_portfolio": true
 }

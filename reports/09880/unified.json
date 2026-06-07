@@ -1,36 +1,36 @@
 {
   "symbol": "09880",
-  "name": null,
+  "name": "优必选",
   "verdict": {
-    "value": null,
-    "action": null,
-    "rating": null,
-    "score": null,
+    "value": "观察",
+    "action": "硬指标未过：L1-01、L1-02",
+    "rating": "D",
+    "score": 58,
     "source": "lcai",
     "max_weight": "0%"
   },
-  "executive": "09880：暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
+  "executive": "优必选：【已持仓】观察 — 硬指标未过：L1-01、L1-02 核心：近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
   "final_conclusion": {
-    "verdict": "数据不足",
-    "action": "财务或行情拉取失败，缓存已损坏",
-    "headline": "暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
+    "verdict": "观察",
+    "action": "硬指标未过：L1-01、L1-02",
+    "headline": "【已持仓】观察 — 硬指标未过：L1-01、L1-02",
     "reasons": [
-      "财务或行情拉取失败，缓存已损坏"
+      "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。"
     ],
     "actions": [
-      "点上方「立即更新全部深度分析」→ GitHub Actions Run workflow",
-      "港股若持续失败，需检查 East Money 财务接口"
+      "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
     ],
-    "data_ok": false,
+    "data_ok": true,
     "in_portfolio": true
   },
-  "executive_brief": "09880：暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
-  "data_ok": false,
-  "summary_detailed": "【一句话结论】09880（09880）— 数据不足，无法给出 LCAI 买卖结论。\n\n【原因】财务或行情拉取失败，缓存已损坏\n\n【你可以怎么做】\n· 在 GitHub Actions 运行 lcai-reports 刷新缓存\n· 港股需确认 East Money 能返回财务数据\n· 刷新后重新点「帮我看看」",
+  "executive_brief": "优必选：【已持仓】观察 — 硬指标未过：L1-01、L1-02 核心：近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+  "data_ok": true,
+  "summary_detailed": "【一句话结论】优必选（09880）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02。评级 D，总分 58。\n\n【公司与行业】\n所属行业：一般企业；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 110.30 元；PE —；ROE 五年均值 -40.26%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L1-02 盈利稳定性。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
   "key_metrics": [
     {
       "label": "现价",
-      "value": "— 元",
+      "value": "110.30 元",
       "threshold": "—",
       "status": "neutral",
       "note": "行情或缓存价"
@@ -58,7 +58,7 @@
     },
     {
       "label": "ROE 均值",
-      "value": "—%",
+      "value": "-40.26%",
       "threshold": "≥15%",
       "status": "fail",
       "note": "5年加权"
@@ -72,14 +72,14 @@
     },
     {
       "label": "毛利率",
-      "value": "—%",
+      "value": "37.67%",
       "threshold": "≥20%",
       "status": "ok",
       "note": "最新年报"
     },
     {
       "label": "利润 YoY",
-      "value": "—%",
+      "value": "37.42%",
       "threshold": "≥0%",
       "status": "ok",
       "note": "最新期"
@@ -128,29 +128,600 @@
     },
     {
       "label": "EPS",
-      "value": "—",
+      "value": "-1.550",
       "threshold": ">0",
       "status": "fail",
       "note": "估值基础"
     },
     {
       "label": "成交额",
-      "value": "0.00 亿",
+      "value": "0.09 亿",
       "threshold": "A股≥0.5亿",
       "status": "neutral",
       "note": "流动性 L0-03"
     }
   ],
-  "decision_path": [],
-  "rule_highlights": [],
-  "rule_details": [],
-  "divergence_notes": [],
+  "decision_path": [
+    {
+      "step": 1,
+      "title": "L0 门禁",
+      "ok": true,
+      "detail": "非 ST、流动性达标、无造假嫌疑，可进入生意/财务/估值分析。"
+    },
+    {
+      "step": 2,
+      "title": "L1–L3 硬指标",
+      "ok": false,
+      "detail": "未过硬指标：L1-01 ROE均值、L1-02 盈利稳定性。"
+    },
+    {
+      "step": 3,
+      "title": "综合评分",
+      "ok": false,
+      "detail": "总分 58，评级 D（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+    },
+    {
+      "step": 4,
+      "title": "安全边际",
+      "ok": false,
+      "detail": "安全边际 —，建仓要求 ≥25%。"
+    },
+    {
+      "step": 5,
+      "title": "仓位上限",
+      "ok": true,
+      "detail": "按评级 D：A→25% / B→10% / 其他→0%。"
+    },
+    {
+      "step": 6,
+      "title": "最终判定",
+      "ok": true,
+      "detail": "观察：硬指标未过：L1-01、L1-02"
+    }
+  ],
+  "rule_highlights": [
+    {
+      "id": "L1-01",
+      "name": "ROE均值",
+      "actual": "-40.26%",
+      "threshold": "≥15%",
+      "result": "fail",
+      "pass": false,
+      "reason": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+    },
+    {
+      "id": "L2-01",
+      "name": "现金流质量",
+      "actual": "—",
+      "threshold": "≥0.8",
+      "result": "fail",
+      "pass": false,
+      "reason": "经营现金流/每股收益 — 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。"
+    },
+    {
+      "id": "L3-01",
+      "name": "安全边际",
+      "actual": "—",
+      "threshold": "≥25%",
+      "result": "fail",
+      "pass": false,
+      "reason": "无法测算安全边际（缺 EPS 或行情），硬指标 Fail。"
+    },
+    {
+      "id": "L3-02",
+      "name": "PE合理",
+      "actual": "—",
+      "threshold": "≤40",
+      "result": "fail",
+      "pass": false,
+      "reason": "PE — 超过 default 行业上限 ≤40，估值偏贵。"
+    }
+  ],
+  "rule_details": [
+    {
+      "id": "L0-01",
+      "layer": "L0",
+      "type": "soft",
+      "name": "能力圈",
+      "sources": [
+        "穷查理宝典",
+        "大道无形：段永平"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "网页勾选确认",
+      "threshold": "懂生意",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "manual",
+      "result": "pass",
+      "reason": "能力圈需在网页勾选确认——不懂不碰（段永平 / 穷查理宝典）。"
+    },
+    {
+      "id": "L0-02",
+      "layer": "L0",
+      "type": "hard",
+      "name": "非ST",
+      "sources": [
+        "一本书看透A股"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "优必选",
+      "threshold": "非ST",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "「优必选」非 ST，通过基础资格筛选。"
+    },
+    {
+      "id": "L0-03",
+      "layer": "L0",
+      "type": "hard",
+      "name": "流动性",
+      "sources": [
+        "手把手教你投资港股"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "0.09亿",
+      "threshold": "≥0.20亿",
+      "score": 0,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "fail",
+      "reason": "日均成交额 0.09亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
+    },
+    {
+      "id": "L0-04",
+      "layer": "L0",
+      "type": "soft",
+      "name": "营收增长",
+      "sources": [
+        "时势"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "53.29%",
+      "threshold": "≥0%",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "营收增长达标（53.29% / ≥0%）。"
+    },
+    {
+      "id": "L0-05",
+      "layer": "L0",
+      "type": "veto",
+      "name": "财务造假嫌疑",
+      "sources": [
+        "一本书看透财报"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "未发现",
+      "threshold": "无嫌疑",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "经营现金流与净利润匹配度正常，未发现典型「纸面利润」特征。"
+    },
+    {
+      "id": "L0-06",
+      "layer": "L0",
+      "type": "veto",
+      "name": "异常票特征",
+      "sources": [
+        "trap_scan 启发式",
+        "投资中最常犯的错"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "无",
+      "threshold": "异常特征≤1",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "proxy",
+      "result": "pass",
+      "reason": "未发现多项异常票特征（trap_scan 启发式）。"
+    },
+    {
+      "id": "L1-01",
+      "layer": "L1",
+      "type": "hard",
+      "name": "ROE均值",
+      "sources": [
+        "巴菲特的护城河",
+        "股市稳赚"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "-40.26%",
+      "threshold": "≥15%",
+      "score": 0,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "fail",
+      "reason": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+    },
+    {
+      "id": "L1-02",
+      "layer": "L1",
+      "type": "hard",
+      "name": "盈利稳定性",
+      "sources": [
+        "回归投资常识"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "0/5年",
+      "threshold": "≥4年",
+      "score": 0,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "fail",
+      "reason": "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。"
+    },
+    {
+      "id": "L1-03",
+      "layer": "L1",
+      "type": "soft",
+      "name": "毛利率",
+      "sources": [
+        "竞争优势"
+      ],
+      "weight": 8,
+      "pass": true,
+      "actual": "37.67%",
+      "threshold": "≥20%",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "毛利率达标（37.67% / ≥20%）。"
+    },
+    {
+      "id": "L1-04",
+      "layer": "L1",
+      "type": "soft",
+      "name": "护城河代理",
+      "sources": [
+        "巴菲特的护城河"
+      ],
+      "weight": 10,
+      "pass": false,
+      "actual": "50分",
+      "threshold": "≥60分",
+      "score": 0,
+      "veto": false,
+      "missing": false,
+      "note": "proxy",
+      "result": "fail",
+      "reason": "护城河代理未达标：实际 50分，要求 ≥60分。"
+    },
+    {
+      "id": "L1-05",
+      "layer": "L1",
+      "type": "soft",
+      "name": "利润增长",
+      "sources": [
+        "怎样选择成长股"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "37.42%",
+      "threshold": "≥0%",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "利润增长达标（37.42% / ≥0%）。"
+    },
+    {
+      "id": "L1-06",
+      "layer": "L1",
+      "type": "veto",
+      "name": "利润崩塌",
+      "sources": [
+        "创新者的窘境"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "否",
+      "threshold": "无连续大幅下滑",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "未出现连续大幅利润下滑，经营未显「创新者窘境」式崩塌。"
+    },
+    {
+      "id": "L2-01",
+      "layer": "L2",
+      "type": "hard",
+      "name": "现金流质量",
+      "sources": [
+        "一本书看透财报"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "—",
+      "threshold": "≥0.8",
+      "score": 0,
+      "veto": false,
+      "missing": true,
+      "note": "full",
+      "result": "fail",
+      "reason": "经营现金流/每股收益 — 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。"
+    },
+    {
+      "id": "L2-02",
+      "layer": "L2",
+      "type": "soft",
+      "name": "扣非质量",
+      "sources": [
+        "投资中最常犯的错"
+      ],
+      "weight": 7,
+      "pass": true,
+      "actual": "—",
+      "threshold": "≥0.8",
+      "score": 5,
+      "veto": false,
+      "missing": true,
+      "note": "proxy",
+      "result": "pass",
+      "reason": "扣非质量达标（— / ≥0.8）。"
+    },
+    {
+      "id": "L2-03",
+      "layer": "L2",
+      "type": "soft",
+      "name": "盈利趋势",
+      "sources": [
+        "慢即是快"
+      ],
+      "weight": 8,
+      "pass": true,
+      "actual": "37.42%",
+      "threshold": "≥0%",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "盈利趋势达标（37.42% / ≥0%）。"
+    },
+    {
+      "id": "L2-04",
+      "layer": "L2",
+      "type": "veto",
+      "name": "现金流长期背离",
+      "sources": [
+        "一本书看透财报"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "否",
+      "threshold": "OCF/EPS 3年不过低",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "近 3 年经营现金流与每股收益未长期严重背离。"
+    },
+    {
+      "id": "L3-01",
+      "layer": "L3",
+      "type": "hard",
+      "name": "安全边际",
+      "sources": [
+        "聪明的投资者"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "—",
+      "threshold": "≥25%",
+      "score": 0,
+      "veto": false,
+      "missing": true,
+      "note": "full",
+      "result": "fail",
+      "reason": "无法测算安全边际（缺 EPS 或行情），硬指标 Fail。"
+    },
+    {
+      "id": "L3-02",
+      "layer": "L3",
+      "type": "hard",
+      "name": "PE合理",
+      "sources": [
+        "穿透估值"
+      ],
+      "weight": 5,
+      "pass": false,
+      "actual": "—",
+      "threshold": "≤40",
+      "score": 0,
+      "veto": false,
+      "missing": true,
+      "note": "full",
+      "result": "fail",
+      "reason": "PE — 超过 default 行业上限 ≤40，估值偏贵。"
+    },
+    {
+      "id": "L3-03",
+      "layer": "L3",
+      "type": "soft",
+      "name": "PB合理",
+      "sources": [
+        "估值"
+      ],
+      "weight": 6,
+      "pass": true,
+      "actual": "—",
+      "threshold": "≤8",
+      "score": 5,
+      "veto": false,
+      "missing": true,
+      "note": "full",
+      "result": "pass",
+      "reason": "PB合理达标（— / ≤8）。"
+    },
+    {
+      "id": "L3-04",
+      "layer": "L3",
+      "type": "soft",
+      "name": "PEG",
+      "sources": [
+        "彼得·林奇的成功投资"
+      ],
+      "weight": 8,
+      "pass": true,
+      "actual": "—",
+      "threshold": "≤2",
+      "score": 5,
+      "veto": false,
+      "missing": true,
+      "note": "full",
+      "result": "pass",
+      "reason": "PEG达标（— / ≤2）。"
+    },
+    {
+      "id": "L3-05",
+      "layer": "L3",
+      "type": "veto",
+      "name": "极端高估值",
+      "sources": [
+        "投资中最常犯的错"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "否",
+      "threshold": "非极端泡沫",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "未出现 PE>80 且低增长的极端泡沫组合。"
+    },
+    {
+      "id": "L3-06",
+      "layer": "L3",
+      "type": "soft",
+      "name": "DCF交叉验证",
+      "sources": [
+        "简化 DCF",
+        "聪明的投资者"
+      ],
+      "weight": 8,
+      "pass": true,
+      "actual": "—",
+      "threshold": "DCF 未高估",
+      "score": 5,
+      "veto": false,
+      "missing": true,
+      "note": "proxy",
+      "result": "pass",
+      "reason": "DCF交叉验证达标（— / DCF 未高估）。"
+    },
+    {
+      "id": "L4-01",
+      "layer": "L4",
+      "type": "soft",
+      "name": "心理纪律",
+      "sources": [
+        "金钱心理学"
+      ],
+      "weight": 10,
+      "pass": true,
+      "actual": "网页自检",
+      "threshold": "无 FOMO/翻本",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "manual",
+      "result": "pass",
+      "reason": "心理纪律需在网页自检——情绪化交易是最大敌人（金钱心理学）。"
+    },
+    {
+      "id": "L4-02",
+      "layer": "L4",
+      "type": "soft",
+      "name": "仓位建议",
+      "sources": [
+        "集中投资"
+      ],
+      "weight": 5,
+      "pass": true,
+      "actual": "建议上限 0%",
+      "threshold": "≤25%",
+      "score": 5,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "pass",
+      "reason": "按 D 评级，单票建议上限 建议上限 0%。"
+    },
+    {
+      "id": "L5-01",
+      "layer": "L5",
+      "type": "soft",
+      "name": "行业适配",
+      "sources": [
+        "04-行业叠加规则"
+      ],
+      "weight": 10,
+      "pass": false,
+      "actual": "一般企业 (50分)",
+      "threshold": "≥60分",
+      "score": 0,
+      "veto": false,
+      "missing": false,
+      "note": "full",
+      "result": "fail",
+      "reason": "行业适配未达标：实际 一般企业 (50分)，要求 ≥60分。"
+    }
+  ],
+  "divergence_notes": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "-40.26%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-02",
+      "title": "L1-02 盈利稳定性（硬指标 Fail）",
+      "summary": "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+      "actual": "0/5年",
+      "threshold": "≥4年"
+    }
+  ],
   "valuation": {
     "lcai_fair_value": null,
     "lcai_margin_pct": null,
     "dcf_fair_value": null,
     "dcf_margin_pct": null,
-    "narrative": "暂无估值数据。"
+    "narrative": "现价 110.3 元。"
   },
   "layers": [
     {
@@ -163,9 +734,9 @@
     {
       "layer": "L1",
       "title": "L1 生意",
-      "lcai_status": "通过",
-      "lcai_summary": "生意质量见规则明细。",
-      "merged_summary": "生意质量见规则明细。"
+      "lcai_status": "有缺口",
+      "lcai_summary": "ROE 均值 -40.26% 未达 15%；5 年盈利年数不足",
+      "merged_summary": "ROE 均值 -40.26% 未达 15%；5 年盈利年数不足"
     },
     {
       "layer": "L2",
@@ -192,19 +763,40 @@
       "layer": "L5",
       "title": "L5 行业",
       "lcai_status": "通过",
-      "lcai_summary": "行业适配见规则明细。",
-      "merged_summary": "行业适配见规则明细。"
+      "lcai_summary": "行业：一般企业",
+      "merged_summary": "行业：一般企业"
     }
   ],
   "strengths": [],
-  "weaknesses": [],
-  "divergences": [],
+  "weaknesses": [
+    "LCAI: ROE 均值 -40.26% 未达 15%",
+    "LCAI: 硬指标 Fail L1-01",
+    "LCAI: 硬指标 Fail L1-02"
+  ],
+  "divergences": [
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-01",
+      "title": "L1-01 ROE均值（硬指标 Fail）",
+      "summary": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+      "actual": "-40.26%",
+      "threshold": "≥15%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L1-02",
+      "title": "L1-02 盈利稳定性（硬指标 Fail）",
+      "summary": "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+      "actual": "0/5年",
+      "threshold": "≥4年"
+    }
+  ],
   "depth": {
     "lcai_ready": true,
     "ready": true,
     "schedule": "weekly_monday"
   },
   "report_url": "reports/09880/index.html",
-  "generated_at": "2026-06-07T10:50:49+08:00",
+  "generated_at": "2026-06-07T11:02:45+08:00",
   "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }

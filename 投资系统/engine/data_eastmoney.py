@@ -90,7 +90,45 @@ def fetch_quote_sina(secid: str, market: str) -> dict:
     return {"name": name, "price": price, "pe": None, "pb": None, "amount": amount}
 
 
-def fetch_financials(code: str) -> list[dict]:
+def fetch_financials_hk(code: str) -> list[dict]:
+    """港股主要指标（East Money RPT_HKF10_FN_MAININDICATOR）。"""
+    cols = (
+        "SECURITY_CODE,REPORT_DATE,REPORT_TYPE,ROE_AVG,BASIC_EPS,DILUTED_EPS,"
+        "GROSS_PROFIT_RATIO,HOLDER_PROFIT,OPERATE_INCOME,OPERATE_INCOME_YOY,"
+        "HOLDER_PROFIT_YOY,PER_NETCASH_OPERATE,ORG_TYPE,FISCAL_YEAR"
+    )
+    url = (
+        "https://datacenter-web.eastmoney.com/api/data/v1/get"
+        f"?reportName=RPT_HKF10_FN_MAININDICATOR&columns={cols}"
+        f"&filter=(SECURITY_CODE%3D%22{code}%22)&pageNumber=1&pageSize=20"
+        "&sortTypes=-1&sortColumns=REPORT_DATE"
+    )
+    rows = (fetch_json(url).get("result") or {}).get("data") or []
+    if not rows:
+        raise ValueError("未获取港股财务数据")
+    out = []
+    for r in rows:
+        report_date = str(r.get("REPORT_DATE") or "")
+        out.append({
+            "date": report_date,
+            "roe": num(r.get("ROE_AVG")),
+            "grossMargin": num(r.get("GROSS_PROFIT_RATIO")),
+            "netProfit": num(r.get("HOLDER_PROFIT")),
+            "revenue": num(r.get("OPERATE_INCOME")),
+            "eps": num(r.get("BASIC_EPS")),
+            "deductEps": num(r.get("DILUTED_EPS")) or num(r.get("BASIC_EPS")),
+            "ocfPerShare": num(r.get("PER_NETCASH_OPERATE")),
+            "revenueYoy": num(r.get("OPERATE_INCOME_YOY")),
+            "profitYoy": num(r.get("HOLDER_PROFIT_YOY")),
+            "industry": r.get("ORG_TYPE") or "",
+            "isAnnual": "12-31" in report_date or str(r.get("FISCAL_YEAR") or "") == "12-31",
+        })
+    return out
+
+
+def fetch_financials(code: str, market: str = "A") -> list[dict]:
+    if market == "HK":
+        return fetch_financials_hk(code)
     cols = "SECURITY_CODE,REPORTDATE,WEIGHTAVG_ROE,XSMLL,PARENT_NETPROFIT,TOTAL_OPERATE_INCOME,BASIC_EPS,DEDUCT_BASIC_EPS,MGJYXJJE,YSTZ,SJLTZ,PUBLISHNAME"
     url = (
         "https://datacenter-web.eastmoney.com/api/data/v1/get"
@@ -122,5 +160,5 @@ def fetch_financials(code: str) -> list[dict]:
 def load_stock(raw: str) -> dict:
     parsed = parse_symbol(raw)
     quote = fetch_quote(parsed["secid"], parsed["market"])
-    fin = fetch_financials(parsed["code"])
+    fin = fetch_financials(parsed["code"], parsed["market"])
     return {"parsed": parsed, "quote": quote, "finRows": fin}

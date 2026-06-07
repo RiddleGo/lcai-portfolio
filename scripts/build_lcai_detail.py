@@ -524,7 +524,10 @@ def build_decision_path(lcai: dict) -> list[dict]:
 
 def is_data_valid(lcai: dict) -> tuple[bool, str]:
     if lcai.get("error"):
-        return False, "财务或行情拉取失败，缓存已损坏"
+        err = str(lcai["error"])
+        if "未获取" in err or "财务" in err:
+            return False, "财务数据拉取失败，请 Run workflow 刷新缓存"
+        return False, f"数据拉取失败：{err}"
     verdict = lcai.get("verdict")
     if not verdict or verdict in ("—", "None", None):
         return False, "缺少 LCAI 裁决（verdict）"
@@ -542,7 +545,7 @@ def build_final_conclusion(lcai: dict, *, in_portfolio: bool = False) -> dict[st
             "headline": f"暂无法给出买卖结论 — {fail_reason}",
             "reasons": [fail_reason],
             "actions": [
-                "点上方「立即更新全部深度分析」→ GitHub Actions Run workflow",
+                "点上方「立即更新全部报告」→ GitHub Actions Run workflow",
                 "港股若持续失败，需检查 East Money 财务接口",
             ],
             "data_ok": False,

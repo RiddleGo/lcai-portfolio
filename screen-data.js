@@ -74,7 +74,37 @@ const ScreenData = (() => {
     return { name: parts[0] || code, price, pe: null, pb: null, amount: parseFloat(parts[9]) || 0, changePct: 0 };
   }
 
-  async function fetchFinancials(code) {
+  async function fetchFinancialsHk(code) {
+    const cols = [
+      'SECURITY_CODE', 'REPORT_DATE', 'REPORT_TYPE', 'ROE_AVG', 'BASIC_EPS', 'DILUTED_EPS',
+      'GROSS_PROFIT_RATIO', 'HOLDER_PROFIT', 'OPERATE_INCOME', 'OPERATE_INCOME_YOY',
+      'HOLDER_PROFIT_YOY', 'PER_NETCASH_OPERATE', 'ORG_TYPE', 'FISCAL_YEAR',
+    ].join(',');
+    const url = `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_HKF10_FN_MAININDICATOR&columns=${cols}&filter=(SECURITY_CODE%3D%22${code}%22)&pageNumber=1&pageSize=20&sortTypes=-1&sortColumns=REPORT_DATE`;
+    const data = await fetchJson(url);
+    const rows = (data.result && data.result.data) || [];
+    if (!rows.length) throw new Error('未获取港股财务数据');
+    return rows.map(r => {
+      const reportDate = String(r.REPORT_DATE || '');
+      return {
+        date: reportDate,
+        roe: num(r.ROE_AVG),
+        grossMargin: num(r.GROSS_PROFIT_RATIO),
+        netProfit: num(r.HOLDER_PROFIT),
+        revenue: num(r.OPERATE_INCOME),
+        eps: num(r.BASIC_EPS),
+        deductEps: num(r.DILUTED_EPS) ?? num(r.BASIC_EPS),
+        ocfPerShare: num(r.PER_NETCASH_OPERATE),
+        revenueYoy: num(r.OPERATE_INCOME_YOY),
+        profitYoy: num(r.HOLDER_PROFIT_YOY),
+        industry: r.ORG_TYPE || '',
+        isAnnual: reportDate.includes('12-31') || String(r.FISCAL_YEAR || '') === '12-31',
+      };
+    });
+  }
+
+  async function fetchFinancials(code, market = 'A') {
+    if (market === 'HK') return fetchFinancialsHk(code);
     const cols = [
       'SECURITY_CODE', 'REPORTDATE', 'WEIGHTAVG_ROE', 'XSMLL', 'PARENT_NETPROFIT',
       'TOTAL_OPERATE_INCOME', 'BASIC_EPS', 'DEDUCT_BASIC_EPS', 'MGJYXJJE', 'YSTZ', 'SJLTZ', 'PUBLISHNAME'
@@ -240,7 +270,7 @@ const ScreenData = (() => {
     const parsed = parseSymbol(input);
     const [quote, finRows] = await Promise.all([
       fetchQuote(parsed.secid, parsed.market),
-      fetchFinancials(parsed.code),
+      fetchFinancials(parsed.code, parsed.market),
     ]);
     const metrics = buildMetrics(parsed, quote, finRows);
     return { parsed, quote, finRows, metrics };
