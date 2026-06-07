@@ -92,6 +92,21 @@ const BooksView = (() => {
     ).join('');
   }
 
+  function bookFileUrls(file) {
+    const q = `t=${Date.now()}`;
+    const local = lcaiAsset(`${file}?${q}`);
+    const raw = `https://raw.githubusercontent.com/${REPO}/main/${encodeURI(file)}?${q}`;
+    return { local, raw };
+  }
+
+  async function fetchBookMarkdown(file) {
+    const { local, raw } = bookFileUrls(file);
+    let resp = await fetch(local);
+    // GitHub Pages + Jekyll 会把带 frontmatter 的 .md 编译成 .html，原 .md 返回 404
+    if (!resp.ok) resp = await fetch(raw);
+    return resp;
+  }
+
   async function renderBookDetail(bookId) {
     const pane = el('books-detail');
     if (!pane) return;
@@ -102,7 +117,7 @@ const BooksView = (() => {
     }
     pane.innerHTML = '<p class="screen-loading">加载正文…</p>';
     try {
-      const resp = await fetch(lcaiAsset(`${book.file}?t=${Date.now()}`));
+      const resp = await fetchBookMarkdown(book.file);
       if (!resp.ok) throw new Error(String(resp.status));
       const md = await resp.text();
       const htmlFn = window.HandbookView?.mdToHtml;
