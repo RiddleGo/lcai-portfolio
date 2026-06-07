@@ -3,8 +3,8 @@
   "symbol": "09880",
   "name": "优必选",
   "price": 110.3,
-  "pe": null,
-  "pb": null,
+  "pe": -71.32,
+  "pb": 6.95,
   "eps": -1.55,
   "amount": 9483984.0,
   "roe_avg": -40.26,
@@ -13,12 +13,12 @@
   "ocf_ratio": null,
   "profit_yoy": 37.42,
   "revenue_yoy": 53.29,
-  "peg": null,
-  "industry": "一般企业",
+  "peg": -1.91,
+  "industry": "软件服务",
   "sector": {
-    "key": "default",
-    "peCap": 40,
-    "fairPe": 20
+    "key": "软件",
+    "peCap": 45,
+    "fairPe": 28
   },
   "is_st": false,
   "trap_suspect": false,
@@ -27,32 +27,50 @@
   "dcf_fair_value": null,
   "dcf_margin_of_safety_pct": null,
   "trap_flags": [],
-  "verdict": "观察",
-  "verdict_action": "硬指标未过：L1-01、L1-02",
-  "overall_score": 58,
-  "rating": "D",
+  "layer_scores": {
+    "L0": 0,
+    "L1": 78,
+    "L2": 81,
+    "L3": 85,
+    "L4": 100,
+    "L5": 75
+  },
+  "position_hint": {
+    "suggested_weight": "0%",
+    "max_weight": "25%",
+    "reason": "不建议投资；若已持仓，计划退出"
+  },
+  "in_portfolio": true,
+  "verdict": "排除",
+  "verdict_action": "不建议投资；若已持仓，计划退出",
+  "overall_score": 82,
+  "rating": "A",
+  "vetoes_triggered": [],
   "hard_failures": [
     "L1-01",
-    "L1-02"
+    "L1-02",
+    "L2-01",
+    "L3-01",
+    "L3-02"
   ],
-  "vetoes_triggered": [],
   "analysis": {
     "final_conclusion": {
-      "verdict": "观察",
-      "action": "硬指标未过：L1-01、L1-02",
-      "headline": "【已持仓】观察 — 硬指标未过：L1-01、L1-02",
+      "verdict": "排除",
+      "action": "不建议投资；若已持仓，计划退出",
+      "headline": "【已持仓】排除 — 不建议投资；若已持仓，计划退出",
       "reasons": [
         "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-        "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。"
+        "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+        "经营现金流/每股收益 — 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。"
       ],
       "actions": [
-        "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
+        "已持仓：逻辑证伪或触发否决，建议制定退出计划，不因熟悉公司而豁免规则。"
       ],
       "data_ok": true,
       "in_portfolio": true
     },
-    "executive_brief": "优必选：【已持仓】观察 — 硬指标未过：L1-01、L1-02 核心：近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
-    "summary_detailed": "【一句话结论】优必选（09880）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02。评级 D，总分 58。\n\n【公司与行业】\n所属行业：一般企业；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 110.30 元；PE —；ROE 五年均值 -40.26%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L1-02 盈利稳定性。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "executive_brief": "优必选：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+    "summary_detailed": "【一句话结论】优必选（09880）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 A，总分 82。\n\n【公司与行业】\n所属行业：软件服务；估值归类：软件（公允 PE 28，PE 上限 45）。\n现价 110.30 元；PE -71.32；ROE 五年均值 -40.26%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n硬指标 Fail 5 项：L1-01 ROE均值、L1-02 盈利稳定性、L2-01 现金流质量、L3-01 安全边际、L3-02 PE合理。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
@@ -63,21 +81,21 @@
       },
       {
         "label": "PE",
-        "value": "—",
-        "threshold": "≤40",
-        "status": "fail",
-        "note": "行业上限 40"
+        "value": "-71.32",
+        "threshold": "≤45",
+        "status": "ok",
+        "note": "行业上限 45"
       },
       {
         "label": "PB",
-        "value": "—",
+        "value": "6.95",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
       },
       {
         "label": "PEG",
-        "value": "—",
+        "value": "-1.91",
         "threshold": "≤2",
         "status": "ok",
         "note": "彼得·林奇"
@@ -119,17 +137,17 @@
       },
       {
         "label": "公允 PE",
-        "value": "20",
+        "value": "28",
         "threshold": "—",
         "status": "neutral",
-        "note": "default"
+        "note": "软件"
       },
       {
         "label": "公允价",
         "value": "— 元",
         "threshold": "—",
         "status": "neutral",
-        "note": "EPS×20"
+        "note": "EPS×28"
       },
       {
         "label": "安全边际",
@@ -178,13 +196,13 @@
         "step": 2,
         "title": "L1–L3 硬指标",
         "ok": false,
-        "detail": "未过硬指标：L1-01 ROE均值、L1-02 盈利稳定性。"
+        "detail": "未过硬指标：L1-01 ROE均值、L1-02 盈利稳定性、L2-01 现金流质量、L3-01 安全边际、L3-02 PE合理。"
       },
       {
         "step": 3,
         "title": "综合评分",
-        "ok": false,
-        "detail": "总分 58，评级 D（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+        "ok": true,
+        "detail": "总分 82，评级 A（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
       },
       {
         "step": 4,
@@ -195,14 +213,14 @@
       {
         "step": 5,
         "title": "仓位上限",
-        "ok": true,
-        "detail": "按评级 D：A→25% / B→10% / 其他→0%。"
+        "ok": false,
+        "detail": "按评级 A：A→25% / B→10% / 其他→0%。"
       },
       {
         "step": 6,
         "title": "最终判定",
-        "ok": true,
-        "detail": "观察：硬指标未过：L1-01、L1-02"
+        "ok": false,
+        "detail": "排除：不建议投资；若已持仓，计划退出"
       }
     ],
     "rule_highlights": [
@@ -236,11 +254,11 @@
       {
         "id": "L3-02",
         "name": "PE合理",
-        "actual": "—",
-        "threshold": "≤40",
+        "actual": "-71.32",
+        "threshold": "≤45",
         "result": "fail",
         "pass": false,
-        "reason": "PE — 超过 default 行业上限 ≤40，估值偏贵。"
+        "reason": "PE — 超过 软件 行业上限 ≤45，估值偏贵。"
       }
     ],
     "rule_details": [
@@ -581,13 +599,13 @@
         "weight": 5,
         "pass": false,
         "actual": "—",
-        "threshold": "≤40",
+        "threshold": "≤45",
         "score": 0,
         "veto": false,
         "missing": true,
         "note": "full",
         "result": "fail",
-        "reason": "PE — 超过 default 行业上限 ≤40，估值偏贵。"
+        "reason": "PE — 超过 软件 行业上限 ≤45，估值偏贵。"
       },
       {
         "id": "L3-03",
@@ -599,14 +617,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "—",
+        "actual": "6.95",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
-        "missing": true,
+        "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（— / ≤8）。"
+        "reason": "PB合理达标（6.95 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -618,14 +636,14 @@
         ],
         "weight": 8,
         "pass": true,
-        "actual": "—",
+        "actual": "-1.91",
         "threshold": "≤2",
         "score": 5,
         "veto": false,
-        "missing": true,
+        "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PEG达标（— / ≤2）。"
+        "reason": "PEG达标（-1.91 / ≤2）。"
       },
       {
         "id": "L3-05",
@@ -695,14 +713,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "建议上限 0%",
+        "actual": "建议上限 25%",
         "threshold": "≤25%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "按 D 评级，单票建议上限 建议上限 0%。"
+        "reason": "按 A 评级，单票建议上限 建议上限 25%。"
       },
       {
         "id": "L5-01",
@@ -713,15 +731,15 @@
           "04-行业叠加规则"
         ],
         "weight": 10,
-        "pass": false,
-        "actual": "一般企业 (50分)",
+        "pass": true,
+        "actual": "软件服务 (75分)",
         "threshold": "≥60分",
-        "score": 0,
+        "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
-        "result": "fail",
-        "reason": "行业适配未达标：实际 一般企业 (50分)，要求 ≥60分。"
+        "result": "pass",
+        "reason": "行业适配达标（软件服务 (75分) / ≥60分）。"
       }
     ],
     "divergence_notes": [
@@ -740,6 +758,30 @@
         "summary": "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
         "actual": "0/5年",
         "threshold": "≥4年"
+      },
+      {
+        "kind": "hard_fail",
+        "rule_id": "L2-01",
+        "title": "L2-01 现金流质量（硬指标 Fail）",
+        "summary": "经营现金流/每股收益 — 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。",
+        "actual": "—",
+        "threshold": "≥0.8"
+      },
+      {
+        "kind": "hard_fail",
+        "rule_id": "L3-01",
+        "title": "L3-01 安全边际（硬指标 Fail）",
+        "summary": "无法测算安全边际（缺 EPS 或行情），硬指标 Fail。",
+        "actual": "—",
+        "threshold": "≥25%"
+      },
+      {
+        "kind": "hard_fail",
+        "rule_id": "L3-02",
+        "title": "L3-02 PE合理（硬指标 Fail）",
+        "summary": "PE — 超过 软件 行业上限 ≤45，估值偏贵。",
+        "actual": "—",
+        "threshold": "≤45"
       }
     ],
     "data_ok": true

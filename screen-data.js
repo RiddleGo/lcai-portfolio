@@ -74,11 +74,22 @@ const ScreenData = (() => {
     return { name: parts[0] || code, price, pe: null, pb: null, amount: parseFloat(parts[9]) || 0, changePct: 0 };
   }
 
+  async function fetchHkProfile(code) {
+    const cols = 'SECURITY_CODE,BELONG_INDUSTRY,INDUSTRY_TYPE,SECURITY_NAME_ABBR';
+    const url = `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_HKF10_INFO_ORGPROFILE&columns=${cols}&filter=(SECURITY_CODE%3D%22${code}%22)&pageNumber=1&pageSize=1`;
+    const data = await fetchJson(url);
+    const row = (data.result && data.result.data && data.result.data[0]) || {};
+    return {
+      industry: row.BELONG_INDUSTRY || row.INDUSTRY_TYPE || '',
+      name: row.SECURITY_NAME_ABBR || '',
+    };
+  }
+
   async function fetchFinancialsHk(code) {
     const cols = [
       'SECURITY_CODE', 'REPORT_DATE', 'REPORT_TYPE', 'ROE_AVG', 'BASIC_EPS', 'DILUTED_EPS',
       'GROSS_PROFIT_RATIO', 'HOLDER_PROFIT', 'OPERATE_INCOME', 'OPERATE_INCOME_YOY',
-      'HOLDER_PROFIT_YOY', 'PER_NETCASH_OPERATE', 'ORG_TYPE', 'FISCAL_YEAR',
+      'HOLDER_PROFIT_YOY', 'PER_NETCASH_OPERATE', 'ORG_TYPE', 'FISCAL_YEAR', 'PE_TTM', 'PB_TTM',
     ].join(',');
     const url = `https://datacenter-web.eastmoney.com/api/data/v1/get?reportName=RPT_HKF10_FN_MAININDICATOR&columns=${cols}&filter=(SECURITY_CODE%3D%22${code}%22)&pageNumber=1&pageSize=20&sortTypes=-1&sortColumns=REPORT_DATE`;
     const data = await fetchJson(url);
@@ -99,6 +110,8 @@ const ScreenData = (() => {
         profitYoy: num(r.HOLDER_PROFIT_YOY),
         industry: r.ORG_TYPE || '',
         isAnnual: reportDate.includes('12-31') || String(r.FISCAL_YEAR || '') === '12-31',
+        peTtm: num(r.PE_TTM),
+        pbTtm: num(r.PB_TTM),
       };
     });
   }
@@ -255,7 +268,7 @@ const ScreenData = (() => {
       ['半导体', ['半导体', '芯片', '集成电路']],
       ['软件', ['软件', '互联网', '计算机']],
       ['汽车', ['汽车', '新能源车', '汽']],
-      ['医药', ['医药', '生物', '医疗']],
+      ['医药', ['医药', '生物', '医疗', '保健']],
       ['消费', ['消费', '食品', '零售', '家电']],
     ];
     for (const [key, kws] of rules) {
@@ -268,10 +281,20 @@ const ScreenData = (() => {
 
   async function loadStock(input) {
     const parsed = parseSymbol(input);
-    const [quote, finRows] = await Promise.all([
+    const [quote, finRows, hkProfile] = await Promise.all([
       fetchQuote(parsed.secid, parsed.market),
       fetchFinancials(parsed.code, parsed.market),
+      parsed.market === 'HK' ? fetchHkProfile(parsed.code) : Promise.resolve(null),
     ]);
+    if (parsed.market === 'HK' && hkProfile) {
+      if (hkProfile.name) quote.name = hkProfile.name;
+      if (hkProfile.industry) finRows.forEach(r => { r.industry = hkProfile.industry; });
+      const latest = finRows[0];
+      if (latest) {
+        if (quote.pe == null && latest.peTtm != null) quote.pe = latest.peTtm;
+        if (quote.pb == null && latest.pbTtm != null) quote.pb = latest.pbTtm;
+      }
+    }
     const metrics = buildMetrics(parsed, quote, finRows);
     return { parsed, quote, finRows, metrics };
   }

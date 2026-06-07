@@ -81,7 +81,7 @@ LCAI/
 │   ├── fetch_quotes.py          # 行情更新
 │   ├── calc_fund_scenarios.py   # 基金赎回测算
 │   └── build_unified_report.py  # unified.json
-├── reports/{symbol}/      # unified.json + meta.json + index.html
+├── reports/{symbol}/      # lcai.json + unified.json + index.html
 ```
 
 ---

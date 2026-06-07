@@ -186,8 +186,8 @@ def build_report_html(
 </html>"""
 
 
-def write_report_html(out_dir: Path, symbol: str, lcai: dict, unified: dict, compare: dict | None = None) -> Path:
-    html_text = build_report_html(symbol, lcai, unified, compare)
+def write_report_html(out_dir: Path, symbol: str, lcai: dict, unified: dict) -> Path:
+    html_text = build_report_html(symbol, lcai, unified)
     path = out_dir / "index.html"
     path.write_text(html_text, encoding="utf-8")
     return path
@@ -198,9 +198,7 @@ def rebuild_from_disk(symbol: str, root: Path | None = None) -> Path:
     out_dir = root / "reports" / symbol
     lcai = json.loads((out_dir / "lcai.json").read_text(encoding="utf-8"))
     unified = json.loads((out_dir / "unified.json").read_text(encoding="utf-8"))
-    compare_path = out_dir / "meta.json"
-    compare = json.loads(compare_path.read_text(encoding="utf-8")) if compare_path.exists() else {}
-    return write_report_html(out_dir, symbol, lcai, unified, compare)
+    return write_report_html(out_dir, symbol, lcai, unified)
 
 
 if __name__ == "__main__":

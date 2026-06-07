@@ -90,12 +90,27 @@ def fetch_quote_sina(secid: str, market: str) -> dict:
     return {"name": name, "price": price, "pe": None, "pb": None, "amount": amount}
 
 
+def fetch_hk_profile(code: str) -> dict[str, Any]:
+    cols = "SECURITY_CODE,BELONG_INDUSTRY,INDUSTRY_TYPE,SECURITY_NAME_ABBR"
+    url = (
+        "https://datacenter-web.eastmoney.com/api/data/v1/get"
+        f"?reportName=RPT_HKF10_INFO_ORGPROFILE&columns={cols}"
+        f"&filter=(SECURITY_CODE%3D%22{code}%22)&pageNumber=1&pageSize=1"
+    )
+    rows = (fetch_json(url).get("result") or {}).get("data") or []
+    if not rows:
+        return {}
+    row = rows[0]
+    industry = row.get("BELONG_INDUSTRY") or row.get("INDUSTRY_TYPE") or ""
+    return {"industry": industry, "name": row.get("SECURITY_NAME_ABBR")}
+
+
 def fetch_financials_hk(code: str) -> list[dict]:
     """港股主要指标（East Money RPT_HKF10_FN_MAININDICATOR）。"""
     cols = (
         "SECURITY_CODE,REPORT_DATE,REPORT_TYPE,ROE_AVG,BASIC_EPS,DILUTED_EPS,"
         "GROSS_PROFIT_RATIO,HOLDER_PROFIT,OPERATE_INCOME,OPERATE_INCOME_YOY,"
-        "HOLDER_PROFIT_YOY,PER_NETCASH_OPERATE,ORG_TYPE,FISCAL_YEAR"
+        "HOLDER_PROFIT_YOY,PER_NETCASH_OPERATE,ORG_TYPE,FISCAL_YEAR,PE_TTM,PB_TTM"
     )
     url = (
         "https://datacenter-web.eastmoney.com/api/data/v1/get"
@@ -122,6 +137,8 @@ def fetch_financials_hk(code: str) -> list[dict]:
             "profitYoy": num(r.get("HOLDER_PROFIT_YOY")),
             "industry": r.get("ORG_TYPE") or "",
             "isAnnual": "12-31" in report_date or str(r.get("FISCAL_YEAR") or "") == "12-31",
+            "peTtm": num(r.get("PE_TTM")),
+            "pbTtm": num(r.get("PB_TTM")),
         })
     return out
 
@@ -161,4 +178,18 @@ def load_stock(raw: str) -> dict:
     parsed = parse_symbol(raw)
     quote = fetch_quote(parsed["secid"], parsed["market"])
     fin = fetch_financials(parsed["code"], parsed["market"])
+    if parsed["market"] == "HK":
+        profile = fetch_hk_profile(parsed["code"])
+        hk_industry = profile.get("industry") or ""
+        if profile.get("name"):
+            quote["name"] = profile["name"]
+        if fin and hk_industry:
+            for row in fin:
+                row["industry"] = hk_industry
+        if fin:
+            latest = fin[0]
+            if quote.get("pe") is None and latest.get("peTtm") is not None:
+                quote["pe"] = latest["peTtm"]
+            if quote.get("pb") is None and latest.get("pbTtm") is not None:
+                quote["pb"] = latest["pbTtm"]
     return {"parsed": parsed, "quote": quote, "finRows": fin}

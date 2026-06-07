@@ -1,19 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""为持仓/指定代码生成 reports/{symbol}/lcai.json、meta.json、unified.json、index.html。"""
+"""为持仓/指定代码生成 reports/{symbol}/lcai.json、unified.json、index.html。"""
 from __future__ import annotations
 
 import argparse
 import json
 import re
-import subprocess
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BJ = timezone(timedelta(hours=8))
+ENGINE = ROOT / "投资系统" / "engine"
 sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ENGINE))
 
 
 def normalize_symbol(raw: str) -> str:
@@ -43,21 +44,7 @@ def parse_all_auto_symbols() -> list[str]:
     return merge_all_symbols(parse_holdings_from_quotes)
 
 
-def run_lcai(symbol: str) -> dict:
-    proc = subprocess.run(
-        [sys.executable, str(ROOT / "scripts" / "lcai_screen_json.py"), symbol],
-        capture_output=True,
-        text=True,
-        encoding="utf-8",
-        errors="replace",
-        cwd=str(ROOT),
-    )
-    if proc.returncode != 0:
-        return {"source": "lcai", "symbol": symbol, "error": proc.stderr or proc.stdout}
-    return json.loads(proc.stdout)
-
-
-def build_meta(lcai: dict, symbol: str) -> dict:
+def build_context(lcai: dict, symbol: str, *, in_portfolio: bool = False) -> dict:
     from build_lcai_detail import build_divergence_notes  # noqa: WPS433
 
     lcai_mos = lcai.get("margin_of_safety_pct")
@@ -70,6 +57,7 @@ def build_meta(lcai: dict, symbol: str) -> dict:
     return {
         "symbol": symbol,
         "name": lcai.get("name"),
+        "in_portfolio": in_portfolio,
         "lcai_verdict": lcai.get("verdict"),
         "lcai_verdict_action": lcai.get("verdict_action"),
         "lcai_rating": lcai.get("rating"),
@@ -88,32 +76,55 @@ def build_meta(lcai: dict, symbol: str) -> dict:
     }
 
 
-def write_report(symbol: str, lcai: dict, meta: dict) -> Path:
-    from build_lcai_detail import build_lcai_detail  # noqa: WPS433
+def run_lcai(symbol: str, *, in_portfolio: bool = False) -> dict:
+    from build_lcai_detail import build_lcai_detail, is_data_valid  # noqa: WPS433
+    from screen_engine import screen, to_lcai_report  # noqa: WPS433
+
+    try:
+        result = screen(symbol, in_portfolio=in_portfolio)
+        lcai = to_lcai_report(result)
+        lcai["in_portfolio"] = in_portfolio
+        if is_data_valid(lcai)[0]:
+            lcai["analysis"] = build_lcai_detail(lcai, in_portfolio=in_portfolio)
+        else:
+            lcai["verdict"] = "数据不足"
+            lcai["verdict_action"] = is_data_valid(lcai)[1]
+            lcai["analysis"] = build_lcai_detail(lcai, in_portfolio=in_portfolio)
+        return lcai
+    except Exception as exc:
+        return {
+            "source": "lcai",
+            "symbol": symbol,
+            "error": str(exc),
+            "verdict": "数据不足",
+            "verdict_action": str(exc),
+            "rating": "—",
+            "overall_score": None,
+        }
+
+
+def write_report(symbol: str, lcai: dict, ctx: dict) -> Path:
     from build_report_html import write_report_html  # noqa: WPS433
     from build_unified_report import build_unified_report, write_unified_report  # noqa: WPS433
 
     out_dir = ROOT / "reports" / symbol
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    in_portfolio = meta.get("in_portfolio", False)
-    lcai["analysis"] = build_lcai_detail(lcai, in_portfolio=in_portfolio)
     (out_dir / "lcai.json").write_text(json.dumps(lcai, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out_dir / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
-
-    unified = build_unified_report(lcai, meta, symbol)
+    unified = build_unified_report(lcai, ctx, symbol)
     write_unified_report(symbol, unified, out_dir)
-    write_report_html(out_dir, symbol, lcai, unified, meta)
+    write_report_html(out_dir, symbol, lcai, unified)
+    meta_legacy = out_dir / "meta.json"
+    if meta_legacy.exists():
+        meta_legacy.unlink()
     return out_dir
 
 
 def process_symbol(symbol: str, *, in_portfolio: bool = False) -> dict:
     sym = normalize_symbol(symbol)
-    lcai = run_lcai(sym)
-    meta = build_meta(lcai, sym)
-    meta["in_portfolio"] = in_portfolio
-    write_report(sym, lcai, meta)
-    return meta
+    lcai = run_lcai(sym, in_portfolio=in_portfolio)
+    ctx = build_context(lcai, sym, in_portfolio=in_portfolio)
+    write_report(sym, lcai, ctx)
+    return ctx
 
 
 def main() -> None:
@@ -121,6 +132,8 @@ def main() -> None:
     ap.add_argument("--symbol", help="Single symbol")
     ap.add_argument("--holdings", action="store_true", help="All symbols from quotes-data.js")
     ap.add_argument("--all", action="store_true", help="Holdings + watchlist-data.js (weekly auto)")
+    ap.add_argument("--rebuild", action="store_true", help="Alias for default refresh (compat)")
+    ap.add_argument("--no-refresh", action="store_true", help="Rebuild unified/html from existing lcai.json only")
     args = ap.parse_args()
 
     symbols = [args.symbol] if args.symbol else []
@@ -136,7 +149,22 @@ def main() -> None:
     results = []
     for s in symbols:
         print(f"Processing {s}...", file=sys.stderr)
-        results.append(process_symbol(s, in_portfolio=(normalize_symbol(s) in portfolio)))
+        sym = normalize_symbol(s)
+        in_pf = sym in portfolio
+        if args.no_refresh:
+            lcai_path = ROOT / "reports" / sym / "lcai.json"
+            if not lcai_path.exists():
+                print(f"SKIP {sym}: no lcai.json", file=sys.stderr)
+                continue
+            lcai = json.loads(lcai_path.read_text(encoding="utf-8"))
+            from build_lcai_detail import build_lcai_detail  # noqa: WPS433
+
+            lcai["analysis"] = build_lcai_detail(lcai, in_portfolio=in_pf)
+            ctx = build_context(lcai, sym, in_portfolio=in_pf)
+            write_report(sym, lcai, ctx)
+            results.append(ctx)
+        else:
+            results.append(process_symbol(s, in_portfolio=in_pf))
 
     out = json.dumps(results, ensure_ascii=False, indent=2)
     try:
