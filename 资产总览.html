@@ -806,6 +806,21 @@
     .criteria-readonly { font-size: 0.82rem; color: var(--muted); }
     .criteria-fallback { margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px dashed var(--border); font-size: 0.82rem; }
     .criteria-copy-area { width: 100%; min-height: 120px; margin: 8px 0; font-family: monospace; font-size: 0.75rem; }
+    .handbook-article { font-size: 0.9rem; line-height: 1.65; color: var(--text); }
+    .handbook-article h1 { font-size: 1.35rem; margin: 0 0 12px; }
+    .handbook-article h2 { font-size: 1.05rem; margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .handbook-article h3 { font-size: 0.95rem; margin: 16px 0 8px; color: var(--accent); }
+    .handbook-article p { margin: 0 0 10px; }
+    .handbook-article ul, .handbook-article ol { margin: 0 0 12px 1.2em; padding: 0; }
+    .handbook-article li { margin-bottom: 6px; }
+    .handbook-article blockquote { margin: 0 0 12px; padding: 10px 14px; border-left: 3px solid var(--accent); background: rgba(59,130,246,0.06); color: var(--muted); font-size: 0.85rem; }
+    .handbook-article code { font-family: ui-monospace, monospace; font-size: 0.82em; background: rgba(15,23,42,0.06); padding: 2px 6px; border-radius: 4px; }
+    .handbook-pre { overflow-x: auto; padding: 12px; border-radius: 8px; background: rgba(15,23,42,0.05); border: 1px solid var(--border); margin: 0 0 12px; font-size: 0.8rem; }
+    .handbook-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.84rem; }
+    .handbook-table th, .handbook-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .handbook-table th { background: rgba(15,23,42,0.04); font-weight: 600; }
+    .handbook-article a { color: var(--accent); }
+    .handbook-article hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
     .watchlist-box { margin-bottom: 14px; }
     .watchlist-box h3 { font-size: 0.88rem; margin-bottom: 8px; color: var(--muted); font-weight: 600; }
     .watchlist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -850,6 +865,7 @@
         <button class="tab-btn" data-page="stock">持仓</button>
         <button class="tab-btn" data-page="screen">选股</button>
         <button class="tab-btn" data-page="criteria">规则</button>
+        <button class="tab-btn" data-page="handbook">手册</button>
       </nav>
     </div>
 
@@ -1964,6 +1980,12 @@
       <div id="criteria-content"></div>
     </div>
 
+    <!-- ========== 页9：维护手册 ========== -->
+    <div id="page-handbook" class="page">
+      <p class="page-desc">LCAI 使用与维护说明（与仓库 <code>08-日常维护手册.md</code> 同步）。</p>
+      <div id="handbook-content"></div>
+    </div>
+
     <div id="holding-modal" class="holding-modal-backdrop" hidden>
       <div class="holding-modal-card" role="dialog" aria-labelledby="holding-modal-title">
         <h3 id="holding-modal-title">加入持仓</h3>
@@ -2869,13 +2891,17 @@
       } else if (page === "criteria") {
         history.replaceState(null, "", "#criteria");
         window.CriteriaView?.load?.();
-      } else if (location.hash === "#screen" || location.hash === "#criteria") {
+      } else if (page === "handbook") {
+        history.replaceState(null, "", "#handbook");
+        window.HandbookView?.load?.();
+      } else if (location.hash === "#screen" || location.hash === "#criteria" || location.hash === "#handbook") {
         history.replaceState(null, "", location.pathname);
       }
     }
 
     if (location.hash === "#screen") switchTab("screen");
     if (location.hash === "#criteria") switchTab("criteria");
+    if (location.hash === "#handbook") switchTab("handbook");
 
     renderTodos();
     renderAll();
@@ -2906,10 +2932,12 @@
   <script src="screen-cloud.js?v=748019"></script>
   <script src="screen-holdings.js?v=748019"></script>
   <script src="screen-unified.js?v=748020"></script>
-  <script src="criteria-view.js?v=748021"></script>
-  <script src="screen-ui.js?v=748021"></script>
+  <script src="criteria-view.js?v=748022"></script>
+  <script src="handbook-view.js?v=748022"></script>
+  <script src="screen-ui.js?v=748022"></script>
   <script>
     CriteriaView?.init?.();
+    HandbookView?.init?.();
     if (location.hash === "#screen") {
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
