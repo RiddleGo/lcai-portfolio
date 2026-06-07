@@ -182,6 +182,8 @@ const ScreenData = (() => {
     const fairPe = sectorKey.fairPe;
     const peCap = sectorKey.peCap;
     const eps = latestAnnual.eps || latest.eps;
+    const netProfit = latestAnnual.netProfit ?? latest.netProfit;
+    const lossMaker = (eps != null && eps <= 0) || (netProfit != null && netProfit <= 0);
     let fairValue = null;
     let marginOfSafety = null;
     if (eps != null && eps > 0 && quote.price > 0) {
@@ -192,11 +194,13 @@ const ScreenData = (() => {
     const profitYoys = finRows.slice(0, 4).map(r => r.profitYoy).filter(v => v != null);
     const profitCollapse = profitYoys.length >= 3 && profitYoys.every(v => v < -15);
 
-    const pe = quote.pe;
+    let pe = quote.pe;
+    if (lossMaker || (pe != null && pe <= 0)) pe = null;
     const profitGrowth = latest.profitYoy != null ? latest.profitYoy : latest.revenueYoy;
-    const peComputed = pe != null ? pe : (eps != null && eps > 0 && quote.price > 0 ? quote.price / eps : null);
+    let peComputed = pe != null ? pe : (eps != null && eps > 0 && quote.price > 0 ? quote.price / eps : null);
+    if (peComputed != null && peComputed <= 0) peComputed = null;
     const peg = peComputed != null && profitGrowth != null && profitGrowth > 0 ? peComputed / profitGrowth : null;
-    const peExtreme = peComputed != null && peComputed > 80 && (profitGrowth == null || profitGrowth < 10);
+    const peExtreme = !lossMaker && peComputed != null && peComputed > 80 && (profitGrowth == null || profitGrowth < 10);
 
     const trapFlags = [];
     if (peComputed != null && peComputed > 100 && (profitGrowth == null || profitGrowth < 5)) {
@@ -244,6 +248,7 @@ const ScreenData = (() => {
       peg,
       profitGrowth,
       eps,
+      lossMaker,
       isSt: /ST/i.test(quote.name),
       fraudSuspect: ocfRatio != null && ocfRatio < 0.3 && (latest.netProfit || 0) > 0,
       ocfVeto: ocfRatios.length >= 2 && ocfRatios.every(v => v < 0.5),

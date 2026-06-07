@@ -90,6 +90,7 @@ LCAI/
 
 - 浏览器研判：东方财富 + 新浪 fallback（GitHub Pages 可能 CORS 失败）
 - Python/Actions：通常更稳；CI 见 [`.github/workflows/lcai-reports.yml`](.github/workflows/lcai-reports.yml)
+- 引擎回归：[`python scripts/check_engine_parity.py`](scripts/check_engine_parity.py)（CI 见 [`engine-check.yml`](.github/workflows/engine-check.yml)）
 - 预生成报告：[`reports/`](reports/) → 网页读 `unified.json`
 
 ---

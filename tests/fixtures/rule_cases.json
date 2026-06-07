@@ -1,0 +1,85 @@
+[
+  {
+    "name": "loss_maker pe_reasonable skip",
+    "eval": "pe_reasonable",
+    "metrics": {
+      "market": "HK",
+      "name": "优必选",
+      "amount": 80000000,
+      "peCap": 45,
+      "pe": null,
+      "lossMaker": true,
+      "isSt": false,
+      "fraudSuspect": false,
+      "profitYears": 0,
+      "profitCollapse": false,
+      "ocfVeto": false,
+      "peExtreme": false,
+      "trapSuspect": false
+    },
+    "expect_pass": true,
+    "expect_actual": "亏损不适用"
+  },
+  {
+    "name": "loss_maker pe_extreme skip",
+    "eval": "pe_extreme_veto",
+    "metrics": {
+      "market": "HK",
+      "name": "优必选",
+      "amount": 80000000,
+      "pe": null,
+      "lossMaker": true,
+      "peExtreme": false,
+      "isSt": false,
+      "fraudSuspect": false,
+      "profitYears": 0,
+      "profitCollapse": false,
+      "ocfVeto": false,
+      "trapSuspect": false
+    },
+    "expect_pass": true,
+    "expect_actual": "亏损不适用"
+  },
+  {
+    "name": "profitable pe within cap",
+    "eval": "pe_reasonable",
+    "metrics": {
+      "market": "A",
+      "name": "测试",
+      "amount": 100000000,
+      "peCap": 40,
+      "pe": 20,
+      "lossMaker": false,
+      "sectorKey": "default",
+      "isSt": false,
+      "fraudSuspect": false,
+      "profitYears": 5,
+      "profitCollapse": false,
+      "ocfVeto": false,
+      "peExtreme": false,
+      "trapSuspect": false
+    },
+    "expect_pass": true
+  },
+  {
+    "name": "profitable pe over cap",
+    "eval": "pe_reasonable",
+    "metrics": {
+      "market": "A",
+      "name": "测试",
+      "amount": 100000000,
+      "peCap": 40,
+      "pe": 60,
+      "lossMaker": false,
+      "sectorKey": "default",
+      "isSt": false,
+      "fraudSuspect": false,
+      "profitYears": 5,
+      "profitCollapse": false,
+      "ocfVeto": false,
+      "peExtreme": false,
+      "trapSuspect": false
+    },
+    "expect_pass": false
+  }
+]

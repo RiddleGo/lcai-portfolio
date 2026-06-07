@@ -1,0 +1,34 @@
+name: LCAI engine check
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "投资系统/**"
+      - "screen-engine.js"
+      - "screen-data.js"
+      - "tests/**"
+      - "scripts/check_engine_parity.py"
+      - "scripts/lcai_screen_json.py"
+  pull_request:
+    paths:
+      - "投资系统/**"
+      - "screen-engine.js"
+      - "screen-data.js"
+      - "tests/**"
+      - "scripts/check_engine_parity.py"
+      - "scripts/lcai_screen_json.py"
+
+jobs:
+  engine-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run engine unit tests
+        run: python scripts/check_engine_parity.py

@@ -118,6 +118,9 @@ const ScreenEngine = (() => {
     },
     pe_reasonable(m, rule) {
       const cap = m.peCap || rule.threshold;
+      if (m.lossMaker) {
+        return { pass: true, actual: '亏损不适用', threshold: `≤${cap}`, score: 3, missing: true, note: 'loss_maker' };
+      }
       const v = m.pe;
       if (v == null || v <= 0) return { pass: false, actual: '—', threshold: `≤${cap}`, score: 0, missing: true };
       const ok = v <= cap;
@@ -137,6 +140,9 @@ const ScreenEngine = (() => {
       return { pass: ok, actual: fmt(v), threshold: `≤${rule.threshold}`, score: ok ? 5 : Math.max(1, rule.threshold / v * 3) };
     },
     pe_extreme_veto(m) {
+      if (m.lossMaker) {
+        return { pass: true, actual: '亏损不适用', threshold: '非极端泡沫', veto: false, note: 'loss_maker' };
+      }
       const ok = !m.peExtreme;
       return { pass: ok, actual: ok ? '否' : `PE=${fmt(m.pe)}`, threshold: '非极端泡沫', veto: !ok };
     },
@@ -171,7 +177,7 @@ const ScreenEngine = (() => {
     },
     sector_fit(m, rule) {
       let score = 50;
-      if (m.pe != null && m.pe <= m.peCap) score += 25;
+      if (!m.lossMaker && m.pe != null && m.pe <= m.peCap) score += 25;
       if (m.marginOfSafety != null && m.marginOfSafety > 0) score += 25;
       const ok = score >= rule.threshold;
       return { pass: ok, actual: `${m.industry} (${score}分)`, threshold: `≥${rule.threshold}分`, score: Math.min(5, score / 20) };
@@ -254,7 +260,9 @@ const ScreenEngine = (() => {
         : pass
           ? `现价 ${fmt(m.price)} 元 vs 公允 ${fmt(m.fairValue)} 元，安全边际 ${pct(m.marginOfSafety)}，价格足够便宜。`
           : `现价 ${fmt(m.price)} 元，公允价值 ${fmt(m.fairValue)} 元（${m.sectorKey} 行业公允 PE ${m.fairPe} × EPS ${fmt(m.eps)}），安全边际 ${pct(m.marginOfSafety)}，未达 25%。好公司也需要好价格。`,
-      pe_reasonable: () => out.missing
+      pe_reasonable: () => out.missing && out.note === 'loss_maker'
+        ? '公司亏损，PE 估值不适用，改由 ROE/现金流与转盈预期评估。'
+        : out.missing
         ? '缺少 PE 数据，硬指标 Fail。'
         : pass
           ? `PE ${out.actual} 处于 ${m.sectorKey} 行业上限 ${out.threshold} 以内，估值可接受。`

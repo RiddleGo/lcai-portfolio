@@ -47,6 +47,14 @@ def annual_rows(fin_rows: list[dict]) -> list[dict]:
     return annual if annual else fin_rows[:5]
 
 
+def is_loss_maker(eps: float | None, net_profit: float | None) -> bool:
+    if eps is not None and eps <= 0:
+        return True
+    if net_profit is not None and net_profit <= 0:
+        return True
+    return False
+
+
 def build_metrics(parsed: dict, quote: dict, fin_rows: list[dict], cfg: dict) -> dict[str, Any]:
     annual = annual_rows(fin_rows)
     latest = fin_rows[0] if fin_rows else {}
@@ -71,6 +79,8 @@ def build_metrics(parsed: dict, quote: dict, fin_rows: list[dict], cfg: dict) ->
     industry = latest.get("industry") or la.get("industry") or ""
     sector = detect_sector(industry, cfg)
     eps = la.get("eps") or latest.get("eps")
+    net_profit = la.get("netProfit") or latest.get("netProfit")
+    loss_maker = is_loss_maker(eps, net_profit)
     price = quote.get("price") or 0
 
     fair_value = mos = None
@@ -82,10 +92,19 @@ def build_metrics(parsed: dict, quote: dict, fin_rows: list[dict], cfg: dict) ->
     profit_collapse = len(profit_yoys) >= 3 and all(v < -15 for v in profit_yoys)
 
     pe = quote.get("pe")
+    if loss_maker or (pe is not None and pe <= 0):
+        pe = None
     profit_growth = latest.get("profitYoy") if latest.get("profitYoy") is not None else latest.get("revenueYoy")
     pe_computed = pe if pe is not None else (price / eps if eps and eps > 0 and price > 0 else None)
+    if pe_computed is not None and pe_computed <= 0:
+        pe_computed = None
     peg = pe_computed / profit_growth if pe_computed and profit_growth and profit_growth > 0 else None
-    pe_extreme = pe_computed is not None and pe_computed > 80 and (profit_growth is None or profit_growth < 10)
+    pe_extreme = (
+        not loss_maker
+        and pe_computed is not None
+        and pe_computed > 80
+        and (profit_growth is None or profit_growth < 10)
+    )
 
     trap_flags = []
     if pe_computed and pe_computed > 100 and (profit_growth is None or profit_growth < 5):
@@ -131,6 +150,7 @@ def build_metrics(parsed: dict, quote: dict, fin_rows: list[dict], cfg: dict) ->
         "peg": peg,
         "profitGrowth": profit_growth,
         "eps": eps,
+        "lossMaker": loss_maker,
         "isSt": "ST" in str(quote.get("name", "")).upper(),
         "fraudSuspect": ocf_ratio is not None and ocf_ratio < 0.3 and (latest.get("netProfit") or 0) > 0,
         "ocfVeto": len(ocf_ratios) >= 2 and all(v < 0.5 for v in ocf_ratios),
@@ -258,12 +278,15 @@ def evaluate_rule(rule: dict, m: dict, ctx: dict) -> dict[str, Any]:
             }
     elif ev == "pe_reasonable":
         cap = m.get("peCap") or th
-        v = m.get("pe")
-        if v is None or v <= 0:
-            out = {"pass": False, "actual": "—", "threshold": f"≤{cap}", "score": 0, "missing": True}
+        if m.get("lossMaker"):
+            out = {"pass": True, "actual": "亏损不适用", "threshold": f"≤{cap}", "score": 3, "missing": True, "note": "loss_maker"}
         else:
-            ok = v <= cap
-            out = {"pass": ok, "actual": _fmt(v), "threshold": f"≤{cap}", "score": 5 if ok else max(1, cap / v * 5)}
+            v = m.get("pe")
+            if v is None or v <= 0:
+                out = {"pass": False, "actual": "—", "threshold": f"≤{cap}", "score": 0, "missing": True}
+            else:
+                ok = v <= cap
+                out = {"pass": ok, "actual": _fmt(v), "threshold": f"≤{cap}", "score": 5 if ok else max(1, cap / v * 5)}
     elif ev == "pb_reasonable":
         cap = 2 if m.get("sectorKey") in ("银行", "金融") else th
         v = m.get("pb")
@@ -280,8 +303,11 @@ def evaluate_rule(rule: dict, m: dict, ctx: dict) -> dict[str, Any]:
             ok = v <= th
             out = {"pass": ok, "actual": _fmt(v), "threshold": f"≤{th}", "score": 5 if ok else max(1, th / v * 3)}
     elif ev == "pe_extreme_veto":
-        ok = not m["peExtreme"]
-        out = {"pass": ok, "actual": f"PE={_fmt(m.get('pe'))}" if not ok else "否", "threshold": "非极端泡沫", "veto": not ok}
+        if m.get("lossMaker"):
+            out = {"pass": True, "actual": "亏损不适用", "threshold": "非极端泡沫", "veto": False, "note": "loss_maker"}
+        else:
+            ok = not m["peExtreme"]
+            out = {"pass": ok, "actual": f"PE={_fmt(m.get('pe'))}" if not ok else "否", "threshold": "非极端泡沫", "veto": not ok}
     elif ev == "trap_scan":
         flags = m.get("trapFlags") or []
         ok = not m["trapSuspect"]
@@ -305,7 +331,7 @@ def evaluate_rule(rule: dict, m: dict, ctx: dict) -> dict[str, Any]:
         out = {"pass": True, "actual": "见评级", "threshold": f"≤{th}%", "score": 5}
     elif ev == "sector_fit":
         score = 50
-        if m.get("pe") is not None and m["pe"] <= m.get("peCap", 40):
+        if not m.get("lossMaker") and m.get("pe") is not None and m["pe"] <= m.get("peCap", 40):
             score += 25
         if m.get("marginOfSafety") is not None and m["marginOfSafety"] > 0:
             score += 25
@@ -435,7 +461,13 @@ def screen(
     ctx = {"in_portfolio": in_portfolio, "competence": competence, "psychology": psychology}
     results = [evaluate_rule(rule, metrics, ctx) for rule in cfg["rules"]]
     decision = decide(metrics, results, ctx, cfg)
-    return {"metrics": metrics, "results": results, "decision": decision, "parsed": data["parsed"]}
+    return {
+        "metrics": metrics,
+        "results": results,
+        "decision": decision,
+        "parsed": data["parsed"],
+        "in_portfolio": in_portfolio,
+    }
 
 
 def to_lcai_report(screen_result: dict) -> dict[str, Any]:
@@ -468,6 +500,7 @@ def to_lcai_report(screen_result: dict) -> dict[str, Any]:
         "dcf_fair_value": round(m["dcfFairValue"], 2) if m.get("dcfFairValue") else None,
         "dcf_margin_of_safety_pct": round(dcf_mos * 100, 1) if dcf_mos is not None else None,
         "trap_flags": m.get("trapFlags") or [],
+        "loss_maker": m.get("lossMaker"),
         "layer_scores": d.get("layer_scores"),
         "position_hint": d.get("position_hint"),
         "in_portfolio": screen_result.get("in_portfolio"),
