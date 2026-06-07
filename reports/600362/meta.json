@@ -7,8 +7,6 @@
   "lcai_score": 58,
   "lcai_margin_pct": -7.1,
   "lcai_fair_value": 41.4,
-  "uzi_tone": null,
-  "uzi_value_consensus": null,
   "dcf_fair_value": 36.62,
   "dcf_margin_pct": -21.1,
   "margin_gap": "LCAI PE×EPS -7.1% vs DCF -21.1%",
@@ -38,10 +36,6 @@
       "threshold": "≥25%"
     }
   ],
-  "trap_flags": [],
-  "report_url": "reports/600362/index.html",
-  "generated_at": "2026-06-07T00:16:57+08:00",
-  "disclaimer": "LCAI 宪法为最终裁决；UZI 为价值派研究参考",
   "divergence_notes": [
     {
       "kind": "hard_fail",
@@ -68,5 +62,9 @@
       "threshold": "≥25%"
     }
   ],
+  "trap_flags": [],
+  "report_url": "reports/600362/index.html",
+  "generated_at": "2026-06-07T10:50:54+08:00",
+  "disclaimer": "买卖结论以 LCAI 投资宪法为准",
   "in_portfolio": true
 }

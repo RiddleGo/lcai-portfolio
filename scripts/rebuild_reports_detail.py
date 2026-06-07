@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""为已有 reports 补全 analysis / unified 详细字段并重建 index.html（无需 UZI）。"""
+"""为已有 reports 补全 analysis / unified 详细字段并重建 index.html。"""
 from __future__ import annotations
 
 import json
@@ -78,33 +78,29 @@ def rebuild_symbol(symbol: str, *, refresh: bool = True) -> None:
         lcai = json.loads(lcai_path.read_text(encoding="utf-8"))
 
     in_portfolio = symbol in portfolio_symbols()
-    uzi_path = out_dir / "uzi.json"
-    uzi = json.loads(uzi_path.read_text(encoding="utf-8")) if uzi_path.exists() else None
-    compare_path = out_dir / "lcai-vs-uzi.json"
-    compare = json.loads(compare_path.read_text(encoding="utf-8")) if compare_path.exists() else {}
-    compare["in_portfolio"] = in_portfolio
-    compare.setdefault("symbol", symbol)
-    compare.setdefault("name", lcai.get("name"))
+    meta_path = out_dir / "meta.json"
+    meta = json.loads(meta_path.read_text(encoding="utf-8")) if meta_path.exists() else {}
+    meta["in_portfolio"] = in_portfolio
+    meta.setdefault("symbol", symbol)
+    meta.setdefault("name", lcai.get("name"))
 
-    uzi_tone = compare.get("uzi_tone")
-    lcai["analysis"] = build_lcai_detail(lcai, uzi_tone, in_portfolio=in_portfolio)
+    lcai["analysis"] = build_lcai_detail(lcai, in_portfolio=in_portfolio)
     lcai_path.write_text(json.dumps(lcai, ensure_ascii=False, indent=2), encoding="utf-8")
 
     if is_data_valid(lcai)[0]:
-        compare["divergences"] = build_divergence_notes(lcai, uzi_tone)
+        meta["divergences"] = build_divergence_notes(lcai)
     else:
-        compare["divergences"] = [{
+        meta["divergences"] = [{
             "kind": "warning",
             "title": "数据不足",
             "summary": is_data_valid(lcai)[1],
         }]
-    compare["divergence_notes"] = compare["divergences"]
-    (out_dir / "lcai-vs-uzi.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
-    (out_dir / "meta.json").write_text(json.dumps(compare, ensure_ascii=False, indent=2), encoding="utf-8")
+    meta["divergence_notes"] = meta["divergences"]
+    meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    unified = build_unified_report(lcai, uzi, compare, symbol)
+    unified = build_unified_report(lcai, meta, symbol)
     write_unified_report(symbol, unified, out_dir)
-    write_report_html(out_dir, symbol, lcai, unified, compare)
+    write_report_html(out_dir, symbol, lcai, unified, meta)
     status = "OK" if lcai["analysis"].get("data_ok") else "WARN(data)"
     print(f"{status} {symbol}")
 

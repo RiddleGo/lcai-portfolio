@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""将 LCAI 裁决与 UZI 价值派材料融合为 reports/{symbol}/unified.json。"""
+"""将 LCAI 裁决写入 reports/{symbol}/unified.json。"""
 from __future__ import annotations
 
 import json
@@ -18,52 +18,6 @@ LAYER_META = {
     "L4": "执行",
     "L5": "行业",
 }
-
-
-def parse_uzi_enrichment(uzi: dict | None) -> dict[str, Any]:
-    if not uzi:
-        return {"ready": False}
-
-    tone = uzi.get("tone") or uzi.get("verdict") or uzi.get("core_conclusion")
-    consensus = uzi.get("overall_score") or uzi.get("fund_score") or uzi.get("value_consensus")
-
-    dcf_block = uzi.get("dcf") if isinstance(uzi.get("dcf"), dict) else {}
-    uzi_dcf_fv = (
-        uzi.get("dcf_fair_value")
-        or uzi.get("intrinsic_value")
-        or dcf_block.get("fair_value")
-        or dcf_block.get("intrinsic_value")
-    )
-    uzi_dcf_mos = uzi.get("dcf_margin_pct") or dcf_block.get("margin_of_safety_pct")
-
-    risks = uzi.get("risk_flags") or uzi.get("risks") or uzi.get("key_risks") or []
-    if isinstance(risks, dict):
-        risks = list(risks.values())
-    traps = uzi.get("trap_flags") or uzi.get("trap_notes") or []
-    if isinstance(traps, str):
-        traps = [traps]
-
-    strengths_raw = uzi.get("strengths") or uzi.get("bull_points") or []
-    weaknesses_raw = uzi.get("weaknesses") or uzi.get("bear_points") or []
-
-    fund_score = uzi.get("fund_score")
-    cash_score = uzi.get("cash_score") or uzi.get("cashflow_score")
-
-    ready = bool(tone or consensus or uzi_dcf_fv or risks or fund_score)
-
-    return {
-        "ready": ready,
-        "tone": tone,
-        "consensus": consensus,
-        "fund_score": fund_score,
-        "cash_score": cash_score,
-        "dcf_fair_value": uzi_dcf_fv,
-        "dcf_margin_pct": uzi_dcf_mos,
-        "risk_flags": [str(x) for x in risks][:6],
-        "trap_flags": [str(x) for x in traps][:6],
-        "strengths": [str(x) for x in strengths_raw][:6],
-        "weaknesses": [str(x) for x in weaknesses_raw][:6],
-    }
 
 
 def max_weight_for_rating(rating: str | None) -> str:
@@ -156,40 +110,7 @@ def lcai_layer_summary(layer: str, lcai: dict) -> str:
     return ""
 
 
-def uzi_layer_insight(layer: str, uzi_e: dict) -> str | None:
-    if not uzi_e.get("ready"):
-        return None
-    tone = uzi_e.get("tone")
-    parts = []
-
-    if layer == "L0" and uzi_e.get("trap_flags"):
-        parts.append(f"排雷：{'；'.join(uzi_e['trap_flags'][:3])}")
-    if layer == "L1" and uzi_e.get("fund_score") is not None:
-        parts.append(f"基本面分 {uzi_e['fund_score']}")
-    if layer == "L2" and uzi_e.get("cash_score") is not None:
-        parts.append(f"现金流分 {uzi_e['cash_score']}")
-    if layer == "L3":
-        if tone:
-            parts.append(f"价值派定调：{tone}")
-        if uzi_e.get("dcf_fair_value") is not None:
-            mos = uzi_e.get("dcf_margin_pct")
-            mos_txt = f"，边际 {mos}%" if mos is not None else ""
-            parts.append(f"UZI DCF 公允 {uzi_e['dcf_fair_value']}{mos_txt}")
-    if layer == "L4":
-        return None
-    if layer == "L5" and tone:
-        parts.append(f"定调：{tone}")
-
-    return "；".join(parts) if parts else (f"价值派：{tone}" if tone and layer in ("L1", "L2", "L3") else None)
-
-
-def merge_layer_summary(lcai_sum: str, uzi_ins: str | None) -> str:
-    if not uzi_ins:
-        return lcai_sum
-    return f"{lcai_sum} 【UZI】{uzi_ins}"
-
-
-def build_valuation_narrative(lcai: dict, uzi_e: dict, compare: dict) -> str:
+def build_valuation_narrative(lcai: dict, compare: dict) -> str:
     lines = []
     fv = lcai.get("fair_value")
     mos = lcai.get("margin_of_safety_pct")
@@ -205,37 +126,26 @@ def build_valuation_narrative(lcai: dict, uzi_e: dict, compare: dict) -> str:
         lines.append(f"现价 {price} 元。")
     if compare.get("margin_gap"):
         lines.append(compare["margin_gap"] + "。")
-    if uzi_e.get("ready") and uzi_e.get("dcf_fair_value") is not None:
-        uzi_mos = uzi_e.get("dcf_margin_pct")
-        uzi_mos_txt = f"，边际 {uzi_mos}%" if uzi_mos is not None else ""
-        lines.append(
-            f"UZI 价值派 DCF 公允 ≈ {uzi_e['dcf_fair_value']} 元{uzi_mos_txt}（参考，不改变 LCAI 裁决）。"
-        )
-    elif uzi_e.get("ready") and uzi_e.get("tone"):
-        lines.append(f"UZI 价值派定调：{uzi_e['tone']}（不改变 LCAI 裁决）。")
     return "\n".join(lines) if lines else "暂无估值数据。"
 
 
-def build_executive(lcai: dict, uzi_e: dict, compare: dict, detail: dict | None = None) -> str:
+def build_executive(lcai: dict, compare: dict, detail: dict | None = None) -> str:
+    from build_lcai_detail import is_data_valid  # noqa: WPS433
+
     detail = detail or {}
     if detail.get("executive_brief"):
-        brief = detail["executive_brief"]
-        if uzi_e.get("ready") and uzi_e.get("tone"):
-            brief += f" UZI 参考：{uzi_e['tone']}（不改变 LCAI 裁决）。"
-        return brief
+        return detail["executive_brief"]
     if not is_data_valid(lcai)[0]:
         name = lcai.get("name") or lcai.get("symbol")
         return f"{name}：数据不足，无法研判。请 Run workflow 刷新缓存。"
     parts = [
         f"{lcai.get('name', lcai.get('symbol'))}：LCAI 判定「{lcai.get('verdict')}」——{lcai.get('verdict_action', '')}",
     ]
-    if uzi_e.get("ready") and uzi_e.get("tone"):
-        parts.append(f"UZI 参考：{uzi_e['tone']}。")
     parts.append("买卖结论以 LCAI 规则为准。")
     return " ".join(parts)
 
 
-def build_strengths_weaknesses(lcai: dict, uzi_e: dict) -> tuple[list[str], list[str]]:
+def build_strengths_weaknesses(lcai: dict) -> tuple[list[str], list[str]]:
     strengths: list[str] = []
     weaknesses: list[str] = []
 
@@ -256,56 +166,38 @@ def build_strengths_weaknesses(lcai: dict, uzi_e: dict) -> tuple[list[str], list
     for h in lcai.get("hard_failures") or []:
         weaknesses.append(f"LCAI: 硬指标 Fail {h}")
 
-    for s in uzi_e.get("strengths") or []:
-        strengths.append(f"UZI: {s}")
-    for w in uzi_e.get("weaknesses") or []:
-        weaknesses.append(f"UZI: {w}")
-    for r in uzi_e.get("risk_flags") or []:
-        weaknesses.append(f"UZI: 风险 {r}")
-
     return strengths[:10], weaknesses[:10]
 
 
-def build_unified_report(
-    lcai: dict,
-    uzi_raw: dict | None,
-    compare: dict,
-    symbol: str,
-) -> dict:
+def build_unified_report(lcai: dict, compare: dict, symbol: str) -> dict:
     from build_lcai_detail import build_lcai_detail, is_data_valid  # noqa: WPS433
 
-    uzi_e = parse_uzi_enrichment(uzi_raw)
     rating = lcai.get("rating") or compare.get("lcai_rating")
     verdict = lcai.get("verdict") or compare.get("lcai_verdict")
     action = lcai.get("verdict_action") or compare.get("lcai_verdict_action")
-    uzi_tone = compare.get("uzi_tone") or (uzi_e.get("tone") if uzi_e.get("ready") else None)
     in_portfolio = bool(compare.get("in_portfolio"))
     detail = lcai.get("analysis") or {}
     if not detail.get("final_conclusion"):
-        detail = build_lcai_detail(lcai, uzi_tone, in_portfolio=in_portfolio)
+        detail = build_lcai_detail(lcai, in_portfolio=in_portfolio)
 
     layers = []
     for layer, title_suffix in LAYER_META.items():
         lcai_sum = lcai_layer_summary(layer, lcai)
-        uzi_ins = uzi_layer_insight(layer, uzi_e)
         layers.append({
             "layer": layer,
             "title": f"{layer} {title_suffix}",
             "lcai_status": lcai_layer_status(layer, lcai),
             "lcai_summary": lcai_sum,
-            "uzi_insight": uzi_ins,
-            "merged_summary": merge_layer_summary(lcai_sum, uzi_ins),
+            "merged_summary": lcai_sum,
         })
 
-    strengths, weaknesses = build_strengths_weaknesses(lcai, uzi_e)
+    strengths, weaknesses = build_strengths_weaknesses(lcai)
     valuation = {
         "lcai_fair_value": lcai.get("fair_value") or compare.get("lcai_fair_value"),
         "lcai_margin_pct": lcai.get("margin_of_safety_pct") or compare.get("lcai_margin_pct"),
         "dcf_fair_value": lcai.get("dcf_fair_value") or compare.get("dcf_fair_value"),
         "dcf_margin_pct": lcai.get("dcf_margin_of_safety_pct") or compare.get("dcf_margin_pct"),
-        "uzi_dcf_fair_value": uzi_e.get("dcf_fair_value"),
-        "uzi_dcf_margin_pct": uzi_e.get("dcf_margin_pct"),
-        "narrative": build_valuation_narrative(lcai, uzi_e, compare),
+        "narrative": build_valuation_narrative(lcai, compare),
     }
 
     return {
@@ -319,11 +211,11 @@ def build_unified_report(
             "source": "lcai",
             "max_weight": max_weight_for_rating(rating),
         },
-        "executive": build_executive(lcai, uzi_e, compare, detail),
+        "executive": build_executive(lcai, compare, detail),
         "final_conclusion": detail.get("final_conclusion") or {},
         "executive_brief": detail.get("executive_brief") or "",
         "data_ok": detail.get("data_ok", is_data_valid(lcai)[0]),
-        "summary_detailed": detail.get("summary_detailed") or build_executive(lcai, uzi_e, compare),
+        "summary_detailed": detail.get("summary_detailed") or build_executive(lcai, compare),
         "key_metrics": detail.get("key_metrics") or [],
         "decision_path": detail.get("decision_path") or [],
         "rule_highlights": detail.get("rule_highlights") or [],
@@ -336,20 +228,13 @@ def build_unified_report(
         "divergences": detail.get("divergence_notes") or compare.get("divergence_notes") or compare.get("divergences") or [],
         "depth": {
             "lcai_ready": True,
-            "uzi_ready": uzi_e.get("ready", False),
-            "full_ready": bool(uzi_e.get("ready")),
             "ready": True,
             "schedule": "weekly_monday",
         },
-        "uzi": {
-            "tone": uzi_e.get("tone"),
-            "consensus": uzi_e.get("consensus"),
-            "report_url": compare.get("report_url") or f"reports/{symbol}/index.html",
-            "ready": uzi_e.get("ready", False),
-        },
+        "report_url": compare.get("report_url") or f"reports/{symbol}/index.html",
         "generated_at": compare.get("generated_at")
         or datetime.now(BJ).strftime("%Y-%m-%dT%H:%M:%S+08:00"),
-        "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。",
+        "disclaimer": "买卖结论以 LCAI 投资宪法为准。",
     }
 
 

@@ -1,5 +1,5 @@
 /**
- * LCAI 综合研判（LCAI 裁决 + 可选 UZI 深度附录）
+ * LCAI 综合研判（浏览器实时 + 云端缓存）
  */
 const ScreenUnified = (() => {
   function el(id) {
@@ -31,7 +31,6 @@ const ScreenUnified = (() => {
       lcai_status: l.status,
       merged_summary: l.summary,
       lcai_summary: l.summary,
-      uzi_insight: null,
     }));
   }
 
@@ -58,12 +57,12 @@ const ScreenUnified = (() => {
       weaknesses: live.analysis?.weaknesses || [],
       watch_points: live.analysis?.watch_points || [],
       divergences: [],
-      uzi: { ready: false, report_url: `reports/${normalizeSymbol(live.symbol)}/index.html` },
+      report_url: `reports/${normalizeSymbol(live.symbol)}/index.html`,
       generated_at: null,
     };
 
     if (!unified) {
-      base.divergences = ['尚未加载云端缓存 — 持仓/关注列表每周一自动生成深度分析'];
+      base.divergences = ['尚未加载云端缓存 — 持仓/关注列表每周一自动刷新'];
       return base;
     }
 
@@ -77,7 +76,7 @@ const ScreenUnified = (() => {
     base.strengths = mergeLists(base.strengths, unified.strengths);
     base.weaknesses = mergeLists(base.weaknesses, unified.weaknesses);
     base.divergences = unified.divergences || [];
-    base.uzi = unified.uzi || base.uzi;
+    base.report_url = unified.report_url || base.report_url;
     base.generated_at = unified.generated_at;
     base.verdict.max_weight = unified.verdict?.max_weight || base.verdict.max_weight;
     return base;
@@ -158,12 +157,9 @@ const ScreenUnified = (() => {
         const st = l.lcai_status || l.status || '—';
         const stCls = statusClass(st);
         const detail = l.merged_summary || l.lcai_summary || '';
-        const uziLine = l.uzi_insight
-          ? `<details style="margin-top:6px;font-size:0.78rem;color:var(--muted)"><summary>UZI 价值派补充</summary><p style="margin:4px 0 0">${l.uzi_insight}</p></details>`
-          : '';
         return `<div class="screen-layer-card">
           <h4><span>${l.title || l.layer}</span><span class="layer-status ${stCls}">${st}</span></h4>
-          <p>${detail}</p>${uziLine}
+          <p>${detail}</p>
         </div>`;
       }).join('');
     }
@@ -190,19 +186,16 @@ const ScreenUnified = (() => {
       }
     }
 
-    const foot = el('unified-uzi-footer');
+    const foot = el('unified-cache-footer');
     if (foot) {
-      foot.hidden = false;
-      if (data.uzi?.ready) {
-        const meta = data.generated_at ? `更新于 ${data.generated_at}` : '';
-        foot.innerHTML = `
-          <p style="font-size:0.82rem;color:var(--muted);margin:0">
-            价值派深度已并入上文解读（定调：${data.uzi.tone || '—'}，共识 ${data.uzi.consensus ?? '—'}）。${meta}
-          </p>`;
-      } else if (data.depth?.lcai_ready || data.layers?.length) {
-        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--warn);margin:0">⏳ 完整深度分析生成中 — 完成后可点上方「查看 UZI 完整 HTML」。</p>`;
+      if (data.generated_at) {
+        foot.hidden = false;
+        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">云端缓存更新于 ${data.generated_at}。<a href="${lcaiAsset(data.report_url || '')}" target="_blank" rel="noopener">查看完整报告</a></p>`;
+      } else if (data.layers?.length) {
+        foot.hidden = false;
+        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">点「⭐ 收藏」加入关注；持仓与关注中的股票每周一自动刷新缓存。</p>`;
       } else {
-        foot.innerHTML = `<p style="font-size:0.82rem;color:var(--muted);margin:0">点「⭐ 收藏」加入关注；持仓与关注中的股票每周一自动生成完整深度分析。</p>`;
+        foot.hidden = true;
       }
     }
 

@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        提交后 Actions 会对 **持仓 + 云端关注** 全量跑 LCAI + UZI 深度（约 30–60 分钟）。
+        提交后 Actions 会对 **持仓 + 云端关注** 全量刷新 LCAI 报告（约 5–15 分钟）。
         **请勿修改标题** `[weekly] refresh`。
 labels:
   - report

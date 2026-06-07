@@ -327,7 +327,7 @@ def _explain_rule(rule: dict, out: dict, lcai: dict) -> str:
     if ev == "trap_scan":
         traps = lcai.get("trap_flags") or []
         return (
-            "未发现多项异常票特征（参考 UZI trap-detector 启发式）。"
+            "未发现多项异常票特征（trap_scan 启发式）。"
             if passed
             else f"命中异常特征：{'、'.join(traps) or '多项'}——杀猪盘/庄股风险，触发否决（{name}）。"
         )
@@ -424,7 +424,7 @@ def build_rule_details(lcai: dict, criteria: dict | None = None) -> list[dict]:
     return rows
 
 
-def build_divergence_notes(lcai: dict, uzi_tone: str | None = None) -> list[dict]:
+def build_divergence_notes(lcai: dict) -> list[dict]:
     notes: list[dict] = []
     details = {r["id"]: r for r in build_rule_details(lcai)}
 
@@ -461,16 +461,6 @@ def build_divergence_notes(lcai: dict, uzi_tone: str | None = None) -> list[dict
             "summary": f"命中特征：{'、'.join(traps)}。若叠加其他否决项，风险更高。",
             "actual": "、".join(traps),
             "threshold": "异常特征≤1",
-        })
-
-    if lcai.get("verdict") == "观察" and uzi_tone and "蹲" in str(uzi_tone):
-        notes.append({
-            "kind": "divergence",
-            "rule_id": None,
-            "title": "LCAI 观察 vs UZI 可蹲",
-            "summary": "生意/财务尚可但价格或安全边际未达 LCAI 建仓线（25%）；UZI 价值派认为可等待更好买点。买卖仍以 LCAI 裁决为准。",
-            "actual": lcai.get("verdict"),
-            "threshold": "LCAI 建仓线",
         })
 
     return notes
@@ -543,7 +533,7 @@ def is_data_valid(lcai: dict) -> tuple[bool, str]:
     return True, ""
 
 
-def build_final_conclusion(lcai: dict, *, in_portfolio: bool = False, uzi_tone: str | None = None) -> dict[str, Any]:
+def build_final_conclusion(lcai: dict, *, in_portfolio: bool = False) -> dict[str, Any]:
     ok, fail_reason = is_data_valid(lcai)
     if not ok:
         return {
@@ -561,7 +551,7 @@ def build_final_conclusion(lcai: dict, *, in_portfolio: bool = False, uzi_tone: 
 
     verdict = lcai.get("verdict") or "—"
     action = lcai.get("verdict_action") or ""
-    notes = build_divergence_notes(lcai, uzi_tone)
+    notes = build_divergence_notes(lcai)
     reasons: list[str] = []
     for n in notes:
         if n.get("kind") in ("veto", "hard_fail", "warning", "divergence"):
@@ -643,7 +633,7 @@ def build_summary_detailed(lcai: dict) -> str:
             f"【原因】{fail_reason}",
             "",
             "【你可以怎么做】",
-            "· 在 GitHub Actions 运行 uzi-reports 刷新缓存",
+            "· 在 GitHub Actions 运行 lcai-reports 刷新缓存",
             "· 港股需确认 East Money 能返回财务数据",
             "· 刷新后重新点「帮我看看」",
         ])
@@ -743,8 +733,8 @@ def build_rule_notes(lcai: dict) -> list[dict]:
     return notes
 
 
-def build_lcai_detail(lcai: dict, uzi_tone: str | None = None, *, in_portfolio: bool = False) -> dict[str, Any]:
-    final = build_final_conclusion(lcai, in_portfolio=in_portfolio, uzi_tone=uzi_tone)
+def build_lcai_detail(lcai: dict, *, in_portfolio: bool = False) -> dict[str, Any]:
+    final = build_final_conclusion(lcai, in_portfolio=in_portfolio)
     rule_details = build_rule_details(lcai) if final.get("data_ok") else []
     return {
         "final_conclusion": final,
@@ -754,7 +744,7 @@ def build_lcai_detail(lcai: dict, uzi_tone: str | None = None, *, in_portfolio: 
         "decision_path": build_decision_path(lcai) if final.get("data_ok") else [],
         "rule_highlights": build_rule_notes(lcai) if final.get("data_ok") else [],
         "rule_details": rule_details,
-        "divergence_notes": build_divergence_notes(lcai, uzi_tone) if final.get("data_ok") else [],
+        "divergence_notes": build_divergence_notes(lcai) if final.get("data_ok") else [],
         "data_ok": final.get("data_ok", False),
     }
 

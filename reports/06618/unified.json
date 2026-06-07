@@ -2,9 +2,9 @@
   "symbol": "06618",
   "name": null,
   "verdict": {
-    "value": "数据不足",
-    "action": "缓存损坏或财务未拉取，请 Run workflow 刷新",
-    "rating": "—",
+    "value": null,
+    "action": null,
+    "rating": null,
     "score": null,
     "source": "lcai",
     "max_weight": "0%"
@@ -26,7 +26,7 @@
   },
   "executive_brief": "06618：暂无法给出买卖结论 — 财务或行情拉取失败，缓存已损坏",
   "data_ok": false,
-  "summary_detailed": "【一句话结论】06618（06618）— 数据不足，无法给出 LCAI 买卖结论。\n\n【原因】财务或行情拉取失败，缓存已损坏\n\n【你可以怎么做】\n· 在 GitHub Actions 运行 uzi-reports 刷新缓存\n· 港股需确认 East Money 能返回财务数据\n· 刷新后重新点「帮我看看」",
+  "summary_detailed": "【一句话结论】06618（06618）— 数据不足，无法给出 LCAI 买卖结论。\n\n【原因】财务或行情拉取失败，缓存已损坏\n\n【你可以怎么做】\n· 在 GitHub Actions 运行 lcai-reports 刷新缓存\n· 港股需确认 East Money 能返回财务数据\n· 刷新后重新点「帮我看看」",
   "key_metrics": [
     {
       "label": "现价",
@@ -144,20 +144,12 @@
   "decision_path": [],
   "rule_highlights": [],
   "rule_details": [],
-  "divergence_notes": [
-    {
-      "kind": "warning",
-      "title": "数据不足",
-      "summary": "财务或行情拉取失败，缓存已损坏"
-    }
-  ],
+  "divergence_notes": [],
   "valuation": {
     "lcai_fair_value": null,
     "lcai_margin_pct": null,
     "dcf_fair_value": null,
     "dcf_margin_pct": null,
-    "uzi_dcf_fair_value": null,
-    "uzi_dcf_margin_pct": null,
     "narrative": "暂无估值数据。"
   },
   "layers": [
@@ -166,7 +158,6 @@
       "title": "L0 门禁",
       "lcai_status": "通过",
       "lcai_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。",
-      "uzi_insight": null,
       "merged_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。"
     },
     {
@@ -174,7 +165,6 @@
       "title": "L1 生意",
       "lcai_status": "通过",
       "lcai_summary": "生意质量见规则明细。",
-      "uzi_insight": null,
       "merged_summary": "生意质量见规则明细。"
     },
     {
@@ -182,7 +172,6 @@
       "title": "L2 财务",
       "lcai_status": "通过",
       "lcai_summary": "财务健康见规则明细。",
-      "uzi_insight": null,
       "merged_summary": "财务健康见规则明细。"
     },
     {
@@ -190,7 +179,6 @@
       "title": "L3 估值",
       "lcai_status": "通过",
       "lcai_summary": "估值见规则明细。",
-      "uzi_insight": null,
       "merged_summary": "估值见规则明细。"
     },
     {
@@ -198,7 +186,6 @@
       "title": "L4 执行",
       "lcai_status": "通过",
       "lcai_summary": "能力圈与心理纪律需用户在网页勾选确认。",
-      "uzi_insight": null,
       "merged_summary": "能力圈与心理纪律需用户在网页勾选确认。"
     },
     {
@@ -206,32 +193,18 @@
       "title": "L5 行业",
       "lcai_status": "通过",
       "lcai_summary": "行业适配见规则明细。",
-      "uzi_insight": null,
       "merged_summary": "行业适配见规则明细。"
     }
   ],
   "strengths": [],
   "weaknesses": [],
-  "divergences": [
-    {
-      "kind": "warning",
-      "title": "数据不足",
-      "summary": "财务或行情拉取失败，缓存已损坏"
-    }
-  ],
+  "divergences": [],
   "depth": {
     "lcai_ready": true,
-    "uzi_ready": false,
-    "full_ready": false,
     "ready": true,
     "schedule": "weekly_monday"
   },
-  "uzi": {
-    "tone": null,
-    "consensus": null,
-    "report_url": "reports/06618/index.html",
-    "ready": false
-  },
-  "generated_at": "2026-06-06T23:49:40+08:00",
-  "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
+  "report_url": "reports/06618/index.html",
+  "generated_at": "2026-06-07T10:50:43+08:00",
+  "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }

@@ -348,7 +348,7 @@
         "type": "veto",
         "name": "异常票特征",
         "sources": [
-          "UZI trap-detector",
+          "trap_scan 启发式",
           "投资中最常犯的错"
         ],
         "weight": 5,
@@ -360,7 +360,7 @@
         "missing": false,
         "note": "proxy",
         "result": "pass",
-        "reason": "未发现多项异常票特征（参考 UZI trap-detector 启发式）。"
+        "reason": "未发现多项异常票特征（trap_scan 启发式）。"
       },
       {
         "id": "L1-01",
@@ -654,7 +654,7 @@
         "type": "soft",
         "name": "DCF交叉验证",
         "sources": [
-          "UZI compute_dcf",
+          "简化 DCF",
           "聪明的投资者"
         ],
         "weight": 8,

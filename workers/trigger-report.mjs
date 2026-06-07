@@ -7,7 +7,7 @@
  *   GITHUB_REPO   - 可选，默认 RiddleGo/lcai-portfolio
  */
 const REPO = 'RiddleGo/lcai-portfolio';
-const WORKFLOW = 'uzi-reports.yml';
+const WORKFLOW = 'lcai-reports.yml';
 
 const CORS = {
   'Access-Control-Allow-Origin': '*',
@@ -29,7 +29,7 @@ export default {
     } catch {
       return Response.json({ error: 'Invalid JSON' }, { status: 400, headers: CORS });
     }
-    const { symbol, key, run_uzi = 'true', mode } = body || {};
+    const { symbol, key, mode } = body || {};
     if (!key || key !== env.TRIGGER_KEY) {
       return Response.json({ error: 'Unauthorized or missing key' }, { status: 401, headers: CORS });
     }
@@ -57,7 +57,6 @@ export default {
         ref: 'main',
         inputs: {
           symbol: weekly ? '' : sym,
-          run_uzi: String(run_uzi),
         },
       }),
     });

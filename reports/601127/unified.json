@@ -321,7 +321,7 @@
       "type": "veto",
       "name": "异常票特征",
       "sources": [
-        "UZI trap-detector",
+        "trap_scan 启发式",
         "投资中最常犯的错"
       ],
       "weight": 5,
@@ -333,7 +333,7 @@
       "missing": false,
       "note": "proxy",
       "result": "pass",
-      "reason": "未发现多项异常票特征（参考 UZI trap-detector 启发式）。"
+      "reason": "未发现多项异常票特征（trap_scan 启发式）。"
     },
     {
       "id": "L1-01",
@@ -627,7 +627,7 @@
       "type": "soft",
       "name": "DCF交叉验证",
       "sources": [
-        "UZI compute_dcf",
+        "简化 DCF",
         "聪明的投资者"
       ],
       "weight": 8,
@@ -730,8 +730,6 @@
     "lcai_margin_pct": -1.9,
     "dcf_fair_value": 57.75,
     "dcf_margin_pct": -29.9,
-    "uzi_dcf_fair_value": null,
-    "uzi_dcf_margin_pct": null,
     "narrative": "LCAI 公允价（行业 PE × EPS）≈ 73.6 元，安全边际 -1.9%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 57.75 元，DCF 安全边际 -29.9%。\n现价 75.01 元。\nLCAI PE×EPS -1.9% vs DCF -29.9%。"
   },
   "layers": [
@@ -740,7 +738,6 @@
       "title": "L0 门禁",
       "lcai_status": "通过",
       "lcai_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。",
-      "uzi_insight": null,
       "merged_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。"
     },
     {
@@ -748,7 +745,6 @@
       "title": "L1 生意",
       "lcai_status": "有缺口",
       "lcai_summary": "ROE 均值 -4.79% 未达 15%；5 年盈利年数不足",
-      "uzi_insight": null,
       "merged_summary": "ROE 均值 -4.79% 未达 15%；5 年盈利年数不足"
     },
     {
@@ -756,7 +752,6 @@
       "title": "L2 财务",
       "lcai_status": "通过",
       "lcai_summary": "OCF/EPS 约 4.15",
-      "uzi_insight": null,
       "merged_summary": "OCF/EPS 约 4.15"
     },
     {
@@ -764,7 +759,6 @@
       "title": "L3 估值",
       "lcai_status": "有缺口",
       "lcai_summary": "安全边际 -1.9% 未达 25%；公允价约 73.6 元；DCF 公允 57.75 元（边际 -29.9%）",
-      "uzi_insight": null,
       "merged_summary": "安全边际 -1.9% 未达 25%；公允价约 73.6 元；DCF 公允 57.75 元（边际 -29.9%）"
     },
     {
@@ -772,7 +766,6 @@
       "title": "L4 执行",
       "lcai_status": "通过",
       "lcai_summary": "能力圈与心理纪律需用户在网页勾选确认。",
-      "uzi_insight": null,
       "merged_summary": "能力圈与心理纪律需用户在网页勾选确认。"
     },
     {
@@ -780,7 +773,6 @@
       "title": "L5 行业",
       "lcai_status": "通过",
       "lcai_summary": "行业：乘用车",
-      "uzi_insight": null,
       "merged_summary": "行业：乘用车"
     }
   ],
@@ -820,17 +812,10 @@
   ],
   "depth": {
     "lcai_ready": true,
-    "uzi_ready": false,
-    "full_ready": false,
     "ready": true,
     "schedule": "weekly_monday"
   },
-  "uzi": {
-    "tone": null,
-    "consensus": null,
-    "report_url": "reports/601127/index.html",
-    "ready": false
-  },
-  "generated_at": "2026-06-07T00:17:03+08:00",
-  "disclaimer": "买卖结论以 LCAI 规则为准；UZI 价值派材料已并入解读，不覆盖裁决。"
+  "report_url": "reports/601127/index.html",
+  "generated_at": "2026-06-07T10:51:00+08:00",
+  "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }

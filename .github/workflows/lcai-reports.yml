@@ -1,0 +1,52 @@
+name: Generate LCAI reports
+
+on:
+  schedule:
+    # 每周一 UTC 01:00 ≈ 北京时间 09:00 — 持仓 + 关注列表全量刷新
+    - cron: "0 1 * * 1"
+  workflow_dispatch:
+    inputs:
+      symbol:
+        description: "Single symbol (empty = all holdings + watchlist)"
+        required: false
+        default: ""
+        type: string
+  push:
+    branches: [main]
+    paths:
+      - watchlist-data.js
+
+permissions:
+  contents: write
+
+jobs:
+  lcai-reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install LCAI dependencies
+        run: pip install requests urllib3
+
+      - name: Generate LCAI reports
+        env:
+          SYMBOL: ${{ github.event.inputs.symbol || '' }}
+        run: |
+          if [ -n "$SYMBOL" ]; then
+            python scripts/generate_reports.py --symbol "$SYMBOL"
+          else
+            python scripts/generate_reports.py --all
+          fi
+
+      - name: Commit reports
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/ watchlist-data.js
+          git diff --staged --quiet || git commit -m "chore: weekly LCAI reports for holdings and watchlist"
+          git push

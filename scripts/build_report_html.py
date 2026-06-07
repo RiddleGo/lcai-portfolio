@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""从 lcai + unified 生成 reports/{symbol}/index.html（UZI 未就绪时也展示完整 LCAI 研判）。"""
+"""从 lcai + unified 生成 reports/{symbol}/index.html。"""
 from __future__ import annotations
 
 import html
@@ -26,8 +26,6 @@ def build_report_html(
     lcai: dict,
     unified: dict,
     compare: dict | None = None,
-    *,
-    uzi_html_embedded: bool = False,
 ) -> str:
     compare = compare or {}
     name = lcai.get("name") or unified.get("name") or symbol
@@ -39,8 +37,6 @@ def build_report_html(
     detailed = unified.get("summary_detailed") or (lcai.get("analysis") or {}).get("summary_detailed") or ""
     key_metrics = unified.get("key_metrics") or (lcai.get("analysis") or {}).get("key_metrics") or []
     valuation = (unified.get("valuation") or {}).get("narrative") or ""
-    uzi = unified.get("uzi") or {}
-    uzi_ready = bool(uzi.get("ready"))
     generated = unified.get("generated_at") or compare.get("generated_at") or ""
     layers = unified.get("layers") or []
     strengths = unified.get("strengths") or []
@@ -86,21 +82,6 @@ def build_report_html(
         <section class="layer">
           <h3>{_esc(layer.get('title') or layer.get('layer'))} <span class="tag {st_cls}">{_esc(st)}</span></h3>
           <p>{_esc(layer.get('merged_summary') or layer.get('lcai_summary') or '')}</p>
-          {f'<p class="uzi-note"><strong>UZI：</strong>{_esc(layer.get("uzi_insight"))}</p>' if layer.get('uzi_insight') else ''}
-        </section>"""
-
-    uzi_block = ""
-    if uzi_ready:
-        uzi_block = f"""
-        <section class="card">
-          <h2>UZI 价值派参考</h2>
-          <p>定调：{_esc(uzi.get('tone'))} · 共识 {_esc(uzi.get('consensus'))}</p>
-        </section>"""
-    else:
-        uzi_block = """
-        <section class="card muted">
-          <h2>UZI 价值派参考</h2>
-          <p>尚未生成。持仓/云端关注列表每周一 Actions 自动补全；新票首次收藏需 Submit 一次入队。</p>
         </section>"""
 
     dash_url = "https://riddlego.github.io/lcai-portfolio/%E8%B5%84%E4%BA%A7%E6%80%BB%E8%A7%88.html#screen"
@@ -134,7 +115,6 @@ def build_report_html(
     .cols {{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
     @media (max-width: 600px) {{ .cols {{ grid-template-columns: 1fr; }} }}
     ul {{ margin: 0; padding-left: 1.2rem; }}
-    .uzi-note {{ font-size: 0.88rem; color: #94a3b8; }}
     footer {{ margin-top: 24px; font-size: 0.8rem; color: #64748b; }}
     pre {{ white-space: pre-wrap; font-family: inherit; margin: 0; }}
     table.metrics {{ width: 100%; border-collapse: collapse; font-size: 0.88rem; }}
@@ -201,10 +181,7 @@ def build_report_html(
     {layer_rows or '<p>暂无分层数据</p>'}
   </section>
 
-  {uzi_block}
-
-  <footer>研究辅助，不构成投资建议。买卖结论以 LCAI 规则为准。
-  {f'<br>本页含 UZI 原始 HTML 嵌入。' if uzi_html_embedded else ''}</footer>
+  <footer>研究辅助，不构成投资建议。买卖结论以 LCAI 规则为准。</footer>
 </body>
 </html>"""
 
@@ -221,7 +198,7 @@ def rebuild_from_disk(symbol: str, root: Path | None = None) -> Path:
     out_dir = root / "reports" / symbol
     lcai = json.loads((out_dir / "lcai.json").read_text(encoding="utf-8"))
     unified = json.loads((out_dir / "unified.json").read_text(encoding="utf-8"))
-    compare_path = out_dir / "lcai-vs-uzi.json"
+    compare_path = out_dir / "meta.json"
     compare = json.loads(compare_path.read_text(encoding="utf-8")) if compare_path.exists() else {}
     return write_report_html(out_dir, symbol, lcai, unified, compare)
 

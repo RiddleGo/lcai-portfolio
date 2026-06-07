@@ -273,7 +273,7 @@ const ScreenEngine = (() => {
         ? '未出现 PE>80 且低增长的极端泡沫组合。'
         : `PE ${fmt(m.pe)} 极高且增速不足，估值泡沫风险大，触发否决。`,
       trap_scan: () => pass
-        ? '未发现多项异常票特征（参考 UZI trap-detector 启发式）。'
+        ? '未发现多项异常票特征（trap_scan 启发式）。'
         : `命中异常特征：${(m.trapFlags || []).join('、')}——杀猪盘/庄股风险，触发否决。`,
       dcf_cross_check: () => out.missing
         ? '无法计算简化 DCF，暂中性。'

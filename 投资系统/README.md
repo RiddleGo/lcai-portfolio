@@ -6,7 +6,7 @@
 
 ### 网页（推荐）
 
-打开 [选股研判.html](../选股研判.html)，输入 A 股/港股代码，点击「研判」。
+打开 [资产总览 → 选股](../资产总览.html#screen)，输入 A 股/港股代码，点击「帮我看看」。
 
 - A 股：`600519`、`601127`、`sh600519`
 - 港股：`00700`、`09880`
@@ -16,6 +16,7 @@
 ```bash
 python 投资系统/engine/screen_stock.py 600519
 python 投资系统/engine/screen_stock.py 09880
+bash scripts/run_lcai_analysis.sh 600519
 ```
 
 ## 目录
@@ -26,11 +27,9 @@ python 投资系统/engine/screen_stock.py 09880
 | `00-投资宪法.md` | 10 条不可违背原则 |
 | `01-选股筛选标准.md` | 五层漏斗标准全文 |
 | `06-评分与评级说明.md` | 打分与 A/B/C/D 评级 |
-| `08-UZI对照说明.md` | LCAI 与 UZI 融合与对照 |
-| `09-UZI逻辑说明.md` | UZI 评分逻辑与本仓库用法 |
 | `engine/` | Python 引擎 |
-| [`../AGENTS.md`](../AGENTS.md) | Cursor 综合研判 SOP |
-| [`../scripts/run_dual_analysis.sh`](../scripts/run_dual_analysis.sh) | LCAI + UZI 一键脚本 |
+| [`../AGENTS.md`](../AGENTS.md) | Cursor 研判 SOP |
+| [`../scripts/run_lcai_analysis.sh`](../scripts/run_lcai_analysis.sh) | 本地一键写入 reports |
 
 ## 判定说明
 

@@ -1,5 +1,5 @@
 name: 云端研报请求
-description: 从资产总览网页触发，生成 LCAI + UZI 深度研报（提交后约 3–10 分钟）
+description: 从资产总览网页触发，生成 LCAI 研判报告（提交后约 2–5 分钟）
 title: "[report] "
 labels:
   - report-bot

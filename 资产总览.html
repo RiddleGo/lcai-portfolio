@@ -758,7 +758,7 @@
     .screen-layer-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
     .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
     .unified-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
-    .uzi-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+    .screen-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
     .cloud-status {
       margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; line-height: 1.5;
       background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.35); color: #93c5fd;
@@ -1788,15 +1788,15 @@
 
     <!-- ========== 页7：选股研判 ========== -->
     <div id="page-screen" class="page">
-      <p class="page-desc">输入代码，点「帮我看看」。<strong>持仓 + 云端关注</strong>每周一自动深度分析；<strong>新票首次</strong>收藏需 GitHub 点一次 Submit。</p>
+      <p class="page-desc">输入代码，点「帮我看看」。<strong>持仓 + 云端关注</strong>每周一自动刷新 LCAI 报告；<strong>新票首次</strong>收藏需 GitHub 点一次 Submit。</p>
 
       <div class="card watchlist-box" style="margin-bottom:16px">
         <h3>⭐ 我的关注（点一下就能再看）</h3>
         <div id="watchlist-chips" class="watchlist-chips"></div>
         <div class="unified-actions" style="margin-top:12px">
-          <button type="button" class="screen-btn screen-btn-ghost" id="btn-weekly-refresh">🔄 立即更新全部深度分析</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-weekly-refresh">🔄 立即更新全部报告</button>
         </div>
-        <p class="screen-help" style="margin-top:8px">点上面按钮 → 在 GitHub 页点 <strong>Run workflow</strong>（run_uzi 选 true）→ 约 30–60 分钟更新（与每周一自动跑的是同一个任务）。</p>
+        <p class="screen-help" style="margin-top:8px">点上面按钮 → 在 GitHub 页点 <strong>Run workflow</strong> → 约 5–15 分钟更新（与每周一自动跑的是同一个任务）。</p>
       </div>
 
       <div class="card" style="margin-bottom:16px">
@@ -1838,18 +1838,18 @@
             <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
           </div>
           <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
-          <p id="unified-disclaimer" class="uzi-disclaimer" hidden>买卖结论以 LCAI 规则为准。下方 UZI 内容为深度附录，不改变裁决。</p>
+          <p id="unified-disclaimer" class="screen-disclaimer" hidden>买卖结论以 LCAI 投资宪法为准。</p>
 
           <div id="report-cta" class="report-cta" hidden>
             <div id="report-cta-text"></div>
             <div class="unified-actions">
               <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并加入云端队列</button>
-              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden disabled>完整研报生成中…</button>
+              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden disabled>报告生成中…</button>
             </div>
           </div>
 
           <div id="unified-divergences" class="screen-analysis-block" hidden></div>
-          <div id="unified-uzi-footer" class="screen-analysis-block" hidden></div>
+          <div id="unified-cache-footer" class="screen-analysis-block" hidden></div>
 
           <div id="analysis-metrics" class="screen-metrics-grid"></div>
 
@@ -1912,7 +1912,7 @@
         </div>
       </div>
 
-      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。买卖以 LCAI 最终结论为准；UZI 深度材料每周自动并入解读附录（不改变裁决）。详见 <a href="投资系统/09-UZI逻辑说明.md">UZI 逻辑说明</a>。</p>
+      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。买卖以 LCAI 投资宪法为准。规则见 <a href="投资系统/criteria.json">criteria.json</a>。</p>
     </div>
 
     <footer>生成日期：2026-06-06 · 执行 + 还款 + 现金流 + 投资规划 + 诊断 + 持仓 + 选股</footer>
@@ -2815,13 +2815,13 @@
       localStorage.removeItem(OVERRIDES_KEY);
     })();
   </script>
-  <script src="watchlist-data.js?v=748013"></script>
-  <script src="screen-data.js?v=748013"></script>
-  <script src="screen-engine.js?v=748013"></script>
-  <script src="screen-watchlist.js?v=748013"></script>
-  <script src="screen-cloud.js?v=748013"></script>
-  <script src="screen-unified.js?v=748014"></script>
-  <script src="screen-ui.js?v=748013"></script>
+  <script src="watchlist-data.js?v=748015"></script>
+  <script src="screen-data.js?v=748015"></script>
+  <script src="screen-engine.js?v=748015"></script>
+  <script src="screen-watchlist.js?v=748015"></script>
+  <script src="screen-cloud.js?v=748015"></script>
+  <script src="screen-unified.js?v=748015"></script>
+  <script src="screen-ui.js?v=748015"></script>
   <script>
     if (location.hash === "#screen") {
       document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));

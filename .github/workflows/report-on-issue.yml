@@ -1,6 +1,6 @@
 name: Report on issue request
 
-# 新票首次收藏：网页打开 Issue 提交后自动入队 watchlist + 生成深度（持仓/已有关注无需 Issue）
+# 新票首次收藏：网页打开 Issue 提交后自动入队 watchlist + 生成报告（持仓/已有关注无需 Issue）
 on:
   issues:
     types: [opened]
@@ -40,19 +40,9 @@ jobs:
       - name: Install dependencies
         run: pip install requests urllib3
 
-      - name: Clone UZI-Skill
-        run: |
-          git clone --depth 1 https://github.com/wbh604/UZI-Skill.git .vendor/UZI-Skill || true
-          if [ -f .vendor/UZI-Skill/requirements.txt ]; then
-            pip install -r .vendor/UZI-Skill/requirements.txt || true
-          fi
-
       - name: Generate reports
         run: |
-          python scripts/generate_uzi_reports.py \
-            --symbol "${{ steps.parse.outputs.symbol }}" \
-            --run-uzi \
-            --uzi-path .vendor/UZI-Skill
+          python scripts/generate_reports.py --symbol "${{ steps.parse.outputs.symbol }}"
           python scripts/watchlist_utils.py add "${{ steps.parse.outputs.symbol }}"
 
       - name: Commit reports
@@ -67,12 +57,12 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --body "✅ 综合研判已生成并推送至 \`reports/${{ steps.parse.outputs.symbol }}/\`
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ LCAI 研判已生成并推送至 \`reports/${{ steps.parse.outputs.symbol }}/\`
 
           - 融合报告：[unified.json](https://github.com/${{ github.repository }}/blob/main/reports/${{ steps.parse.outputs.symbol }}/unified.json)
           - 网页：[资产总览 · 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
 
-          本页轮询会自动补全深度分析；也可刷新后重新点「帮我看看」。"
+          刷新后重新点「帮我看看」即可读取缓存。"
           gh issue close "${{ github.event.issue.number }}"
 
   weekly-from-issue:
@@ -82,7 +72,7 @@ jobs:
        github.event.issue.author_association == 'COLLABORATOR' ||
        github.event.issue.author_association == 'MEMBER')
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -93,31 +83,23 @@ jobs:
       - name: Install dependencies
         run: pip install requests urllib3
 
-      - name: Clone UZI-Skill
-        run: |
-          git clone --depth 1 https://github.com/wbh604/UZI-Skill.git .vendor/UZI-Skill || true
-          if [ -f .vendor/UZI-Skill/requirements.txt ]; then
-            pip install -r .vendor/UZI-Skill/requirements.txt || true
-          fi
-
-      - name: Generate all unified reports
-        run: |
-          python scripts/generate_uzi_reports.py --all --run-uzi --uzi-path .vendor/UZI-Skill
+      - name: Generate all LCAI reports
+        run: python scripts/generate_reports.py --all
 
       - name: Commit reports
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add reports/ watchlist-data.js
-          git diff --staged --quiet || git commit -m "chore: weekly depth refresh via issue #${{ github.event.issue.number }}"
+          git diff --staged --quiet || git commit -m "chore: weekly LCAI refresh via issue #${{ github.event.issue.number }}"
           git push
 
       - name: Close issue with comment
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue comment "${{ github.event.issue.number }}" --body "✅ 持仓 + 关注列表全量深度分析已触发并完成推送。
+          gh issue comment "${{ github.event.issue.number }}" --body "✅ 持仓 + 关注列表全量 LCAI 报告已刷新。
 
           - 网页：[资产总览 · 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
-          - 约 1–2 分钟后刷新页面，完整 HTML 按钮会在 UZI 就绪后变为可点。"
+          - 约 1–2 分钟后刷新页面即可读取最新缓存。"
           gh issue close "${{ github.event.issue.number }}"

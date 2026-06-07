@@ -1,11 +1,11 @@
 /**
- * 关注与深度分析：Issue 触发 + 每周 Actions 自动更新
+ * 关注与云端缓存：Issue 触发 + 每周 Actions 自动更新
  */
 const ScreenCloud = (() => {
   const REPO = 'RiddleGo/lcai-portfolio';
-  const WEEKLY_ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/uzi-reports.yml`;
+  const WEEKLY_ACTIONS_URL = `https://github.com/${REPO}/actions/workflows/lcai-reports.yml`;
   const POLL_MS = 15000;
-  const POLL_MAX = 48;
+  const POLL_MAX = 24;
 
   let pollTimer = null;
   let pollCount = 0;
@@ -24,7 +24,7 @@ const ScreenCloud = (() => {
     const code = normalizeSymbol(symbol);
     const title = encodeURIComponent(`[report] ${code}`);
     const body = encodeURIComponent(
-      `请为 ${code} 生成深度分析并加入云端关注（网页自动触发，请勿修改标题）。`
+      `请为 ${code} 生成 LCAI 研判并加入云端关注（网页自动触发，请勿修改标题）。`
     );
     return `https://github.com/${REPO}/issues/new?title=${title}&body=${body}`;
   }
@@ -32,7 +32,7 @@ const ScreenCloud = (() => {
   function requestWeeklyRefresh() {
     window.open(WEEKLY_ACTIONS_URL, '_blank', 'noopener');
     setStatus(
-      '已打开 GitHub Actions：右侧点 Run workflow → 保持 run_uzi 为 true → 绿色 Run。约 30–60 分钟后刷新本页。',
+      '已打开 GitHub Actions：右侧点 Run workflow → 绿色 Run。约 5–15 分钟后刷新本页。',
       'pending'
     );
   }
@@ -51,17 +51,12 @@ const ScreenCloud = (() => {
     return !!(data && data.verdict?.value && Array.isArray(data.layers) && data.layers.length >= 4);
   }
 
-  function hasUziLayer(data) {
-    return !!(data && data.uzi && data.uzi.ready);
+  function isCacheReady(data) {
+    return hasUnifiedDepth(data) && !!(data.generated_at || data.depth?.ready);
   }
 
-  function isFullDepthReady(data) {
-    return hasUziLayer(data) || !!(data && data.depth && data.depth.full_ready);
-  }
-
-  function isGeneratingFullDepth(code, data) {
+  function isGeneratingCache(code, data) {
     if (pollTimer && normalizeSymbol(currentSymbol) === normalizeSymbol(code)) return true;
-    if (hasUnifiedDepth(data) && !isFullDepthReady(data)) return true;
     if (!data && (ScreenWatchlist?.isInCloud?.(code) || pollTimer)) return true;
     return false;
   }
@@ -70,9 +65,9 @@ const ScreenCloud = (() => {
     const btnOpen = el('btn-open-full-report');
     if (!btnOpen) return;
 
-    const fullReady = isFullDepthReady(data);
-    const generating = isGeneratingFullDepth(code, data);
-    const showBtn = fullReady || generating || hasUnifiedDepth(data) || ScreenWatchlist?.isInCloud?.(code);
+    const ready = isCacheReady(data);
+    const generating = isGeneratingCache(code, data);
+    const showBtn = ready || generating || hasUnifiedDepth(data) || ScreenWatchlist?.isInCloud?.(code);
 
     if (!showBtn) {
       btnOpen.hidden = true;
@@ -82,15 +77,15 @@ const ScreenCloud = (() => {
     }
 
     btnOpen.hidden = false;
-    if (fullReady) {
+    if (ready) {
       btnOpen.disabled = false;
-      btnOpen.textContent = '查看 UZI 完整 HTML';
+      btnOpen.textContent = '查看完整报告';
       btnOpen.onclick = () => window.open(lcaiAsset(`reports/${code}/index.html`), '_blank');
     } else {
       btnOpen.disabled = true;
       btnOpen.textContent = pollTimer && normalizeSymbol(currentSymbol) === normalizeSymbol(code)
-        ? '完整研报生成中…'
-        : '完整研报排队中…';
+        ? '云端报告生成中…'
+        : '云端报告排队中…';
       btnOpen.onclick = null;
     }
   }
@@ -114,7 +109,7 @@ const ScreenCloud = (() => {
     stopPolling();
     currentSymbol = normalizeSymbol(symbol);
     pollCount = 0;
-    setStatus('正在生成深度分析，大约 5–10 分钟。你可以先干别的，本页会自动刷新。', 'pending');
+    setStatus('正在生成云端报告，大约 2–5 分钟。你可以先干别的，本页会自动刷新。', 'pending');
 
     pollTimer = setInterval(async () => {
       pollCount += 1;
@@ -122,12 +117,12 @@ const ScreenCloud = (() => {
         const data = await fetchUnified(currentSymbol);
         const gen = data.generated_at ? new Date(data.generated_at).getTime() : 0;
         const isNew = !baselineTime || gen > baselineTime;
-        if (isNew && isFullDepthReady(data)) {
+        if (isNew && isCacheReady(data)) {
           updateReportCta(currentSymbol, data);
           if (lastLiveReport && ScreenUnified?.applyMerged) {
             ScreenUnified.applyMerged(ScreenUnified.mergeLiveWithCache(lastLiveReport, data));
           }
-          setStatus('好了！完整深度分析已就绪，以后每周一自动更新。', 'ok');
+          setStatus('好了！云端报告已就绪，以后每周一自动更新。', 'ok');
           stopPolling();
         } else if (isNew && hasUnifiedDepth(data)) {
           updateReportCta(currentSymbol, data);
@@ -152,8 +147,8 @@ const ScreenCloud = (() => {
 
     const code = normalizeSymbol(symbol);
     const unified = hasUnifiedDepth(data);
-    const fullReady = isFullDepthReady(data);
-    const generating = isGeneratingFullDepth(code, data);
+    const ready = isCacheReady(data);
+    const generating = isGeneratingCache(code, data);
     const inCloud = ScreenWatchlist?.isInCloud?.(code);
     box.hidden = false;
 
@@ -168,18 +163,18 @@ const ScreenCloud = (() => {
       btnGen.onclick = () => favoriteSymbol(code, data?.name);
     }
 
-    if (fullReady) {
+    if (ready) {
       if (text) {
-        text.innerHTML = `<p class="cta-ok">✅ 完整深度分析已就绪</p><p class="cta-steps">UZI 价值派材料已并入下方解读，可点「查看 UZI 完整 HTML」。</p>`;
+        text.innerHTML = `<p class="cta-ok">✅ 云端报告已就绪</p><p class="cta-steps">可点「查看完整报告」打开静态页，或继续在本页看综合研判。</p>`;
       }
     } else if (unified || generating) {
       if (text) {
-        text.innerHTML = `<p class="cta-title">⏳ 完整深度分析生成中</p><p class="cta-steps">综合研判已可看；完整 HTML 生成完成后按钮才可点（约 5–10 分钟，或每周一自动）。</p>`;
+        text.innerHTML = `<p class="cta-title">⏳ 云端报告生成中</p><p class="cta-steps">综合研判已可看；完整报告生成完成后按钮才可点（约 2–5 分钟，或每周一自动）。</p>`;
       }
     } else if (text) {
       text.innerHTML = `
         <p class="cta-title">📄 新票还没有云端缓存</p>
-        <p class="cta-steps">点「收藏并加入云端队列」→ 新页面点绿色 <strong>Submit</strong>（<strong>仅首次</strong>）→ 回到本页等着（约 5–10 分钟）。<br>之后每周一自动更新。</p>`;
+        <p class="cta-steps">点「收藏并加入云端队列」→ 新页面点绿色 <strong>Submit</strong>（<strong>仅首次</strong>）→ 回到本页等着（约 2–5 分钟）。<br>之后每周一自动更新。</p>`;
     }
 
     syncFullReportButton(code, data);
@@ -203,10 +198,10 @@ const ScreenCloud = (() => {
 
     if (ScreenWatchlist?.isInCloud?.(sym) || hasUnifiedDepth(data)) {
       updateReportCta(sym, data);
-      if (isFullDepthReady(data)) {
-        setStatus('已在云端关注列表，完整深度分析已就绪。', 'ok');
+      if (isCacheReady(data)) {
+        setStatus('已在云端关注列表，报告已就绪。', 'ok');
       } else {
-        setStatus('已在云端关注列表。完整深度分析生成中或排队中，完成后按钮可点。', 'warn');
+        setStatus('已在云端关注列表。报告生成中或排队中，完成后按钮可点。', 'warn');
       }
       return;
     }
@@ -252,7 +247,7 @@ const ScreenCloud = (() => {
     normalizeSymbol,
     setLiveReport,
     fetchUnified,
-    isFullDepthReady,
+    isCacheReady,
     hasUnifiedDepth,
   };
 })();
