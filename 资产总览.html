@@ -1024,6 +1024,75 @@
       margin-bottom: 10px;
       border-bottom: 1px solid var(--border);
     }
+
+    .finance-adjust-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .finance-adjust-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .finance-adjust-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: hsl(var(--foreground) / 0.02);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .finance-adjust-item .meta { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+    .finance-adjust-item button {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+
+    .finance-adjust-item button:hover { border-color: var(--danger); color: var(--danger); }
+
+    .badge.local { background: rgba(99,102,241,0.18); color: #a5b4fc; font-size: 0.62rem; margin-left: 4px; }
+
+    .holding-inline-panel {
+      background: var(--card);
+      border: 1px solid hsl(var(--primary) / 0.28);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+
+    .holding-inline-panel h2 { margin-bottom: 6px; }
+
+    .holding-inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .holding-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      align-items: center;
+    }
   </style>
 </head>
 <body>
@@ -1283,6 +1352,29 @@
         </div>
       </section>
 
+      <section>
+        <h2>手动记录（仅本机）</h2>
+        <p class="page-desc" style="margin-top:-8px;">追加存款会立即更新净资产。开新仓请去「持仓」页直接填写。</p>
+        <div class="finance-adjust-actions">
+          <button type="button" class="screen-btn" id="btn-add-deposit">+ 追加存款</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-add-local-holding">+ 网页开新仓</button>
+        </div>
+        <div class="summary-grid" style="margin-bottom:14px;">
+          <div class="card highlight">
+            <div class="card-label">额外存款合计</div>
+            <div class="card-value" id="extra-cash-total">—</div>
+            <div class="card-sub" id="extra-cash-sub">含银行卡/储蓄追加 · 计入净资产</div>
+          </div>
+          <div class="card">
+            <div class="card-label">网页新仓</div>
+            <div class="card-value" id="local-holdings-count">—</div>
+            <div class="card-sub" id="local-holdings-sub">—</div>
+          </div>
+        </div>
+        <div id="adjust-deposits-list" class="finance-adjust-list"></div>
+        <div id="adjust-holdings-list" class="finance-adjust-list"></div>
+      </section>
+
       <details class="finance-fold">
         <summary>各平台待还明细</summary>
         <div class="card" style="padding:0;overflow:hidden;">
@@ -1463,6 +1555,52 @@
           <div class="card-sub" id="net-worth-sub">—</div>
         </div>
       </div>
+
+      <section class="holding-inline-panel" id="new-holding-panel">
+        <h2>网页开新仓</h2>
+        <p class="page-desc" style="margin:0;">在下方填写，点「加入持仓」即出现在列表并更新市值（本机保存，刷新仍在）。若要写入 GitHub 仓库，请用「选股」页研判后的「加入持仓 → Submit」。</p>
+        <div class="holding-inline-grid">
+          <div class="holding-form-row">
+            <label>股票名称</label>
+            <input type="text" id="local-holding-name" placeholder="例如 贵州茅台">
+          </div>
+          <div class="holding-form-row">
+            <label>代码</label>
+            <input type="text" id="local-holding-code" placeholder="600519 或 01833">
+          </div>
+          <div class="holding-form-row">
+            <label>市场</label>
+            <select id="local-holding-market">
+              <option value="sh">A股 · 上海（6开头）</option>
+              <option value="sz">A股 · 深圳</option>
+              <option value="hk">港股</option>
+            </select>
+          </div>
+          <div class="holding-form-row">
+            <label>股数</label>
+            <input type="number" id="local-holding-shares" min="1" step="1" placeholder="100">
+          </div>
+          <div class="holding-form-row">
+            <label>成本价</label>
+            <input type="number" id="local-holding-cost" min="0.01" step="0.01" placeholder="买入均价">
+          </div>
+          <div class="holding-form-row">
+            <label>账户</label>
+            <select id="local-holding-account">
+              <option value="hb">华宝 (hb)</option>
+              <option value="gt">国投 (gt)</option>
+            </select>
+          </div>
+          <div class="holding-form-row">
+            <label>现价备用</label>
+            <input type="number" id="local-holding-fallback" min="0.01" step="0.01" placeholder="无行情时用">
+          </div>
+        </div>
+        <div class="holding-inline-actions">
+          <button type="button" class="screen-btn" id="finance-holding-submit">加入持仓</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="finance-holding-clear">清空表单</button>
+        </div>
+      </section>
 
       <section>
         <h2>持仓明细</h2>
@@ -1662,6 +1800,32 @@
     <div id="page-handbook" class="page">
       <p class="page-desc">LCAI 使用与维护说明（与仓库 <code>08-日常维护手册.md</code> 同步）。</p>
       <div id="handbook-content"></div>
+    </div>
+
+    <div id="finance-deposit-modal" class="holding-modal-backdrop" hidden>
+      <div class="holding-modal-card" role="dialog" aria-labelledby="finance-deposit-title">
+        <h3 id="finance-deposit-title">追加存款</h3>
+        <div class="holding-form-row">
+          <label>金额（元）</label>
+          <input type="number" id="deposit-amount" min="1" step="1" placeholder="例如 20000">
+        </div>
+        <div class="holding-form-row">
+          <label>归入账户</label>
+          <select id="deposit-account">
+            <option value="pool">通用现金池（默认）</option>
+            <option value="gt">国投证券</option>
+            <option value="hb">华宝证券</option>
+          </select>
+        </div>
+        <div class="holding-form-row">
+          <label>备注（可选）</label>
+          <input type="text" id="deposit-note" placeholder="例如 6 月额外储蓄">
+        </div>
+        <div class="holding-modal-actions">
+          <button type="button" class="screen-btn" id="finance-deposit-submit">保存</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="finance-deposit-cancel">取消</button>
+        </div>
+      </div>
     </div>
 
     <div id="holding-modal" class="holding-modal-backdrop" hidden>
@@ -1902,6 +2066,57 @@
       localStorage.setItem(OVERRIDES_KEY, JSON.stringify(o));
     }
 
+    function normalizeOverrides(o) {
+      const out = o && typeof o === "object" ? o : {};
+      if (!Array.isArray(out.deposits)) out.deposits = [];
+      if (!Array.isArray(out.newHoldings)) out.newHoldings = [];
+      if (!out.holdings || typeof out.holdings !== "object") out.holdings = {};
+      return out;
+    }
+
+    function loadOverridesNormalized() {
+      return normalizeOverrides(loadOverrides());
+    }
+
+    function codeDigits(input) {
+      return String(input || "").replace(/\D/g, "");
+    }
+
+    function buildSymbol(code, market) {
+      const c = codeDigits(code);
+      if (!c) return "";
+      if (market === "hk") return "116." + c.padStart(5, "0");
+      if (market === "sh" || c.startsWith("6")) return "1." + c.padStart(6, "0");
+      return "0." + c.padStart(6, "0");
+    }
+
+    function findHoldingDef(id, overrides) {
+      const base = BASELINE.holdings.find(x => x.id === id);
+      if (base) return base;
+      return (overrides.newHoldings || []).find(x => x.id === id);
+    }
+
+    function sumDeposits(deposits) {
+      return (deposits || []).reduce((a, d) => a + (Number(d.amount) || 0), 0);
+    }
+
+    function applyDepositsToAccounts(accounts, deposits) {
+      for (const d of deposits || []) {
+        const amt = Number(d.amount) || 0;
+        if (d.account === "gt") accounts.gt += amt;
+        else if (d.account === "hb") accounts.hb += amt;
+        else accounts.pool = (accounts.pool || 0) + amt;
+      }
+    }
+
+    function mergeNewHoldings(s, overrides) {
+      for (const h of overrides.newHoldings || []) {
+        if (!h || h.sold) continue;
+        if (s.holdings.some(x => x.id === h.id)) continue;
+        s.holdings.push(deepClone(h));
+      }
+    }
+
     function getQuotes() {
       return window.LCAI_QUOTES || { fx: { HKDCNY: 0.92 }, prices: {}, updatedAt: null };
     }
@@ -1955,7 +2170,8 @@
     function getEffectAmount(item, entry, overrides) {
       if (entry.actual != null && !isNaN(entry.actual)) return entry.actual;
       if (entry.actualPrice != null && !isNaN(entry.actualPrice) && item.holdingId) {
-        const h = BASELINE.holdings.find(x => x.id === item.holdingId);
+        const overrides = loadOverridesNormalized();
+        const h = findHoldingDef(item.holdingId, overrides) || BASELINE.holdings.find(x => x.id === item.holdingId);
         if (h) {
           const fx = getFxRate(overrides);
           const shares = item.sellShares ?? h.shares;
@@ -2014,12 +2230,13 @@
     }
 
     function computeState(todoState) {
-      const overrides = loadOverrides();
+      const overrides = loadOverridesNormalized();
       const s = {
         debts: deepClone(BASELINE.debts),
         holdings: deepClone(BASELINE.holdings),
         funds: deepClone(BASELINE.funds),
       };
+      mergeNewHoldings(s, overrides);
       applyOverridesToState(s, overrides);
       for (const group of TODO_GROUPS) {
         for (const item of group.items) {
@@ -2036,15 +2253,19 @@
       s.fundsTotal = activeFunds.reduce((a, f) => a + f.amount, 0);
       s.fundPnl = activeFunds.reduce((a, f) => a + f.pnl, 0);
       s.liabilitiesTotal = Object.values(s.debts).reduce((a, b) => a + b, 0);
-      s.accounts = { gt: 0, hb: 0 };
+      s.accounts = { gt: 0, hb: 0, pool: 0 };
       activeHoldings.forEach(h => { s.accounts[h.account] += h.marketValue; });
       s.accounts.gt += BASELINE.accountCash.gt;
       s.accounts.hb += BASELINE.accountCash.hb;
+      s.deposits = overrides.deposits || [];
+      s.extraCash = sumDeposits(s.deposits);
+      applyDepositsToAccounts(s.accounts, s.deposits);
       s.securitiesTotal = s.accounts.gt + s.accounts.hb;
-      s.netWorth = s.securitiesTotal + s.fundsTotal - s.liabilitiesTotal;
+      s.netWorth = s.securitiesTotal + s.fundsTotal + s.extraCash - s.liabilitiesTotal;
       s.floatingLoss = s.stockPnl + s.fundPnl;
-      const assets = s.securitiesTotal + s.fundsTotal;
+      const assets = s.securitiesTotal + s.fundsTotal + s.extraCash;
       s.debtRatio = assets > 0 ? (s.liabilitiesTotal / assets) * 100 : 0;
+      s.localHoldings = activeHoldings.filter(h => h.local);
       return s;
     }
 
@@ -2103,7 +2324,8 @@
       }
       if (secCost) secCost.textContent = fmtInt(state.securitiesTotal + Math.abs(state.stockPnl));
       if (netWorth) netWorth.textContent = fmtInt(state.netWorth);
-      if (netSub) netSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
+      const cashPart = state.extraCash > 0 ? ` + 额外现金 ${fmtInt(state.extraCash)}` : "";
+      if (netSub) netSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)}${cashPart} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
 
       const tbody = document.getElementById("holdings-tbody");
       if (tbody) {
@@ -2115,6 +2337,7 @@
             const pnlCls = h.pnl >= 0 ? "gain" : "loss";
             const pnlSign = h.pnl >= 0 ? "+" : "";
             const hk = h.hk ? '<span class="badge hk">HK</span>' : "";
+            const local = h.local ? '<span class="badge local">网页</span>' : "";
             const acct = h.account === "gt" ? "gt" : "hb";
             const cur = h.currency === "HKD" ? "HKD" : "CNY";
             const priceLabel = h.priceSource === "manual"
@@ -2123,8 +2346,11 @@
             const manualBtn = h.priceSource === "manual"
               ? `<button type="button" data-clear-price="${h.id}">恢复自动</button>`
               : "";
+            const removeBtn = h.local
+              ? `<button type="button" data-remove-local="${h.id}">删除</button>`
+              : "";
             return `<tr>
-              <td>${h.name}${hk}</td>
+              <td>${h.name}${hk}${local}</td>
               <td><span class="account-tag ${acct}">${acct === "gt" ? "国投" : "华宝"}</span></td>
               <td>${h.shares.toLocaleString()}</td>
               <td>${fmtMoney(h.costPerShare, 2)} ${cur}</td>
@@ -2136,6 +2362,7 @@
                 <button type="button" data-edit-cost="${h.id}">改成本</button>
                 <button type="button" data-edit-price="${h.id}">改现价</button>
                 ${manualBtn}
+                ${removeBtn}
               </div></td>
             </tr>`;
           }).join("");
@@ -2148,6 +2375,9 @@
         });
         tbody.querySelectorAll("[data-clear-price]").forEach(btn => {
           btn.addEventListener("click", () => clearHoldingPrice(btn.dataset.clearPrice));
+        });
+        tbody.querySelectorAll("[data-remove-local]").forEach(btn => {
+          btn.addEventListener("click", () => removeLocalHolding(btn.dataset.removeLocal));
         });
       }
 
@@ -2194,9 +2424,9 @@
     }
 
     function editHoldingCost(id) {
-      const h = BASELINE.holdings.find(x => x.id === id);
+      const ov = loadOverridesNormalized();
+      const h = findHoldingDef(id, ov);
       if (!h) return;
-      const ov = loadOverrides();
       const cur = ov.holdings?.[id]?.costPerShare ?? h.costPerShare;
       const curLabel = h.currency === "HKD" ? "HKD" : "CNY";
       const input = prompt(`${h.name} 成本价（${curLabel}）：`, String(cur));
@@ -2210,9 +2440,9 @@
     }
 
     function editHoldingPrice(id) {
-      const h = BASELINE.holdings.find(x => x.id === id);
+      const ov = loadOverridesNormalized();
+      const h = findHoldingDef(id, ov);
       if (!h) return;
-      const ov = loadOverrides();
       const state = computeState(loadTodoState());
       const live = state.holdings.find(x => x.id === id);
       const cur = ov.holdings?.[id]?.manualPrice ?? live?.nativePrice ?? h.fallbackPrice;
@@ -2228,7 +2458,7 @@
     }
 
     function clearHoldingPrice(id) {
-      const ov = loadOverrides();
+      const ov = loadOverridesNormalized();
       if (ov.holdings?.[id]) {
         delete ov.holdings[id].manualPrice;
         if (Object.keys(ov.holdings[id]).length === 0) delete ov.holdings[id];
@@ -2269,13 +2499,175 @@
       const dr = document.getElementById("diag-debtratio");
       const drSub = document.getElementById("diag-debtratio-sub");
       if (nw) nw.textContent = fmtInt(state.netWorth);
-      if (nwSub) nwSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
+      const cashPart = state.extraCash > 0 ? ` + 额外现金 ${fmtInt(state.extraCash)}` : "";
+      if (nwSub) nwSub.textContent = `证券 ${fmtInt(state.securitiesTotal)} + 基金 ${fmtInt(state.fundsTotal)}${cashPart} − 负债 ${fmtInt(state.liabilitiesTotal)}`;
       if (fl) fl.textContent = fmtInt(state.floatingLoss);
       if (flSub) flSub.textContent = `证券 ${fmtInt(state.stockPnl)} + 基金 ${fmtInt(state.fundPnl)}`;
       if (dr) dr.textContent = state.debtRatio.toFixed(0) + "%";
       if (drSub) {
         drSub.textContent = state.debtRatio > 50 ? "高杠杆 · 继续降负债" : state.debtRatio > 20 ? "杠杆下降中" : "低杠杆";
       }
+    }
+
+    function renderAdjustments(state) {
+      const depList = document.getElementById("adjust-deposits-list");
+      const holdList = document.getElementById("adjust-holdings-list");
+      const extraTotal = document.getElementById("extra-cash-total");
+      const extraSub = document.getElementById("extra-cash-sub");
+      const localCount = document.getElementById("local-holdings-count");
+      const localSub = document.getElementById("local-holdings-sub");
+
+      if (extraTotal) extraTotal.textContent = fmtInt(state.extraCash || 0);
+      if (extraSub) {
+        const n = (state.deposits || []).length;
+        extraSub.textContent = n ? `共 ${n} 笔追加 · 计入净资产` : "尚无追加 · 点上方按钮记录";
+      }
+      const locals = state.localHoldings || [];
+      const localMv = locals.reduce((a, h) => a + (h.marketValue || 0), 0);
+      if (localCount) localCount.textContent = String(locals.length);
+      if (localSub) {
+        localSub.textContent = locals.length
+          ? `市值约 ${fmtInt(localMv)} · 在持仓页管理`
+          : "去「持仓」页网页开新仓";
+      }
+
+      if (depList) {
+        const deps = state.deposits || [];
+        depList.innerHTML = deps.length ? deps.map(d => {
+          const acctLabel = d.account === "gt" ? "国投" : d.account === "hb" ? "华宝" : "现金池";
+          const note = d.note ? ` · ${d.note}` : "";
+          return `<div class="finance-adjust-item">
+            <div><strong>+${fmtInt(d.amount)}</strong> 元 · ${acctLabel}<div class="meta">${d.date || ""}${note}</div></div>
+            <button type="button" data-remove-deposit="${d.id}">删除</button>
+          </div>`;
+        }).join("") : '<p class="page-desc" style="margin:0;">暂无追加存款</p>';
+        depList.querySelectorAll("[data-remove-deposit]").forEach(btn => {
+          btn.addEventListener("click", () => removeDeposit(btn.dataset.removeDeposit));
+        });
+      }
+
+      if (holdList) {
+        holdList.innerHTML = locals.length ? locals.map(h => {
+          const acct = h.account === "gt" ? "国投" : "华宝";
+          const cur = h.currency === "HKD" ? "HKD" : "CNY";
+          return `<div class="finance-adjust-item">
+            <div><strong>${h.name}</strong> · ${h.shares.toLocaleString()} 股 · ${acct}<div class="meta">成本 ${fmtMoney(h.costPerShare, 2)} ${cur} · 市值 ${fmtInt(h.marketValue)}</div></div>
+            <button type="button" data-remove-local-adjust="${h.id}">删除</button>
+          </div>`;
+        }).join("") : '<p class="page-desc" style="margin:0;">暂无网页录入的新仓</p>';
+        holdList.querySelectorAll("[data-remove-local-adjust]").forEach(btn => {
+          btn.addEventListener("click", () => removeLocalHolding(btn.dataset.removeLocalAdjust));
+        });
+      }
+    }
+
+    function openFinanceDepositModal() {
+      const modal = document.getElementById("finance-deposit-modal");
+      if (!modal) return;
+      document.getElementById("deposit-amount").value = "";
+      document.getElementById("deposit-note").value = "";
+      document.getElementById("deposit-account").value = "pool";
+      modal.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeFinanceDepositModal() {
+      const modal = document.getElementById("finance-deposit-modal");
+      if (modal) modal.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    function clearLocalHoldingForm() {
+      ["local-holding-name", "local-holding-code", "local-holding-shares", "local-holding-cost", "local-holding-fallback"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = "";
+      });
+      const market = document.getElementById("local-holding-market");
+      const account = document.getElementById("local-holding-account");
+      if (market) market.value = "sh";
+      if (account) account.value = "hb";
+    }
+
+    function goToNewHoldingForm() {
+      switchTab("stock");
+      requestAnimationFrame(() => {
+        document.getElementById("new-holding-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById("local-holding-name")?.focus();
+      });
+    }
+
+    function addDeposit() {
+      const amount = parseFloat(String(document.getElementById("deposit-amount")?.value || "").replace(/,/g, ""));
+      if (isNaN(amount) || amount <= 0) { alert("请输入有效金额"); return; }
+      const account = document.getElementById("deposit-account")?.value || "pool";
+      const note = (document.getElementById("deposit-note")?.value || "").trim();
+      const ov = loadOverridesNormalized();
+      ov.deposits.push({
+        id: "dep-" + Date.now(),
+        amount: Math.round(amount),
+        account,
+        note,
+        date: new Date().toISOString().slice(0, 10),
+      });
+      saveOverrides(ov);
+      closeFinanceDepositModal();
+      renderAll();
+    }
+
+    function addLocalHolding() {
+      const name = (document.getElementById("local-holding-name")?.value || "").trim();
+      const code = (document.getElementById("local-holding-code")?.value || "").trim();
+      const market = document.getElementById("local-holding-market")?.value || "sh";
+      const shares = parseInt(document.getElementById("local-holding-shares")?.value, 10);
+      const cost = parseFloat(document.getElementById("local-holding-cost")?.value);
+      const account = document.getElementById("local-holding-account")?.value || "hb";
+      const fallbackRaw = document.getElementById("local-holding-fallback")?.value;
+      const fallback = fallbackRaw ? parseFloat(fallbackRaw) : cost;
+      if (!name) { alert("请填写股票名称"); return; }
+      if (!code) { alert("请填写代码"); return; }
+      if (isNaN(shares) || shares <= 0) { alert("请填写有效股数"); return; }
+      if (isNaN(cost) || cost <= 0) { alert("请填写有效成本价"); return; }
+      const symbol = buildSymbol(code, market);
+      if (!symbol) { alert("代码无效"); return; }
+      const hk = market === "hk";
+      const ov = loadOverridesNormalized();
+      ov.newHoldings.push({
+        id: "local-" + Date.now(),
+        name,
+        account,
+        symbol,
+        shares,
+        costPerShare: cost,
+        currency: hk ? "HKD" : "CNY",
+        hk,
+        fallbackPrice: isNaN(fallback) || fallback <= 0 ? cost : fallback,
+        sold: false,
+        local: true,
+      });
+      saveOverrides(ov);
+      clearLocalHoldingForm();
+      renderAll();
+      showEffectToast("已加入持仓", `${name} · ${shares.toLocaleString()} 股`, [`${acctLabel(account)} · 成本 ${cost}`]);
+    }
+
+    function acctLabel(account) {
+      return account === "gt" ? "国投" : "华宝";
+    }
+
+    function removeDeposit(id) {
+      const ov = loadOverridesNormalized();
+      ov.deposits = ov.deposits.filter(d => d.id !== id);
+      saveOverrides(ov);
+      renderAll();
+    }
+
+    function removeLocalHolding(id) {
+      if (!confirm("删除这条本地新仓记录？")) return;
+      const ov = loadOverridesNormalized();
+      ov.newHoldings = (ov.newHoldings || []).filter(h => h.id !== id);
+      if (ov.holdings?.[id]) delete ov.holdings[id];
+      saveOverrides(ov);
+      renderAll();
     }
 
     function renderMonthlyTable(todoState) {
@@ -2318,6 +2710,7 @@
       renderHome(state);
       renderFunds(state);
       renderDiagnosis(state);
+      renderAdjustments(state);
       renderMonthlyTable(todoState);
     }
 
@@ -2333,7 +2726,10 @@
         secPnl.className = "val " + (state.stockPnl >= 0 ? "gain" : "loss");
       }
       if (holdCount) holdCount.textContent = String(active.length);
-      if (netSub) netSub.textContent = `净资产 ${fmtInt(state.netWorth)} · 负债 ${fmtInt(state.liabilitiesTotal)}`;
+      if (netSub) {
+        const cashPart = state.extraCash > 0 ? ` · 额外现金 ${fmtInt(state.extraCash)}` : "";
+        netSub.textContent = `净资产 ${fmtInt(state.netWorth)} · 负债 ${fmtInt(state.liabilitiesTotal)}${cashPart}`;
+      }
     }
 
     function runHomeScreen() {
@@ -2582,6 +2978,16 @@
         renderTodos();
         renderAll();
       }
+    });
+
+    document.getElementById("btn-add-deposit")?.addEventListener("click", openFinanceDepositModal);
+    document.getElementById("btn-add-local-holding")?.addEventListener("click", goToNewHoldingForm);
+    document.getElementById("finance-deposit-submit")?.addEventListener("click", addDeposit);
+    document.getElementById("finance-deposit-cancel")?.addEventListener("click", closeFinanceDepositModal);
+    document.getElementById("finance-holding-submit")?.addEventListener("click", addLocalHolding);
+    document.getElementById("finance-holding-clear")?.addEventListener("click", clearLocalHoldingForm);
+    document.getElementById("finance-deposit-modal")?.addEventListener("click", e => {
+      if (e.target.id === "finance-deposit-modal") closeFinanceDepositModal();
     });
 
     document.querySelectorAll(".tab-btn").forEach(btn => {
