@@ -10,7 +10,7 @@
       document.documentElement.classList.toggle("dark", t === "dark");
     })();
   </script>
-  <link rel="stylesheet" href="lcai-theme.css?v=748027">
+  <link rel="stylesheet" href="lcai-theme.css?v=748028">
   <style>
     :root {
       /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
@@ -31,7 +31,7 @@
       min-height: 100vh;
     }
 
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 24px 16px 48px; }
+    .wrap { width: 100%; margin: 0 auto; padding: 24px 0 48px; }
 
     .tab-btn {
       border: none;
@@ -52,9 +52,25 @@
 
     .summary-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
       margin-bottom: 24px;
+    }
+
+    @media (min-width: 1100px) {
+      .summary-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .finance-page .summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .finance-page .plan-principles {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .card {
