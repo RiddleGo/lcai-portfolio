@@ -840,6 +840,140 @@
       thead th, tbody td { padding: 7px 5px; }
       .card-value { font-size: 1.15rem; }
       .tab-btn { padding: 7px 12px; font-size: 0.82rem; }
+      .finance-page table { font-size: 0.9rem; }
+      .finance-page thead th,
+      .finance-page tbody td { padding: 10px 8px; }
+      .finance-page .card-value { font-size: 1.35rem; }
+    }
+
+    /* ── 财务计划 Tab：独立排版尺度（不影响投资 Tab）── */
+    .finance-page {
+      --fin-base: 1rem;
+      --fin-small: 0.875rem;
+      --fin-h2: 1.2rem;
+      --fin-h3: 1.05rem;
+      --fin-table: 0.9375rem;
+      --fin-line: 1.65;
+    }
+
+    .finance-page .page-desc {
+      font-size: var(--fin-base);
+      color: hsl(var(--foreground) / 0.72);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page section {
+      margin-bottom: 32px;
+    }
+
+    .finance-page section h2 {
+      font-size: var(--fin-h2);
+      margin-bottom: 14px;
+    }
+
+    .finance-page .summary-grid {
+      gap: 14px;
+    }
+
+    .finance-page .card {
+      padding: 18px 20px;
+    }
+
+    .finance-page .card-label {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .card-sub {
+      font-size: var(--fin-small);
+      color: hsl(var(--foreground) / 0.62);
+    }
+
+    .finance-page .card-value {
+      font-size: 1.45rem;
+    }
+
+    .finance-page table {
+      font-size: var(--fin-table);
+    }
+
+    .finance-page thead th,
+    .finance-page tbody td {
+      padding: 12px 14px;
+    }
+
+    .finance-page tbody tr.peak {
+      background: rgba(239, 68, 68, 0.14);
+    }
+
+    .finance-page .tips {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+      color: hsl(var(--foreground) / 0.72);
+    }
+
+    .finance-page .checklist li {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .principle {
+      font-size: 0.95rem;
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .principle .tag {
+      font-size: 0.8125rem;
+    }
+
+    .finance-page .phase-head h3 {
+      font-size: var(--fin-h3);
+    }
+
+    .finance-page .phase-date {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .phase-need {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .badge {
+      font-size: 0.75rem;
+    }
+
+    .finance-page .todo-header h2 {
+      font-size: 1.15rem;
+    }
+
+    .finance-page .todo-progress {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .todo-group-head h3 {
+      font-size: 0.95rem;
+    }
+
+    .finance-page .todo-group-count {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .todo-item {
+      padding: 12px 10px;
+    }
+
+    .finance-page .todo-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .finance-page .todo-item label {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .finance-page .account-tag {
+      font-size: var(--fin-small);
     }
   </style>
 </head>
@@ -933,7 +1067,7 @@
     </div>
 
     <!-- ========== 页1：还款计划 ========== -->
-    <div id="page-repay" class="page">
+    <div id="page-repay" class="page finance-page">
       <p class="page-desc">投资资金待还 + 个人借款 20 万（2026 年 8 月）· 当月合计向上取整</p>
 
       <div class="summary-grid" id="repay-summary">
@@ -1032,7 +1166,7 @@
     </div>
 
     <!-- ========== 页1：执行计划（主页） ========== -->
-    <div id="page-plan" class="page">
+    <div id="page-plan" class="page finance-page">
       <p class="page-desc">6～8 月卖股 + 还款 · 做完一项勾一项 · 赛力斯不动 · 更新于 2026-06-06</p>
 
       <section class="todo-section" id="todo-section">
@@ -1410,7 +1544,7 @@
     </div>
 
     <!-- ========== 页3：现金流（工资+基金） ========== -->
-    <div id="page-cashflow" class="page">
+    <div id="page-cashflow" class="page finance-page">
       <p class="page-desc">腾讯理财通 + 每月储蓄 2 万（生活开支另算）· 8 月提前赎基金 · 共同方案 · 2026-06-06</p>
 
       <div class="summary-grid">
@@ -1583,7 +1717,7 @@
     </div>
 
     <!-- ========== 页4：投资规划（目标导向） ========== -->
-    <div id="page-invest" class="page">
+    <div id="page-invest" class="page finance-page">
       <p class="page-desc">共同方案 · 目标价导向 · 长线双核 + 中短线趋势 · 2026-06-06</p>
 
       <div class="summary-grid">
@@ -1727,7 +1861,7 @@
     </div>
 
     <!-- ========== 页5：财务诊断 ========== -->
-    <div id="page-diagnosis" class="page">
+    <div id="page-diagnosis" class="page finance-page">
       <p class="page-desc">整体财务健康度 · 投资评价 · 纠正项 · 未来预期 · 2026-06-06</p>
 
       <div class="summary-grid">
