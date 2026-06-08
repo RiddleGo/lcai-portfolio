@@ -1046,7 +1046,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b063-fb7663.md"
     },
     {
@@ -1062,7 +1062,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b064-c48a53.md"
     },
     {
@@ -1078,7 +1078,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b065-d00099.md"
     },
     {
@@ -1094,7 +1094,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L0-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b026-06f62d.md"
     },
     {
@@ -1110,7 +1110,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L0-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b027-11715e.md"
     },
     {
@@ -2186,7 +2186,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L0-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b026-06f62d.md"
     },
     "b027-11715e": {
@@ -2202,7 +2202,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L0-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b027-11715e.md"
     },
     "b028-6785dd": {
@@ -2782,7 +2782,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b063-fb7663.md"
     },
     "b064-c48a53": {
@@ -2798,7 +2798,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b064-c48a53.md"
     },
     "b065-d00099": {
@@ -2814,7 +2814,7 @@ window.LCAI_BOOKS_INDEX = {
       "related_rules": [
         "L4-01"
       ],
-      "status": "needs_review",
+      "status": "reviewed",
       "file": "书籍/books/b065-d00099.md"
     },
     "b066-f5f014": {
