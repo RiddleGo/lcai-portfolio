@@ -1,5 +1,5 @@
 window.LCAI_HOLDINGS = {
-  "updatedAt": "2026-06-07",
+  "updatedAt": "2026-06-08",
   "holdings": [
     {
       "id": "pingan",
@@ -47,7 +47,7 @@ window.LCAI_HOLDINGS = {
       "currency": "CNY",
       "hk": false,
       "fallbackPrice": 151.9,
-      "sold": false
+      "sold": true
     },
     {
       "id": "ubtech",
@@ -59,7 +59,7 @@ window.LCAI_HOLDINGS = {
       "currency": "HKD",
       "hk": true,
       "fallbackPrice": 110.3,
-      "sold": false
+      "sold": true
     },
     {
       "id": "seres_gt",
