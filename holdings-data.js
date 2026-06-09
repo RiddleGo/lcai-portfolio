@@ -1,5 +1,5 @@
 window.LCAI_HOLDINGS = {
-  "updatedAt": "2026-06-09",
+  "updatedAt": "2026-06-10",
   "holdings": [
     {
       "id": "pingan",
