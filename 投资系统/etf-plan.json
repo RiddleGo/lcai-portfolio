@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "name": "10万科技ETF分批计划",
+  "totalBudget": 100000,
+  "startDate": "2026-06-09",
+  "notes": "宽基打底 + 半导体/AI/机器人；单只目标不超过总预算25%；赛力斯已在仓，不再买新能源车ETF",
+  "targets": [
+    { "code": "588000", "market": "sh", "name": "科创50ETF华夏", "category": "宽基", "targetAmount": 25000 },
+    { "code": "588200", "market": "sh", "name": "科创芯片ETF嘉实", "category": "半导体", "targetAmount": 20000 },
+    { "code": "159516", "market": "sz", "name": "半导体设备ETF国泰", "category": "半导体", "targetAmount": 10000 },
+    { "code": "159819", "market": "sz", "name": "人工智能ETF易方达", "category": "AI", "targetAmount": 18000 },
+    { "code": "562500", "market": "sh", "name": "机器人ETF华夏", "category": "机器人", "targetAmount": 22000 },
+    { "code": "CASH", "market": "", "name": "现金储备", "category": "现金", "targetAmount": 5000 }
+  ],
+  "batches": [
+    {
+      "id": "batch1",
+      "name": "第一笔（打底）",
+      "trigger": "immediate",
+      "note": "本周可执行：宽基 + 机器人/AI 小仓",
+      "orders": [
+        { "code": "588000", "amount": 10000 },
+        { "code": "562500", "amount": 5000 },
+        { "code": "159819", "amount": 5000 }
+      ]
+    },
+    {
+      "id": "batch2",
+      "name": "第二笔（回调或超时）",
+      "trigger": "pullback_or_deadline",
+      "pullbackPct": 5,
+      "lookbackDays": 20,
+      "deadline": "2026-06-30",
+      "note": "较近20日高点回落≥5% 加仓；若到 deadline 仍未满足，按时间触发",
+      "orders": [
+        { "code": "588200", "amount": 10000, "pullbackPct": 5 },
+        { "code": "159516", "amount": 5000, "pullbackPct": 5 },
+        { "code": "562500", "amount": 7000, "pullbackPct": 5 },
+        { "code": "159819", "amount": 5000, "pullbackPct": 5 },
+        { "code": "588000", "amount": 3000, "pullbackPct": 3 }
+      ]
+    },
+    {
+      "id": "batch3",
+      "name": "第三笔（配满）",
+      "trigger": "deadline",
+      "deadline": "2026-08-09",
+      "note": "1～2 个月内配满剩余目标；若第二笔未完成，第三笔顺延",
+      "orders": [
+        { "code": "588000", "amount": 12000, "fillToTarget": true },
+        { "code": "588200", "amount": 10000, "fillToTarget": true },
+        { "code": "159516", "amount": 5000, "fillToTarget": true },
+        { "code": "159819", "amount": 8000, "fillToTarget": true },
+        { "code": "562500", "amount": 10000, "fillToTarget": true }
+      ]
+    }
+  ],
+  "rules": {
+    "singleMaxPct": 25,
+    "tradingHoursOnly": true,
+    "cashFlowNote": "6～8月有还款压力，若现金池不足可暂停 batch，勿借贷加仓"
+  }
+}

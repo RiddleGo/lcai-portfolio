@@ -1,0 +1,6 @@
+{
+  "updatedAt": null,
+  "executed": [],
+  "skippedBatches": [],
+  "notes": "买入后在网页点「已买入」或运行: python scripts/check_etf_plan.py --done 588000 10000"
+}

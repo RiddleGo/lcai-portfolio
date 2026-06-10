@@ -742,6 +742,30 @@
     .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
     .unified-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
     .screen-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+    .etf-alert {
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; border: 1px solid var(--border);
+    }
+    .etf-alert-buy { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); }
+    .etf-alert-info { background: hsl(var(--primary) / 0.1); border-color: hsl(var(--primary) / 0.3); }
+    .etf-alert-wait { background: var(--bg); }
+    .etf-alert-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .etf-alert-body { font-size: 0.92rem; line-height: 1.6; }
+    .etf-alert-note { margin-top: 8px; font-size: 0.82rem; color: var(--warn); }
+    .etf-alert-meta { margin-top: 8px; font-size: 0.75rem; color: var(--muted); }
+    .etf-signal-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 12px;
+    }
+    .etf-signal-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .etf-signal-grid { display: flex; flex-wrap: wrap; gap: 12px 18px; font-size: 0.84rem; color: var(--muted); margin-bottom: 8px; }
+    .etf-reasons { margin: 0 0 10px; padding-left: 18px; font-size: 0.82rem; line-height: 1.55; }
+    .etf-tag {
+      display: inline-block; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .etf-tag-buy { background: rgba(16,185,129,0.15); color: var(--ok); border-color: rgba(16,185,129,0.35); }
+    .etf-tag-done { background: rgba(148,163,184,0.15); color: var(--muted); }
+    .etf-mark-btn { margin-top: 4px; font-size: 0.82rem; padding: 6px 12px; }
     .cloud-status {
       margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; line-height: 1.5;
       background: hsl(var(--primary) / 0.12); border: 1px solid hsl(var(--primary) / 0.35); color: hsl(var(--primary));
@@ -1112,6 +1136,7 @@
             <button class="tab-btn active" data-page="home">首页</button>
             <button class="tab-btn" data-page="screen">选股</button>
             <button class="tab-btn" data-page="stock">持仓</button>
+            <button class="tab-btn" data-page="etf">ETF</button>
             <button class="tab-btn" data-page="criteria">规则</button>
             <button class="tab-btn" data-page="books">书籍</button>
             <button class="tab-btn" data-page="handbook">手册</button>
@@ -1172,6 +1197,12 @@
           <div class="home-todo-bar-wrap"><span id="home-todo-bar"></span></div>
           <button type="button" class="home-link-btn" data-goto="plan">打开执行计划 →</button>
         </div>
+        <div class="card home-card">
+          <h3>📈 ETF 加仓</h3>
+          <div class="home-stat"><span>今日信号</span><span class="val" id="home-etf-summary">—</span></div>
+          <p class="home-stat-sub" id="home-etf-sub">收盘后自动检测</p>
+          <button type="button" class="home-link-btn" data-goto="etf">打开 ETF 计划 →</button>
+        </div>
       </div>
 
       <div class="home-quick-links">
@@ -1179,7 +1210,38 @@
         <button type="button" class="home-quick-btn" data-goto="criteria">⚙️ 改规则</button>
         <button type="button" class="home-quick-btn" data-goto="handbook">📖 维护手册</button>
         <button type="button" class="home-quick-btn" data-goto="debt">💳 债务总览</button>
+        <button type="button" class="home-quick-btn" data-goto="etf">📈 ETF 计划</button>
       </div>
+    </div>
+
+    <!-- ========== ETF 分批计划 ========== -->
+    <div id="page-etf" class="page">
+      <p class="page-desc">10 万科技 ETF · 每日收盘后检测 · 符合回调/批次规则则提醒加仓 · 研究辅助非投资建议</p>
+      <div id="etf-alert-banner" class="etf-alert etf-alert-wait">加载中…</div>
+      <section>
+        <h2>今日加仓信号</h2>
+        <div id="etf-buy-signals"></div>
+      </section>
+      <section>
+        <h2>当前批次</h2>
+        <div class="card" style="padding:14px;overflow-x:auto;" id="etf-batch-wrap"></div>
+      </section>
+      <section>
+        <h2>目标进度</h2>
+        <div class="card" style="padding:0;overflow-x:auto;" id="etf-targets-wrap"></div>
+      </section>
+      <section>
+        <h2>买入记录</h2>
+        <div class="tips">
+          <ul id="etf-local-done"></ul>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--muted);">
+            本机标记仅作备忘。正式进度请运行：
+            <code>python scripts/check_etf_plan.py --done 588000 10000</code>
+            · 批次完成后：
+            <code>python scripts/check_etf_plan.py --complete-batch batch1</code>
+          </p>
+        </div>
+      </section>
     </div>
 
     <!-- ========== 执行计划 ========== -->
@@ -1957,6 +2019,8 @@
 
   <script src="holdings-data.js"></script>
   <script src="quotes-data.js"></script>
+  <script src="etf-plan-data.js"></script>
+  <script src="etf-plan-view.js"></script>
   <script>
     const TODO_STORAGE_KEY = "lcai-exec-todos-v5";
     const TODO_STORAGE_KEY_V1 = "lcai-exec-todos-v1";
@@ -3088,7 +3152,7 @@
     });
 
     const PAGE_TITLES = {
-      home: "首页", plan: "执行", debt: "债务", policy: "规划", stock: "持仓", screen: "选股", criteria: "规则", books: "书籍", handbook: "手册",
+      home: "首页", plan: "执行", debt: "债务", policy: "规划", stock: "持仓", etf: "ETF", screen: "选股", criteria: "规则", books: "书籍", handbook: "手册",
     };
 
     function closeShellDrawer() {
@@ -3125,7 +3189,10 @@
       } else if (page === "handbook") {
         history.replaceState(null, "", "#handbook");
         window.HandbookView?.load?.();
-      } else if (location.hash === "#screen" || location.hash === "#criteria" || location.hash === "#books" || location.hash.startsWith("#books") || location.hash === "#handbook") {
+      } else if (page === "etf") {
+        history.replaceState(null, "", "#etf");
+        window.EtfPlanView?.render?.();
+      } else if (location.hash === "#screen" || location.hash === "#criteria" || location.hash === "#books" || location.hash.startsWith("#books") || location.hash === "#handbook" || location.hash === "#etf") {
         history.replaceState(null, "", location.pathname);
       }
     }
@@ -3143,6 +3210,7 @@
     if (location.hash === "#criteria") switchTab("criteria");
     if (location.hash === "#books" || location.hash.startsWith("#books")) switchTab("books");
     if (location.hash === "#handbook") switchTab("handbook");
+    if (location.hash === "#etf") switchTab("etf");
 
     document.getElementById("shell-menu-btn")?.addEventListener("click", () => {
       document.getElementById("shell-sidebar")?.classList.add("open");

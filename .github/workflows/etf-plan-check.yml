@@ -1,0 +1,31 @@
+name: ETF plan check
+
+on:
+  schedule:
+    # 工作日 UTC 07:35 ≈ 北京时间 15:35（A 股收盘后）
+    - cron: "35 7 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  etf-plan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check ETF plan signals
+        run: python scripts/check_etf_plan.py
+
+      - name: Commit ETF plan data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add etf-plan-data.js
+          git diff --staged --quiet || git commit -m "chore: update ETF plan signals"
+          git push
