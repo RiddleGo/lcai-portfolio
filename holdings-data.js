@@ -18,7 +18,7 @@ window.LCAI_HOLDINGS = {
       "name": "赛力斯",
       "account": "hb",
       "symbol": "1.601127",
-      "shares": 4400,
+      "shares": 3800,
       "costPerShare": 133.96,
       "currency": "CNY",
       "hk": false,
@@ -83,7 +83,7 @@ window.LCAI_HOLDINGS = {
       "currency": "CNY",
       "hk": false,
       "fallbackPrice": 43.05,
-      "sold": false
+      "sold": true
     }
   ]
 };

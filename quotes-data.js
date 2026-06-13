@@ -1,5 +1,5 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-06-13T11:18:54+08:00",
+  "updatedAt": "2026-06-13T11:39:13+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
@@ -20,12 +20,6 @@ window.LCAI_QUOTES = {
       "name": "京东健康",
       "price": 37.76,
       "changePct": -0.37,
-      "source": "sina"
-    },
-    "1.600362": {
-      "name": "江西铜业",
-      "price": 43.05,
-      "changePct": 7.25,
       "source": "sina"
     }
   }
