@@ -10,7 +10,7 @@
       "costPerShare": 14.81,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 8.64,
+      "fallbackPrice": 8.74,
       "sold": false
     },
     {
@@ -30,11 +30,35 @@
       "name": "京东健康",
       "account": "gt",
       "symbol": "116.06618",
-      "shares": 4650,
+      "shares": 200,
       "costPerShare": 37.51,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 37.8,
+      "fallbackPrice": 37.76,
+      "sold": false
+    },
+    {
+      "id": "tencent",
+      "name": "腾讯控股",
+      "account": "gt",
+      "symbol": "116.00700",
+      "shares": 200,
+      "costPerShare": 463.6,
+      "currency": "HKD",
+      "hk": true,
+      "fallbackPrice": 463.6,
+      "sold": false
+    },
+    {
+      "id": "weimob",
+      "name": "微盟集团",
+      "account": "gt",
+      "symbol": "116.02013",
+      "shares": 55712,
+      "costPerShare": 1.35,
+      "currency": "HKD",
+      "hk": true,
+      "fallbackPrice": 1.35,
       "sold": false
     },
     {

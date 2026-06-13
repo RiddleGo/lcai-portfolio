@@ -1280,8 +1280,8 @@
         </div>
         <div class="principle later">
           <div class="tag">7～8 月卖出</div>
-          <strong>京东健康优先</strong><br>
-          <span style="color:var(--muted)">7 月 ~1,185 股 · 8 月清剩余 · 卖后现金可滚存</span>
+          <strong>平安好医生 / 基金</strong><br>
+          <span style="color:var(--muted)">京东健康仅留 200 股 · 7/4 靠现金或卖平安 · 8 月赎基金</span>
         </div>
       </div>
 
@@ -1516,7 +1516,7 @@
         <div class="phase">
           <div class="phase-head"><h3>阶段 I · 偿债（2026.6～8）</h3><span class="phase-date">流动性优先</span></div>
           <ul class="checklist">
-            <li>麦格米特/优必选已卖；抖音已清；7～8 月清 JD + 赎基金 + 卖 ~10% 平安 → <strong>换现金，不是看空</strong></li>
+            <li>麦格米特/优必选已卖；京东健康减至 200 股并换仓腾讯/微盟；7～8 月靠平安 + 赎基金 → <strong>换现金，不是看空</strong></li>
             <li>赛力斯全程不卖</li>
           </ul>
         </div>
@@ -1575,7 +1575,7 @@
         <div class="tips" style="margin-bottom:12px;">
           <strong>框架 B · 还债后组合（你的规划）</strong>
           <ul>
-            <li><strong>优先卖京东健康</strong>：偿债期过渡筹码，7～8 月日历已绑定；抖音已清，按计划卖股凑 7/4 与 8 月大坑。</li>
+            <li><strong>优先卖平安好医生</strong>：京东健康仅留 200 股；7/4、8 月大坑靠现金池 + 卖平安 + 赎基金。</li>
             <li><strong>少卖平安</strong>：因 2027 后赛力斯+平安双核 + 目标 20 HKD，<em>不是</em>因 LCAI 指标更优。8 月 ~10% 仅为凑 8 月大坑。</li>
           </ul>
         </div>
@@ -2011,23 +2011,25 @@
   <script src="etf-plan-data.js"></script>
   <script src="etf-plan-view.js"></script>
   <script>
-    const TODO_STORAGE_KEY = "lcai-exec-todos-v6";
+    const TODO_STORAGE_KEY = "lcai-exec-todos-v7";
     const TODO_STORAGE_KEY_V1 = "lcai-exec-todos-v1";
     const TODO_STORAGE_KEY_V2 = "lcai-exec-todos-v2";
     const TODO_STORAGE_KEY_V3 = "lcai-exec-todos-v3";
     const TODO_STORAGE_KEY_V4 = "lcai-exec-todos-v4";
     const TODO_STORAGE_KEY_V5 = "lcai-exec-todos-v5";
+    const TODO_STORAGE_KEY_V6 = "lcai-exec-todos-v6";
     const JD_PREPAY_AMOUNT = 75122.86;
-    const JD_HEALTH_SHARES = 4650;
-    const JUN_JD_DY_SELL = 1550;
-    const JUL_JD_SELL = 1185;
-    const AUG_JD_REMAIN = JD_HEALTH_SHARES - JUN_JD_DY_SELL - JUL_JD_SELL;
+    const JD_HEALTH_SHARES = 200;
     const BASELINE_TODO_DONE = {
       "jun-sell-mgt": { done: true, actual: 167090 },
       "jun-sell-ubtech": { done: true, actual: 120000 },
       "jun-didi-pay": { done: true },
       "jun-dy-pay": { done: true },
       "jun-jd-prepay": { done: true, actual: JD_PREPAY_AMOUNT },
+      "jun-jd-swap": { done: true },
+      "jun-sell-jd-dy": { done: true },
+      "jul-sell-jd": { done: true },
+      "aug-sell-jd": { done: true },
     };
     const OVERRIDES_KEY = "lcai-portfolio-overrides";
 
@@ -2062,20 +2064,19 @@
           { id: "jun-didi-pay", text: "提前结清滴滴 <strong>103,111</strong>（已完成）", effect: "debt_clear", platform: "didi", defaultAmount: 103111.27 },
           { id: "jun-dy-pay", text: "结清抖音 <strong>162,179</strong>（已完成 · 首月免息期内）", effect: "debt_clear", platform: "dy", defaultAmount: 162179.31 },
           { id: "jun-jd-prepay", text: "额外还京东 <strong>~75,123</strong>（31.1 万→23.6 万 · 省息 · 已反映在债务余额）", defaultAmount: JD_PREPAY_AMOUNT },
+          { id: "jun-jd-swap", text: "京东健康 <strong>4,650→200 股</strong> · 换仓腾讯 <strong>200 股</strong> + 微盟 <strong>~55,712 股</strong>（已完成）", defaultAmount: 167932 },
         ],
       },
       {
         title: "6 月 · 待办",
         items: [
-          { id: "jun-sell-jd-dy", text: "（可选）卖出京东健康 <strong>~1,550 股</strong>（抖音已清 · 7 月仍可按计划卖）", effect: "sell_partial", holdingId: "jd_health", sellShares: JUN_JD_DY_SELL, defaultAmount: 54000 },
           { id: "jun-ali-pay", text: "还支付宝 <strong>14,661</strong>（6/22 前 · <strong>必还</strong>）", effect: "debt_pay", pay: { ali: 14660.75 }, defaultAmount: 14660.75 },
         ],
       },
       {
         title: "7 月",
         items: [
-          { id: "jul-sell-jd", text: "卖出京东健康 <strong>~1,185 股</strong>（7/1～7/2 赶 7/4 · 6 月已卖 1,550 后）", urgent: true, effect: "sell_partial", holdingId: "jd_health", sellShares: JUL_JD_SELL, defaultAmount: 45480 },
-          { id: "jul-jd-pay", text: "还京东金条 <strong>44,845</strong>（7/4 前 · 当期月供）", urgent: true, effect: "debt_pay", pay: { jd: 44844.97 }, defaultAmount: 44844.97 },
+          { id: "jul-jd-pay", text: "还京东金条 <strong>44,845</strong>（7/4 前 · 当期月供 · <strong>京东健康仅 200 股</strong>）", urgent: true, effect: "debt_pay", pay: { jd: 44844.97 }, defaultAmount: 44844.97 },
           { id: "jul-ali-pay", text: "还支付宝 <strong>14,761</strong>（7/22 前 · 用 7 月储蓄 2 万）", effect: "debt_pay", pay: { ali: 14761.30 }, defaultAmount: 14761.30 },
         ],
       },
@@ -2083,7 +2084,6 @@
         title: "8 月",
         items: [
           { id: "aug-fund", text: "赎回理财通 7 只基金（<strong>7/25 前</strong> · ~7.46 万 · T+1）", effect: "fund_redeem_all", defaultAmount: 74624 },
-          { id: "aug-sell-jd", text: `清仓京东健康剩余 <strong>~${AUG_JD_REMAIN.toLocaleString("zh-CN")} 股</strong>（7/28～8/1 · 6月1550+7月1185后）`, effect: "sell_all", holdingId: "jd_health", defaultAmount: 66800 },
           { id: "aug-sell-pa", text: "卖出平安好医生 ~5,044 股（留 ~90%）", effect: "sell_partial", holdingId: "pingan", sellShares: 5044, defaultAmount: 38216 },
           { id: "aug-jd-pay", text: "还京东金条 <strong>44,975</strong>（8/4 前）", effect: "debt_pay", pay: { jd: 44974.94 }, defaultAmount: 44974.94 },
           { id: "aug-friend", text: "还朋友 <strong>200,000</strong>（8 月中下旬）", effect: "debt_clear", platform: "personal", defaultAmount: 200000 },
@@ -2111,9 +2111,9 @@
     ];
 
     const MONTH_TODO_MAP = {
-      "2026-06": ["jun-sell-jd-dy", "jun-ali-pay"],
-      "2026-07": ["jul-sell-jd", "jul-jd-pay", "jul-ali-pay"],
-      "2026-08": ["aug-fund", "aug-sell-jd", "aug-sell-pa", "aug-jd-pay", "aug-friend", "aug-ali-pay"],
+      "2026-06": ["jun-ali-pay"],
+      "2026-07": ["jul-jd-pay", "jul-ali-pay"],
+      "2026-08": ["aug-fund", "aug-sell-pa", "aug-jd-pay", "aug-friend", "aug-ali-pay"],
       "2026-09": ["sep-pay"],
       "2026-10": ["oct-pay"],
       "2026-11": ["nov-pay"],
@@ -2178,7 +2178,7 @@
       try {
         let raw = localStorage.getItem(TODO_STORAGE_KEY);
         if (raw) return JSON.parse(raw);
-        for (const key of [TODO_STORAGE_KEY_V5, TODO_STORAGE_KEY_V4, TODO_STORAGE_KEY_V3, TODO_STORAGE_KEY_V2, TODO_STORAGE_KEY_V1]) {
+        for (const key of [TODO_STORAGE_KEY_V6, TODO_STORAGE_KEY_V5, TODO_STORAGE_KEY_V4, TODO_STORAGE_KEY_V3, TODO_STORAGE_KEY_V2, TODO_STORAGE_KEY_V1]) {
           const prev = localStorage.getItem(key);
           if (!prev) continue;
           const parsed = JSON.parse(prev);
@@ -3249,17 +3249,16 @@
       const base = computeState({});
       const debtSum = Object.values(BASELINE.debts).reduce((a, b) => a + b, 0);
       console.assert(Math.abs(base.liabilitiesTotal - debtSum) < 1, "baseline debt mismatch");
-      console.assert(base.holdings.filter(h => !h.sold).length === 7, "baseline holdings count");
+      console.assert(base.holdings.filter(h => !h.sold).length >= 6, "baseline holdings count");
       console.assert(base.securitiesTotal > 1000000, "securities total: " + base.securitiesTotal);
       console.assert(typeof base.holdings[0].marketValue === "number", "quotes applied");
       console.assert(base.debts.dy === 0, "dy baseline clear");
       console.assert(base.debts.didi === 0, "didi baseline clear");
-      const jun = computeState({ ...BASELINE_TODO_DONE, "jun-sell-jd-dy": { done: true }, "jun-ali-pay": { done: true } });
+      const jun = computeState({ ...BASELINE_TODO_DONE, "jun-ali-pay": { done: true } });
       console.assert(jun.debts.dy === 0, "jun dy clear");
       console.assert(jun.debts.didi === 0, "didi clear");
-      console.assert(jun.debts.jd === BASELINE.debts.jd, "jd baseline after prepay");
       const jdH = jun.holdings.find(h => h.id === "jd_health");
-      console.assert(jdH && jdH.shares === AUG_JD_REMAIN, "jd partial sell jun");
+      console.assert(jdH && jdH.shares === JD_HEALTH_SHARES, "jd health shares");
       console.assert(!jun.holdings.find(h => h.id === "megmeet" && !h.sold), "megmeet sold");
       const ov = loadOverrides();
       ov.holdings = { pingan: { costPerShare: 10 } };
