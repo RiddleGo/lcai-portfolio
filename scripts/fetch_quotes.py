@@ -14,6 +14,11 @@ OUT = ROOT / "quotes-data.js"
 from holdings_utils import quote_fallbacks, quote_symbols  # noqa: E402
 
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+SINA_HEADERS = {"User-Agent": UA, "Referer": "https://finance.sina.com.cn/"}
+
+
+def secid_market(secid: str) -> str:
+    return "HK" if secid.startswith("116.") else "A"
 
 
 def fetch_json(url: str) -> dict:
@@ -30,6 +35,43 @@ def fetch_json(url: str) -> dict:
     raise last_err
 
 
+def fetch_stock_sina(secid: str, symbols: dict[str, str]) -> dict | None:
+    market = secid_market(secid)
+    code = secid.split(".", 1)[1]
+    prefix = "hk" if market == "HK" else ("sh" if secid.startswith("1.") else "sz")
+    symbol = f"rt_{prefix}{code}" if market == "HK" else f"{prefix}{code}"
+    url = f"https://hq.sinajs.cn/list={symbol}"
+    req = urllib.request.Request(url, headers=SINA_HEADERS)
+    with urllib.request.urlopen(req, timeout=15) as resp:
+        raw = resp.read().decode("gbk", errors="replace")
+    if '="' not in raw:
+        return None
+    body = raw.split('="')[1].split('";')[0]
+    parts = body.split(",")
+    if market == "HK":
+        if len(parts) <= 6 or not parts[6]:
+            return None
+        price = float(parts[6])
+        prev = float(parts[3]) if parts[3] else 0
+        change_pct = float(parts[8]) if len(parts) > 8 and parts[8] else (
+            ((price - prev) / prev * 100) if prev else 0
+        )
+        name = parts[1] or symbols.get(secid, secid)
+    else:
+        if len(parts) <= 3 or not parts[3]:
+            return None
+        price = float(parts[3])
+        prev = float(parts[2]) if parts[2] else 0
+        change_pct = ((price - prev) / prev * 100) if prev else 0
+        name = parts[0] or symbols.get(secid, secid)
+    return {
+        "name": name,
+        "price": round(price, 2),
+        "changePct": round(change_pct, 2),
+        "source": "sina",
+    }
+
+
 def fetch_stock(secid: str, symbols: dict[str, str]) -> dict | None:
     url = (
         "https://push2.eastmoney.com/api/qt/stock/get"
@@ -40,15 +82,21 @@ def fetch_stock(secid: str, symbols: dict[str, str]) -> dict | None:
         d = data.get("data") or {}
         raw = d.get("f43")
         if raw is None:
-            return None
+            raise ValueError("empty quote")
         div = 1000.0 if secid.startswith("116.") else 100.0
         price = raw / div
         change_pct = (d.get("f170") or 0) / 100.0
         name = d.get("f58") or symbols.get(secid, secid)
-        return {"name": name, "price": round(price, 2), "changePct": round(change_pct, 2)}
+        return {"name": name, "price": round(price, 2), "changePct": round(change_pct, 2), "source": "eastmoney"}
     except Exception as e:
-        print(f"warn: {secid} {e}")
-        return None
+        print(f"warn: {secid} eastmoney {e}")
+    try:
+        q = fetch_stock_sina(secid, symbols)
+        if q:
+            return q
+    except Exception as e:
+        print(f"warn: {secid} sina {e}")
+    return None
 
 
 def fetch_hkd_cny() -> float:

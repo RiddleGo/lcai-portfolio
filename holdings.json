@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-07",
+  "updatedAt": "2026-06-13",
   "holdings": [
     {
       "id": "pingan",
@@ -10,7 +10,7 @@
       "costPerShare": 14.81,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 8.76,
+      "fallbackPrice": 8.64,
       "sold": false
     },
     {
@@ -22,7 +22,7 @@
       "costPerShare": 133.96,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 75.02,
+      "fallbackPrice": 68.67,
       "sold": false
     },
     {
@@ -34,7 +34,7 @@
       "costPerShare": 37.51,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 37.9,
+      "fallbackPrice": 37.8,
       "sold": false
     },
     {
@@ -46,8 +46,8 @@
       "costPerShare": 153.27,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 151.9,
-      "sold": false
+      "fallbackPrice": 135.24,
+      "sold": true
     },
     {
       "id": "ubtech",
@@ -58,8 +58,8 @@
       "costPerShare": 110.99,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 110.3,
-      "sold": false
+      "fallbackPrice": 106.5,
+      "sold": true
     },
     {
       "id": "seres_gt",
@@ -70,7 +70,7 @@
       "costPerShare": 78.25,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 75.01,
+      "fallbackPrice": 68.67,
       "sold": false
     },
     {
@@ -82,7 +82,7 @@
       "costPerShare": 79.48,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 45.33,
+      "fallbackPrice": 43.05,
       "sold": false
     }
   ]
