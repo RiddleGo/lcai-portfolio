@@ -86,18 +86,6 @@ window.LCAI_HOLDINGS = {
       "sold": true
     },
     {
-      "id": "seres_gt",
-      "name": "赛力斯",
-      "account": "gt",
-      "symbol": "1.601127",
-      "shares": 300,
-      "costPerShare": 78.25,
-      "currency": "CNY",
-      "hk": false,
-      "fallbackPrice": 68.67,
-      "sold": true
-    },
-    {
       "id": "jiangtong",
       "name": "江西铜业",
       "account": "hb",

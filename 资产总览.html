@@ -1593,7 +1593,7 @@
             <tbody>
               <tr><td>偿债能力</td><td class="score-ok">中等偏上</td><td>滴滴/抖音已清、京东已降；6 月剩支付宝</td></tr>
               <tr><td>流动性</td><td class="score-warn">尚可</td><td>6～8 月宽；9～12 月需 8 月留底 ~11 万；7/4 京东最紧</td></tr>
-              <tr><td>投资质量</td><td class="score-warn">偏差</td><td>赛力斯+平安占 58% 且深套；基金为散主题 ETF</td></tr>
+              <tr><td>投资质量</td><td class="score-warn">偏差</td><td>赛力斯+平安高度集中且深套；基金 4 只待 8 月赎回</td></tr>
               <tr><td>负债成本</td><td class="score-warn">需优化</td><td>高息贷已清；剩京东 9 笔 ~20.9 万 + 支付宝</td></tr>
               <tr><td>规划执行力</td><td class="score-ok">好</td><td>三 Tab 总览 + 目标导向规划已就绪</td></tr>
             </tbody>
@@ -1622,7 +1622,7 @@
             <thead><tr><th>时点</th><th>里程碑</th></tr></thead>
             <tbody>
               <tr><td>2026-06</td><td>滴滴/抖音已清 · 6/22 支付宝</td></tr>
-              <tr><td>2026-08</td><td>还朋友 20 万；清京东；全赎基金；卖 ~5,044 股平安</td></tr>
+              <tr><td>2026-08</td><td>还朋友 20 万；全赎基金；卖 ~10% 平安（~4,360 股）</td></tr>
               <tr><td>2026-09～12</td><td>工资 2 万/月 + 8 月留底缓冲</td></tr>
               <tr><td>2027-03</td><td>支付宝末笔 ~1.54 万</td></tr>
               <tr class="light"><td>2027-04</td><td>京东末笔 ~0.89 万 → <strong>平台投资资金清零</strong></td></tr>
@@ -1749,23 +1749,11 @@
         </div>
       </section>
 
-      <section>
-        <h2>合并关注 · 赛力斯（华宝 · 4,100 股）</h2>
-        <div class="card" style="padding:0;overflow:hidden;">
-          <table>
-            <thead>
-              <tr><th>账户</th><th>股数</th><th>市值</th><th>成本</th><th>浮亏</th></tr>
-            </thead>
-            <tbody id="seres-tbody"></tbody>
-          </table>
-        </div>
-      </section>
-
       <div class="tips">
         <strong>持仓提示</strong>
         <ul>
-          <li>华宝赛力斯<strong>满仓</strong>；国投港股仓（平安/腾讯/微盟/JD 健康）。8 月还朋友 20 万 + 平台 ~6 万，见「执行」页。</li>
-          <li><strong>赛力斯</strong> 32% + <strong>平安好医生</strong> 28%，均为深套；执行后仍高度集中。</li>
+          <li><strong>华宝</strong>仅赛力斯 4,100 股（满仓）；<strong>国投</strong>为港股仓（平安/腾讯/微盟/JD 健康）。8 月还朋友 20 万 + 平台 ~6 万，见「执行」页。</li>
+          <li>赛力斯 + 平安占绝大多数仓位，均为深套；长期双核不变，8 月卖平安仅为凑还款。</li>
           <li><strong>江铜</strong> 已卖；麦格米特已清。</li>
           <li>详见「诊断」页五维评价与未来路径。</li>
         </ul>
@@ -2022,6 +2010,7 @@
     const JD_DEBT_TOTAL = 209352.52;
     const JUL_JD_PAY = 34145.47;
     const FUND_TOTAL = 63352.29;
+    const PINGAN_AUG_SELL = 4360;
     const JD_HEALTH_SHARES = 200;
     const BASELINE_TODO_DONE = {
       "jun-sell-mgt": { done: true, actual: 167090 },
@@ -2087,7 +2076,7 @@
         title: "8 月",
         items: [
           { id: "aug-fund", text: "赎回理财通 4 只基金（<strong>7/25 前</strong> · ~6.34 万 · T+1）", effect: "fund_redeem_all", defaultAmount: FUND_TOTAL },
-          { id: "aug-sell-pa", text: "卖出平安好医生 ~5,044 股（留 ~90%）", effect: "sell_partial", holdingId: "pingan", sellShares: 5044, defaultAmount: 38216 },
+          { id: "aug-sell-pa", text: "卖出平安好医生 ~4,360 股（留 ~90% · 43,600 股基准）", effect: "sell_partial", holdingId: "pingan", sellShares: PINGAN_AUG_SELL, defaultAmount: 35054 },
           { id: "aug-jd-pay", text: "还京东金条 <strong>~39,930</strong>（8/4 前 · 按余额估算）", effect: "debt_pay", pay: { jd: 39930.19 }, defaultAmount: 39930.19 },
           { id: "aug-friend", text: "还朋友 <strong>200,000</strong>（8 月中下旬）", effect: "debt_clear", platform: "personal", defaultAmount: 200000 },
           { id: "aug-ali-pay", text: "还支付宝 <strong>14,815</strong>（8/22 前）", effect: "debt_pay", pay: { ali: 14815.43 }, defaultAmount: 14815.43 },
@@ -2529,24 +2518,6 @@
         tbody.querySelectorAll("[data-remove-local]").forEach(btn => {
           btn.addEventListener("click", () => removeLocalHolding(btn.dataset.removeLocal));
         });
-      }
-
-      const seresRows = state.holdings.filter(h => h.name === "赛力斯" && !h.sold);
-      const seresBody = document.getElementById("seres-tbody");
-      if (seresBody) {
-        let totalShares = 0, totalMv = 0, totalPnl = 0, costSum = 0;
-        const rows = seresRows.map(h => {
-          totalShares += h.shares;
-          totalMv += h.marketValue;
-          totalPnl += h.pnl;
-          costSum += h.costPerShare * h.shares;
-          const acct = h.account === "gt" ? "gt" : "hb";
-          const label = h.account === "gt" ? "国投" : "华宝";
-          return `<tr><td><span class="account-tag ${acct}">${label}</span></td><td>${h.shares.toLocaleString()}</td><td>${fmtInt(h.marketValue)}</td><td>${fmtMoney(h.costPerShare, 2)}</td><td class="loss">${fmtInt(h.pnl)}</td></tr>`;
-        }).join("");
-        const avgCost = totalShares > 0 ? (costSum / totalShares).toFixed(2) : "—";
-        seresBody.innerHTML = rows + `<tr style="font-weight:600;">
-          <td>合计</td><td>${totalShares.toLocaleString()}</td><td>${fmtInt(totalMv)}</td><td>${avgCost}</td><td class="loss">${fmtInt(totalPnl)}</td></tr>`;
       }
     }
 
@@ -3252,7 +3223,7 @@
       const base = computeState({});
       const debtSum = Object.values(BASELINE.debts).reduce((a, b) => a + b, 0);
       console.assert(Math.abs(base.liabilitiesTotal - debtSum) < 1, "baseline debt mismatch");
-      console.assert(base.holdings.filter(h => !h.sold).length >= 6, "baseline holdings count");
+      console.assert(base.holdings.filter(h => !h.sold).length === 5, "baseline holdings count");
       console.assert(base.securitiesTotal > 1000000, "securities total: " + base.securitiesTotal);
       console.assert(typeof base.holdings[0].marketValue === "number", "quotes applied");
       console.assert(base.debts.dy === 0, "dy baseline clear");
