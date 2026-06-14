@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>同样是 INT8，为什么 Netron 里两张图长得完全不一样？</title>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #e5e5e5;
+      --code-bg: #f6f8fa;
+      --accent: #0969da;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.75;
+      color: var(--text);
+      background: #fafafa;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      background: #fff;
+      min-height: 100vh;
+      box-shadow: 0 0 0 1px var(--border);
+    }
+    h1 {
+      font-size: 1.75rem;
+      line-height: 1.35;
+      margin: 0 0 1rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin: 2.5rem 0 1rem;
+      padding-bottom: .4rem;
+      border-bottom: 1px solid var(--border);
+    }
+    p { margin: 0 0 1rem; }
+    blockquote {
+      margin: 0 0 1.5rem;
+      padding: .75rem 1rem;
+      border-left: 4px solid var(--accent);
+      background: #f0f6ff;
+      color: var(--muted);
+    }
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: .9rem;
+      line-height: 1.5;
+    }
+    code {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .9em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: .95rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: .55rem .75rem;
+      text-align: left;
+    }
+    th { background: #f6f8fa; }
+    ul { margin: 0 0 1rem; padding-left: 1.25rem; }
+    li { margin-bottom: .35rem; }
+    hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
+    strong { font-weight: 600; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>同样是 INT8，为什么 Netron 里两张图长得完全不一样？</h1>
+  <blockquote>PTQ 导出 <code>.onnx</code> 后，用 Netron 打开可能看到两种截然不同的计算图。本文说明 QDQ 与 QOperator 的区别、部署取舍，以及如何正确验证量化精度。</blockquote>
+
+  <h2>引子</h2>
+  <p>第一次把 PTQ 导出的 <code>.onnx</code> 拖进 Netron，我一度以为软件坏了。</p>
+  <p>一张图里，<code>QuantizeLinear</code> 和 <code>DequantizeLinear</code> 像栅栏一样把 <code>Conv</code>、<code>Relu</code> 围在中间；另一张图却干净得多，直接是 <code>ConvInteger</code>、<code>MatMulInteger</code>，几乎看不到 DQ。文件大小差不多，名字都带 int8，精度测试也过了——但部署同事说：「这张能上 NPU，那张不行。」</p>
+  <p>后来才搞明白：<strong>INT8 不是只有一种写法</strong>。ONNX 里至少有两套表示，Netron 只是把它们画出来了。搞不清这个，后面选引擎、上板子、查精度，每一步都可能白忙。</p>
+
+  <hr>
+
+  <h2>先搞懂：量化到底在干什么</h2>
+  <p>训练好的模型，权重和中间结果通常是 <strong>FP32</strong>——32 位浮点，小数精度高，占内存大，算得也慢。</p>
+  <p>部署到手机、摄像头、车机，往往要压成 <strong>INT8</strong>，8 位整数，大约只有 FP32 四分之一体积，很多芯片对整数还有专门电路。</p>
+  <p>但整数没有小数。不能把 <code>3.14159</code> 直接塞进 <code>-128～127</code>，得先定一套「档位和真实值怎么对应」的规则：</p>
+  <pre>真实值 ≈ scale × (整数值 − zero_point)</pre>
+  <table>
+    <tr><th>参数</th><th>含义</th></tr>
+    <tr><td><strong>scale</strong></td><td>一格整数代表多少实际量</td></tr>
+    <tr><td><strong>zero_point</strong></td><td>整数 0 落在真实坐标的哪里（不一定是数学上的 0）</td></tr>
+  </table>
+  <p><strong>PTQ</strong>（Post-Training Quantization，训练后量化）就是：模型已经训完，不再动结构和训练流程，只在导出阶段做 INT8 压缩。省事，工程里很常见；精度通常略逊于边训边量化的 QAT，但对很多场景够用。</p>
+  <p>下面说的两种图，都是 PTQ 之后可能出现的形态——<strong>数学上在做同一件事，ONNX 的表达方式却不同</strong>。</p>
+
+  <hr>
+
+  <h2>两个工具，各管一段</h2>
+  <p><strong>ONNX</strong>（Open Neural Network Exchange）是通用的模型交换格式，后缀 <code>.onnx</code>。PyTorch、TensorFlow 训出来的网络，可以转成 ONNX，再交给不同环境的推理工具去跑。</p>
+  <p><strong>Netron</strong> 用来「看」这个文件。每个方块是一个算子（节点），箭头是数据流。常见算子：</p>
+  <table>
+    <tr><th>算子</th><th>作用</th></tr>
+    <tr><td><strong>Conv</strong></td><td>卷积，CNN 里最核心的运算</td></tr>
+    <tr><td><strong>Relu</strong></td><td>把负数截成 0，保留正数</td></tr>
+    <tr><td><strong>MatMul</strong></td><td>矩阵乘法，全连接层、Transformer 里常见</td></tr>
+  </table>
+  <p>量化之后，图里多出来的节点类型，才是本文重点。</p>
+
+  <hr>
+
+  <h2>第一种：QDQ——「先兑换，算完再换回来」</h2>
+  <p><strong>QDQ</strong> 指的是图里大量出现 <code>QuantizeLinear</code>（Q）和 <code>DequantizeLinear</code>（DQ）。</p>
+  <pre>浮点 ──→ [Q] ──→ INT8 ──→ Conv / Relu ──→ INT8 ──→ [DQ] ──→ 浮点
+              ↑ scale 在这                    ↑ scale 在这</pre>
+  <p>浮点数据先过 Q，变成 INT8；中间仍是普通的 <code>Conv</code>、<code>Relu</code>（不是 Integer 版）；算完再经 DQ 变回浮点。Netron 里 Q 和 DQ 成对铺开，像在每个运算前后各加一道兑换窗口。</p>
+  <p><strong>好处是参数外露。</strong> scale、zero_point 挂在 Q、DQ 节点上，点开就能看、能改，和硬件侧对齐也方便。</p>
+  <p>很多 NPU、手机芯片的工具链，正是按「Q → 普通 Conv → DQ」这种套路做优化的：识别到这段模式，就把三步合成一个 INT8 卷积核，少搬内存、少调度，速度才上得去。</p>
+  <p>这一步叫 <strong>融合（Fusion）</strong>；合成后在芯片上跑的那段优化代码，一般叫 <strong>kernel</strong>（这里别和操作系统内核混淆，就是指某个算子在硬件上的实现）。</p>
+
+  <hr>
+
+  <h2>第二种：QOperator——「整条线直接收整数」</h2>
+  <pre>INT8 ──→ ConvInteger / MatMulInteger ──→ INT8
+              ↑ scale 收在算子属性里</pre>
+  <p>图面干净，没有成片的 DQ；scale、zero_point 塞进算子属性，Netron 里不如 QDQ 直观。</p>
+  <p>在 CPU 上用 <strong>ONNX Runtime</strong>（ORT）跑，两种格式往往都能工作。问题多半出在 NPU 和专用 <strong>Converter</strong> 上。</p>
+  <p><strong>Converter</strong> 就是把 ONNX 再转成某家芯片能吃的格式，顺带做图优化和融合。常见工具：</p>
+  <table>
+    <tr><th>工具</th><th>典型场景</th></tr>
+    <tr><td><strong>ORT</strong></td><td>CPU / 通用推理</td></tr>
+    <tr><td><strong>TensorRT</strong></td><td> NVIDIA GPU</td></tr>
+    <tr><td><strong>昇腾（Ascend）</strong></td><td>华为 NPU</td></tr>
+    <tr><td><strong>SNPE</strong></td><td>高通骁龙平台</td></tr>
+  </table>
+  <p>各家认的节点、融合规则不完全一样。很多工具链的融合规则是按 QDQ 写的——看到 <code>ConvInteger</code>，可能不认、融不进去。该快的 INT8 反而在量化节点之间来回拷贝，有时甚至比 FP32 还慢。</p>
+
+  <hr>
+
+  <h2>一张表，把差异捋清楚</h2>
+  <table>
+    <tr><th></th><th>QDQ</th><th>QOperator</th></tr>
+    <tr><td>Netron 长什么样</td><td>满屏 Q / DQ，中间是普通 Conv</td><td>满屏 ConvInteger 等整数算子</td></tr>
+    <tr><td>scale 在哪</td><td>Q、DQ 节点上，一眼能看见</td><td>算子属性里，不太直观</td></tr>
+    <tr><td>CPU + ORT</td><td>通常没问题</td><td>通常也没问题</td></tr>
+    <tr><td>NPU / 边缘芯片</td><td>多数工具链认这个，融合空间大</td><td>常不支持或融合失败</td></tr>
+  </table>
+  <p>所以会出现一种挺反直觉的情况：<strong>同是 INT8，QOperator 在 CPU 上跑得顺，上 NPU 却翻车；QDQ 图看着乱，反而是上板子的稳妥选择。</strong></p>
+
+  <hr>
+
+  <h2>验精度：别比 raw 字节</h2>
+  <p>量化之后要验证：INT8 模型和 FP32 原版差多少。可以看输出向量的余弦相似度、最大误差，或任务指标（分类看 Top-1 是否明显掉点）。</p>
+  <p>新手容易踩的坑：<strong>拿 INT8 输出的字节直接和 FP32 浮点比。</strong></p>
+  <p>INT8 存的是编码，不是「概率 0.95」那种物理含义上的数。必须先从最后一个 <code>DequantizeLinear</code> 出来，还原成浮点，再和 FP32 模型输出对比。这就是常说的 <strong>物理量纲</strong>——要比的是真实数值，不是 raw 字节。</p>
+  <pre>❌ INT8 字节  ↔  FP32 浮点        （错误）
+✅ INT8 → DQ → 浮点  ↔  FP32 浮点  （正确）</pre>
+  <p>字节相近，scale 偏一点，反量化后误差可能很大；反过来，字节差不少，还原后反而可能接近。</p>
+
+  <hr>
+
+  <h2>实操上怎么选</h2>
+  <p><strong>服务器 CPU 或通用 GPU</strong><br>两种格式都可以试，以 ORT / TensorRT 实测为准。</p>
+  <p><strong>手机、嵌入式、NPU</strong><br>导出前先翻 Converter 文档；多数更认 QDQ——尽量生成带 <code>QuantizeLinear</code> / <code>DequantizeLinear</code>、中间保留普通 <code>Conv</code> 的图，给工具链留出融合空间。</p>
+  <p><strong>Netron 里认图</strong></p>
+  <ul>
+    <li>满屏 Q/DQ + 普通 Conv → <strong>QDQ</strong></li>
+    <li>满屏 <code>ConvInteger</code>、<code>MatMulInteger</code> → <strong>QOperator</strong></li>
+  </ul>
+
+  <hr>
+
+  <h2>术语速查</h2>
+  <table>
+    <tr><th>术语</th><th>一句话</th></tr>
+    <tr><td>FP32</td><td>32 位浮点，训练常用，精度高</td></tr>
+    <tr><td>INT8</td><td>8 位整数，体积小、算得快</td></tr>
+    <tr><td>PTQ</td><td>模型训完后再量化，不用重训</td></tr>
+    <tr><td>scale / zero_point</td><td>整数与小数的换算参数</td></tr>
+    <tr><td>QDQ</td><td>用 Q/DQ 节点包裹普通算子，参数可见</td></tr>
+    <tr><td>QOperator</td><td>直接使用整数版算子，参数内嵌</td></tr>
+    <tr><td>Fusion</td><td>多步合并成一步，减少内存与调度开销</td></tr>
+    <tr><td>Kernel</td><td>某算子在特定硬件上的优化实现</td></tr>
+    <tr><td>DequantizeLinear</td><td>把 INT8 还原为浮点，验精度必过此步</td></tr>
+  </table>
+
+  <hr>
+
+  <h2>写在最后</h2>
+  <p>INT8 不是「压缩完就完事」的一个标签，而是两种图、两套工具链习惯、一种正确的验精度方式。</p>
+  <p>再打开 Netron，不必纠结「为什么同一份模型有两种脸」——<strong>认图、对工具链、用 DQ 后的浮点验精度</strong>，三件事理顺，后面少踩很多坑。</p>
+</main>
+</body>
+</html>
