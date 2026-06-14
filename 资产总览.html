@@ -476,6 +476,7 @@
     }
 
     .card.data-done { opacity: 0.55; }
+    .card.data-done.card-debt-cleared { display: none; }
     .card.data-done .card-value {
       text-decoration: line-through;
       color: var(--muted);
@@ -487,6 +488,29 @@
     }
 
     tr.data-done td:first-child { text-decoration: none; }
+
+    .todo-group-fold {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .todo-group-fold > summary {
+      cursor: pointer;
+      padding: 10px 14px;
+      font-weight: 600;
+      list-style: none;
+      background: hsl(var(--foreground) / 0.03);
+    }
+
+    .todo-group-fold > summary::-webkit-details-marker { display: none; }
+
+    .todo-group-fold .todo-list { padding: 0 14px 10px; }
+
+    .home-urgent-val { font-size: 1.35rem; font-weight: 700; margin: 6px 0; }
+
+    #monthly-table .col-cleared { display: none; }
 
     .badge-done {
       display: inline-block;
@@ -1179,6 +1203,12 @@
       </div>
 
       <div class="home-grid">
+        <div class="card home-card highlight">
+          <h3>⏰ 近期必还</h3>
+          <div class="home-urgent-val" id="home-urgent-amount">—</div>
+          <p class="home-stat-sub" id="home-urgent-sub">—</p>
+          <button type="button" class="home-link-btn" data-goto="plan">查看执行计划 →</button>
+        </div>
         <div class="card home-card">
           <h3>☁️ 云端关注</h3>
           <div id="home-watchlist-chips" class="watchlist-chips"></div>
@@ -1246,7 +1276,7 @@
 
     <!-- ========== 执行计划 ========== -->
     <div id="page-plan" class="page finance-page">
-      <p class="page-desc">做完一项勾一项 · 赛力斯不卖 · 更新于 2026-06-13</p>
+      <p class="page-desc" id="page-desc-plan">做完一项勾一项 · 赛力斯不卖</p>
 
       <div class="finance-lead"><strong>可提前卖股</strong> · 卖后现金滚存 · 8 月紧不紧看<strong>现金池余额</strong> · <strong>7/4 京东</strong>仍是最紧还款日 · 赛力斯不卖</div>
 
@@ -1285,21 +1315,21 @@
         </div>
       </div>
 
-      <div class="summary-grid">
+      <div class="summary-grid" id="plan-summary">
         <div class="card highlight">
-          <div class="card-label">6 月剩待办</div>
-          <div class="card-value">14,661</div>
-          <div class="card-sub">支付宝 6/22 前 · 抖音/滴滴已清</div>
+          <div class="card-label" id="plan-sum-jun-label">6 月剩待办</div>
+          <div class="card-value" id="plan-sum-jun-val">—</div>
+          <div class="card-sub" id="plan-sum-jun-sub">—</div>
         </div>
         <div class="card">
           <div class="card-label">7 月需准备</div>
-          <div class="card-value">48,907</div>
-          <div class="card-sub">京东 7/4 · 34,145 + 支付宝 · 个人 20 万 8 月还</div>
+          <div class="card-value" id="plan-sum-jul-val">—</div>
+          <div class="card-sub" id="plan-sum-jul-sub">—</div>
         </div>
         <div class="card warn-card">
           <div class="card-label">8 月需准备</div>
-          <div class="card-value">259,791</div>
-          <div class="card-sub">朋友 200,000 + 平台 59,791</div>
+          <div class="card-value" id="plan-sum-aug-val">—</div>
+          <div class="card-sub" id="plan-sum-aug-sub">—</div>
         </div>
       </div>
 
@@ -1313,7 +1343,7 @@
             <tbody>
               <tr><td>6 月已执行</td><td>卖股到账</td><td>—</td><td>滴滴/抖音已清 · 京东额外 −7.5 万</td><td class="gain">宽</td></tr>
               <tr><td>6/22 支付宝</td><td>—</td><td>—</td><td>6/22 前 · <strong>必还</strong></td><td class="gain">宽</td></tr>
-              <tr class="peak"><td><strong>7/4 京东</strong></td><td><strong>7/1～7/2 卖京东</strong></td><td><strong>7/3～4</strong></td><td><strong>7/4 前</strong></td><td><strong>紧</strong></td></tr>
+              <tr class="peak"><td><strong>7/4 京东</strong></td><td><strong>现金池 / 卖平安</strong></td><td><strong>7/3～4</strong></td><td><strong id="plan-rhythm-jul4">7/4 前 · 京东月供</strong></td><td><strong>紧</strong></td></tr>
               <tr><td>7/22 支付宝</td><td>—</td><td>7 月储蓄 2 万</td><td>7/22 前</td><td class="gain">宽</td></tr>
               <tr><td>8 月</td><td>7/25 赎基金 + 7/28～8/1 卖股</td><td>基金 T+1 · 股 T+2</td><td>8/4 京东 + 8 月内朋友 20 万</td><td class="gain">宽</td></tr>
               <tr><td>9 月+</td><td>仅工资 2 万/月</td><td>—</td><td>4 日 / 22 日</td><td class="warn">需留缓冲</td></tr>
@@ -1333,16 +1363,16 @@
             <tbody>
               <tr><td>6 月初</td><td>~11 万</td><td>卖麦格米特/优必选 − 滴滴 − 京东额外 7.5 万</td></tr>
               <tr><td>6 月末</td><td>视现金池</td><td>抖音已结 · 剩 6/22 支付宝 1.47 万</td></tr>
-              <tr><td>7 月末</td><td>~2 万+</td><td>7/4 京东 ~4.5 万（股或滚存现金）+ 7 月储蓄</td></tr>
-              <tr><td>8 月初</td><td>滚存 + 基金</td><td>8 月需求 ~26 万；紧不紧看余额，与「6 月是否卖过股」无必然关系</td></tr>
+              <tr><td>7 月末</td><td id="plan-cash-jul-end">—</td><td id="plan-cash-jul-note">7/4 京东月供 + 7 月储蓄</td></tr>
+              <tr><td>8 月初</td><td id="plan-cash-aug-start">—</td><td id="plan-cash-aug-note">滚存 + 基金 · 8 月大坑看余额</td></tr>
             </tbody>
           </table>
         </div>
         <div class="tips" style="margin:0;">
           <ul>
             <li>卖股回笼不会消失；真正占池的是<strong>已发生的还款</strong>（滴滴、抖音、京东额外 7.5 万等）。</li>
-            <li>抖音已清；7～8 月仍可按计划卖 JD 凑 7/4、8 月大坑。</li>
-            <li>赛力斯不卖；江铜已清（~0.9 万）。</li>
+            <li>7/4 靠<strong>现金池或卖平安</strong>，不再卖京东健康（仅留 200 股）。</li>
+            <li>8 月靠<strong>赎基金 + 卖 ~10% 平安</strong>凑朋友 20 万与平台债。</li>
           </ul>
         </div>
       </details>
@@ -1350,7 +1380,7 @@
 
     <!-- ========== 债务总览 ========== -->
     <div id="page-debt" class="page finance-page">
-      <p class="page-desc">各平台待还 · 每月需准备 · 基金弹药 · 2026-06-13</p>
+      <p class="page-desc" id="page-desc-debt">各平台待还 · 每月需准备 · 基金弹药</p>
 
       <div class="summary-grid" id="repay-summary">
         <div class="card" id="card-debt-jd">
@@ -1361,11 +1391,11 @@
           <div class="platform-row"><span class="dot ali"></span><span class="card-label">支付宝</span></div>
           <div class="card-value" id="debt-ali">—</div>
         </div>
-        <div class="card" id="card-debt-dy">
+        <div class="card card-debt-cleared" id="card-debt-dy">
           <div class="platform-row"><span class="dot dy"></span><span class="card-label">抖音</span></div>
           <div class="card-value" id="debt-dy">—</div>
         </div>
-        <div class="card" id="card-debt-didi">
+        <div class="card card-debt-cleared" id="card-debt-didi">
           <div class="platform-row"><span class="dot didi"></span><span class="card-label">滴滴</span></div>
           <div class="card-value" id="debt-didi">—</div>
         </div>
@@ -1388,8 +1418,8 @@
               <tr>
                 <th>月份</th>
                 <th>京东</th>
-                <th>滴滴</th>
-                <th>抖音</th>
+                <th class="col-cleared">滴滴</th>
+                <th class="col-cleared">抖音</th>
                 <th>支付宝</th>
                 <th>个人</th>
                 <th>当月合计 ↑</th>
@@ -1486,7 +1516,7 @@
 
     <!-- ========== 规划 ========== -->
     <div id="page-policy" class="page finance-page">
-      <p class="page-desc">财务快照 · 三阶段策略 · 投资红线 · 2026-06-13</p>
+      <p class="page-desc" id="page-desc-policy">财务快照 · 三阶段策略 · 投资红线</p>
 
       <div class="summary-grid">
         <div class="card highlight">
@@ -1547,7 +1577,7 @@
       </div>
 
       <details class="finance-fold">
-        <summary>还款卖股决策（京东健康 vs 平安好医生）</summary>
+        <summary>还款卖股决策（平安好医生优先 · 京东健康仅留 200 股）</summary>
         <p class="page-desc" style="margin:0 0 12px;">LCAI 研报 + 还债组合双框架 · 数据截至现有研判缓存</p>
         <div class="card" style="padding:0;overflow-x:auto;margin-bottom:12px;">
           <table>
@@ -1654,17 +1684,17 @@
         <div class="card">
           <div class="platform-row"><span class="dot gt"></span><span class="card-label">国投证券</span></div>
           <div class="card-value" id="acct-gt">—</div>
-          <div class="card-sub">仓位 97.4% · 当日 -6,471</div>
+          <div class="card-sub" id="acct-gt-sub">—</div>
         </div>
         <div class="card">
           <div class="platform-row"><span class="dot hb"></span><span class="card-label">华宝证券</span></div>
           <div class="card-value" id="acct-hb">—</div>
-          <div class="card-sub">仓位 99.7% · 当日 -10,109</div>
+          <div class="card-sub" id="acct-hb-sub">—</div>
         </div>
         <div class="card highlight">
           <div class="card-label">证券总资产</div>
           <div class="card-value" id="sec-total">—</div>
-          <div class="card-sub">可用现金约 2,410</div>
+          <div class="card-sub" id="sec-cash-sub">—</div>
         </div>
         <div class="card">
           <div class="card-label">持仓浮亏</div>
@@ -1980,7 +2010,7 @@
       </div>
     </div>
 
-      <footer>生成日期：2026-06-13 · LCAI 资产总览工作台</footer>
+      <footer id="site-footer">LCAI 资产总览工作台</footer>
       </div>
     </div>
   </div>
@@ -2143,6 +2173,98 @@
     function fmtTable(v) {
       if (v == null) return '<span class="dash">—</span>';
       return v.toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function getMonthRow(label) {
+      return months.find(m => m.label === label);
+    }
+
+    function getDataUpdatedAt() {
+      const parts = [];
+      const q = getQuotes().updatedAt;
+      const h = window.LCAI_HOLDINGS?.updatedAt;
+      if (q) parts.push(new Date(q));
+      if (h) parts.push(new Date(h + "T12:00:00"));
+      if (!parts.length) return null;
+      parts.sort((a, b) => b - a);
+      return parts[0].toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit" });
+    }
+
+    function updatePageDates() {
+      const stamp = getDataUpdatedAt();
+      const suffix = stamp ? ` · 数据 ${stamp}` : "";
+      const footer = document.getElementById("site-footer");
+      if (footer) footer.textContent = `LCAI 资产总览工作台${suffix}`;
+      ["page-desc-plan", "page-desc-debt", "page-desc-policy"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el && !el.dataset.base) el.dataset.base = el.textContent.replace(/\s·\s数据.*$/, "");
+        if (el) el.textContent = (el.dataset.base || el.textContent) + suffix;
+      });
+    }
+
+    function accountStats(state, acct) {
+      const mv = state.holdings.filter(h => !h.sold && h.account === acct)
+        .reduce((a, h) => a + h.marketValue, 0);
+      const cash = BASELINE.accountCash[acct] || 0;
+      const total = mv + cash;
+      const posPct = total > 0 ? (mv / total) * 100 : 0;
+      return { mv, cash, total, posPct };
+    }
+
+    function pendingMonthTotal(row, todoState, monthKey) {
+      if (!row) return 0;
+      const ids = MONTH_TODO_MAP[monthKey] || [];
+      let sum = 0;
+      ids.forEach(id => {
+        if (isTodoDone(todoState, id)) return;
+        const item = getTodoItemById(id);
+        if (item?.defaultAmount) sum += item.defaultAmount;
+      });
+      return sum;
+    }
+
+    function renderPlanSummary(todoState) {
+      const junRow = getMonthRow("2026-06");
+      const julRow = getMonthRow("2026-07");
+      const augRow = getMonthRow("2026-08");
+      const junPending = pendingMonthTotal(junRow, todoState, "2026-06");
+      const julTotal = julRow ? ceilSum(julRow) : 0;
+      const augTotal = augRow ? ceilSum(augRow) : 0;
+      const augPlatform = (augRow?.jd || 0) + (augRow?.ali || 0);
+
+      const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+      set("plan-sum-jun-val", junPending > 0 ? fmtInt(junPending) : "0");
+      set("plan-sum-jun-sub", junPending > 0 ? "支付宝 6/22 前 · 抖音/滴滴已清" : "6 月待办已全部完成");
+      set("plan-sum-jul-val", fmtInt(julTotal));
+      set("plan-sum-jul-sub", `京东 7/4 · ${fmtInt(JUL_JD_PAY)} + 支付宝 · 个人 20 万 8 月还`);
+      set("plan-sum-aug-val", fmtInt(augTotal));
+      set("plan-sum-aug-sub", `朋友 ${fmtInt(augRow?.personal || 0)} + 平台 ${fmtInt(augPlatform)}`);
+
+      set("plan-rhythm-jul4", `7/4 前 · 京东 ${fmtInt(JUL_JD_PAY)}`);
+      set("plan-cash-jul-end", `需备 ~${fmtInt(julTotal)}`);
+      set("plan-cash-jul-note", `7/4 京东 ${fmtInt(JUL_JD_PAY)} + 7/22 支付宝 ${fmtInt(julRow?.ali || 0)}`);
+      set("plan-cash-aug-start", `需备 ~${fmtInt(augTotal)}`);
+      set("plan-cash-aug-note", `含朋友 20 万 + 平台 ${fmtInt(augPlatform)} + 赎基金 ~${fmtInt(FUND_TOTAL)}`);
+    }
+
+    function getNextUrgentTodo(todoState) {
+      const order = Object.keys(MONTH_TODO_MAP);
+      for (const month of order) {
+        for (const id of MONTH_TODO_MAP[month]) {
+          if (!isTodoDone(todoState, id)) {
+            return { id, month, item: getTodoItemById(id) };
+          }
+        }
+      }
+      return null;
+    }
+
+    function daysUntilJuly4() {
+      const now = new Date();
+      const y = now.getFullYear();
+      let target = new Date(y, 6, 4);
+      if (now > target) target = new Date(y + 1, 6, 4);
+      return Math.ceil((target - now) / 86400000);
     }
 
     function ceilSum(row) {
@@ -2421,10 +2543,26 @@
         const el = document.getElementById(elId);
         const card = document.getElementById(cardId);
         if (el) el.textContent = fmtInt(val);
-        if (card) card.classList.toggle("data-done", val < 1);
+        if (card) {
+          card.classList.toggle("data-done", val < 1);
+          card.classList.toggle("card-debt-cleared", val < 1);
+        }
       });
       const totalEl = document.getElementById("debt-total");
       if (totalEl) totalEl.textContent = fmtInt(state.liabilitiesTotal);
+
+      const cleared = ["dy", "didi"].filter(k => state.debts[k] < 1);
+      const tipsEl = document.querySelector("#page-debt .tips ul");
+      if (tipsEl && tipsEl.dataset.dynamic !== "1") {
+        tipsEl.dataset.dynamic = "1";
+      }
+      if (tipsEl) {
+        const first = tipsEl.querySelector("li");
+        if (first) {
+          const clearedNote = cleared.length ? `${cleared.map(k => DEBT_LABELS[k]).join("、")}已结清 · ` : "";
+          first.textContent = `${clearedNote}京东金条 ~${fmtInt(state.debts.jd)}（${BASELINE.debtCounts.jd} 笔）。7/4 当期 ~${fmtInt(JUL_JD_PAY)}；7 月合计 ~${fmtInt(ceilSum(getMonthRow("2026-07")))}。`;
+        }
+      }
 
       const labels = {
         jd: ["京东金条", "jd", String(BASELINE.debtCounts.jd), "每月 4 日"],
@@ -2437,6 +2575,7 @@
       if (!tbody) return;
       tbody.innerHTML = Object.keys(labels).map(key => {
         const val = state.debts[key];
+        if (val < 1 && (key === "dy" || key === "didi")) return "";
         const [name, dot, count, due] = labels[key];
         const doneCls = val < 1 ? " class=\"data-done\"" : "";
         return `<tr${doneCls}><td><span class="dot ${dot}"></span> ${name}</td><td>${count}</td><td>${fmtMoney(val, 2)}</td><td>${due}</td></tr>`;
@@ -2456,6 +2595,14 @@
 
       if (acctGt) acctGt.textContent = fmtInt(state.accounts.gt);
       if (acctHb) acctHb.textContent = fmtInt(state.accounts.hb);
+      const gtS = accountStats(state, "gt");
+      const hbS = accountStats(state, "hb");
+      const gtSub = document.getElementById("acct-gt-sub");
+      const hbSub = document.getElementById("acct-hb-sub");
+      const secCashSub = document.getElementById("sec-cash-sub");
+      if (gtSub) gtSub.textContent = `仓位 ${gtS.posPct.toFixed(1)}% · 可用 ${fmtInt(gtS.cash)}`;
+      if (hbSub) hbSub.textContent = `仓位 ${hbS.posPct.toFixed(1)}% · 可用 ${fmtInt(hbS.cash)}`;
+      if (secCashSub) secCashSub.textContent = `可用现金 ${fmtInt(gtS.cash + hbS.cash)} · 含两账户`;
       if (secTotal) secTotal.textContent = fmtInt(state.securitiesTotal);
       if (secPnl) {
         secPnl.textContent = (state.stockPnl >= 0 ? "+" : "") + fmtInt(state.stockPnl);
@@ -2813,8 +2960,8 @@
         tr.innerHTML = `
           <td>${row.label}${badge}</td>
           <td>${fmtTable(row.jd)}</td>
-          <td>${fmtTable(row.didi)}</td>
-          <td>${fmtTable(row.dy)}</td>
+          <td class="col-cleared">${fmtTable(row.didi)}</td>
+          <td class="col-cleared">${fmtTable(row.dy)}</td>
           <td>${fmtTable(row.ali)}</td>
           <td>${row.personal ? "200,000.00" : '<span class="dash">—</span>'}</td>
           <td class="month-total">${total.toLocaleString("zh-CN")}</td>`;
@@ -2825,17 +2972,19 @@
     function renderAll() {
       const todoState = loadTodoState();
       const state = computeState(todoState);
+      updatePageDates();
       renderQuoteBar();
       renderDebts(state);
       renderHoldings(state);
-      renderHome(state);
+      renderHome(state, todoState);
+      renderPlanSummary(todoState);
       renderFunds(state);
       renderDiagnosis(state);
       renderAdjustments(state);
       renderMonthlyTable(todoState);
     }
 
-    function renderHome(state) {
+    function renderHome(state, todoState) {
       const active = state.holdings.filter(h => !h.sold);
       const secTotal = document.getElementById("home-sec-total");
       const secPnl = document.getElementById("home-sec-pnl");
@@ -2850,6 +2999,19 @@
       if (netSub) {
         const cashPart = state.extraCash > 0 ? ` · 额外现金 ${fmtInt(state.extraCash)}` : "";
         netSub.textContent = `净资产 ${fmtInt(state.netWorth)} · 负债 ${fmtInt(state.liabilitiesTotal)}${cashPart}`;
+      }
+
+      const urgentAmt = document.getElementById("home-urgent-amount");
+      const urgentSub = document.getElementById("home-urgent-sub");
+      const next = getNextUrgentTodo(todoState);
+      if (next?.item && urgentAmt && urgentSub) {
+        urgentAmt.textContent = fmtInt(next.item.defaultAmount || 0);
+        const days = daysUntilJuly4();
+        const dayHint = next.id === "jul-jd-pay" ? ` · 距 7/4 还有 ${days} 天` : "";
+        urgentSub.textContent = `${next.month} · ${next.item.text.replace(/<[^>]+>/g, "")}${dayHint}`;
+      } else if (urgentAmt && urgentSub) {
+        urgentAmt.textContent = "—";
+        urgentSub.textContent = "近期待办已全部完成";
       }
     }
 
@@ -3014,14 +3176,19 @@
               ${editBtn}${editPriceBtn}
             </li>`;
         }).join("");
-        return `
-          <div class="todo-group">
+        const allDone = groupDone === group.items.length;
+        const isArchive = group.title.includes("已完成");
+        const body = `
             <div class="todo-group-head">
               <h3>${group.title}</h3>
               <span class="todo-group-count">${groupDone}/${group.items.length}</span>
             </div>
-            <ul class="todo-list">${itemsHtml}</ul>
-          </div>`;
+            <ul class="todo-list">${itemsHtml}</ul>`;
+        if (isArchive) {
+          return `<details class="todo-group-fold"${allDone ? "" : " open"}><summary>${group.title}（${groupDone}/${group.items.length}）</summary><ul class="todo-list">${itemsHtml}</ul></details>`;
+        }
+        return `
+          <div class="todo-group">${body}</div>`;
       }).join("");
 
       document.getElementById("todo-done").textContent = done;
