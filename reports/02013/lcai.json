@@ -1,18 +1,18 @@
 {
   "source": "lcai",
-  "symbol": "09880",
-  "name": "优必选",
-  "price": 114.0,
+  "symbol": "02013",
+  "name": "微盟集团",
+  "price": 1.37,
   "pe": null,
-  "pb": 7.18,
-  "eps": -1.55,
-  "amount": 809975456.0,
-  "roe_avg": -40.26,
+  "pb": 2.05,
+  "eps": -0.06,
+  "amount": 20922852.0,
+  "roe_avg": -28.64,
   "profit_years": 0,
-  "gross_margin": 37.67,
+  "gross_margin": 75.07,
   "ocf_ratio": null,
-  "profit_yoy": 37.42,
-  "revenue_yoy": 53.29,
+  "profit_yoy": 87.19,
+  "revenue_yoy": 18.87,
   "peg": null,
   "industry": "软件服务",
   "sector": {
@@ -41,7 +41,7 @@
     "max_weight": "10%",
     "reason": "硬指标未过：L1-01、L1-02、L2-01、L3-01"
   },
-  "in_portfolio": false,
+  "in_portfolio": true,
   "verdict": "观察",
   "verdict_action": "硬指标未过：L1-01、L1-02、L2-01、L3-01",
   "overall_score": 76,
@@ -57,24 +57,24 @@
     "final_conclusion": {
       "verdict": "观察",
       "action": "硬指标未过：L1-01、L1-02、L2-01、L3-01",
-      "headline": "【未持仓】观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01",
+      "headline": "【已持仓】观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01",
       "reasons": [
-        "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+        "近 5 年 ROE 均值 -28.64%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
         "近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
         "经营现金流/每股收益 — 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。"
       ],
       "actions": [
-        "未持仓：可放入观察池，等安全边际≥25% 或硬指标改善后再评估。"
+        "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
       ],
       "data_ok": true,
-      "in_portfolio": false
+      "in_portfolio": true
     },
-    "executive_brief": "优必选：【未持仓】观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01 核心：近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
-    "summary_detailed": "【一句话结论】优必选（09880）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02、L2-01、L3-01。评级 B，总分 76。\n\n【公司与行业】\n所属行业：软件服务；估值归类：软件（公允 PE 28，PE 上限 45）。\n现价 114.00 元；PE —；ROE 五年均值 -40.26%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n硬指标 Fail 4 项：L1-01 ROE均值、L1-02 盈利稳定性、L2-01 现金流质量、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01。\n单票建议上限 10%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "executive_brief": "微盟集团：【已持仓】观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01 核心：近 5 年 ROE 均值 -28.64%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 0/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
+    "summary_detailed": "【一句话结论】微盟集团（02013）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02、L2-01、L3-01。评级 B，总分 76。\n\n【公司与行业】\n所属行业：软件服务；估值归类：软件（公允 PE 28，PE 上限 45）。\n现价 1.37 元；PE —；ROE 五年均值 -28.64%；经营现金流/每股收益 OCF/EPS —。\n\n【估值测算】\n缺少 EPS 或行情，无法完成公允价/安全边际测算。\n\n【规则结论】\n硬指标 Fail 4 项：L1-01 ROE均值、L1-02 盈利稳定性、L2-01 现金流质量、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02、L2-01、L3-01。\n单票建议上限 10%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
-        "value": "114.00 元",
+        "value": "1.37 元",
         "threshold": "—",
         "status": "neutral",
         "note": "行情或缓存价"
@@ -88,7 +88,7 @@
       },
       {
         "label": "PB",
-        "value": "7.18",
+        "value": "2.05",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
@@ -102,7 +102,7 @@
       },
       {
         "label": "ROE 均值",
-        "value": "-40.26%",
+        "value": "-28.64%",
         "threshold": "≥15%",
         "status": "fail",
         "note": "5年加权"
@@ -116,14 +116,14 @@
       },
       {
         "label": "毛利率",
-        "value": "37.67%",
+        "value": "75.07%",
         "threshold": "≥20%",
         "status": "ok",
         "note": "最新年报"
       },
       {
         "label": "利润 YoY",
-        "value": "37.42%",
+        "value": "87.19%",
         "threshold": "≥0%",
         "status": "ok",
         "note": "最新期"
@@ -172,14 +172,14 @@
       },
       {
         "label": "EPS",
-        "value": "-1.550",
+        "value": "-0.060",
         "threshold": ">0",
         "status": "fail",
         "note": "估值基础"
       },
       {
         "label": "成交额",
-        "value": "8.10 亿",
+        "value": "0.21 亿",
         "threshold": "A股≥0.5亿",
         "status": "neutral",
         "note": "流动性 L0-03"
@@ -227,11 +227,11 @@
       {
         "id": "L1-01",
         "name": "ROE均值",
-        "actual": "-40.26%",
+        "actual": "-28.64%",
         "threshold": "≥15%",
         "result": "fail",
         "pass": false,
-        "reason": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+        "reason": "近 5 年 ROE 均值 -28.64%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
       },
       {
         "id": "L2-01",
@@ -296,14 +296,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "优必选",
+        "actual": "微盟集团",
         "threshold": "非ST",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "「优必选」非 ST，通过基础资格筛选。"
+        "reason": "「微盟集团」非 ST，通过基础资格筛选。"
       },
       {
         "id": "L0-03",
@@ -315,14 +315,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "8.10亿",
+        "actual": "0.21亿",
         "threshold": "≥0.20亿",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "日均成交额 8.10亿，流动性充足，可正常建仓与退出。"
+        "reason": "日均成交额 0.21亿，流动性充足，可正常建仓与退出。"
       },
       {
         "id": "L0-04",
@@ -344,14 +344,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "53.29%",
+        "actual": "18.87%",
         "threshold": "≥0%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "营收增长达标（53.29% / ≥0%）。"
+        "reason": "营收增长达标（18.87% / ≥0%）。"
       },
       {
         "id": "L0-05",
@@ -412,14 +412,14 @@
         ],
         "weight": 5,
         "pass": false,
-        "actual": "-40.26%",
+        "actual": "-28.64%",
         "threshold": "≥15%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+        "reason": "近 5 年 ROE 均值 -28.64%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
       },
       {
         "id": "L1-02",
@@ -450,14 +450,14 @@
         ],
         "weight": 8,
         "pass": true,
-        "actual": "37.67%",
+        "actual": "75.07%",
         "threshold": "≥20%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "毛利率达标（37.67% / ≥20%）。"
+        "reason": "毛利率达标（75.07% / ≥20%）。"
       },
       {
         "id": "L1-04",
@@ -490,14 +490,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "37.42%",
+        "actual": "87.19%",
         "threshold": "≥0%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "利润增长达标（37.42% / ≥0%）。"
+        "reason": "利润增长达标（87.19% / ≥0%）。"
       },
       {
         "id": "L1-06",
@@ -566,14 +566,14 @@
         ],
         "weight": 8,
         "pass": true,
-        "actual": "37.42%",
+        "actual": "87.19%",
         "threshold": "≥0%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "盈利趋势达标（37.42% / ≥0%）。"
+        "reason": "盈利趋势达标（87.19% / ≥0%）。"
       },
       {
         "id": "L2-04",
@@ -657,14 +657,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "7.18",
+        "actual": "2.05",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（7.18 / ≤8）。"
+        "reason": "PB合理达标（2.05 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -837,8 +837,8 @@
         "kind": "hard_fail",
         "rule_id": "L1-01",
         "title": "L1-01 ROE均值（硬指标 Fail）",
-        "summary": "近 5 年 ROE 均值 -40.26%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-        "actual": "-40.26%",
+        "summary": "近 5 年 ROE 均值 -28.64%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+        "actual": "-28.64%",
         "threshold": "≥15%"
       },
       {
