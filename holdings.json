@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-13",
+  "updatedAt": "2026-06-14",
   "holdings": [
     {
       "id": "pingan",
@@ -7,10 +7,10 @@
       "account": "gt",
       "symbol": "116.01833",
       "shares": 43600,
-      "costPerShare": 14.394,
+      "costPerShare": 14.429,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 8.74,
+      "fallbackPrice": 8.93,
       "sold": false
     },
     {
@@ -18,11 +18,11 @@
       "name": "赛力斯",
       "account": "hb",
       "symbol": "1.601127",
-      "shares": 4100,
-      "costPerShare": 138.217,
+      "shares": 4200,
+      "costPerShare": 136.544,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 68.67,
+      "fallbackPrice": 67.9,
       "sold": false
     },
     {
@@ -31,10 +31,10 @@
       "account": "gt",
       "symbol": "116.06618",
       "shares": 200,
-      "costPerShare": 39.702,
+      "costPerShare": 39.798,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 37.76,
+      "fallbackPrice": 37.8,
       "sold": false
     },
     {
@@ -43,10 +43,10 @@
       "account": "gt",
       "symbol": "116.00700",
       "shares": 200,
-      "costPerShare": 466.347,
+      "costPerShare": 467.481,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 463.6,
+      "fallbackPrice": 460,
       "sold": false
     },
     {
@@ -55,10 +55,10 @@
       "account": "gt",
       "symbol": "116.02013",
       "shares": 38000,
-      "costPerShare": 1.372,
+      "costPerShare": 1.375,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 1.35,
+      "fallbackPrice": 1.38,
       "sold": false
     },
     {

@@ -1331,7 +1331,7 @@
       <div class="plan-principles">
         <div class="principle hold">
           <div class="tag">长期持有</div>
-          <strong>赛力斯</strong>（华宝 4,100 股 · 满仓）<br>
+          <strong>赛力斯</strong>（华宝 4,200 股 · 可用 4,100 · 满仓）<br>
           <span style="color:var(--muted)">不卖 · 目标价 200</span>
         </div>
         <div class="principle hold">
@@ -1398,9 +1398,9 @@
             </thead>
             <tbody>
               <tr><td>6/22</td><td>6 月工资 ~2 万</td><td>支付宝 ~1.47 万</td></tr>
-              <tr class="peak"><td>7/3～4</td><td><strong>卖光微盟 ~4.7 万</strong></td><td>京东 ~3.4 万（7/4）</td></tr>
+              <tr class="peak"><td>7/3～4</td><td><strong>卖光微盟 ~4.5 万</strong></td><td>京东 ~3.4 万（7/4）</td></tr>
               <tr><td>7/22</td><td>微盟余款 + 7 月工资 ~2 万</td><td id="plan-cash-jul-note">支付宝 ~1.5 万</td></tr>
-              <tr><td>8 月初</td><td id="plan-cash-aug-note">赎基金 ~6.3 万 + 卖光腾讯 ~8.5 万 + 卖平安 ~8,500 股 ~6.8 万 + 8 月工资</td><td id="plan-cash-aug-start">8 月合计 ~25.5 万</td></tr>
+              <tr><td>8 月初</td><td id="plan-cash-aug-note">赎基金 ~6.3 万 + 卖光腾讯 ~8.0 万 + 卖平安 ~8,500 股 ~6.6 万 + 8 月工资</td><td id="plan-cash-aug-start">8 月合计 ~25.5 万</td></tr>
             </tbody>
           </table>
         </div>
@@ -1801,7 +1801,7 @@
       <div class="tips">
         <strong>持仓提示</strong>
         <ul>
-          <li><strong>华宝</strong>仅赛力斯 4,100 股（满仓）；<strong>国投</strong>为港股仓（平安/腾讯/微盟/JD 健康）。8 月还朋友 20 万 + 平台 ~6 万，见「执行」页。</li>
+          <li><strong>华宝</strong>赛力斯 4,200 股（可用 4,100）；<strong>国投</strong>港股仓（平安/腾讯/微盟/JD 健康）。两户可用均为 0，见「执行」页。</li>
           <li>赛力斯不卖 · 7 月卖光微盟 · 8 月卖光腾讯 + 卖平安 ~8,500 股（均为还债，不是看空）。</li>
           <li><strong>江铜</strong> 已卖；麦格米特已清。</li>
           <li>详见「诊断」页五维评价与未来路径。</li>
@@ -2059,10 +2059,10 @@
     const JD_DEBT_TOTAL = 209352.52;
     const JUL_JD_PAY = 34145.47;
     const FUND_TOTAL = 63352.29;
-    const WEIMOB_JUL_EST = 47200;
-    const TENCENT_AUG_EST = 85300;
+    const WEIMOB_JUL_EST = 45400;
+    const TENCENT_AUG_EST = 79600;
     const PINGAN_AUG_SELL = 8500;
-    const PINGAN_AUG_EST = 68340;
+    const PINGAN_AUG_EST = 65700;
     const MONTHLY_SAVINGS = 20000;
     const JD_HEALTH_SHARES = 200;
     const BASELINE_TODO_DONE = {
@@ -2097,7 +2097,7 @@
         { id: "f6", name: "易方达证券保险 ETF 联接 C", amount: 25893.55, pnl: -152.75, redeemed: false },
         { id: "f7", name: "富国医药创新股票 C", amount: 31843.10, pnl: -2629.20, redeemed: false },
       ],
-      accountCash: { gt: 197.45, hb: 0 },
+      accountCash: { gt: 0, hb: 0 },
     };
 
     const TODO_GROUPS = [
@@ -2121,7 +2121,7 @@
       {
         title: "7 月",
         items: [
-          { id: "jul-sell-weimob", text: "卖出微盟 <strong>38,000 股</strong>（<strong>7/3 前</strong> · 约 <strong>4.7 万</strong> · 凑 7/4 京东）", urgent: true, effect: "sell_all", holdingId: "weimob", defaultAmount: WEIMOB_JUL_EST },
+          { id: "jul-sell-weimob", text: "卖出微盟 <strong>38,000 股</strong>（<strong>7/3 前</strong> · 约 <strong>4.5 万</strong> · 凑 7/4 京东）", urgent: true, effect: "sell_all", holdingId: "weimob", defaultAmount: WEIMOB_JUL_EST },
           { id: "jul-jd-pay", text: "还京东金条 <strong>34,145</strong>（7/4 前 · 卖微盟回款）", urgent: true, effect: "debt_pay", pay: { jd: JUL_JD_PAY }, defaultAmount: JUL_JD_PAY },
           { id: "jul-ali-pay", text: "还支付宝 <strong>14,761</strong>（7/22 前 · 微盟余款 + 7 月储蓄 2 万）", effect: "debt_pay", pay: { ali: 14761.30 }, defaultAmount: 14761.30 },
         ],
@@ -2130,8 +2130,8 @@
         title: "8 月",
         items: [
           { id: "aug-fund", text: "赎回理财通 4 只基金（<strong>7/25 前</strong> · ~6.34 万 · T+1）", effect: "fund_redeem_all", defaultAmount: FUND_TOTAL },
-          { id: "aug-sell-tencent", text: "卖出腾讯 <strong>200 股</strong>（<strong>7/28～8/1</strong> · 约 <strong>8.5 万</strong>）", effect: "sell_all", holdingId: "tencent", defaultAmount: TENCENT_AUG_EST },
-          { id: "aug-sell-pa", text: "卖出平安好医生 <strong>~8,500 股</strong>（留 ~81% · 约 <strong>6.8 万</strong>）", effect: "sell_partial", holdingId: "pingan", sellShares: PINGAN_AUG_SELL, defaultAmount: PINGAN_AUG_EST },
+          { id: "aug-sell-tencent", text: "卖出腾讯 <strong>200 股</strong>（<strong>7/28～8/1</strong> · 约 <strong>8.0 万</strong>）", effect: "sell_all", holdingId: "tencent", defaultAmount: TENCENT_AUG_EST },
+          { id: "aug-sell-pa", text: "卖出平安好医生 <strong>~8,500 股</strong>（留 ~81% · 约 <strong>6.6 万</strong>）", effect: "sell_partial", holdingId: "pingan", sellShares: PINGAN_AUG_SELL, defaultAmount: PINGAN_AUG_EST },
           { id: "aug-jd-pay", text: "还京东金条 <strong>~39,930</strong>（8/4 前 · 按余额估算）", effect: "debt_pay", pay: { jd: 39930.19 }, defaultAmount: 39930.19 },
           { id: "aug-friend", text: "还朋友 <strong>200,000</strong>（8 月中下旬 · 卖股+赎基金到账后）", effect: "debt_clear", platform: "personal", defaultAmount: 200000 },
           { id: "aug-ali-pay", text: "还支付宝 <strong>14,815</strong>（8/22 前）", effect: "debt_pay", pay: { ali: 14815.43 }, defaultAmount: 14815.43 },
