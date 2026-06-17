@@ -1,5 +1,5 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-06-17T16:37:57+08:00",
+  "updatedAt": "2026-06-17T20:04:20+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
@@ -8,13 +8,13 @@ window.LCAI_QUOTES = {
       "name": "平安好医生",
       "price": 8.05,
       "changePct": -1.83,
-      "source": "sina"
+      "source": "eastmoney"
     },
     "116.00700": {
       "name": "腾讯控股",
       "price": 445.4,
       "changePct": -0.45,
-      "source": "sina"
+      "source": "eastmoney"
     },
     "116.02013": {
       "name": "微盟集团",
