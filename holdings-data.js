@@ -1,5 +1,5 @@
 window.LCAI_HOLDINGS = {
-  "updatedAt": "2026-06-14",
+  "updatedAt": "2026-06-17",
   "holdings": [
     {
       "id": "pingan",
@@ -7,34 +7,10 @@ window.LCAI_HOLDINGS = {
       "account": "gt",
       "symbol": "116.01833",
       "shares": 43600,
-      "costPerShare": 14.429,
+      "costPerShare": 14.434,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 8.93,
-      "sold": false
-    },
-    {
-      "id": "seres_hb",
-      "name": "赛力斯",
-      "account": "hb",
-      "symbol": "1.601127",
-      "shares": 4200,
-      "costPerShare": 136.544,
-      "currency": "CNY",
-      "hk": false,
-      "fallbackPrice": 67.9,
-      "sold": false
-    },
-    {
-      "id": "jd_health",
-      "name": "京东健康",
-      "account": "gt",
-      "symbol": "116.06618",
-      "shares": 200,
-      "costPerShare": 39.798,
-      "currency": "HKD",
-      "hk": true,
-      "fallbackPrice": 37.8,
+      "fallbackPrice": 8.05,
       "sold": false
     },
     {
@@ -43,10 +19,10 @@ window.LCAI_HOLDINGS = {
       "account": "gt",
       "symbol": "116.00700",
       "shares": 200,
-      "costPerShare": 467.481,
+      "costPerShare": 467.644,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 460,
+      "fallbackPrice": 445.4,
       "sold": false
     },
     {
@@ -55,10 +31,106 @@ window.LCAI_HOLDINGS = {
       "account": "gt",
       "symbol": "116.02013",
       "shares": 38000,
-      "costPerShare": 1.375,
+      "costPerShare": 1.376,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 1.38,
+      "fallbackPrice": 1.32,
+      "sold": false
+    },
+    {
+      "id": "jd_health",
+      "name": "京东健康",
+      "account": "gt",
+      "symbol": "116.06618",
+      "shares": 800,
+      "costPerShare": 37.341,
+      "currency": "HKD",
+      "hk": true,
+      "fallbackPrice": 35.42,
+      "sold": false
+    },
+    {
+      "id": "seres_hb",
+      "name": "赛力斯",
+      "account": "hb",
+      "symbol": "1.601127",
+      "shares": 3000,
+      "costPerShare": 164.671,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 66.14,
+      "sold": false
+    },
+    {
+      "id": "envicool_hb",
+      "name": "英维克",
+      "account": "hb",
+      "symbol": "0.002837",
+      "shares": 1100,
+      "costPerShare": 74.354,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 74.62,
+      "sold": false
+    },
+    {
+      "id": "jcet_hb",
+      "name": "长电科技",
+      "account": "hb",
+      "symbol": "1.600584",
+      "shares": 500,
+      "costPerShare": 81.318,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 81.76,
+      "sold": false
+    },
+    {
+      "id": "huaqiang_hb",
+      "name": "深圳华强",
+      "account": "hb",
+      "symbol": "0.000062",
+      "shares": 1700,
+      "costPerShare": 31.695,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 31.75,
+      "sold": false
+    },
+    {
+      "id": "guoxuan_hb",
+      "name": "国轩高科",
+      "account": "hb",
+      "symbol": "0.002074",
+      "shares": 700,
+      "costPerShare": 30.015,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 30.12,
+      "sold": false
+    },
+    {
+      "id": "aopu_hb",
+      "name": "奥普光电",
+      "account": "hb",
+      "symbol": "0.002338",
+      "shares": 400,
+      "costPerShare": 54.586,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 54.64,
+      "sold": false
+    },
+    {
+      "id": "deye_hb",
+      "name": "德业股份",
+      "account": "hb",
+      "symbol": "1.605117",
+      "shares": 200,
+      "costPerShare": 103.182,
+      "currency": "CNY",
+      "hk": false,
+      "fallbackPrice": 103.08,
       "sold": false
     },
     {
