@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 五层投资研究 · LCAI</title>
+  <link rel="stylesheet" href="../../lcai-theme.css">
+  <link rel="stylesheet" href="../../portal.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    (function () {
+      var t = localStorage.getItem("lcai-theme");
+      document.documentElement.classList.toggle("dark", t === "dark");
+    })();
+  </script>
+  <style>
+    .research-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 1.25rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .research-layout { grid-template-columns: 1fr; }
+    }
+    .research-sidebar {
+      position: sticky;
+      top: 4.5rem;
+      max-height: calc(100vh - 5rem);
+      overflow-y: auto;
+      border: 1px solid hsl(var(--border) / 0.85);
+      border-radius: var(--radius);
+      background: hsl(var(--card));
+      padding: 0.75rem;
+      box-shadow: var(--shadow-soft-card);
+    }
+    .research-sidebar h2 {
+      font-size: 0.85rem;
+      margin: 0 0 0.75rem;
+      padding: 0 0.5rem;
+    }
+    .doc-nav-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      padding: 0.55rem 0.65rem;
+      border-radius: 0.65rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: 2px;
+    }
+    .doc-nav-btn:hover { background: var(--nav-hover-bg); }
+    .doc-nav-btn.active {
+      background: var(--nav-active-bg);
+      color: hsl(var(--primary));
+      font-weight: 600;
+    }
+    .research-content {
+      border: 1px solid hsl(var(--border) / 0.85);
+      border-radius: var(--radius);
+      background: hsl(var(--card));
+      padding: 1.5rem 1.75rem;
+      box-shadow: var(--shadow-soft-card);
+      min-height: 400px;
+    }
+    .research-content .md-body { font-size: 0.92rem; line-height: 1.75; }
+    .research-content .md-body h1 { font-size: 1.5rem; margin: 0 0 1rem; }
+    .research-content .md-body h2 { font-size: 1.15rem; margin: 1.75rem 0 0.75rem; border-bottom: 1px solid hsl(var(--border)); padding-bottom: 0.35rem; }
+    .research-content .md-body h3 { font-size: 1rem; margin: 1.25rem 0 0.5rem; }
+    .research-content .md-body pre {
+      overflow-x: auto;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      background: hsl(var(--elevated));
+      border: 1px solid hsl(var(--border));
+      font-size: 0.8rem;
+    }
+    .research-content .md-body code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85em;
+    }
+    .research-content .md-body table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      margin: 1rem 0;
+    }
+    .research-content .md-body th,
+    .research-content .md-body td {
+      border: 1px solid hsl(var(--border));
+      padding: 0.45rem 0.6rem;
+      text-align: left;
+    }
+    .research-content .md-body th { background: hsl(var(--primary) / 0.06); }
+    .research-content .md-body a { color: hsl(var(--primary)); }
+    .research-loading, .research-error { color: var(--muted); padding: 2rem; text-align: center; }
+    .back-link {
+      font-size: 0.82rem;
+      color: hsl(var(--primary));
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="portal-page">
+    <header class="portal-header">
+      <a class="portal-brand" href="../../index.html">
+        <span class="portal-brand-mark">LC</span>
+        <span class="portal-brand-text">
+          <h1>AI 五层投资研究</h1>
+          <p><a class="back-link" href="../../index.html">← 返回总入口</a></p>
+        </span>
+      </a>
+      <button type="button" class="theme-toggle-portal" id="themeToggle">🌓 主题</button>
+    </header>
+
+    <main class="portal-main">
+      <div class="research-layout">
+        <aside class="research-sidebar">
+          <h2>文档列表</h2>
+          <nav id="docNav"></nav>
+        </aside>
+        <article class="research-content">
+          <div id="docBody" class="md-body">
+            <p class="research-loading">加载中…</p>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="portal-footer">
+      <p>产业研究仅供参考，不构成投资建议 · 原文 Markdown 托管于本仓库 docs/research/</p>
+    </footer>
+  </div>
+
+  <script>
+    var DOCS = [
+      { file: "README.md", title: "研究目录说明" },
+      { file: "04_ai_five_layers_analysis.md", title: "五层框架总览" },
+      { file: "05-09_layers_index.md", title: "深度系列目录" },
+      { file: "10_full_chain_industry_mapping.md", title: "全链条产业映射" },
+      { file: "05_layer1_energy.md", title: "第 1 层 · 能源" },
+      { file: "06_layer2_chips.md", title: "第 2 层 · 芯片" },
+      { file: "07_layer3_infrastructure.md", title: "第 3 层 · 基础设施" },
+      { file: "08_layer4_models.md", title: "第 4 层 · 模型" },
+      { file: "09_layer5_applications.md", title: "第 5 层 · 应用" }
+    ];
+
+    var nav = document.getElementById("docNav");
+    var body = document.getElementById("docBody");
+    var current = new URLSearchParams(location.search).get("doc") || "README.md";
+
+    DOCS.forEach(function (d) {
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "doc-nav-btn" + (d.file === current ? " active" : "");
+      btn.textContent = d.title;
+      btn.dataset.file = d.file;
+      btn.addEventListener("click", function () { loadDoc(d.file, true); });
+      nav.appendChild(btn);
+    });
+
+    function setActive(file) {
+      nav.querySelectorAll(".doc-nav-btn").forEach(function (b) {
+        b.classList.toggle("active", b.dataset.file === file);
+      });
+    }
+
+    function fixLinks(html) {
+      return html
+        .replace(/href="\.\.\/资料文档\//g, 'href="#" title="原始资料在本地工作区" onclick="return false" data-missing="')
+        .replace(/href="(\d[^"]*\.md)"/g, function (_, f) {
+          return 'href="index.html?doc=' + encodeURIComponent(f) + '"';
+        });
+    }
+
+    async function loadDoc(file, push) {
+      current = file;
+      setActive(file);
+      if (push) {
+        history.replaceState(null, "", "index.html?doc=" + encodeURIComponent(file));
+      }
+      body.innerHTML = '<p class="research-loading">加载中…</p>';
+      try {
+        var res = await fetch(file);
+        if (!res.ok) throw new Error(res.statusText);
+        var md = await res.text();
+        body.innerHTML = fixLinks(marked.parse(md));
+      } catch (e) {
+        body.innerHTML = '<p class="research-error">无法加载 ' + file + '：' + e.message + '</p>';
+      }
+    }
+
+    document.getElementById("themeToggle").addEventListener("click", function () {
+      var dark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("lcai-theme", dark ? "dark" : "light");
+    });
+
+    loadDoc(current, false);
+  </script>
+</body>
+</html>

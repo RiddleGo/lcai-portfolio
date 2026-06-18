@@ -4,10 +4,11 @@ Personal investment portfolio dashboard with value-investing stock screener.
 
 **在线访问：** https://riddlego.github.io/lcai-portfolio/
 
-## 功能
+**总入口：** 打开根目录 `index.html` — 统一导航至资产总览、选股、AI 五层研究。
 
 | 栏目 | 说明 |
 |------|------|
+| **总入口** | 门户首页 → 资产总览 / 选股 / 投资研究 / GitHub |
 | 执行 / 还款 / 现金流 | 还债与资金计划 |
 | 投资规划 / 诊断 / 持仓 | 组合管理与评价 |
 | **选股** | 输入代码 → LCAI 研判 → 买入/观察/持有/减仓/卖出 |
@@ -54,3 +55,16 @@ GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports
 **维护判定标准：** [资产总览 → 规则](资产总览.html#criteria) 网页改数字 → 提交到云端
 
 **新增持仓：** 选股 → **加入持仓** → GitHub Submit（或改 `holdings.json`）
+
+## AI 五层投资研究
+
+Markdown 托管于 `docs/research/`，在线阅读：`docs/research/index.html`
+
+同步本地研究（从 `d:\投资\投资研究`）：
+
+```powershell
+.\scripts\sync-research.ps1
+git add docs/research/
+git commit -m "docs: sync AI research"
+git push
+```

@@ -2,11 +2,144 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0; url=资产总览.html">
-  <title>资产总览</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCAI 投资总入口 · Russshare</title>
+  <meta name="description" content="个人投资研究、资产总览与选股研判的统一入口">
+  <link rel="stylesheet" href="lcai-theme.css">
+  <link rel="stylesheet" href="portal.css">
+  <script>
+    (function () {
+      var t = localStorage.getItem("lcai-theme");
+      document.documentElement.classList.toggle("dark", t === "dark");
+    })();
+  </script>
 </head>
 <body>
-  <p><a href="资产总览.html">进入资产总览</a></p>
+  <div class="portal-page">
+    <header class="portal-header">
+      <a class="portal-brand" href="index.html">
+        <span class="portal-brand-mark">LC</span>
+        <span class="portal-brand-text">
+          <h1>LCAI 投资总入口</h1>
+          <p>Russshare · Personal Investment Hub</p>
+        </span>
+      </a>
+      <button type="button" class="theme-toggle-portal" id="themeToggle" aria-label="切换主题">🌓 主题</button>
+    </header>
+
+    <main class="portal-main">
+      <section class="portal-hero card highlight">
+        <h2>一处进入，全部联通</h2>
+        <p class="portal-hero-lead">
+          这里是 <strong>RiddleGo / Russshare</strong> 的个人投资中枢：组合管理、LCAI 选股研判、
+          AI 五层产业研究，以及延伸产业链映射——全部托管于
+          <a href="https://github.com/RiddleGo/lcai-portfolio" target="_blank" rel="noopener">GitHub Pages</a>。
+        </p>
+        <div class="portal-hero-tags">
+          <span class="portal-tag">价值投资</span>
+          <span class="portal-tag">AI 五层架构</span>
+          <span class="portal-tag">A 股/H 股</span>
+          <span class="portal-tag">LCAI 研判</span>
+        </div>
+      </section>
+
+      <p class="portal-section-title">核心应用</p>
+      <div class="portal-grid">
+        <a class="portal-card" href="资产总览.html">
+          <span class="portal-card-icon">📊</span>
+          <h3>资产总览</h3>
+          <p>执行 / 还款 / 现金流、投资规划、持仓诊断与组合评价。日常工作台。</p>
+          <span class="portal-card-cta">进入资产总览 →</span>
+        </a>
+        <a class="portal-card" href="资产总览.html#screen">
+          <span class="portal-card-icon">🔍</span>
+          <h3>选股研判</h3>
+          <p>输入代码 → LCAI 综合研判 → 买入 / 观察 / 持有 / 减仓 / 卖出。支持关注列表与周报刷新。</p>
+          <span class="portal-card-cta">打开选股 Tab →</span>
+        </a>
+        <a class="portal-card" href="docs/research/index.html">
+          <span class="portal-card-icon">🧠</span>
+          <h3>AI 五层投资研究</h3>
+          <p>NVIDIA 五层架构深度讲解、全链条产业映射、§8.6 A 股筛选框架。产业研究，非投资建议。</p>
+          <span class="portal-card-cta">阅读研究文档 →</span>
+        </a>
+        <a class="portal-card" href="资产总览.html#handbook">
+          <span class="portal-card-icon">📖</span>
+          <h3>维护手册</h3>
+          <p>判定标准、持仓维护、GitHub Actions 报告刷新——操作说明与规则配置。</p>
+          <span class="portal-card-cta">查看手册 →</span>
+        </a>
+      </div>
+
+      <p class="portal-section-title">AI 五层研究 · 快速跳转</p>
+      <div class="portal-list-grid">
+        <a class="portal-list-link" href="docs/research/index.html?doc=04_ai_five_layers_analysis.md">
+          五层框架总览
+          <small>04 · 精简版框架</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=05-09_layers_index.md">
+          深度系列目录
+          <small>05–09 索引 + §8.6 汇总</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=10_full_chain_industry_mapping.md">
+          全链条产业映射
+          <small>PCB / 铜箔 / 电容等延伸环节</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=05_layer1_energy.md">
+          第 1 层 · 能源
+          <small>算电协同 · 液冷 · 电网</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=06_layer2_chips.md">
+          第 2 层 · 芯片
+          <small>设备 · 封装 · 材料子链</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=07_layer3_infrastructure.md">
+          第 3 层 · 基础设施
+          <small>光模块 · 服务器 · AIDC</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=08_layer4_models.md">
+          第 4 层 · 模型
+          <small>语料 · 平台 · 订阅变现</small>
+        </a>
+        <a class="portal-list-link" href="docs/research/index.html?doc=09_layer5_applications.md">
+          第 5 层 · 应用
+          <small>智驾 · 安防 · 金融 IT</small>
+        </a>
+      </div>
+
+      <p class="portal-section-title" style="margin-top: 2.5rem;">GitHub 仓库</p>
+      <div class="portal-list-grid">
+        <a class="portal-list-link portal-external" href="https://github.com/RiddleGo/lcai-portfolio" target="_blank" rel="noopener">
+          lcai-portfolio ↗
+          <small>本站点源码 · 组合与选股</small>
+        </a>
+        <a class="portal-list-link portal-external" href="https://github.com/RiddleGo/agent-interview-300" target="_blank" rel="noopener">
+          agent-interview-300 ↗
+          <small>Agent 算法面经 300 题</small>
+        </a>
+        <a class="portal-list-link portal-external" href="https://github.com/RiddleGo/ai-infra-interview-305" target="_blank" rel="noopener">
+          ai-infra-interview-305 ↗
+          <small>AI Infra 面经 305 题</small>
+        </a>
+        <a class="portal-list-link portal-external" href="https://github.com/RiddleGo" target="_blank" rel="noopener">
+          RiddleGo 主页 ↗
+          <small>全部开源项目</small>
+        </a>
+      </div>
+    </main>
+
+    <footer class="portal-footer">
+      <p>
+        在线地址：<a href="https://riddlego.github.io/lcai-portfolio/">riddlego.github.io/lcai-portfolio</a>
+        · 产业研究仅供参考，不构成投资建议 · LCAI 研判结论以系统规则为准
+      </p>
+    </footer>
+  </div>
+  <script>
+    document.getElementById("themeToggle").addEventListener("click", function () {
+      var dark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("lcai-theme", dark ? "dark" : "light");
+    });
+  </script>
 </body>
 </html>
