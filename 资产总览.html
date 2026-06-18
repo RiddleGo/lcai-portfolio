@@ -1331,8 +1331,8 @@
       <div class="plan-principles">
         <div class="principle hold">
           <div class="tag">长期持有</div>
-          <strong>赛力斯</strong>（华宝 3,000 股 · 满仓）<br>
-          <span style="color:var(--muted)">不卖 · 目标价 200</span>
+          <strong>赛力斯</strong>（华宝 3,000 股 · 余仓）<br>
+          <span style="color:var(--muted)">不卖 · 已从 4,200 挪 1,200 股至英维克 · 目标价 200</span>
         </div>
         <div class="principle hold">
           <div class="tag">双核 · 少卖</div>
@@ -1377,7 +1377,7 @@
               <tr><th>节点</th><th>卖/赎</th><th>到账</th><th>还款</th><th>宽裕度</th></tr>
             </thead>
             <tbody>
-              <tr><td>6 月已执行</td><td>卖股到账</td><td>—</td><td>滴滴已清 · 京东额外 −7.5 万 · 6/17 抖音借 16 万</td><td class="gain">宽</td></tr>
+              <tr><td>6 月已执行</td><td>卖股到账 · 赛力斯→英维克</td><td>—</td><td>滴滴已清 · 京东额外 −7.5 万 · 6/17 抖音借 16 万 · 华宝清仓 5 只</td><td class="gain">宽</td></tr>
               <tr><td>6/22 支付宝</td><td>—</td><td>—</td><td>6/22 前 · <strong>必还</strong></td><td class="gain">宽</td></tr>
               <tr class="peak"><td><strong>7/4 京东</strong></td><td><strong>7/3 前卖光微盟</strong></td><td><strong>7/3～4</strong></td><td><strong id="plan-rhythm-jul4">7/4 前 · 京东月供</strong></td><td><strong>紧</strong></td></tr>
               <tr><td>7/22 支付宝</td><td>—</td><td>微盟余款 + 7 月储蓄 2 万</td><td>7/22 前 + 抖音首期 ~1.45 万</td><td class="warn">紧</td></tr>
@@ -1406,8 +1406,8 @@
         </div>
         <div class="tips" style="margin:0;">
           <ul>
-            <li>证券户活期几乎为 0；<strong>不假设现金池</strong>，卖股/赎基金/工资到账再还。</li>
-            <li><strong>赛力斯、京东健康（800 股）不卖</strong>。</li>
+            <li>证券户活期：华宝账面 ~16.7 万（<strong>扣抖音 16 万后净可用 ~0.72 万</strong>）；国投仍为 0。</li>
+            <li><strong>赛力斯余仓 3,000 股、京东健康（800 股）不卖</strong>；英维克为赛力斯挪仓，非新增敞口。</li>
           </ul>
         </div>
       </details>
@@ -1802,7 +1802,8 @@
       <div class="tips">
         <strong>持仓提示</strong>
         <ul>
-          <li><strong>华宝</strong>赛力斯 3,000 股 + 英维克 1,000 股（可用 ~0.72 万，已扣抖音 16 万）；<strong>国投</strong>港股（平安/腾讯/微盟/JD 健康 800 股）。</li>
+          <li><strong>华宝</strong>赛力斯 3,000 股（原 4,200，挪 1,200 至英维克）+ 英维克 1,000 股；账面可用 16.7 万，<strong>扣抖音 16 万后净 ~0.72 万</strong>。<strong>国投</strong>港股（平安/腾讯/微盟/JD 健康 800 股）。</li>
+          <li>6/18 华宝清仓长电/德业/华强/国轩/奥普 5 只；赛力斯→英维克为换仓，不是单纯减仓。</li>
           <li>赛力斯不卖 · 7 月卖光微盟 · 8 月卖光腾讯 + 卖平安 ~8,500 股（均为还债，不是看空）。</li>
           <li><strong>江铜</strong> 已卖；麦格米特已清。</li>
           <li>详见「诊断」页五维评价与未来路径。</li>
@@ -2077,6 +2078,7 @@
       "jun-dy-pay": { done: true },
       "jun-jd-prepay": { done: true, actual: JD_PREPAY_AMOUNT },
       "jun-jd-swap": { done: true },
+      "jun-seres-envicool": { done: true },
       "jun-sell-jd-dy": { done: true },
       "jul-sell-jd": { done: true },
       "aug-sell-jd": { done: true },
@@ -2116,6 +2118,7 @@
           { id: "jun-dy-pay", text: "结清抖音 <strong>162,179</strong>（已完成 · 首月免息期内）", effect: "debt_clear", platform: "dy", defaultAmount: 162179.31 },
           { id: "jun-jd-prepay", text: "额外还京东 <strong>~75,123</strong>（31.1 万→23.6 万 · 省息 · 已反映在债务余额）", defaultAmount: JD_PREPAY_AMOUNT },
           { id: "jun-jd-swap", text: "京东健康 <strong>4,650→200 股</strong> · 换仓腾讯 <strong>200 股</strong> + 微盟 <strong>38,000 股</strong>（已完成 · 截图同步）", defaultAmount: 167932 },
+          { id: "jun-seres-envicool", text: "赛力斯 <strong>4,200→3,000 股</strong> · 挪仓英维克 <strong>1,000 股</strong> + 清仓华宝 5 只（6/18 截图同步）", defaultAmount: 74253 },
         ],
       },
       {
