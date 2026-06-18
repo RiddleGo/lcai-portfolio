@@ -13,29 +13,37 @@
   var slug = params.get("p") || "guide";
   if (!bySlug[slug]) slug = "guide";
 
-  var navRoot = document.getElementById("readNav");
+  var sidebar = document.getElementById("readSidebarNav");
+  var home = document.createElement("a");
+  home.href = "../../index.html";
+  home.className = "kb-nav-link";
+  home.textContent = "🏛 返回总入口";
+  sidebar.appendChild(home);
+  var catalog = document.createElement("a");
+  catalog.href = "index.html";
+  catalog.className = "kb-nav-link";
+  catalog.textContent = "📚 研究目录";
+  sidebar.appendChild(catalog);
+
+  groups.forEach(function (group) {
+    var gt = document.createElement("div");
+    gt.className = "kb-nav-group-title";
+    gt.textContent = group.title;
+    sidebar.appendChild(gt);
+    group.items.forEach(function (item) {
+      var link = document.createElement("a");
+      link.href = "read.html?p=" + item.slug;
+      link.className = "kb-nav-link" + (item.slug === slug ? " active" : "");
+      link.textContent = item.icon + " " + item.title;
+      sidebar.appendChild(link);
+    });
+  });
+
   var body = document.getElementById("docBody");
   var titleEl = document.getElementById("articleTitle");
   var descEl = document.getElementById("articleDesc");
   var crumbEl = document.getElementById("breadcrumb");
   document.getElementById("readFooter").textContent = lib.disclaimer;
-
-  groups.forEach(function (group) {
-    var wrap = document.createElement("div");
-    wrap.className = "kb-nav-group";
-    var label = document.createElement("div");
-    label.className = "kb-nav-group-title";
-    label.textContent = group.title;
-    wrap.appendChild(label);
-    group.items.forEach(function (item) {
-      var a = document.createElement("a");
-      a.className = "kb-nav-link" + (item.slug === slug ? " active" : "");
-      a.href = "read.html?p=" + item.slug;
-      a.textContent = item.title;
-      wrap.appendChild(a);
-    });
-    navRoot.appendChild(wrap);
-  });
 
   function slugFromHref(href) {
     if (!href) return null;
@@ -45,7 +53,7 @@
       if (bySlug[key]) return key;
       if (byFile[key]) return byFile[key].slug;
     }
-    var fileMatch = href.match(/(\d{2}[^"?#]+\.md|README\.md)/);
+    var fileMatch = href.match(/([\w\-]+\.md)/);
     if (fileMatch && byFile[fileMatch[1]]) return byFile[fileMatch[1]].slug;
     return null;
   }
@@ -57,14 +65,6 @@
       if (s) return 'href="read.html?p=' + s + '"';
       return 'href="#"';
     });
-    html = html.replace(/href="(0[5-9][^"]*\.md)"/g, function (_, f) {
-      if (byFile[f]) return 'href="read.html?p=' + byFile[f].slug + '"';
-      return 'href="#"';
-    });
-    html = html.replace(/href="(10_[^"]*\.md)"/g, function (_, f) {
-      if (byFile[f]) return 'href="read.html?p=' + byFile[f].slug + '"';
-      return 'href="#"';
-    });
     return html;
   }
 
@@ -74,12 +74,13 @@
     titleEl.textContent = item.title;
     descEl.textContent = item.desc;
     crumbEl.innerHTML =
-      '<a href="index.html">知识库</a> · ' +
-      (item.layer ? '<span>第 ' + item.layer + ' 层</span> · ' : '') +
-      '<span>' + item.title + '</span>';
+      '<a href="index.html">研究目录</a> · ' +
+      (item.layer ? "第 " + item.layer + " 层 · " : "") +
+      item.title;
 
-    navRoot.querySelectorAll(".kb-nav-link").forEach(function (el) {
-      el.classList.toggle("active", el.getAttribute("href") === "read.html?p=" + item.slug);
+    sidebar.querySelectorAll(".kb-nav-link").forEach(function (el) {
+      var href = el.getAttribute("href") || "";
+      el.classList.toggle("active", href === "read.html?p=" + item.slug);
     });
 
     if (params.get("p") !== item.slug) {
@@ -96,14 +97,10 @@
       var md = await res.text();
       body.innerHTML = fixLinks(marked.parse(md));
     } catch (e) {
-      body.innerHTML = '<p class="kb-error">' + e.message + '，请稍后重试或返回目录。</p>';
+      body.innerHTML = '<p class="kb-error">' + e.message + '，请返回目录重试。</p>';
     }
   }
 
-  document.getElementById("themeToggle").addEventListener("click", function () {
-    var dark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("lcai-theme", dark ? "dark" : "light");
-  });
-
+  if (window.KBShell) KBShell.initSidebar();
   loadDoc(bySlug[slug]);
 })();

@@ -8,10 +8,10 @@ window.LCAI_RESEARCH = {
     disclaimer: "产业研究仅供参考，不构成任何投资建议。"
   },
   stats: [
-    { value: "5", label: "产业层级" },
-    { value: "9", label: "深度文档" },
-    { value: "1", label: "全链映射" },
-    { value: "15", label: "核心标的" }
+    { value: "5", label: "产业层级", href: "read.html?p=overview" },
+    { value: "9", label: "深度文档", href: "index.html" },
+    { value: "1", label: "全链映射", href: "read.html?p=chain" },
+    { value: "15", label: "核心标的", href: "read.html?p=catalog" }
   ],
   groups: [
     {

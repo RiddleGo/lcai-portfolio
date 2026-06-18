@@ -5,103 +5,117 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LCAI 投资中枢 · Russshare</title>
   <meta name="description" content="个人投资研究、资产总览与选股研判的统一入口">
-  <link rel="stylesheet" href="lcai-theme.css">
-  <link rel="stylesheet" href="portal.css">
+  <meta name="theme-color" content="#B8860B">
+  <link rel="stylesheet" href="kb-theme.css">
   <link rel="stylesheet" href="lcai-admin-gate.css">
-  <script>
-    (function () {
-      var t = localStorage.getItem("lcai-theme");
-      document.documentElement.classList.toggle("dark", t === "dark");
-    })();
-  </script>
 </head>
-<body>
-  <div class="portal-page">
-    <header class="portal-header">
-      <a class="portal-brand" href="index.html">
-        <span class="portal-brand-mark">LC</span>
-        <span class="portal-brand-text">
-          <h1>LCAI 投资中枢</h1>
-          <p>Russshare · Personal Investment Hub</p>
-        </span>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header">
+      <a href="index.html" class="kb-logo">
+        <img src="assets/lcai-kb-logo.svg" class="kb-logo-icon" alt="">
+        <span>LCAI 投资中枢</span>
       </a>
-      <button type="button" class="theme-toggle-portal" id="themeToggle" aria-label="切换主题">主题</button>
-    </header>
+    </div>
+    <nav class="kb-sidebar-nav" aria-label="主导航">
+      <a href="index.html" class="kb-nav-link kb-nav-home active">🏛 总入口</a>
+      <a href="资产总览.html" class="kb-nav-link">📊 资产总览</a>
+      <a href="资产总览.html#screen" class="kb-nav-link">🔍 选股研判</a>
+      <a href="docs/research/index.html" class="kb-nav-link">🧠 AI 五层研究</a>
+      <a href="资产总览.html#handbook" class="kb-nav-link">📖 维护手册</a>
+      <div class="kb-nav-group">
+        <div class="kb-nav-group-title">五层速览 <span class="kb-nav-badge">5</span></div>
+        <a href="docs/research/read.html?p=energy" class="kb-nav-link">⚡ 能源</a>
+        <a href="docs/research/read.html?p=chips" class="kb-nav-link">🔬 芯片</a>
+        <a href="docs/research/read.html?p=infra" class="kb-nav-link">🏭 基础设施</a>
+        <a href="docs/research/read.html?p=models" class="kb-nav-link">🧠 模型</a>
+        <a href="docs/research/read.html?p=apps" class="kb-nav-link">🚀 应用</a>
+      </div>
+    </nav>
+    <div class="kb-sidebar-foot">产业研究仅供参考 · 不构成投资建议</div>
+  </aside>
 
-    <main class="portal-main portal-main--hub">
-      <section class="portal-hero-center">
-        <p class="portal-eyebrow">Value Investing · AI Industry · LCAI Screening</p>
-        <h2 class="portal-hero-title">个人投资研究与组合管理<span class="portal-version">V 2026</span></h2>
-        <p class="portal-hero-lead-center">
-          组合执行、LCAI 选股研判、AI 五层产业研究——一处进入，全部联通。
-        </p>
-        <ul class="portal-stats">
-          <li><span class="portal-stat-n">4</span><span class="portal-stat-l">核心模块</span></li>
-          <li><span class="portal-stat-n">5</span><span class="portal-stat-l">产业层级</span></li>
-          <li><span class="portal-stat-n">9</span><span class="portal-stat-l">深度文档</span></li>
-        </ul>
-      </section>
+  <main class="kb-main">
+    <section class="kb-hero-section">
+      <div class="kb-hero-row">
+        <img src="assets/lcai-kb-logo.svg" class="kb-hero-logo" alt="" aria-hidden="true">
+        <div>
+          <div class="kb-hero-eyebrow">NVIDIA · AI Industry · LCAI</div>
+          <h1 class="kb-hero-title">个人投资<span class="gold">中枢</span>
+            <a href="docs/research/index.html" class="kb-hero-version">V 2026</a>
+          </h1>
+        </div>
+      </div>
+      <p class="kb-hero-sub">
+        <b>组合管理</b>、<b>LCAI 选股研判</b>、<b>AI 五层产业研究</b>——
+        全球产业链与中国映射，层层可读、互相链接。
+      </p>
+    </section>
 
-      <h2 class="portal-section-head">核心模块</h2>
-      <div class="portal-card-grid">
-        <a class="portal-kb-card" href="资产总览.html">
-          <span class="portal-kb-icon">📊</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">资产总览</span>
-            <span class="portal-kb-desc">执行 / 还款 / 现金流 · 投资规划 · 持仓诊断</span>
-          </span>
-          <span class="portal-kb-arrow">→</span>
+    <div class="kb-stats-row">
+      <a href="资产总览.html" class="kb-stat-item"><div class="kb-stat-num">4</div><div class="kb-stat-label">核心模块</div></a>
+      <a href="docs/research/index.html" class="kb-stat-item"><div class="kb-stat-num">5</div><div class="kb-stat-label">产业层级</div></a>
+      <a href="docs/research/index.html" class="kb-stat-item"><div class="kb-stat-num">9</div><div class="kb-stat-label">深度文档</div></a>
+      <a href="docs/research/read.html?p=chain" class="kb-stat-item"><div class="kb-stat-num">1</div><div class="kb-stat-label">全链映射</div></a>
+    </div>
+
+    <div class="kb-main-inner">
+      <div class="kb-nav-cards cols-4">
+        <a href="资产总览.html" class="kb-nav-card">
+          <span class="kb-nav-card-icon">📊</span>
+          <div class="kb-nav-card-title">资产总览</div>
+          <div class="kb-nav-card-sub">执行 · 还款 · 持仓诊断</div>
+          <span class="kb-nav-card-arrow">→</span>
         </a>
-        <a class="portal-kb-card" href="资产总览.html#screen">
-          <span class="portal-kb-icon">🔍</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">选股研判</span>
-            <span class="portal-kb-desc">LCAI 综合研判 · 关注列表 · 报告自动刷新</span>
-          </span>
-          <span class="portal-kb-arrow">→</span>
+        <a href="资产总览.html#screen" class="kb-nav-card">
+          <span class="kb-nav-card-icon">🔍</span>
+          <div class="kb-nav-card-title">选股研判</div>
+          <div class="kb-nav-card-sub">LCAI 综合研判 · 关注列表</div>
+          <span class="kb-nav-card-arrow">→</span>
         </a>
-        <a class="portal-kb-card" href="docs/research/index.html">
-          <span class="portal-kb-icon">🧠</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">AI 五层产业研究</span>
-            <span class="portal-kb-desc">全球产业链 · 中国映射 · 全链条与标的框架</span>
-          </span>
-          <span class="portal-kb-arrow">→</span>
+        <a href="docs/research/index.html" class="kb-nav-card">
+          <span class="kb-nav-card-icon">🧠</span>
+          <div class="kb-nav-card-title">AI 五层研究</div>
+          <div class="kb-nav-card-sub">产业链 · 映射 · 标的框架</div>
+          <span class="kb-nav-card-arrow">→</span>
         </a>
-        <a class="portal-kb-card" href="资产总览.html#handbook">
-          <span class="portal-kb-icon">📖</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">维护手册</span>
-            <span class="portal-kb-desc">判定规则 · 持仓维护 · 自动化工作流</span>
-          </span>
-          <span class="portal-kb-arrow">→</span>
+        <a href="资产总览.html#handbook" class="kb-nav-card">
+          <span class="kb-nav-card-icon">📖</span>
+          <div class="kb-nav-card-title">维护手册</div>
+          <div class="kb-nav-card-sub">规则 · 工作流 · 操作说明</div>
+          <span class="kb-nav-card-arrow">→</span>
         </a>
       </div>
 
-      <h2 class="portal-section-head">AI 五层研究 · 快速进入</h2>
-      <div class="portal-pill-row">
-        <a class="portal-pill" href="docs/research/read.html?p=overview">框架总览</a>
-        <a class="portal-pill" href="docs/research/read.html?p=catalog">系列目录</a>
-        <a class="portal-pill" href="docs/research/read.html?p=chain">全链映射</a>
-        <a class="portal-pill" href="docs/research/read.html?p=energy">能源</a>
-        <a class="portal-pill" href="docs/research/read.html?p=chips">芯片</a>
-        <a class="portal-pill" href="docs/research/read.html?p=infra">基础设施</a>
-        <a class="portal-pill" href="docs/research/read.html?p=models">模型</a>
-        <a class="portal-pill" href="docs/research/read.html?p=apps">应用</a>
+      <div class="kb-section">
+        <div class="kb-section-header">
+          <h2 class="kb-section-title">五层产业研究</h2>
+          <div class="kb-section-line"></div>
+          <span class="kb-section-count">快速进入</span>
+        </div>
+        <div class="kb-tag-cloud">
+          <a href="docs/research/read.html?p=overview" class="kb-tag">框架总览</a>
+          <a href="docs/research/read.html?p=catalog" class="kb-tag">系列目录</a>
+          <a href="docs/research/read.html?p=chain" class="kb-tag">全链映射</a>
+          <a href="docs/research/read.html?p=energy" class="kb-tag">能源<span class="kb-tag-num">L1</span></a>
+          <a href="docs/research/read.html?p=chips" class="kb-tag">芯片<span class="kb-tag-num">L2</span></a>
+          <a href="docs/research/read.html?p=infra" class="kb-tag">基础设施<span class="kb-tag-num">L3</span></a>
+          <a href="docs/research/read.html?p=models" class="kb-tag">模型<span class="kb-tag-num">L4</span></a>
+          <a href="docs/research/read.html?p=apps" class="kb-tag">应用<span class="kb-tag-num">L5</span></a>
+        </div>
       </div>
-    </main>
+    </div>
 
-    <footer class="portal-footer">
-      <p>产业研究仅供参考，不构成投资建议 · LCAI 研判结论以系统规则为准</p>
-    </footer>
-  </div>
+    <p class="kb-footer-note">LCAI 研判结论以系统规则为准 · 产业研究不构成任何投资建议</p>
+  </main>
+
+  <script src="kb-shell.js"></script>
   <script src="lcai-admin-gate.js"></script>
   <script>
-    document.getElementById("themeToggle").addEventListener("click", function () {
-      var dark = document.documentElement.classList.toggle("dark");
-      localStorage.setItem("lcai-theme", dark ? "dark" : "light");
-    });
-    LCAIAdminGate.bindPortalCards();
+    KBShell.initSidebar();
+    if (window.LCAIAdminGate && LCAIAdminGate.bindPortalCards) LCAIAdminGate.bindPortalCards();
   </script>
 </body>
 </html>
