@@ -11,6 +11,7 @@
     })();
   </script>
   <link rel="stylesheet" href="lcai-theme.css?v=748028">
+  <link rel="stylesheet" href="lcai-admin-gate.css">
   <style>
     :root {
       /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
@@ -2048,6 +2049,7 @@
 
   <script src="holdings-data.js"></script>
   <script src="quotes-data.js"></script>
+  <script src="lcai-admin-gate.js"></script>
   <script src="etf-plan-data.js"></script>
   <script src="etf-plan-view.js"></script>
   <script>
@@ -3387,8 +3389,8 @@
     if (location.hash === "#screen") switchTab("screen");
     if (location.hash === "#criteria") switchTab("criteria");
     if (location.hash === "#books" || location.hash.startsWith("#books")) switchTab("books");
-    if (location.hash === "#handbook") switchTab("handbook");
-    if (location.hash === "#etf") switchTab("etf");
+    if (location.hash === "#handbook" && LCAIAdminGate.isUnlocked()) switchTab("handbook");
+    if (location.hash === "#etf" && LCAIAdminGate.isUnlocked()) switchTab("etf");
 
     document.getElementById("shell-menu-btn")?.addEventListener("click", () => {
       document.getElementById("shell-sidebar")?.classList.add("open");
@@ -3430,7 +3432,15 @@
     })();
 
     renderTodos();
-    renderAll();
+    window.__lcaiRenderAll = renderAll;
+    const __lcaiInitialPage = (window.LCAIAdminGate && LCAIAdminGate.pageFromHash()) || "home";
+    if (window.LCAIAdminGate && !LCAIAdminGate.isUnlocked() && LCAIAdminGate.needsAdmin(__lcaiInitialPage)) {
+      updatePageDates();
+      renderQuoteBar();
+    } else {
+      renderAll();
+    }
+    window.LCAIAdminGate?.initOverview?.();
 
     // 开发断言
     (function smokeBaseline() {

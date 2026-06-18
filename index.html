@@ -7,6 +7,7 @@
   <meta name="description" content="个人投资研究、资产总览与选股研判的统一入口">
   <link rel="stylesheet" href="lcai-theme.css">
   <link rel="stylesheet" href="portal.css">
+  <link rel="stylesheet" href="lcai-admin-gate.css">
   <script>
     (function () {
       var t = localStorage.getItem("lcai-theme");
@@ -43,10 +44,10 @@
 
       <h2 class="portal-section-head">核心模块</h2>
       <div class="portal-card-grid">
-        <a class="portal-kb-card" href="资产总览.html">
+        <a class="portal-kb-card portal-kb-card--locked" href="资产总览.html" data-admin-href="资产总览.html">
           <span class="portal-kb-icon">📊</span>
           <span class="portal-kb-body">
-            <span class="portal-kb-title">资产总览</span>
+            <span class="portal-kb-title">资产总览 <span class="portal-kb-lock">🔒</span></span>
             <span class="portal-kb-desc">执行 / 还款 / 现金流 · 投资规划 · 持仓诊断</span>
           </span>
           <span class="portal-kb-arrow">→</span>
@@ -67,10 +68,10 @@
           </span>
           <span class="portal-kb-arrow">→</span>
         </a>
-        <a class="portal-kb-card" href="资产总览.html#handbook">
+        <a class="portal-kb-card portal-kb-card--locked" href="资产总览.html#handbook" data-admin-href="资产总览.html#handbook">
           <span class="portal-kb-icon">📖</span>
           <span class="portal-kb-body">
-            <span class="portal-kb-title">维护手册</span>
+            <span class="portal-kb-title">维护手册 <span class="portal-kb-lock">🔒</span></span>
             <span class="portal-kb-desc">判定规则 · 持仓维护 · 自动化工作流</span>
           </span>
           <span class="portal-kb-arrow">→</span>
@@ -88,45 +89,19 @@
         <a class="portal-pill" href="docs/research/read.html?p=models">模型</a>
         <a class="portal-pill" href="docs/research/read.html?p=apps">应用</a>
       </div>
-
-      <h2 class="portal-section-head">更多资源</h2>
-      <div class="portal-card-grid portal-card-grid--compact">
-        <a class="portal-kb-card portal-kb-card--sm" href="https://github.com/RiddleGo/lcai-portfolio" target="_blank" rel="noopener">
-          <span class="portal-kb-icon">⚙️</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">开源仓库</span>
-            <span class="portal-kb-desc">组合系统源码与更新</span>
-          </span>
-          <span class="portal-kb-arrow">↗</span>
-        </a>
-        <a class="portal-kb-card portal-kb-card--sm" href="https://github.com/RiddleGo/agent-interview-300" target="_blank" rel="noopener">
-          <span class="portal-kb-icon">💬</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">Agent 面经</span>
-            <span class="portal-kb-desc">算法工程师 300 题</span>
-          </span>
-          <span class="portal-kb-arrow">↗</span>
-        </a>
-        <a class="portal-kb-card portal-kb-card--sm" href="https://github.com/RiddleGo/ai-infra-interview-305" target="_blank" rel="noopener">
-          <span class="portal-kb-icon">🏗️</span>
-          <span class="portal-kb-body">
-            <span class="portal-kb-title">AI Infra 面经</span>
-            <span class="portal-kb-desc">机器学习系统 305 题</span>
-          </span>
-          <span class="portal-kb-arrow">↗</span>
-        </a>
-      </div>
     </main>
 
     <footer class="portal-footer">
       <p>产业研究仅供参考，不构成投资建议 · LCAI 研判结论以系统规则为准</p>
     </footer>
   </div>
+  <script src="lcai-admin-gate.js"></script>
   <script>
     document.getElementById("themeToggle").addEventListener("click", function () {
       var dark = document.documentElement.classList.toggle("dark");
       localStorage.setItem("lcai-theme", dark ? "dark" : "light");
     });
+    LCAIAdminGate.bindPortalCards();
   </script>
 </body>
 </html>

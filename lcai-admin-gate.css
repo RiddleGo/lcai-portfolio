@@ -1,0 +1,98 @@
+.lcai-admin-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: hsl(222 47% 6% / 0.72);
+  backdrop-filter: blur(6px);
+}
+
+.lcai-admin-overlay[hidden] {
+  display: none;
+}
+
+.lcai-admin-modal {
+  width: min(100%, 22rem);
+  padding: 1.5rem 1.35rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid hsl(var(--border) / 0.85);
+  background: hsl(var(--card));
+  box-shadow: 0 24px 48px hsl(222 47% 4% / 0.45);
+}
+
+.lcai-admin-modal h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.05rem;
+}
+
+.lcai-admin-modal p {
+  margin: 0 0 1rem;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.lcai-admin-modal label {
+  display: block;
+  font-size: 0.78rem;
+  margin-bottom: 0.35rem;
+  color: var(--muted);
+}
+
+.lcai-admin-modal input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.55rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--elevated) / 0.55);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+}
+
+.lcai-admin-modal input:focus {
+  outline: none;
+  border-color: hsl(var(--primary) / 0.55);
+}
+
+.lcai-admin-error {
+  min-height: 1.1rem;
+  margin: 0.45rem 0 0;
+  font-size: 0.76rem;
+  color: hsl(var(--destructive, 0 72% 55%));
+}
+
+.lcai-admin-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.lcai-admin-actions button {
+  flex: 1;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.55rem;
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--elevated) / 0.45);
+  color: var(--text);
+  font-size: 0.82rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.lcai-admin-actions button.lcai-admin-submit {
+  border-color: hsl(var(--primary) / 0.35);
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+}
+
+.portal-kb-card--locked .portal-kb-lock {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-left: 0.35rem;
+}
