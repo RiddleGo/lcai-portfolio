@@ -1,19 +1,19 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-06-18T15:53:23+08:00",
+  "updatedAt": "2026-06-18T15:55:30+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
   "prices": {
     "116.01833": {
       "name": "平安好医生",
-      "price": 7.74,
-      "changePct": -3.85,
+      "price": 7.76,
+      "changePct": -3.6,
       "source": "sina"
     },
     "116.00700": {
       "name": "腾讯控股",
-      "price": 437.8,
-      "changePct": -1.71,
+      "price": 437.6,
+      "changePct": -1.75,
       "source": "sina"
     },
     "116.02013": {
@@ -24,8 +24,8 @@ window.LCAI_QUOTES = {
     },
     "116.06618": {
       "name": "京东健康",
-      "price": 34.8,
-      "changePct": -1.75,
+      "price": 34.72,
+      "changePct": -1.98,
       "source": "sina"
     },
     "1.601127": {
