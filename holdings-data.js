@@ -10,7 +10,7 @@ window.LCAI_HOLDINGS = {
       "costPerShare": 14.434,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 8.05,
+      "fallbackPrice": 7.81,
       "sold": false
     },
     {
@@ -22,7 +22,7 @@ window.LCAI_HOLDINGS = {
       "costPerShare": 467.644,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 445.4,
+      "fallbackPrice": 440.2,
       "sold": false
     },
     {
@@ -46,7 +46,7 @@ window.LCAI_HOLDINGS = {
       "costPerShare": 37.341,
       "currency": "HKD",
       "hk": true,
-      "fallbackPrice": 35.42,
+      "fallbackPrice": 35.1,
       "sold": false
     },
     {
