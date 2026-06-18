@@ -1802,7 +1802,7 @@
       <div class="tips">
         <strong>持仓提示</strong>
         <ul>
-          <li><strong>华宝</strong>赛力斯 3,000 股 + 英维克 1,000 股（可用 16.7 万）；<strong>国投</strong>港股（平安/腾讯/微盟/JD 健康 800 股）。</li>
+          <li><strong>华宝</strong>赛力斯 3,000 股 + 英维克 1,000 股（可用 ~0.72 万，已扣抖音 16 万）；<strong>国投</strong>港股（平安/腾讯/微盟/JD 健康 800 股）。</li>
           <li>赛力斯不卖 · 7 月卖光微盟 · 8 月卖光腾讯 + 卖平安 ~8,500 股（均为还债，不是看空）。</li>
           <li><strong>江铜</strong> 已卖；麦格米特已清。</li>
           <li>详见「诊断」页五维评价与未来路径。</li>
@@ -2103,6 +2103,7 @@
         { id: "f7", name: "富国医药创新股票 C", amount: 31843.10, pnl: -2629.20, redeemed: false },
       ],
       accountCash: { gt: 0, hb: 167202.69 },
+      accountCashReserve: { hb: DY_DEBT_TOTAL },
     };
 
     const TODO_GROUPS = [
@@ -2238,10 +2239,12 @@
     function accountStats(state, acct) {
       const mv = state.holdings.filter(h => !h.sold && h.account === acct)
         .reduce((a, h) => a + h.marketValue, 0);
-      const cash = BASELINE.accountCash[acct] || 0;
-      const total = mv + cash;
+      const grossCash = BASELINE.accountCash[acct] || 0;
+      const reserve = (BASELINE.accountCashReserve && BASELINE.accountCashReserve[acct]) || 0;
+      const cash = Math.max(0, grossCash - reserve);
+      const total = mv + grossCash;
       const posPct = total > 0 ? (mv / total) * 100 : 0;
-      return { mv, cash, total, posPct };
+      return { mv, cash, grossCash, reserve, total, posPct };
     }
 
     function pendingMonthTotal(row, todoState, monthKey) {
@@ -2633,8 +2636,16 @@
       const hbSub = document.getElementById("acct-hb-sub");
       const secCashSub = document.getElementById("sec-cash-sub");
       if (gtSub) gtSub.textContent = `仓位 ${gtS.posPct.toFixed(1)}% · 可用 ${fmtInt(gtS.cash)}`;
-      if (hbSub) hbSub.textContent = `仓位 ${hbS.posPct.toFixed(1)}% · 可用 ${fmtInt(hbS.cash)}`;
-      if (secCashSub) secCashSub.textContent = `可用现金 ${fmtInt(gtS.cash + hbS.cash)} · 含两账户`;
+      if (hbSub) {
+        const hbCashNote = hbS.reserve > 0
+          ? `可用 ${fmtInt(hbS.cash)}（扣抖音 ${fmtInt(hbS.reserve)}）`
+          : `可用 ${fmtInt(hbS.cash)}`;
+        hbSub.textContent = `仓位 ${hbS.posPct.toFixed(1)}% · ${hbCashNote}`;
+      }
+      if (secCashSub) {
+        const hbReserve = hbS.reserve > 0 ? ` · 华宝扣抖音 ${fmtInt(hbS.reserve)} 预留` : "";
+        secCashSub.textContent = `可用现金 ${fmtInt(gtS.cash + hbS.cash)}${hbReserve} · 含两账户`;
+      }
       if (secTotal) secTotal.textContent = fmtInt(state.securitiesTotal);
       if (secPnl) {
         secPnl.textContent = (state.stockPnl >= 0 ? "+" : "") + fmtInt(state.stockPnl);
