@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-17",
+  "updatedAt": "2026-06-18",
   "holdings": [
     {
       "id": "pingan",
@@ -58,7 +58,7 @@
       "costPerShare": 164.671,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 66.14,
+      "fallbackPrice": 64.81,
       "sold": false
     },
     {
@@ -66,11 +66,11 @@
       "name": "英维克",
       "account": "hb",
       "symbol": "0.002837",
-      "shares": 1100,
-      "costPerShare": 74.354,
+      "shares": 1000,
+      "costPerShare": 74.253,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 74.62,
+      "fallbackPrice": 74.37,
       "sold": false
     },
     {
@@ -82,8 +82,8 @@
       "costPerShare": 81.318,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 81.76,
-      "sold": false
+      "fallbackPrice": 83.03,
+      "sold": true
     },
     {
       "id": "huaqiang_hb",
@@ -94,8 +94,8 @@
       "costPerShare": 31.695,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 31.75,
-      "sold": false
+      "fallbackPrice": 32.06,
+      "sold": true
     },
     {
       "id": "guoxuan_hb",
@@ -106,8 +106,8 @@
       "costPerShare": 30.015,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 30.12,
-      "sold": false
+      "fallbackPrice": 29.71,
+      "sold": true
     },
     {
       "id": "aopu_hb",
@@ -118,8 +118,8 @@
       "costPerShare": 54.586,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 54.64,
-      "sold": false
+      "fallbackPrice": 54.0,
+      "sold": true
     },
     {
       "id": "deye_hb",
@@ -130,8 +130,8 @@
       "costPerShare": 103.182,
       "currency": "CNY",
       "hk": false,
-      "fallbackPrice": 103.08,
-      "sold": false
+      "fallbackPrice": 103.2,
+      "sold": true
     },
     {
       "id": "megmeet",

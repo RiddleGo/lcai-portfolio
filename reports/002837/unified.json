@@ -1,21 +1,23 @@
 {
-  "symbol": "06618",
-  "name": "京东健康",
+  "symbol": "002837",
+  "name": "英维克",
   "verdict": {
     "value": "排除",
     "action": "不建议投资；若已持仓，计划退出",
-    "rating": "A",
-    "score": 84,
+    "rating": "D",
+    "score": 59,
     "source": "lcai",
-    "max_weight": "25%"
+    "max_weight": "0%"
   },
-  "executive": "京东健康：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+  "executive": "英维克：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。；PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。",
   "final_conclusion": {
     "verdict": "排除",
     "action": "不建议投资；若已持仓，计划退出",
     "headline": "【已持仓】排除 — 不建议投资；若已持仓，计划退出",
     "reasons": [
-      "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+      "命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。",
+      "PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。",
+      "现价 74.37 元，公允价值 10.80 元（default 行业公允 PE 20 × EPS 0.540），安全边际 -588.6%，未达 25%。好公司也需要好价格。"
     ],
     "actions": [
       "已持仓：逻辑证伪或触发否决，建议制定退出计划，不因熟悉公司而豁免规则。"
@@ -23,43 +25,43 @@
     "data_ok": true,
     "in_portfolio": true
   },
-  "executive_brief": "京东健康：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+  "executive_brief": "英维克：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。；PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。",
   "data_ok": true,
-  "summary_detailed": "【一句话结论】京东健康（06618）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 A，总分 84。\n\n【公司与行业】\n所属行业：药品及生物科技；估值归类：医药（公允 PE 28，PE 上限 45）。\n现价 34.76 元；PE 19.11；ROE 五年均值 6.09%；经营现金流/每股收益 OCF/EPS 1.76。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 47.60 元（EPS×公允 PE），安全边际 27.0%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 30.08 元，DCF 安全边际 -15.6%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 1 项：L1-01 ROE均值。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+  "summary_detailed": "【一句话结论】英维克（002837）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 D，总分 59。\n\n【公司与行业】\n所属行业：专用设备；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 74.37 元；PE 137.72；ROE 五年均值 15.17%；经营现金流/每股收益 OCF/EPS 0.86。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 10.80 元（EPS×公允 PE），安全边际 -588.6%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 8.47 元，DCF 安全边际 -777.6%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n触发否决 2 项：L0-06 异常票特征、L3-05 极端高估值。原则上不应新建仓。\n硬指标 Fail 2 项：L3-01 安全边际、L3-02 PE合理。\n异常票特征：极高PE+低增速、极端估值。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：未通过。\nL1 生意（ROE/盈利稳定性/护城河）：通过。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
   "key_metrics": [
     {
       "label": "现价",
-      "value": "34.76 元",
+      "value": "74.37 元",
       "threshold": "—",
       "status": "neutral",
       "note": "行情或缓存价"
     },
     {
       "label": "PE",
-      "value": "19.11",
-      "threshold": "≤45",
-      "status": "ok",
-      "note": "行业上限 45"
+      "value": "137.72",
+      "threshold": "≤40",
+      "status": "fail",
+      "note": "行业上限 40"
     },
     {
       "label": "PB",
-      "value": "1.71",
+      "value": "—",
       "threshold": "≤8",
       "status": "ok",
       "note": "资产定价"
     },
     {
       "label": "PEG",
-      "value": "0.66",
+      "value": "—",
       "threshold": "≤2",
       "status": "ok",
       "note": "彼得·林奇"
     },
     {
       "label": "ROE 均值",
-      "value": "6.09%",
+      "value": "15.17%",
       "threshold": "≥15%",
-      "status": "fail",
+      "status": "ok",
       "note": "5年加权"
     },
     {
@@ -71,70 +73,70 @@
     },
     {
       "label": "毛利率",
-      "value": "24.78%",
+      "value": "27.86%",
       "threshold": "≥20%",
       "status": "ok",
       "note": "最新年报"
     },
     {
       "label": "利润 YoY",
-      "value": "29.16%",
+      "value": "-81.97%",
       "threshold": "≥0%",
-      "status": "ok",
+      "status": "fail",
       "note": "最新期"
     },
     {
       "label": "OCF/EPS",
-      "value": "1.76",
+      "value": "0.86",
       "threshold": "≥0.8",
       "status": "ok",
       "note": "现金流质量"
     },
     {
       "label": "公允 PE",
-      "value": "28",
+      "value": "20",
       "threshold": "—",
       "status": "neutral",
-      "note": "医药"
+      "note": "default"
     },
     {
       "label": "公允价",
-      "value": "47.60 元",
+      "value": "10.80 元",
       "threshold": "—",
       "status": "neutral",
-      "note": "EPS×28"
+      "note": "EPS×20"
     },
     {
       "label": "安全边际",
-      "value": "27.0%",
+      "value": "-588.6%",
       "threshold": "≥25%",
-      "status": "ok",
+      "status": "fail",
       "note": "=(公允−现价)/公允"
     },
     {
       "label": "DCF 公允",
-      "value": "30.08 元",
+      "value": "8.47 元",
       "threshold": "—",
       "status": "neutral",
       "note": "简化两阶段"
     },
     {
       "label": "DCF 边际",
-      "value": "-15.6%",
+      "value": "-777.6%",
       "threshold": "≥25%",
       "status": "fail",
       "note": "与 L3-01 交叉"
     },
     {
       "label": "EPS",
-      "value": "1.700",
+      "value": "0.540",
       "threshold": ">0",
       "status": "ok",
       "note": "估值基础"
     },
     {
       "label": "成交额",
-      "value": "0.15 亿",
+      "value": "41.25 亿",
       "threshold": "A股≥0.5亿",
       "status": "neutral",
       "note": "流动性 L0-03"
@@ -144,32 +146,32 @@
     {
       "step": 1,
       "title": "L0 门禁",
-      "ok": true,
-      "detail": "非 ST、流动性达标、无造假嫌疑，可进入生意/财务/估值分析。"
+      "ok": false,
+      "detail": "否决项：L0-06 异常票特征、L3-05 极端高估值。"
     },
     {
       "step": 2,
       "title": "L1–L3 硬指标",
       "ok": false,
-      "detail": "未过硬指标：L1-01 ROE均值。"
+      "detail": "未过硬指标：L3-01 安全边际、L3-02 PE合理。"
     },
     {
       "step": 3,
       "title": "综合评分",
-      "ok": true,
-      "detail": "总分 84，评级 A（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+      "ok": false,
+      "detail": "总分 59，评级 D（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
     },
     {
       "step": 4,
       "title": "安全边际",
-      "ok": true,
-      "detail": "安全边际 27.0%，建仓要求 ≥25%。"
+      "ok": false,
+      "detail": "安全边际 -588.6%，建仓要求 ≥25%。"
     },
     {
       "step": 5,
       "title": "仓位上限",
       "ok": false,
-      "detail": "按评级 A：A→25% / B→10% / 其他→0%。"
+      "detail": "按评级 D：A→25% / B→10% / 其他→0%。"
     },
     {
       "step": 6,
@@ -182,38 +184,38 @@
     {
       "id": "L1-01",
       "name": "ROE均值",
-      "actual": "6.09%",
+      "actual": "15.17%",
       "threshold": "≥15%",
-      "result": "fail",
-      "pass": false,
-      "reason": "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+      "result": "pass",
+      "pass": true,
+      "reason": "近 5 年 ROE 均值 15.17%，资本回报优秀，符合巴菲特式好生意标准。"
     },
     {
       "id": "L2-01",
       "name": "现金流质量",
-      "actual": "1.76",
+      "actual": "0.86",
       "threshold": "≥0.8",
       "result": "pass",
       "pass": true,
-      "reason": "经营现金流/每股收益均值 1.76，利润「含金量」高。"
+      "reason": "经营现金流/每股收益均值 0.86，利润「含金量」高。"
     },
     {
       "id": "L3-01",
       "name": "安全边际",
-      "actual": "27.0%",
+      "actual": "-588.6%",
       "threshold": "≥25%",
-      "result": "pass",
-      "pass": true,
-      "reason": "现价 34.76 元 vs 公允 47.60 元，安全边际 27.0%，价格足够便宜。"
+      "result": "fail",
+      "pass": false,
+      "reason": "现价 74.37 元，公允价值 10.80 元（default 行业公允 PE 20 × EPS 0.540），安全边际 -588.6%，未达 25%。好公司也需要好价格。"
     },
     {
       "id": "L3-02",
       "name": "PE合理",
-      "actual": "19.11",
-      "threshold": "≤45",
-      "result": "pass",
-      "pass": true,
-      "reason": "PE 19.11 处于 医药 行业上限 ≤45（医药） 以内，估值可接受。"
+      "actual": "137.72",
+      "threshold": "≤40",
+      "result": "fail",
+      "pass": false,
+      "reason": "PE 137.72 超过 default 行业上限 ≤40（default），估值偏贵。"
     }
   ],
   "rule_details": [
@@ -251,14 +253,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "京东健康",
+      "actual": "英维克",
       "threshold": "非ST",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "「京东健康」非 ST，通过基础资格筛选。"
+      "reason": "「英维克」非 ST，通过基础资格筛选。"
     },
     {
       "id": "L0-03",
@@ -269,15 +271,15 @@
         "手把手教你投资港股"
       ],
       "weight": 5,
-      "pass": false,
-      "actual": "0.15亿",
-      "threshold": "≥0.20亿",
-      "score": 0,
+      "pass": true,
+      "actual": "41.25亿",
+      "threshold": "≥0.50亿",
+      "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "fail",
-      "reason": "日均成交额 0.15亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
+      "result": "pass",
+      "reason": "日均成交额 41.25亿，流动性充足，可正常建仓与退出。"
     },
     {
       "id": "L0-04",
@@ -299,14 +301,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "26.28%",
+      "actual": "26.03%",
       "threshold": "≥0%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "营收增长达标（26.28% / ≥0%）。"
+      "reason": "营收增长达标（26.03% / ≥0%）。"
     },
     {
       "id": "L0-05",
@@ -337,15 +339,15 @@
         "trap_scan 启发式"
       ],
       "weight": 5,
-      "pass": true,
-      "actual": "无",
+      "pass": false,
+      "actual": "极高PE+低增速、极端估值",
       "threshold": "异常特征≤1",
-      "score": 5,
-      "veto": false,
+      "score": 0,
+      "veto": true,
       "missing": false,
       "note": "proxy",
-      "result": "pass",
-      "reason": "未发现多项异常票特征（trap_scan 启发式）。"
+      "result": "veto",
+      "reason": "命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。"
     },
     {
       "id": "L1-01",
@@ -366,15 +368,15 @@
         "长期主义"
       ],
       "weight": 5,
-      "pass": false,
-      "actual": "6.09%",
+      "pass": true,
+      "actual": "15.17%",
       "threshold": "≥15%",
-      "score": 0,
+      "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "fail",
-      "reason": "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
+      "result": "pass",
+      "reason": "近 5 年 ROE 均值 15.17%，资本回报优秀，符合巴菲特式好生意标准。"
     },
     {
       "id": "L1-02",
@@ -405,14 +407,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "24.78%",
+      "actual": "27.86%",
       "threshold": "≥20%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "毛利率达标（24.78% / ≥20%）。"
+      "reason": "毛利率达标（27.86% / ≥20%）。"
     },
     {
       "id": "L1-04",
@@ -426,14 +428,14 @@
       ],
       "weight": 10,
       "pass": false,
-      "actual": "30分",
+      "actual": "50分",
       "threshold": "≥60分",
       "score": 0,
       "veto": false,
       "missing": false,
       "note": "proxy",
       "result": "fail",
-      "reason": "护城河代理未达标：实际 30分，要求 ≥60分。"
+      "reason": "护城河代理未达标：实际 50分，要求 ≥60分。"
     },
     {
       "id": "L1-05",
@@ -444,15 +446,15 @@
         "怎样选择成长股"
       ],
       "weight": 5,
-      "pass": true,
-      "actual": "29.16%",
+      "pass": false,
+      "actual": "-81.97%",
       "threshold": "≥0%",
-      "score": 5,
+      "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "利润增长达标（29.16% / ≥0%）。"
+      "result": "fail",
+      "reason": "利润增长未达标：实际 -81.97%，要求 ≥0%。"
     },
     {
       "id": "L1-06",
@@ -483,14 +485,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "1.76",
+      "actual": "0.86",
       "threshold": "≥0.8",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "经营现金流/每股收益均值 1.76，利润「含金量」高。"
+      "reason": "经营现金流/每股收益均值 0.86，利润「含金量」高。"
     },
     {
       "id": "L2-02",
@@ -520,15 +522,15 @@
         "慢即是快：一个投资者20年的思考与实践"
       ],
       "weight": 8,
-      "pass": true,
-      "actual": "29.16%",
+      "pass": false,
+      "actual": "-81.97%",
       "threshold": "≥0%",
-      "score": 5,
+      "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "盈利趋势达标（29.16% / ≥0%）。"
+      "result": "fail",
+      "reason": "盈利趋势未达标：实际 -81.97%，要求 ≥0%。"
     },
     {
       "id": "L2-04",
@@ -573,15 +575,15 @@
         "医疗行业估值"
       ],
       "weight": 5,
-      "pass": true,
-      "actual": "27.0% (公允47.60元)",
+      "pass": false,
+      "actual": "-588.6% (公允10.80元)",
       "threshold": "≥25%",
-      "score": 5,
+      "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "现价 34.76 元 vs 公允 47.60 元，安全边际 27.0%，价格足够便宜。"
+      "result": "fail",
+      "reason": "现价 74.37 元，公允价值 10.80 元（default 行业公允 PE 20 × EPS 0.540），安全边际 -588.6%，未达 25%。好公司也需要好价格。"
     },
     {
       "id": "L3-02",
@@ -592,15 +594,15 @@
         "穿透估值：读懂估值中的共识与博弈"
       ],
       "weight": 5,
-      "pass": true,
-      "actual": "19.11",
-      "threshold": "≤45（医药）",
-      "score": 5,
+      "pass": false,
+      "actual": "137.72",
+      "threshold": "≤40（default）",
+      "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "PE 19.11 处于 医药 行业上限 ≤45（医药） 以内，估值可接受。"
+      "result": "fail",
+      "reason": "PE 137.72 超过 default 行业上限 ≤40（default），估值偏贵。"
     },
     {
       "id": "L3-03",
@@ -612,14 +614,14 @@
       ],
       "weight": 6,
       "pass": true,
-      "actual": "1.71",
+      "actual": "—",
       "threshold": "≤8",
       "score": 5,
       "veto": false,
-      "missing": false,
+      "missing": true,
       "note": "full",
       "result": "pass",
-      "reason": "PB合理达标（1.71 / ≤8）。"
+      "reason": "PB合理达标（— / ≤8）。"
     },
     {
       "id": "L3-04",
@@ -631,14 +633,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "0.66",
+      "actual": "—",
       "threshold": "≤2",
       "score": 5,
       "veto": false,
-      "missing": false,
+      "missing": true,
       "note": "full",
       "result": "pass",
-      "reason": "PEG达标（0.66 / ≤2）。"
+      "reason": "PEG达标（— / ≤2）。"
     },
     {
       "id": "L3-05",
@@ -649,15 +651,15 @@
         "投资中最常犯的错"
       ],
       "weight": 5,
-      "pass": true,
-      "actual": "否",
+      "pass": false,
+      "actual": "PE=137.72",
       "threshold": "非极端泡沫",
-      "score": 5,
-      "veto": false,
+      "score": 0,
+      "veto": true,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "未出现 PE>80 且低增长的极端泡沫组合。"
+      "result": "veto",
+      "reason": "PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。"
     },
     {
       "id": "L3-06",
@@ -670,14 +672,14 @@
       ],
       "weight": 8,
       "pass": false,
-      "actual": "-15.6% (DCF 30.08元)",
+      "actual": "-777.6% (DCF 8.47元)",
       "threshold": "DCF 安全边际≥0%",
       "score": 0,
       "veto": false,
       "missing": false,
       "note": "proxy",
       "result": "fail",
-      "reason": "DCF交叉验证未达标：实际 -15.6% (DCF 30.08元)，要求 DCF 安全边际≥0%。"
+      "reason": "DCF交叉验证未达标：实际 -777.6% (DCF 8.47元)，要求 DCF 安全边际≥0%。"
     },
     {
       "id": "L4-01",
@@ -743,14 +745,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "建议上限 25%",
+      "actual": "建议上限 0%",
       "threshold": "≤25%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "按 A 评级，单票建议上限 建议上限 25%。"
+      "reason": "按 D 评级，单票建议上限 建议上限 0%。"
     },
     {
       "id": "L5-01",
@@ -776,62 +778,86 @@
         "04-行业叠加规则"
       ],
       "weight": 10,
-      "pass": true,
-      "actual": "药品及生物科技 (100分)",
+      "pass": false,
+      "actual": "专用设备 (50分)",
       "threshold": "≥60分",
-      "score": 5,
+      "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
-      "result": "pass",
-      "reason": "行业适配达标（药品及生物科技 (100分) / ≥60分）。"
+      "result": "fail",
+      "reason": "行业适配未达标：实际 专用设备 (50分)，要求 ≥60分。"
     }
   ],
   "divergence_notes": [
     {
+      "kind": "veto",
+      "rule_id": "L0-06",
+      "title": "L0-06 异常票特征（否决）",
+      "summary": "命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。",
+      "actual": "极高PE+低增速、极端估值",
+      "threshold": "异常特征≤1"
+    },
+    {
+      "kind": "veto",
+      "rule_id": "L3-05",
+      "title": "L3-05 极端高估值（否决）",
+      "summary": "PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。",
+      "actual": "PE=137.72",
+      "threshold": "非极端泡沫"
+    },
+    {
       "kind": "hard_fail",
-      "rule_id": "L1-01",
-      "title": "L1-01 ROE均值（硬指标 Fail）",
-      "summary": "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-      "actual": "6.09%",
-      "threshold": "≥15%"
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 74.37 元，公允价值 10.80 元（default 行业公允 PE 20 × EPS 0.540），安全边际 -588.6%，未达 25%。好公司也需要好价格。",
+      "actual": "-588.6% (公允10.80元)",
+      "threshold": "≥25%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-02",
+      "title": "L3-02 PE合理（硬指标 Fail）",
+      "summary": "PE 137.72 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "137.72",
+      "threshold": "≤40（default）"
     }
   ],
   "valuation": {
-    "lcai_fair_value": 47.6,
-    "lcai_margin_pct": 27.0,
-    "dcf_fair_value": 30.08,
-    "dcf_margin_pct": -15.6,
-    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 47.6 元，安全边际 27.0%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 30.08 元，DCF 安全边际 -15.6%。\n现价 34.76 元。\nLCAI PE×EPS 27.0% vs DCF -15.6%。"
+    "lcai_fair_value": 10.8,
+    "lcai_margin_pct": -588.6,
+    "dcf_fair_value": 8.47,
+    "dcf_margin_pct": -777.6,
+    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 10.8 元，安全边际 -588.6%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 8.47 元，DCF 安全边际 -777.6%。\n现价 74.37 元。\nLCAI PE×EPS -588.6% vs DCF -777.6%。"
   },
   "layers": [
     {
       "layer": "L0",
       "title": "L0 门禁",
-      "lcai_status": "通过",
-      "lcai_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。",
-      "merged_summary": "门禁通过：非 ST、流动性达标、无造假/庄股否决。"
+      "lcai_status": "未通过",
+      "lcai_summary": "异常票特征：极高PE+低增速、极端估值",
+      "merged_summary": "异常票特征：极高PE+低增速、极端估值"
     },
     {
       "layer": "L1",
       "title": "L1 生意",
-      "lcai_status": "有缺口",
-      "lcai_summary": "ROE 均值 6.09% 未达 15%",
-      "merged_summary": "ROE 均值 6.09% 未达 15%"
+      "lcai_status": "通过",
+      "lcai_summary": "ROE 均值 15.17%",
+      "merged_summary": "ROE 均值 15.17%"
     },
     {
       "layer": "L2",
       "title": "L2 财务",
       "lcai_status": "通过",
-      "lcai_summary": "OCF/EPS 约 1.76",
-      "merged_summary": "OCF/EPS 约 1.76"
+      "lcai_summary": "OCF/EPS 约 0.86",
+      "merged_summary": "OCF/EPS 约 0.86"
     },
     {
       "layer": "L3",
       "title": "L3 估值",
-      "lcai_status": "通过",
-      "lcai_summary": "安全边际 27.0%；公允价约 47.6 元；DCF 公允 30.08 元（边际 -15.6%）",
-      "merged_summary": "安全边际 27.0%；公允价约 47.6 元；DCF 公允 30.08 元（边际 -15.6%）"
+      "lcai_status": "有缺口",
+      "lcai_summary": "安全边际 -588.6% 未达 25%；PE 137.72 超行业上限；公允价约 10.8 元；DCF 公允 8.47 元（边际 -777.6%）",
+      "merged_summary": "安全边际 -588.6% 未达 25%；PE 137.72 超行业上限；公允价约 10.8 元；DCF 公允 8.47 元（边际 -777.6%）"
     },
     {
       "layer": "L4",
@@ -844,25 +870,52 @@
       "layer": "L5",
       "title": "L5 行业",
       "lcai_status": "通过",
-      "lcai_summary": "行业：药品及生物科技",
-      "merged_summary": "行业：药品及生物科技"
+      "lcai_summary": "行业：专用设备",
+      "merged_summary": "行业：专用设备"
     }
   ],
   "strengths": [
-    "LCAI: 安全边际 27.0% 达建仓线"
+    "LCAI: ROE 均值 15.17% 达标"
   ],
   "weaknesses": [
-    "LCAI: ROE 均值 6.09% 未达 15%",
-    "LCAI: 硬指标 Fail L1-01"
+    "LCAI: 安全边际 -588.6% 未达 25%",
+    "LCAI: 否决 L0-06",
+    "LCAI: 否决 L3-05",
+    "LCAI: 硬指标 Fail L3-01",
+    "LCAI: 硬指标 Fail L3-02"
   ],
   "divergences": [
     {
+      "kind": "veto",
+      "rule_id": "L0-06",
+      "title": "L0-06 异常票特征（否决）",
+      "summary": "命中异常特征：极高PE+低增速、极端估值——杀猪盘/庄股风险，触发否决（异常票特征）。",
+      "actual": "极高PE+低增速、极端估值",
+      "threshold": "异常特征≤1"
+    },
+    {
+      "kind": "veto",
+      "rule_id": "L3-05",
+      "title": "L3-05 极端高估值（否决）",
+      "summary": "PE 137.72 极高且利润增速 -81.97% 不足，估值泡沫风险大，触发否决（极端高估值）。",
+      "actual": "PE=137.72",
+      "threshold": "非极端泡沫"
+    },
+    {
       "kind": "hard_fail",
-      "rule_id": "L1-01",
-      "title": "L1-01 ROE均值（硬指标 Fail）",
-      "summary": "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-      "actual": "6.09%",
-      "threshold": "≥15%"
+      "rule_id": "L3-01",
+      "title": "L3-01 安全边际（硬指标 Fail）",
+      "summary": "现价 74.37 元，公允价值 10.80 元（default 行业公允 PE 20 × EPS 0.540），安全边际 -588.6%，未达 25%。好公司也需要好价格。",
+      "actual": "-588.6% (公允10.80元)",
+      "threshold": "≥25%"
+    },
+    {
+      "kind": "hard_fail",
+      "rule_id": "L3-02",
+      "title": "L3-02 PE合理（硬指标 Fail）",
+      "summary": "PE 137.72 超过 default 行业上限 ≤40（default），估值偏贵。",
+      "actual": "137.72",
+      "threshold": "≤40（default）"
     }
   ],
   "depth": {
@@ -870,7 +923,7 @@
     "ready": true,
     "schedule": "weekly_monday"
   },
-  "report_url": "reports/06618/index.html",
-  "generated_at": "2026-06-18T15:54:41+08:00",
+  "report_url": "reports/002837/index.html",
+  "generated_at": "2026-06-18T15:54:16+08:00",
   "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }
