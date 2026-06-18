@@ -96,3 +96,9 @@
   color: var(--muted);
   margin-left: 0.35rem;
 }
+
+.nav-lock {
+  font-size: 0.72rem;
+  opacity: 0.65;
+  margin-left: 0.2rem;
+}

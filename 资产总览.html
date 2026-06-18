@@ -1205,7 +1205,7 @@
           </div>
         </details>
         <details class="nav-group" open data-nav-group="finance">
-          <summary class="nav-group-label">财务计划</summary>
+          <summary class="nav-group-label">财务计划 <span class="nav-lock" title="需管理密码">🔒</span></summary>
           <div class="nav-group-items">
             <button class="tab-btn" data-page="plan">执行</button>
             <button class="tab-btn" data-page="debt">债务</button>
@@ -3389,8 +3389,8 @@
     if (location.hash === "#screen") switchTab("screen");
     if (location.hash === "#criteria") switchTab("criteria");
     if (location.hash === "#books" || location.hash.startsWith("#books")) switchTab("books");
-    if (location.hash === "#handbook" && LCAIAdminGate.isUnlocked()) switchTab("handbook");
-    if (location.hash === "#etf" && LCAIAdminGate.isUnlocked()) switchTab("etf");
+    if (location.hash === "#handbook") switchTab("handbook");
+    if (location.hash === "#etf") switchTab("etf");
 
     document.getElementById("shell-menu-btn")?.addEventListener("click", () => {
       document.getElementById("shell-sidebar")?.classList.add("open");
@@ -3433,13 +3433,7 @@
 
     renderTodos();
     window.__lcaiRenderAll = renderAll;
-    const __lcaiInitialPage = (window.LCAIAdminGate && LCAIAdminGate.pageFromHash()) || "home";
-    if (window.LCAIAdminGate && !LCAIAdminGate.isUnlocked() && LCAIAdminGate.needsAdmin(__lcaiInitialPage)) {
-      updatePageDates();
-      renderQuoteBar();
-    } else {
-      renderAll();
-    }
+    renderAll();
     window.LCAIAdminGate?.initOverview?.();
 
     // 开发断言
