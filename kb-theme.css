@@ -1,15 +1,11 @@
 /* LCAI Knowledge Base — visual system aligned with learnbuffett.com */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;0,700&family=DM+Sans:wght@400;500;600;700&display=swap");
 
-body.kb-body *,
-body.kb-body *::before,
-body.kb-body *::after {
+body.kb-body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
-body.kb-body { box-sizing: border-box; }
 
 :root {
   --kb-bg: #FAF7F2;
@@ -36,18 +32,23 @@ body.kb-body {
   font-family: var(--kb-sans);
   color: var(--kb-text);
   background: var(--kb-bg);
-  display: flex;
+  display: grid;
+  grid-template-columns: var(--kb-sidebar-w) minmax(0, 1fr);
   min-height: 100vh;
   line-height: 1.8;
 }
 
+*, *::before, *::after { box-sizing: border-box; }
+
 /* ── Sidebar ── */
 .kb-sidebar {
+  grid-column: 1;
+  grid-row: 1;
   width: var(--kb-sidebar-w);
-  flex-shrink: 0;
   background: var(--kb-navy);
   position: sticky;
   top: 0;
+  align-self: start;
   height: 100vh;
   overflow-y: auto;
   z-index: 100;
@@ -164,11 +165,18 @@ body.kb-body {
 }
 
 /* ── Main ── */
-body.kb-body .kb-main {
-  flex: 1;
+body.kb-body > .kb-main {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
   position: relative;
   padding: 0;
+}
+
+.kb-page-wrap {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 48px 48px;
 }
 
 .kb-main::after {
@@ -189,9 +197,7 @@ body.kb-body .kb-main {
 /* ── Hero ── */
 .kb-hero-section {
   position: relative;
-  padding: 44px 48px 28px;
-  max-width: 900px;
-  margin: 0 auto;
+  padding: 0 0 28px;
 }
 
 .kb-hero-row {
@@ -269,8 +275,7 @@ body.kb-body .kb-main {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0;
-  max-width: 900px;
-  margin: 0 auto 28px;
+  margin: 0 0 28px;
   background: var(--kb-card);
   border: 1px solid var(--kb-border);
   border-radius: 6px;
@@ -314,20 +319,28 @@ body.kb-body .kb-main {
 
 /* ── Nav cards ── */
 .kb-main-inner {
-  max-width: 900px;
-  padding: 0 48px 80px;
-  margin: 0 auto;
+  padding: 0 0 32px;
 }
 
 .kb-nav-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 14px;
   margin-bottom: 32px;
 }
 
-.kb-nav-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
-.kb-nav-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
+.kb-nav-cards.cols-4 { grid-template-columns: repeat(2, 1fr); }
+.kb-nav-cards.cols-5 { grid-template-columns: repeat(2, 1fr); }
+
+@media (min-width: 900px) {
+  .kb-nav-cards.cols-4 { grid-template-columns: repeat(2, 1fr); }
+  .kb-nav-cards.cols-5 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  .kb-nav-cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .kb-nav-cards.cols-5 { grid-template-columns: repeat(5, 1fr); }
+}
 
 .kb-nav-card {
   position: relative;
@@ -608,9 +621,7 @@ body.kb-body .kb-main {
 }
 
 .kb-footer-note {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 48px 40px;
+  padding: 0 0 40px;
   font-size: 12px;
   color: var(--kb-text2);
   text-align: center;
@@ -625,26 +636,30 @@ body.kb-body .kb-main {
 /* ── Mobile ── */
 @media (max-width: 900px) {
   .kb-hamburger { display: block; }
+  body.kb-body {
+    grid-template-columns: 1fr;
+  }
   .kb-sidebar {
     position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
+    grid-column: 1;
     transform: translateX(-105%);
     transition: transform 0.22s ease;
   }
   .kb-sidebar.open { transform: translateX(0); }
-  body.kb-body .kb-main { flex: 1; width: 100%; }
-  .kb-hero-section { padding: 56px 20px 20px; }
+  body.kb-body > .kb-main { grid-column: 1; width: 100%; }
+  .kb-page-wrap { padding: 56px 20px 40px; }
+  .kb-hero-section { padding-bottom: 20px; }
   .kb-hero-row { gap: 16px; }
   .kb-hero-logo { width: 56px !important; }
   .kb-hero-title { font-size: 24px; }
   .kb-hero-sub { font-size: 14px; }
-  .kb-stats-row { grid-template-columns: repeat(2, 1fr); margin: 0 16px 20px; }
+  .kb-stats-row { grid-template-columns: repeat(2, 1fr); }
   .kb-stat-item:nth-child(2)::after { display: none; }
-  .kb-main-inner { padding: 0 16px 60px; }
   .kb-nav-cards, .kb-nav-cards.cols-4, .kb-nav-cards.cols-5 {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   .kb-nav-card-arrow { display: none; }
   .kb-article { padding: 24px 20px 60px; }
