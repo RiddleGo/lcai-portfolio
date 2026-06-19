@@ -2,8 +2,8 @@ window.ETF_PLAN = {
   "planName": "10万科技ETF分批计划",
   "totalBudget": 100000,
   "startDate": "2026-06-09",
-  "updatedAt": "2026-06-18T19:37:59+08:00",
-  "checkedDate": "2026-06-18",
+  "updatedAt": "2026-06-19T19:50:32+08:00",
+  "checkedDate": "2026-06-19",
   "isTradingDay": true,
   "alertLevel": "buy",
   "summary": "今日符合计划：建议加仓 588000 10000元、562500 5000元、159819 5000元",
@@ -20,9 +20,9 @@ window.ETF_PLAN = {
       "remainingTarget": 25000.0,
       "price": 2.017,
       "changePct": 4.02,
-      "highNDays": null,
-      "drawdownPct": null,
-      "triggerPrice": null,
+      "highNDays": 2.042,
+      "drawdownPct": 1.22,
+      "triggerPrice": 2.042,
       "pullbackNeedPct": 0.0,
       "signal": "buy",
       "reasons": [
@@ -84,8 +84,8 @@ window.ETF_PLAN = {
       "progressPct": 0.0,
       "price": 2.017,
       "changePct": 4.02,
-      "high20d": null,
-      "drawdownPct": null
+      "high20d": 2.042,
+      "drawdownPct": 1.22
     },
     {
       "code": "588200",
@@ -98,8 +98,8 @@ window.ETF_PLAN = {
       "progressPct": 0.0,
       "price": 4.126,
       "changePct": 4.48,
-      "high20d": null,
-      "drawdownPct": null
+      "high20d": 4.167,
+      "drawdownPct": 0.98
     },
     {
       "code": "159516",
@@ -173,9 +173,9 @@ window.ETF_PLAN = {
           "remainingTarget": 25000.0,
           "price": 2.017,
           "changePct": 4.02,
-          "highNDays": null,
-          "drawdownPct": null,
-          "triggerPrice": null,
+          "highNDays": 2.042,
+          "drawdownPct": 1.22,
+          "triggerPrice": 2.042,
           "pullbackNeedPct": 0.0,
           "signal": "buy",
           "reasons": [
