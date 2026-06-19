@@ -3,7 +3,7 @@
   "name": "10万科技ETF分批计划",
   "totalBudget": 100000,
   "startDate": "2026-06-09",
-  "notes": "宽基打底 + 半导体/AI/机器人；单只目标不超过总预算25%；赛力斯已在仓，不再买新能源车ETF",
+  "notes": "成长型表达工具：宽基 + 半导体/AI/机器人；计入成长型总仓40%上限。单只目标不超过总预算25%；赛力斯已在仓，不再买新能源车ETF",
   "targets": [
     { "code": "588000", "market": "sh", "name": "科创50ETF华夏", "category": "宽基", "targetAmount": 25000 },
     { "code": "588200", "market": "sh", "name": "科创芯片ETF嘉实", "category": "半导体", "targetAmount": 20000 },

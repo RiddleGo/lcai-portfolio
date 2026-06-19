@@ -3,7 +3,7 @@
 > **自动生成**，请勿手改。修改 [`criteria.json`](criteria.json) 后运行：
 > `python scripts/apply_criteria.py`
 
-版本：**1.0** · 哲学：**value_core**
+版本：**1.1** · 哲学：**value_core_with_growth_mode**
 
 ## 建仓线
 

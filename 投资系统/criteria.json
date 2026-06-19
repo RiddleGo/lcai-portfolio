@@ -1,6 +1,44 @@
 {
-  "version": "1.0",
-  "philosophy": "value_core",
+  "version": "1.1",
+  "philosophy": "value_core_with_growth_mode",
+  "default_mode": "value",
+  "modes": {
+    "value": {
+      "label": "价值型",
+      "description": "成熟盈利、回溯估值；默认模式",
+      "position_cap": { "A": 0.25, "B": 0.1, "C": 0, "D": 0 },
+      "portfolio_cap": null,
+      "margin_of_safety": 0.25,
+      "margin_basis": "trailing_eps",
+      "rule_overrides": {}
+    },
+    "growth": {
+      "label": "成长型",
+      "description": "增长可验证、前瞻估值；需 thesis + 成长信号≥2",
+      "position_cap": { "A": 0.15, "B": 0.08, "C": 0, "D": 0 },
+      "portfolio_cap": 0.4,
+      "margin_of_safety": 0.15,
+      "margin_basis": "forward_eps",
+      "growth_signals_min": 2,
+      "growth_signals": [
+        { "id": "G1", "name": "营收高增", "desc": "近2期营收YoY均≥15%或TAM扩张有据" },
+        { "id": "G2", "name": "盈利拐点", "desc": "近2年连续盈利或利润YoY连续2期改善" },
+        { "id": "G3", "name": "投入期优质", "desc": "ROE暂低但毛利率≥25%且护城河代理≥60" },
+        { "id": "G4", "name": "现金流改善", "desc": "OCF/EPS较3年前提升或OCF为正且YoY改善" }
+      ],
+      "rule_overrides": {
+        "L1-01": { "threshold": 10, "alt": "latest_roe_15_or_roe_trend_up" },
+        "L1-02": { "profit_years_min": 2, "require_last_2y_profit": true },
+        "L1-05": { "threshold": 10, "weight_boost": true },
+        "L2-01": { "threshold": 0.6, "alt": "ocf_positive_and_yoy_up" },
+        "L2-03": { "threshold": 5 },
+        "L3-01": { "threshold": 0.15, "basis": "forward_eps" },
+        "L3-04": { "threshold": 1.5 },
+        "L3-06": { "growth_cap": 0.25, "wacc_floor": 0.1 }
+      },
+      "non_overridable": ["L0-05", "L0-06", "L1-06", "L2-04", "L3-05"]
+    }
+  },
   "scoring": {
     "L1_min": 70,
     "L2_min": 75,
