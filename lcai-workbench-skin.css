@@ -39,6 +39,13 @@
   --gradient-primary: linear-gradient(135deg, var(--kb-gold), var(--kb-gold-light));
   --panel-gradient: linear-gradient(135deg, rgba(184, 134, 11, 0.08), rgba(212, 168, 67, 0.05));
 
+  --ok: #2d6a4f;
+  --warn: #9a6700;
+  --danger: #b42318;
+  --gain-text: #2d6a4f;
+  --loss-text: #b42318;
+  --warn-text: #9a6700;
+
   --shell-sidebar-w: 260px;
   --content-gutter: 1.5rem;
   --content-max: min(1120px, calc(100vw - var(--shell-sidebar-w) - var(--content-gutter) * 2));
