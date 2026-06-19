@@ -44,9 +44,11 @@ body.kb-body {
 /* ── Sidebar ── */
 .kb-sidebar {
   width: var(--kb-sidebar-w);
+  flex-shrink: 0;
   background: var(--kb-navy);
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow-y: auto;
   z-index: 100;
   display: flex;
@@ -162,25 +164,26 @@ body.kb-body {
 }
 
 /* ── Main ── */
-.kb-main {
-  margin-left: max(var(--kb-sidebar-w), calc((100vw - 1160px) / 2));
+body.kb-body .kb-main {
   flex: 1;
+  min-width: 0;
   position: relative;
-  max-width: 1160px;
   padding: 0;
 }
 
 .kb-main::after {
   content: "";
-  position: fixed;
-  top: 0;
-  left: var(--kb-sidebar-w);
-  right: 0;
-  bottom: 0;
+  position: absolute;
+  inset: 0;
   pointer-events: none;
   opacity: 0.03;
-  z-index: 999;
+  z-index: 0;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.kb-main > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Hero ── */
@@ -623,12 +626,15 @@ body.kb-body {
 @media (max-width: 900px) {
   .kb-hamburger { display: block; }
   .kb-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
     transform: translateX(-105%);
     transition: transform 0.22s ease;
   }
   .kb-sidebar.open { transform: translateX(0); }
-  .kb-main { margin-left: 0; max-width: none; }
-  .kb-main::after { left: 0; }
+  body.kb-body .kb-main { flex: 1; width: 100%; }
   .kb-hero-section { padding: 56px 20px 20px; }
   .kb-hero-row { gap: 16px; }
   .kb-hero-logo { width: 56px !important; }
