@@ -47,11 +47,11 @@ def build_report_html(
     if final:
         reasons = "".join(f"<li>{_esc(r)}</li>" for r in (final.get("reasons") or []))
         actions = "".join(f"<li>{_esc(a)}</li>" for a in (final.get("actions") or []))
-        fc_block = f"""<section class="card" style="border-color:#3b82f6">
+        fc_block = f"""<section class="report-card featured">
     <h2>最终结论</h2>
     <p style="font-size:1.05rem;font-weight:700">{_esc(final.get('headline') or f"{verdict} — {action}")}</p>
-    {f'<p style="color:#94a3b8;font-size:0.85rem;margin:8px 0 4px">核心理由</p><ul>{reasons}</ul>' if reasons else ''}
-    {f'<p style="color:#94a3b8;font-size:0.85rem;margin:8px 0 4px">你可以怎么做</p><ul>{actions}</ul>' if actions else ''}
+    {f'<p class="report-label">核心理由</p><ul>{reasons}</ul>' if reasons else ''}
+    {f'<p class="report-label">你可以怎么做</p><ul>{actions}</ul>' if actions else ''}
   </section>"""
 
     metrics_rows = ""
@@ -79,109 +79,78 @@ def build_report_html(
         st = layer.get("lcai_status") or "—"
         st_cls = "ok" if st == "通过" else "bad" if st == "未通过" else "warn"
         layer_rows += f"""
-        <section class="layer">
-          <h3>{_esc(layer.get('title') or layer.get('layer'))} <span class="tag {st_cls}">{_esc(st)}</span></h3>
+        <section class="report-layer">
+          <h3>{_esc(layer.get('title') or layer.get('layer'))} <span class="report-tag {st_cls}">{_esc(st)}</span></h3>
           <p>{_esc(layer.get('merged_summary') or layer.get('lcai_summary') or '')}</p>
         </section>"""
 
-    dash_url = "https://riddlego.github.io/lcai-portfolio/%E8%B5%84%E4%BA%A7%E6%80%BB%E8%A7%88.html#screen"
+    verdict_cls = "buy" if verdict == "买入" else "hold" if verdict in ("观察", "持有", "数据不足") else ""
 
     return f"""<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#B8860B">
   <title>{_esc(name)} ({symbol}) · LCAI 综合研判</title>
-  <style>
-    :root {{ font-family: system-ui, "Segoe UI", sans-serif; background: #0f1419; color: #e7ecf1; line-height: 1.55; }}
-    body {{ max-width: 820px; margin: 0 auto; padding: 24px 16px 48px; }}
-    a {{ color: #60a5fa; }}
-    h1 {{ font-size: 1.5rem; margin: 0 0 8px; }}
-    h2 {{ font-size: 1.05rem; margin: 0 0 10px; color: #94a3b8; }}
-    .meta {{ color: #94a3b8; font-size: 0.9rem; margin-bottom: 20px; }}
-    .verdict {{ display: inline-block; padding: 6px 14px; border-radius: 8px; font-weight: 700; margin: 8px 0 16px;
-      background: rgba(239,68,68,0.15); border: 1px solid rgba(239,68,68,0.4); color: #fca5a5; }}
-    .verdict.buy {{ background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #6ee7b7; }}
-    .verdict.hold {{ background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: #fcd34d; }}
-    .card {{ background: #1a2332; border: 1px solid #2d3748; border-radius: 10px; padding: 16px; margin-bottom: 16px; }}
-    .card.muted {{ opacity: 0.85; }}
-    .layer {{ margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid #2d3748; }}
-    .layer:last-child {{ border-bottom: none; }}
-    .layer h3 {{ font-size: 0.95rem; margin: 0 0 6px; }}
-    .tag {{ font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }}
-    .tag.ok {{ background: rgba(16,185,129,0.2); color: #6ee7b7; }}
-    .tag.warn {{ background: rgba(245,158,11,0.2); color: #fcd34d; }}
-    .tag.bad {{ background: rgba(239,68,68,0.2); color: #fca5a5; }}
-    .cols {{ display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }}
-    @media (max-width: 600px) {{ .cols {{ grid-template-columns: 1fr; }} }}
-    ul {{ margin: 0; padding-left: 1.2rem; }}
-    footer {{ margin-top: 24px; font-size: 0.8rem; color: #64748b; }}
-    pre {{ white-space: pre-wrap; font-family: inherit; margin: 0; }}
-    table.metrics {{ width: 100%; border-collapse: collapse; font-size: 0.88rem; }}
-    table.metrics th, table.metrics td {{ padding: 8px 10px; border-bottom: 1px solid #2d3748; text-align: left; }}
-    table.metrics th {{ color: #94a3b8; font-weight: 600; }}
-    table.metrics tr.ok td:nth-child(2) {{ color: #6ee7b7; }}
-    table.metrics tr.bad td:nth-child(2) {{ color: #fca5a5; }}
-    .decision-step {{ display: flex; gap: 12px; margin-bottom: 10px; padding: 10px; border-radius: 8px; background: #0f1419; }}
-    .decision-step .step-n {{ flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 0.85rem; background: #334155; }}
-    .decision-step.ok .step-n {{ background: rgba(16,185,129,0.25); color: #6ee7b7; }}
-    .decision-step.bad .step-n {{ background: rgba(239,68,68,0.25); color: #fca5a5; }}
-  </style>
+  <link rel="stylesheet" href="../../kb-theme.css">
+  <link rel="stylesheet" href="../../report-page.css">
 </head>
-<body>
-  <p><a href="{dash_url}">← 返回资产总览 · 选股</a></p>
-  <h1>{_esc(name)} <span style="font-weight:400;color:#94a3b8">({symbol})</span></h1>
-  <p class="meta">评级 {_esc(rating)} · 总分 {_esc(score)}{f' · 更新 {_esc(generated)}' if generated else ''}</p>
-  <p class="verdict {'buy' if verdict == '买入' else 'hold' if verdict in ('观察', '持有', '数据不足') else ''}">{_esc(verdict)} — {_esc(action)}</p>
+<body class="kb-body report-page">
+  <div class="report-wrap">
+    <p class="report-back"><a href="../../资产总览.html#screen">← 返回资产总览 · 选股</a></p>
+    <h1>{_esc(name)} <span class="sym">({symbol})</span></h1>
+    <p class="report-meta">评级 {_esc(rating)} · 总分 {_esc(score)}{f' · 更新 {_esc(generated)}' if generated else ''}</p>
+    <p class="report-verdict {verdict_cls}">{_esc(verdict)} — {_esc(action)}</p>
 
-  {fc_block}
+    {fc_block}
 
-  <section class="card">
-    <h2>简要摘要</h2>
-    <p>{_esc(executive)}</p>
-  </section>
-
-  {f'''<section class="card">
-    <h2>详细总结</h2>
-    <pre>{_esc(detailed)}</pre>
-  </section>''' if detailed else ''}
-
-  {f'''<section class="card">
-    <h2>关键指标与阈值</h2>
-    <table class="metrics">
-      <thead><tr><th>指标</th><th>实际值</th><th>阈值</th><th>说明</th></tr></thead>
-      <tbody>{metrics_rows}</tbody>
-    </table>
-  </section>''' if metrics_rows else ''}
-
-  {f'''<section class="card">
-    <h2>判定逻辑链</h2>
-    {decision_rows}
-  </section>''' if decision_rows else ''}
-
-  <section class="card">
-    <h2>估值测算</h2>
-    <pre>{_esc(valuation)}</pre>
-  </section>
-
-  <div class="cols">
-    <section class="card">
-      <h2>优势</h2>
-      <ul>{_list_items(strengths)}</ul>
+    <section class="report-card">
+      <h2>简要摘要</h2>
+      <p>{_esc(executive)}</p>
     </section>
-    <section class="card">
-      <h2>风险 / 短板</h2>
-      <ul>{_list_items(weaknesses, '无重大项')}</ul>
+
+    {f'''<section class="report-card">
+      <h2>详细总结</h2>
+      <pre>{_esc(detailed)}</pre>
+    </section>''' if detailed else ''}
+
+    {f'''<section class="report-card">
+      <h2>关键指标与阈值</h2>
+      <table class="report-metrics">
+        <thead><tr><th>指标</th><th>实际值</th><th>阈值</th><th>说明</th></tr></thead>
+        <tbody>{metrics_rows}</tbody>
+      </table>
+    </section>''' if metrics_rows else ''}
+
+    {f'''<section class="report-card">
+      <h2>判定逻辑链</h2>
+      {decision_rows}
+    </section>''' if decision_rows else ''}
+
+    <section class="report-card">
+      <h2>估值测算</h2>
+      <pre>{_esc(valuation)}</pre>
     </section>
+
+    <div class="report-cols">
+      <section class="report-card">
+        <h2>优势</h2>
+        <ul>{_list_items(strengths)}</ul>
+      </section>
+      <section class="report-card">
+        <h2>风险 / 短板</h2>
+        <ul>{_list_items(weaknesses, '无重大项')}</ul>
+      </section>
+    </div>
+
+    <section class="report-card">
+      <h2>分层解读</h2>
+      {layer_rows or '<p>暂无分层数据</p>'}
+    </section>
+
+    <footer>研究辅助，不构成投资建议。买卖结论以 LCAI 规则为准。</footer>
   </div>
-
-  <section class="card">
-    <h2>分层解读</h2>
-    {layer_rows or '<p>暂无分层数据</p>'}
-  </section>
-
-  <footer>研究辅助，不构成投资建议。买卖结论以 LCAI 规则为准。</footer>
 </body>
 </html>"""
 

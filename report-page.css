@@ -1,0 +1,210 @@
+/* LCAI 研判报告页 — learnbuffett 阅读风格 */
+body.report-page {
+  font-family: "DM Sans", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: var(--kb-bg);
+  color: var(--kb-text);
+  line-height: 1.75;
+  margin: 0;
+}
+
+.report-wrap {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 40px 24px 64px;
+}
+
+.report-back {
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.report-back a {
+  color: var(--kb-link);
+  text-decoration: none;
+}
+
+.report-back a:hover { text-decoration: underline; }
+
+.report-page h1 {
+  font-family: var(--kb-serif);
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--kb-navy);
+  margin: 0 0 8px;
+}
+
+.report-page h1 .sym {
+  font-weight: 400;
+  color: var(--kb-text2);
+  font-size: 0.85em;
+}
+
+.report-page h2 {
+  font-family: var(--kb-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--kb-navy);
+  margin: 0 0 12px;
+}
+
+.report-meta {
+  color: var(--kb-text2);
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+
+.report-verdict {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 8px 0 20px;
+  background: rgba(180, 35, 24, 0.08);
+  border: 1px solid rgba(180, 35, 24, 0.25);
+  color: var(--loss-text);
+}
+
+.report-verdict.buy {
+  background: rgba(45, 106, 79, 0.1);
+  border-color: rgba(45, 106, 79, 0.3);
+  color: var(--gain-text);
+}
+
+.report-verdict.hold {
+  background: rgba(154, 103, 0, 0.1);
+  border-color: rgba(154, 103, 0, 0.3);
+  color: var(--warn-text);
+}
+
+.report-card {
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin-bottom: 16px;
+}
+
+.report-card.featured {
+  border-color: var(--kb-gold-light);
+  background: var(--kb-cream);
+}
+
+.report-card.muted { opacity: 0.92; }
+
+.report-label {
+  color: var(--kb-text2);
+  font-size: 13px;
+  margin: 8px 0 4px;
+}
+
+.report-layer {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--kb-border);
+}
+
+.report-layer:last-child { border-bottom: none; }
+
+.report-layer h3 {
+  font-family: var(--kb-serif);
+  font-size: 15px;
+  margin: 0 0 6px;
+  color: var(--kb-navy);
+}
+
+.report-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 600;
+}
+
+.report-tag.ok { background: rgba(45, 106, 79, 0.12); color: var(--gain-text); }
+.report-tag.warn { background: rgba(154, 103, 0, 0.12); color: var(--warn-text); }
+.report-tag.bad { background: rgba(180, 35, 24, 0.1); color: var(--loss-text); }
+
+.report-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .report-cols { grid-template-columns: 1fr; }
+  .report-wrap { padding: 24px 16px 48px; }
+}
+
+.report-page ul { margin: 0; padding-left: 1.25rem; }
+
+.report-page footer {
+  margin-top: 28px;
+  font-size: 12px;
+  color: var(--kb-text2);
+  text-align: center;
+}
+
+.report-page pre {
+  white-space: pre-wrap;
+  font-family: var(--kb-serif);
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0;
+}
+
+table.report-metrics {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+table.report-metrics th,
+table.report-metrics td {
+  padding: 8px 12px;
+  border: 1px solid var(--kb-border);
+  text-align: left;
+}
+
+table.report-metrics th {
+  background: var(--kb-bg2);
+  color: var(--kb-navy);
+  font-weight: 600;
+}
+
+table.report-metrics tr.ok td:nth-child(2) { color: var(--gain-text); font-weight: 600; }
+table.report-metrics tr.bad td:nth-child(2) { color: var(--loss-text); font-weight: 600; }
+
+.decision-step {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--kb-bg2);
+  border: 1px solid var(--kb-border);
+}
+
+.decision-step .step-n {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  background: var(--kb-border);
+  color: var(--kb-navy);
+}
+
+.decision-step.ok .step-n {
+  background: rgba(45, 106, 79, 0.15);
+  color: var(--gain-text);
+}
+
+.decision-step.bad .step-n {
+  background: rgba(180, 35, 24, 0.12);
+  color: var(--loss-text);
+}

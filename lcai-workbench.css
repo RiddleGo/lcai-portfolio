@@ -1,0 +1,364 @@
+/**
+ * LCAI 资产总览工作台 — learnbuffett.com 奶油纸面 + 海军蓝侧栏 + 金色强调
+ * 依赖 kb-theme.css
+ */
+
+:root {
+  --background: 38 33% 96%;
+  --foreground: 60 4% 10%;
+  --card: 0 0% 100%;
+  --primary: 43 81% 38%;
+  --primary-foreground: 0 0% 100%;
+  --muted-foreground: 30 5% 42%;
+  --border: 33 24% 83%;
+  --elevated: 38 28% 94%;
+  --hover: 38 22% 90%;
+
+  --bg: var(--kb-bg);
+  --text: var(--kb-text);
+  --muted: var(--kb-text2);
+  --border: var(--kb-border);
+  --accent: var(--kb-gold);
+  --ok: #2d6a4f;
+  --warn: #9a6700;
+  --danger: #b42318;
+  --gain-text: #2d6a4f;
+  --loss-text: #b42318;
+  --warn-text: #9a6700;
+
+  --shadow-soft-card: 0 4px 16px rgba(26, 35, 50, 0.06);
+  --shadow-soft-card-strong: 0 12px 32px rgba(26, 35, 50, 0.1);
+  --nav-active-bg: rgba(184, 134, 11, 0.12);
+  --nav-active-border: rgba(184, 134, 11, 0.28);
+  --nav-hover-bg: rgba(184, 134, 11, 0.06);
+  --nav-indicator-bg: var(--kb-gold);
+  --shell-sidebar-border: rgba(255, 255, 255, 0.08);
+  --input-surface-bg: var(--kb-card);
+  --input-surface-border: var(--kb-border);
+  --input-surface-border-focus: rgba(184, 134, 11, 0.45);
+  --input-surface-focus-ring: 0 0 0 3px var(--kb-gold-glow);
+  --gradient-primary: linear-gradient(135deg, var(--kb-gold), var(--kb-gold-light));
+  --panel-gradient: linear-gradient(135deg, rgba(184, 134, 11, 0.08), rgba(212, 168, 67, 0.05));
+  --radius: 6px;
+  --shell-sidebar-w: 260px;
+  --content-gutter: 1.5rem;
+}
+
+html { color-scheme: light; }
+
+body {
+  font-family: var(--kb-sans);
+  background: var(--kb-bg);
+  background-image: none;
+  color: var(--kb-text);
+}
+
+/* ── 侧栏（对齐 kb-sidebar）── */
+.app-shell { min-height: 100vh; }
+
+.shell-sidebar {
+  width: var(--shell-sidebar-w);
+  background: var(--kb-navy);
+  border-right: none;
+  box-shadow: none;
+}
+
+.shell-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-decoration: none;
+  color: #fff;
+}
+
+.shell-brand-logo {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+.shell-brand-title {
+  font-family: var(--kb-serif);
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.shell-brand-sub {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.shell-nav {
+  padding: 8px 0;
+}
+
+.nav-group-label {
+  padding: 8px 16px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  border-radius: 0;
+}
+
+.nav-group-label:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: #cbd5e1;
+}
+
+.nav-group-items {
+  padding: 0 0 8px;
+  gap: 0;
+}
+
+.shell-nav .tab-btn {
+  padding: 8px 16px;
+  border-radius: 0;
+  border: none;
+  border-left: 3px solid transparent;
+  color: #cbd5e1;
+  font-size: 13px;
+}
+
+.shell-nav .tab-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.shell-nav .tab-btn.active {
+  background: rgba(184, 134, 11, 0.15);
+  border-color: transparent;
+  border-left-color: var(--kb-gold);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: none;
+}
+
+.shell-nav .tab-btn.active::before {
+  display: none;
+}
+
+.shell-sidebar-foot {
+  padding: 12px 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.wb-home-link {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.wb-home-link:hover { color: var(--kb-gold-light); }
+
+.shell-main {
+  background: var(--kb-bg);
+}
+
+.shell-header {
+  background: var(--kb-card);
+  border-bottom: 1px solid var(--kb-border);
+}
+
+.shell-page-title {
+  font-family: var(--kb-serif);
+  color: var(--kb-navy);
+}
+
+.shell-content.wrap {
+  max-width: 900px;
+  padding: 32px 48px 64px;
+}
+
+.shell-content.wrap:has(.finance-page.active) {
+  max-width: 1080px;
+  padding-inline: 40px;
+}
+
+/* ── 排版 ── */
+.page-desc { color: var(--kb-text2); }
+
+section h2 {
+  font-family: var(--kb-serif);
+  color: var(--kb-navy);
+  font-weight: 700;
+}
+
+/* ── 卡片 ── */
+.card {
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.card.highlight {
+  border-color: var(--kb-gold-light);
+  background: var(--kb-cream);
+}
+
+.card.highlight .card-value { color: var(--kb-gold); }
+
+.card.warn-card {
+  border-color: rgba(154, 103, 0, 0.35);
+  background: linear-gradient(135deg, var(--kb-card), rgba(154, 103, 0, 0.06));
+}
+
+.card.danger-card {
+  border-color: rgba(180, 35, 24, 0.3);
+  background: linear-gradient(135deg, var(--kb-card), rgba(180, 35, 24, 0.05));
+}
+
+.card-value { font-family: var(--kb-serif); color: var(--kb-navy); }
+
+/* ── 表格 ── */
+thead th {
+  background: var(--kb-bg2);
+  color: var(--kb-navy);
+  font-weight: 600;
+  border-bottom: 2px solid var(--kb-border);
+}
+
+tbody tr:hover { background: var(--kb-gold-glow); }
+
+tbody tr.peak { background: rgba(180, 35, 24, 0.06); }
+tbody tr.peak td:last-child { color: var(--loss-text); }
+
+tbody tr.aug { background: rgba(154, 103, 0, 0.06); }
+tbody tr.aug td:nth-child(6) { color: var(--warn-text); }
+
+tbody tr.light { background: rgba(45, 106, 79, 0.06); }
+tbody tr.light td:last-child { color: var(--gain-text); }
+
+/* ── 徽章与标签 ── */
+.badge.danger { background: rgba(180, 35, 24, 0.1); color: var(--loss-text); }
+.badge.purple { background: rgba(92, 72, 19, 0.1); color: #5c4813; }
+.badge.ok { background: rgba(45, 106, 79, 0.12); color: var(--gain-text); }
+.badge.hk { background: rgba(26, 35, 50, 0.08); color: var(--kb-navy-light); }
+
+.tips {
+  background: var(--kb-cream);
+  border-color: var(--kb-border);
+  border-left: 4px solid var(--kb-gold);
+}
+
+.tips strong { color: var(--kb-navy); }
+
+.principle.hold { border-color: rgba(45, 106, 79, 0.35); }
+.principle.hold .tag { color: var(--gain-text); }
+.principle.sell { border-color: rgba(180, 35, 24, 0.3); }
+.principle.sell .tag { color: var(--loss-text); }
+.principle.later { border-color: rgba(154, 103, 0, 0.35); }
+.principle.later .tag { color: var(--warn-text); }
+
+/* ── 待办 / 选股 ── */
+.todo-section {
+  border-color: var(--kb-gold-light);
+  background: var(--kb-card);
+}
+
+.screen-btn {
+  background: var(--kb-gold);
+  color: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(184, 134, 11, 0.25);
+  font-weight: 600;
+}
+
+.screen-btn:hover:not(:disabled) {
+  background: var(--kb-gold-light);
+  transform: translateY(-1px);
+}
+
+.screen-btn-ghost {
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  color: var(--kb-navy);
+  box-shadow: none;
+}
+
+.screen-btn-ghost:hover:not(:disabled) {
+  border-color: var(--kb-gold-light);
+  background: var(--kb-cream);
+}
+
+.screen-score-item .val,
+.todo-progress strong,
+.home-link-btn { color: var(--kb-gold); }
+
+.final-conclusion {
+  background: var(--kb-cream);
+  border-color: var(--kb-gold-light);
+}
+
+.home-hero {
+  background: var(--kb-cream);
+  border-color: var(--kb-gold-light);
+}
+
+.home-quick-btn {
+  border-radius: 6px;
+  border-color: var(--kb-border);
+  background: var(--kb-card);
+}
+
+.home-quick-btn:hover {
+  border-color: var(--kb-gold-light);
+  background: var(--kb-cream);
+}
+
+.handbook-table th { background: var(--kb-bg2); }
+
+footer, #site-footer {
+  color: var(--kb-text2);
+  font-size: 12px;
+}
+
+/* ── 管理门控弹窗 ── */
+.lcai-admin-overlay {
+  background: rgba(26, 35, 50, 0.55);
+}
+
+.lcai-admin-modal {
+  font-family: var(--kb-sans);
+  border-color: var(--kb-border);
+  background: var(--kb-card);
+}
+
+.lcai-admin-modal h3 {
+  font-family: var(--kb-serif);
+  color: var(--kb-navy);
+}
+
+.lcai-admin-actions button.lcai-admin-submit {
+  background: var(--kb-gold);
+  border-color: var(--kb-gold);
+  color: #fff;
+}
+
+/* ── 移动端 ── */
+@media (max-width: 900px) {
+  .shell-content.wrap,
+  .shell-content.wrap:has(.finance-page.active) {
+    padding: 16px 20px 48px;
+    max-width: none;
+  }
+}
+
+@media (min-width: 901px) {
+  .shell-main {
+    margin-left: max(0px, calc((100vw - 260px - 900px) / 2));
+  }
+
+  .shell-content.wrap:has(.finance-page.active) ~ *,
+  .app-shell:has(.finance-page.active) .shell-main {
+    margin-left: max(0px, calc((100vw - 260px - 1080px) / 2));
+  }
+}
