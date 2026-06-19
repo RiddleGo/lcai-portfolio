@@ -39,6 +39,21 @@
       "non_overridable": ["L0-05", "L0-06", "L1-06", "L2-04", "L3-05"]
     }
   },
+  "ai_five_layers": {
+    "source": "docs/research/04_ai_five_layers_analysis.md",
+    "mapping": "docs/research/10_full_chain_industry_mapping.md",
+    "layers": [
+      { "id": "L1", "name": "能源", "stage": "瓶颈期", "focus": "液冷,算电协同,电网设备" },
+      { "id": "L2", "name": "芯片", "stage": "爆发期", "focus": "设备,CoWoS,国产算力,HBM链" },
+      { "id": "L3", "name": "基础设施", "stage": "建设高峰", "focus": "光模块,AI服务器,AIDC" },
+      { "id": "L4", "name": "模型", "stage": "门槛跨越", "focus": "平台,语料,订阅型AI" },
+      { "id": "L5", "name": "应用", "stage": "商业化初期", "focus": "智驾,安防,金融IT,Agent PMF" }
+    ],
+    "bottleneck_levels": ["binding", "structural", "cyclical", "narrative"],
+    "research_tiers": ["核心", "增强", "延伸观察", "叙事关联"],
+    "domestic_substitution_stages": ["已规模化", "突破中", "受制", "不适用"],
+    "core86_summary": "docs/research/05-09_layers_index.md#a-股最最最标的总览86-汇总"
+  },
   "scoring": {
     "L1_min": 70,
     "L2_min": 75,

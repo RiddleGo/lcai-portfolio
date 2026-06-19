@@ -48,21 +48,27 @@ bash scripts/run_lcai_analysis.sh 600519
 
 ### Step 3 · 汇总输出
 
+若涉及 **AI / 国产替代 / 成长型**，须先读 [`投资系统/02-成长与价值双模式.md`](投资系统/02-成长与价值双模式.md) 第九–十一节，并对照 [`docs/research/10_full_chain_industry_mapping.md`](docs/research/10_full_chain_industry_mapping.md) 做五层定位。
+
 ```markdown
 ## 最终结论（LCAI 裁决）
 - 判定 / 动作 / 评级 / 总分 / 仓位上限
+- 模式：价值型 / 成长型
+- AI 五层：L? / 环节 / 瓶颈强度 / 国产替代阶段
 
 ## 综合解读
 - Executive 摘要
-- 估值：PE×EPS + 简化 DCF
+- 估值：PE×EPS + 简化 DCF（成长型加 Forward MOS / PEG）
 - L0–L5 分层解读
+- 五层产业位置 vs §8.6 核心三角
 - 优势 / 风险
 
 ## 风险与提示
 - 否决项 / 硬指标 Fail / 异常票特征
+- 产业阶段风险（Capex ROI、周期、narrative）
 
 ## 建议下一步
-- 观察池 / 触发价 / 是否等 25% 安全边际
+- 观察池 / 触发价 / 表达工具（个股 or ETF）
 ```
 
 ---
