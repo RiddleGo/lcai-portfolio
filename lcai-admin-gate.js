@@ -1,5 +1,5 @@
 /**
- * LCAI 管理员门控 — 财务计划（执行/债务/规划）需密码解锁（session 有效）
+ * LCAI 管理员门控 — 财务计划（持仓/执行/债务/规划）需密码解锁（session 有效）
  */
 (function (global) {
   "use strict";
@@ -7,6 +7,7 @@
   var STORAGE_KEY = "lcai-admin-v1";
   var PASS_HASH = "475ebc3124b955d576d1eb97154303af6dbd8f61a82c7139fe3430ce50915950";
   var ADMIN_PAGES = {
+    stock: true,
     plan: true,
     debt: true,
     policy: true,
@@ -54,7 +55,7 @@
     overlayEl.innerHTML =
       '<div class="lcai-admin-modal" role="dialog" aria-modal="true" aria-labelledby="lcai-admin-title">' +
       '<h3 id="lcai-admin-title">管理员验证</h3>' +
-      '<p>财务计划（执行 / 债务 / 规划）含个人还款与现金流数据，请输入管理密码继续。</p>' +
+      '<p>财务计划（持仓 / 执行 / 债务 / 规划）含个人资产与还款数据，请输入管理密码继续。</p>' +
       '<label for="lcai-admin-pw">管理密码</label>' +
       '<input id="lcai-admin-pw" type="password" autocomplete="current-password" placeholder="请输入密码">' +
       '<p class="lcai-admin-error" id="lcai-admin-error" aria-live="polite"></p>' +
