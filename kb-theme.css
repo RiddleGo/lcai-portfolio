@@ -1,7 +1,15 @@
 /* LCAI Knowledge Base — visual system aligned with learnbuffett.com */
 @import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Crimson+Pro:ital,wght@0,400;0,700&family=DM+Sans:wght@400;500;600;700&display=swap");
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body.kb-body *,
+body.kb-body *::before,
+body.kb-body *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.kb-body { box-sizing: border-box; }
 
 :root {
   --kb-bg: #FAF7F2;

@@ -18,9 +18,9 @@
   width: min(100%, 22rem);
   padding: 1.5rem 1.35rem 1.25rem;
   border-radius: 1rem;
-  border: 1px solid hsl(var(--border) / 0.85);
-  background: hsl(var(--card));
-  box-shadow: 0 24px 48px hsl(222 47% 4% / 0.45);
+  border: 1px solid var(--kb-border);
+  background: var(--kb-card);
+  box-shadow: 0 24px 48px rgba(26, 35, 50, 0.18);
 }
 
 .lcai-admin-modal h3 {
@@ -47,16 +47,17 @@
   box-sizing: border-box;
   padding: 0.65rem 0.75rem;
   border-radius: 0.55rem;
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--elevated) / 0.55);
-  color: var(--text);
+  border: 1px solid var(--kb-border);
+  background: var(--kb-bg2);
+  color: var(--kb-text);
   font-size: 0.9rem;
   font-family: inherit;
 }
 
 .lcai-admin-modal input:focus {
   outline: none;
-  border-color: hsl(var(--primary) / 0.55);
+  border-color: var(--kb-gold-light);
+  box-shadow: 0 0 0 3px var(--kb-gold-glow);
 }
 
 .lcai-admin-error {
@@ -76,18 +77,18 @@
   flex: 1;
   padding: 0.6rem 0.85rem;
   border-radius: 0.55rem;
-  border: 1px solid hsl(var(--border));
-  background: hsl(var(--elevated) / 0.45);
-  color: var(--text);
+  border: 1px solid var(--kb-border);
+  background: var(--kb-bg2);
+  color: var(--kb-text);
   font-size: 0.82rem;
   cursor: pointer;
   font-family: inherit;
 }
 
 .lcai-admin-actions button.lcai-admin-submit {
-  border-color: hsl(var(--primary) / 0.35);
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
+  border-color: var(--kb-gold);
+  background: var(--kb-gold);
+  color: #fff;
   font-weight: 600;
 }
 
