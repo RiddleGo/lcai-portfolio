@@ -192,7 +192,25 @@ const ScreenUI = (() => {
     el('portfolio-tag').textContent = report.in_portfolio ? '已持仓' : '未持仓';
     el('portfolio-tag').className = `screen-tag ${report.in_portfolio ? 'in-port' : ''}`;
     el('position-hint').textContent =
-      `建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）· ${report.position_hint.reason}`;
+      `价值型 · 建议仓位：${report.position_hint.suggested_weight}（上限 ${report.position_hint.max_weight}）· ${report.position_hint.reason}`;
+
+    const aiWrap = el('ai-layer-wrap');
+    if (aiWrap && window.ScreenAiLayers) {
+      aiWrap.innerHTML = ScreenAiLayers.renderCard(
+        ScreenAiLayers.lookup(report.symbol, report.metrics?.industry)
+      );
+    }
+
+    const gWrap = el('growth-mode-wrap');
+    if (gWrap) {
+      if (report.growth_mode) {
+        gWrap.innerHTML = ScreenGrowthMode.renderCard(report.growth_mode);
+        gWrap.hidden = false;
+      } else {
+        gWrap.innerHTML = '';
+        gWrap.hidden = true;
+      }
+    }
 
     renderAnalysis(report);
     ScreenUnified?.attach?.(report);
@@ -308,7 +326,10 @@ const ScreenUI = (() => {
     try {
       const competence = el('chk-competence').checked;
       const psychology = el('chk-psychology').checked;
-      const report = await resolveReport(input, { competence, psychology });
+      let report = await resolveReport(input, { competence, psychology });
+      if (el('chk-growth-mode')?.checked && window.ScreenGrowthMode) {
+        report = ScreenGrowthMode.apply(report);
+      }
       renderVerdict(report);
     } catch (e) {
       showError(friendlyError(e));

@@ -739,6 +739,28 @@
     .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
     .unified-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
     .screen-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+    .ai-layer-card, .growth-mode-card {
+      margin: 12px 0; padding: 12px 14px; border-radius: 10px;
+      background: hsl(var(--primary) / 0.06); border: 1px solid hsl(var(--primary) / 0.15);
+    }
+    .ai-layer-title, .growth-mode-title { font-size: 0.88rem; font-weight: 600; margin: 0 0 8px; }
+    .ai-layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: 0.82rem; }
+    .ai-k { color: var(--muted); margin-right: 6px; }
+    .ai-v.ai-bn-binding { color: var(--ok); font-weight: 600; }
+    .ai-v.ai-bn-narrative { color: var(--warn); }
+    .ai-tag { font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600; }
+    .ai-tag.core { background: rgba(16,185,129,0.15); color: var(--ok); }
+    .ai-tag.ext { background: rgba(245,158,11,0.15); color: var(--warn); }
+    .ai-layer-foot, .ai-layer-muted { font-size: 0.72rem; color: var(--muted); margin: 8px 0 0; }
+    .growth-mode-action { font-size: 0.82rem; color: var(--muted); margin: 0 0 6px; }
+    .growth-mode-sub { font-size: 0.75rem; color: var(--muted); margin: 0 0 6px; }
+    .growth-verdict { font-size: 0.78rem; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }
+    .growth-verdict.ok { background: rgba(16,185,129,0.2); color: var(--ok); }
+    .growth-verdict.warn { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .growth-verdict.danger { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .growth-signals { margin: 0; padding-left: 18px; font-size: 0.8rem; line-height: 1.5; }
+    .growth-signals .ok { color: var(--ok); }
+    .growth-signals .fail { color: var(--muted); }
     .etf-alert {
       border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; border: 1px solid var(--border);
     }
@@ -1806,6 +1828,7 @@
           <div class="screen-chk-row" style="margin-top:8px">
             <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
             <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
+            <label><input type="checkbox" id="chk-growth-mode" checked> 成长型二次裁决（AI/国产替代）</label>
           </div>
         </details>
         <div id="cloud-status" class="cloud-status" hidden></div>
@@ -1823,6 +1846,8 @@
             </div>
             <span id="portfolio-tag" class="screen-tag">—</span>
           </div>
+          <div id="ai-layer-wrap"></div>
+          <div id="growth-mode-wrap"></div>
           <div id="final-conclusion" class="final-conclusion" hidden></div>
           <p id="logic-summary" class="screen-analysis-text" style="margin-bottom:10px;font-size:0.88rem;color:var(--muted)"></p>
           <details id="analysis-detailed-wrap" class="screen-analysis-block" hidden>
@@ -3417,6 +3442,8 @@
   <script src="book-rule-candidates-data.js?v=748031"></script>
   <script src="screen-data.js?v=748028"></script>
   <script src="screen-engine.js?v=748028"></script>
+  <script src="screen-ai-layers.js?v=748032"></script>
+  <script src="screen-growth-mode.js?v=748032"></script>
   <script src="screen-watchlist.js?v=748028"></script>
   <script src="screen-cloud.js?v=748028"></script>
   <script src="screen-holdings.js?v=748028"></script>
