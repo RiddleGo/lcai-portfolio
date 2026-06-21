@@ -1,17 +1,92 @@
-/** 门户首页 — 各模块摘要聚合 */
+/** 门户首页 — 复利人生五维框架 + 各模块摘要 */
 (function (global) {
   "use strict";
+
+  var DIMENSIONS = [
+    {
+      id: "cash",
+      icon: "💰",
+      name: "现金资本",
+      short: "钱",
+      question: "今天的行为让 2027 后资产更稳吗？",
+      logic: "纪律还债 → 2027 清零 → 月存复投 → LCAI 规则避免情绪化",
+      modules: [
+        { href: "finance/index.html", title: "财务计划", lock: true },
+        { href: "invest/workbench.html", title: "LCAI 投资" },
+        { href: "docs/research/index.html", title: "产业研究" },
+      ],
+      summaryKey: "finance",
+    },
+    {
+      id: "cognition",
+      icon: "🧠",
+      name: "认知资本",
+      short: "脑",
+      question: "这条认知变成规则或行动了吗？",
+      logic: "读书 → 笔记 → 原则/规则 → 决策与代码 → 再验证",
+      modules: [
+        { href: "learning/index.html", title: "阅读笔记" },
+        { href: "docs/research/index.html", title: "产业研究" },
+        { href: "invest/workbench.html", title: "书→规则(LCAI)" },
+      ],
+      summaryKey: "learning",
+    },
+    {
+      id: "capability",
+      icon: "🛠",
+      name: "能力资本",
+      short: "手",
+      question: "又多了什么可展示的能力资产？",
+      logic: "技能练习 → 可展示项目 → 职业选项增加 → 反哺学习与收入",
+      modules: [
+        { href: "career/index.html", title: "职业成长" },
+      ],
+      summaryKey: "career",
+    },
+    {
+      id: "constitution",
+      icon: "📜",
+      name: "决策资本",
+      short: "心",
+      question: "这次重大选择写清楚、能复盘吗？",
+      logic: "重大决策记录 → 3/6 月复盘 → 提取模式 → 写入宪法",
+      modules: [
+        { href: "principles/life-constitution.md", title: "人生宪法" },
+        { href: "journal/index.html", title: "决策日记", lock: true },
+      ],
+      summaryKey: "journal",
+    },
+    {
+      id: "capacity",
+      icon: "🏃",
+      name: "体能资本",
+      short: "体",
+      question: "今天精力够支撑上面四件事吗？",
+      logic: "睡眠 + 运动 → 精力 → 执行财务 / 学习 / 不情绪化交易",
+      modules: [
+        { href: "health/index.html", title: "健康习惯" },
+      ],
+      summaryKey: "health",
+    },
+  ];
 
   function el(id) {
     return document.getElementById(id);
   }
 
+  function esc(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
   function loadGoalsData() {
-    return fetch("goals/goals.json")
-      .then(function (r) {
-        if (!r.ok) throw new Error("no goals");
-        return r.json();
-      });
+    return fetch("goals/goals.json").then(function (r) {
+      if (!r.ok) throw new Error("no goals");
+      return r.json();
+    });
   }
 
   function loadGoalsSummary() {
@@ -21,14 +96,23 @@
         var done = krs.filter(function (k) {
           return k.progress >= (k.target || 100);
         }).length;
+        var avg =
+          krs.length > 0
+            ? Math.round(
+                krs.reduce(function (s, k) {
+                  return s + Math.min(100, (k.progress / (k.target || 1)) * 100);
+                }, 0) / krs.length
+              )
+            : 0;
         return {
-          title: data.theme + " · " + (data.quarter && data.quarter.name || "本季"),
-          sub: "KR " + done + " / " + krs.length + " 达标",
+          title: data.theme + " · " + ((data.quarter && data.quarter.name) || "本季"),
+          sub: "KR " + done + "/" + krs.length + " 达标 · 均进度 " + avg + "%",
           href: "goals/index.html",
+          progress: avg,
         };
       })
       .catch(function () {
-        return { title: "目标 OKR", sub: "设置年度与季度目标", href: "goals/index.html" };
+        return { title: "目标 OKR", sub: "设置年度与季度目标", href: "goals/index.html", progress: 0 };
       });
   }
 
@@ -37,13 +121,15 @@
     if (!box) return;
     var financeSub = financeItem && financeItem.sub ? financeItem.sub : "查看财务计划";
     var theme = goalsData && goalsData.theme ? goalsData.theme : "清债重建";
+    var phase = goalsData && goalsData.phase ? goalsData.phase.name + " → " + goalsData.phase.until : "";
     var notDo = goalsData && goalsData.not_do && goalsData.not_do[0] ? goalsData.not_do[0] : "";
     box.innerHTML =
       '<div class="portal-priority-inner">' +
-      '<div class="portal-priority-label">本月要紧事</div>' +
-      '<div class="portal-priority-main"><a href="finance/index.html">' + financeSub + "</a></div>" +
-      '<div class="portal-priority-meta">主题：' + theme +
-      (notDo ? " · 不做：" + notDo : "") +
+      '<div class="portal-priority-label">本月要紧事 · ' + esc(phase) + "</div>" +
+      '<div class="portal-priority-main"><a href="finance/index.html">' + esc(financeSub) + "</a></div>" +
+      '<div class="portal-priority-meta">主题：' +
+      esc(theme) +
+      (notDo ? " · 不做：" + esc(notDo) : "") +
       ' · <a href="principles/life-constitution.md">宪法</a></div></div>';
   }
 
@@ -51,9 +137,12 @@
     return loadGoalsData()
       .then(function (data) {
         var books = data.season_books || [];
-        var done = books.filter(function (b) { return b.status === "done"; }).length;
-        var reading = books.filter(function (b) { return b.status === "reading"; }).length;
-        var current = books.find(function (b) { return b.status === "reading"; });
+        var done = books.filter(function (b) {
+          return b.status === "done";
+        }).length;
+        var current = books.find(function (b) {
+          return b.status === "reading";
+        });
         var sub = "本季精读 " + done + "/" + books.length;
         if (current) sub += " · 在读《" + current.title + "》";
         return { title: "阅读笔记", sub: sub, href: "learning/index.html" };
@@ -71,6 +160,46 @@
           sub: "已分析 " + reviewed + " / " + (idx.count || idx.books.length),
           href: "learning/index.html",
         };
+      });
+  }
+
+  function loadCareerSummary() {
+    return fetch("career/profile.json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("no career");
+        return r.json();
+      })
+      .then(function (data) {
+        var projects = data.projects || [];
+        return {
+          title: "职业成长",
+          sub: (data.targetRole || "全栈") + " · " + projects.length + " 个项目",
+          href: "career/index.html",
+        };
+      })
+      .catch(function () {
+        return { title: "职业成长", sub: "技能矩阵 · 项目复盘", href: "career/index.html" };
+      });
+  }
+
+  function loadJournalSummary() {
+    return fetch("journal/journal-index.json")
+      .then(function (r) {
+        if (!r.ok) throw new Error("no journal");
+        return r.json();
+      })
+      .then(function (data) {
+        var entries = (data.entries || []).length;
+        var templates = (data.templates || []).length;
+        return {
+          title: "决策日记",
+          sub: entries + " 篇记录 · " + templates + " 个决策模板",
+          href: "journal/index.html",
+          lock: true,
+        };
+      })
+      .catch(function () {
+        return { title: "决策日记", sub: "重大决策 · 反思记录", href: "journal/index.html", lock: true };
       });
   }
 
@@ -106,51 +235,121 @@
     });
   }
 
-  function renderSummaryCard(container, item) {
-    if (!container || !item) return;
-    var lock = item.lock ? ' <span class="kb-nav-badge">🔒</span>' : "";
-    container.innerHTML =
-      '<a href="' + item.href + '" class="portal-summary-card">' +
-      "<div class=\"portal-summary-title\">" + item.title + lock + "</div>" +
-      '<div class="portal-summary-sub">' + item.sub + "</div>" +
-      '<span class="portal-summary-arrow">→</span></a>';
-  }
-
-  function renderModuleCards() {
-    var nav = global.SITE_NAV;
-    var wrap = el("portal-module-cards");
-    if (!wrap || !nav || !nav.modules) return;
-    wrap.innerHTML = nav.modules
+  function renderDimensionCard(dim, summary) {
+    var modLinks = dim.modules
       .map(function (m) {
-        var lock = m.lock ? ' <span class="kb-nav-badge">🔒</span>' : "";
-        return (
-          '<a href="' + m.href + '" class="kb-nav-card">' +
-          '<span class="kb-nav-card-icon">' + m.icon + "</span>" +
-          '<div class="kb-nav-card-title">' + m.title + lock + "</div>" +
-          '<div class="kb-nav-card-sub">' + m.sub + "</div>" +
-          '<span class="kb-nav-card-arrow">→</span></a>'
-        );
+        var lock = m.lock ? " 🔒" : "";
+        return '<a href="' + m.href + '" class="portal-dim-module">' + esc(m.title) + lock + "</a>";
       })
       .join("");
+
+    var lockBadge = summary && summary.lock ? ' <span class="kb-nav-badge">🔒</span>' : "";
+    var summaryHtml = summary
+      ? '<a href="' + summary.href + '" class="portal-dim-summary">' +
+        '<span class="portal-dim-summary-label">实时</span>' +
+        '<span class="portal-dim-summary-text">' + esc(summary.sub) + lockBadge + "</span>" +
+        '<span class="portal-dim-summary-arrow">→</span></a>'
+      : "";
+
+    return (
+      '<article class="portal-dim-card" id="portal-dim-' + dim.id + '">' +
+      '<header class="portal-dim-head">' +
+      '<span class="portal-dim-icon">' + dim.icon + "</span>" +
+      '<div class="portal-dim-head-text">' +
+      '<div class="portal-dim-name">' + esc(dim.name) + ' <span class="portal-dim-short">' + esc(dim.short) + "</span></div>" +
+      '<div class="portal-dim-question">' + esc(dim.question) + "</div>" +
+      "</div></header>" +
+      '<p class="portal-dim-logic">' + esc(dim.logic) + "</p>" +
+      '<div class="portal-dim-modules">' + modLinks + "</div>" +
+      summaryHtml +
+      "</article>"
+    );
+  }
+
+  function renderDimensions(summaries) {
+    var wrap = el("portal-dimensions");
+    if (!wrap) return;
+    wrap.innerHTML = DIMENSIONS.map(function (dim) {
+      return renderDimensionCard(dim, summaries[dim.summaryKey]);
+    }).join("");
+  }
+
+  function renderHub(goalsSummary, goalsData) {
+    var wrap = el("portal-hub");
+    if (!wrap) return;
+    var phase = goalsData && goalsData.phase ? goalsData.phase.name + "（至 " + goalsData.phase.until + "）" : "偿债期";
+    var notDoList =
+      goalsData && goalsData.not_do
+        ? goalsData.not_do
+            .slice(0, 3)
+            .map(function (item) {
+              return "<li>" + esc(item) + "</li>";
+            })
+            .join("")
+        : "";
+    var progress = goalsSummary.progress || 0;
+
+    wrap.innerHTML =
+      '<a href="goals/index.html" class="portal-hub-card portal-hub-card--primary">' +
+      '<div class="portal-hub-label">目标 OKR</div>' +
+      '<div class="portal-hub-title">' + esc(goalsSummary.title) + "</div>" +
+      '<div class="portal-hub-sub">' + esc(goalsSummary.sub) + "</div>" +
+      '<div class="module-progress-bar"><span style="width:' + progress + '%"></span></div>' +
+      "</a>" +
+      '<a href="principles/life-constitution.md" class="portal-hub-card">' +
+      '<div class="portal-hub-label">人生宪法</div>' +
+      '<div class="portal-hub-title">10 条铁律</div>' +
+      '<div class="portal-hub-sub">投资宪法管钱 · 人生宪法管阶段与重大选择</div>' +
+      "</a>" +
+      '<a href="goals/life-phases.md" class="portal-hub-card">' +
+      '<div class="portal-hub-label">人生阶段</div>' +
+      '<div class="portal-hub-title">' + esc(phase) + "</div>" +
+      '<div class="portal-hub-sub">偿债期 → 积累期 → 复利期</div>' +
+      "</a>" +
+      (notDoList
+        ? '<div class="portal-hub-card portal-hub-card--static">' +
+          '<div class="portal-hub-label">本季不做</div>' +
+          '<ul class="portal-not-do-list">' +
+          notDoList +
+          "</ul></div>"
+        : "");
   }
 
   function init() {
-    renderModuleCards();
     var goalsData = null;
-    loadGoalsData().then(function (d) { goalsData = d; }).catch(function () {});
+    loadGoalsData()
+      .then(function (d) {
+        goalsData = d;
+      })
+      .catch(function () {});
 
     Promise.all([
       loadFinanceSummary(),
-      loadGoalsSummary(),
       loadBooksSummary(),
+      loadCareerSummary(),
+      loadJournalSummary(),
       loadHealthSummary(),
-    ]).then(function (items) {
-      var ids = ["portal-finance", "portal-goals", "portal-learning", "portal-health"];
-      items.forEach(function (item, i) {
-        renderSummaryCard(el(ids[i]), item);
-      });
-      if (goalsData) renderPriority(items[0], goalsData);
-      else loadGoalsData().then(function (d) { renderPriority(items[0], d); });
+      loadGoalsSummary(),
+    ]).then(function (results) {
+      var summaries = {
+        finance: results[0],
+        learning: results[1],
+        career: results[2],
+        journal: results[3],
+        health: results[4],
+      };
+      var goalsSummary = results[5];
+
+      renderDimensions(summaries);
+      if (goalsData) {
+        renderPriority(results[0], goalsData);
+        renderHub(goalsSummary, goalsData);
+      } else {
+        loadGoalsData().then(function (d) {
+          renderPriority(results[0], d);
+          renderHub(goalsSummary, d);
+        });
+      }
     });
 
     if (!global.LCAI_BOOKS_INDEX) {
@@ -158,12 +357,18 @@
       booksScript.src = "books-index-data.js";
       booksScript.onload = function () {
         loadBooksSummary().then(function (item) {
-          renderSummaryCard(el("portal-learning"), item);
+          var card = el("portal-dim-cognition");
+          if (!card) return;
+          var summaryEl = card.querySelector(".portal-dim-summary");
+          if (summaryEl) {
+            summaryEl.querySelector(".portal-dim-summary-text").textContent = item.sub;
+            summaryEl.href = item.href;
+          }
         });
       };
       document.body.appendChild(booksScript);
     }
   }
 
-  global.PortalHome = { init: init };
+  global.PortalHome = { init: init, DIMENSIONS: DIMENSIONS };
 })(window);

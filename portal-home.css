@@ -270,3 +270,305 @@
 .portal-priority-meta a {
   color: var(--kb-gold-light);
 }
+
+/* ── 构建方法 ── */
+.portal-build-method {
+  margin-bottom: 28px;
+}
+
+.portal-method-steps {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.portal-method-step {
+  flex: 1 1 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 12px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+a.portal-method-step:hover {
+  border-color: var(--kb-gold);
+  box-shadow: 0 4px 16px var(--kb-gold-glow);
+}
+
+.portal-method-step--static {
+  cursor: default;
+}
+
+.portal-method-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--kb-gold);
+  letter-spacing: 0.04em;
+}
+
+.portal-method-title {
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--kb-serif);
+}
+
+.portal-method-desc {
+  font-size: 0.82rem;
+  color: var(--kb-text2);
+  line-height: 1.45;
+}
+
+.portal-method-arrow {
+  align-self: center;
+  color: var(--kb-gold);
+  opacity: 0.5;
+  font-size: 1.1rem;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 640px) {
+  .portal-method-arrow { display: none; }
+}
+
+/* ── 五维资本 ── */
+.portal-dimensions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.portal-dim-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.portal-dim-card:hover {
+  border-color: var(--kb-gold);
+  box-shadow: 0 4px 20px var(--kb-gold-glow);
+}
+
+.portal-dim-head {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.portal-dim-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.portal-dim-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  font-family: var(--kb-serif);
+  margin-bottom: 4px;
+}
+
+.portal-dim-short {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--kb-gold);
+  margin-left: 4px;
+}
+
+.portal-dim-question {
+  font-size: 0.88rem;
+  color: var(--kb-text2);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+.portal-dim-logic {
+  font-size: 0.82rem;
+  color: var(--kb-text2);
+  margin: 0 0 12px;
+  line-height: 1.5;
+  padding-left: 2px;
+}
+
+.portal-dim-modules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.portal-dim-module {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  background: var(--kb-bg2);
+  border: 1px solid var(--kb-border);
+  border-radius: 999px;
+  text-decoration: none;
+  color: var(--kb-link);
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.portal-dim-module:hover {
+  background: var(--kb-gold-glow);
+  border-color: var(--kb-gold);
+}
+
+.portal-dim-summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding: 10px 12px;
+  background: var(--kb-bg2);
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85rem;
+  transition: background 0.12s;
+}
+
+.portal-dim-summary:hover {
+  background: var(--kb-gold-glow);
+}
+
+.portal-dim-summary-label {
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--kb-gold);
+}
+
+.portal-dim-summary-text {
+  flex: 1;
+  color: var(--kb-text2);
+  line-height: 1.35;
+}
+
+.portal-dim-summary-arrow {
+  flex-shrink: 0;
+  color: var(--kb-gold);
+  opacity: 0.6;
+}
+
+/* ── 中枢层 ── */
+.portal-hub-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.portal-hub-card {
+  display: block;
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.portal-hub-card:hover {
+  border-color: var(--kb-gold);
+  box-shadow: 0 4px 16px var(--kb-gold-glow);
+}
+
+.portal-hub-card--primary {
+  border-color: var(--kb-gold);
+  background: linear-gradient(135deg, var(--kb-card) 0%, hsl(45 60% 97%) 100%);
+}
+
+.portal-hub-card--static {
+  cursor: default;
+}
+
+.portal-hub-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--kb-gold);
+  margin-bottom: 6px;
+}
+
+.portal-hub-title {
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: var(--kb-serif);
+  margin-bottom: 6px;
+}
+
+.portal-hub-sub {
+  font-size: 0.85rem;
+  color: var(--kb-text2);
+  line-height: 1.45;
+}
+
+.portal-not-do-list {
+  margin: 0;
+  padding: 0 0 0 18px;
+  font-size: 0.85rem;
+  color: var(--kb-text2);
+  line-height: 1.55;
+}
+
+.portal-not-do-list li {
+  margin-bottom: 4px;
+}
+
+/* ── 执行节奏 ── */
+.portal-rhythm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.portal-rhythm-item {
+  background: var(--kb-card);
+  border: 1px solid var(--kb-border);
+  border-radius: 12px;
+  padding: 16px 18px;
+}
+
+.portal-rhythm-when {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--kb-gold);
+  margin-bottom: 8px;
+}
+
+.portal-rhythm-do {
+  font-size: 0.9rem;
+  color: var(--kb-text2);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.portal-rhythm-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--kb-link);
+  text-decoration: none;
+}
+
+.portal-rhythm-link:hover {
+  text-decoration: underline;
+}
