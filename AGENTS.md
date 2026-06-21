@@ -1,6 +1,17 @@
 # LCAI · Agent 指令
 
-> 本仓库是个人投资系统（资产总览 + 价值投资筛选）。**买卖裁决唯一来源**是 LCAI 投资宪法与 `criteria.json`。
+> 本仓库含 **公开人生站**（GitHub Pages）与 **本地 LCAI 投资工具**（`invest/workbench.html`、CLI、CI 报告）。公开站以五维人生规划为主；**买卖裁决**仍唯一来源于 LCAI 投资宪法与 `criteria.json`，通过本地 workbench / Python CLI 使用，不在公开导航推广。
+
+---
+
+## 公开站 vs 本地 LCAI
+
+| 场景 | 入口 |
+|------|------|
+| 每日待办、OKR、健康、阅读、财务执行 | [index.html](index.html) → [today/index.html](today/index.html) |
+| 财务执行勾选、债务/净资产概况 | [finance/index.html](finance/index.html)（🔒） |
+| 个股研判、ETF、规则、书籍 Tab | **本地** [invest/workbench.html](invest/workbench.html) 或 CLI |
+| 产业研究文档 | **本地** [docs/research/](docs/research/)（仓库内） |
 
 ---
 

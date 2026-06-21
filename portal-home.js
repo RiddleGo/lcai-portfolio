@@ -10,11 +10,7 @@
       short: "钱",
       question: "今天的行为让 2027 后资产更稳吗？",
       logic: "纪律还债 → 2027 清零 → 月存复投 → LCAI 规则避免情绪化",
-      modules: [
-        { href: "finance/index.html", title: "财务计划", lock: true },
-        { href: "invest/workbench.html", title: "LCAI 投资" },
-        { href: "docs/research/index.html", title: "产业研究" },
-      ],
+      modules: [{ href: "finance/index.html", title: "财务", lock: true }],
       summaryKey: "finance",
     },
     {
@@ -24,11 +20,7 @@
       short: "脑",
       question: "这条认知变成规则或行动了吗？",
       logic: "读书 → 笔记 → 原则/规则 → 决策与代码 → 再验证",
-      modules: [
-        { href: "learning/index.html", title: "阅读笔记" },
-        { href: "docs/research/index.html", title: "产业研究" },
-        { href: "invest/workbench.html", title: "书→规则(LCAI)" },
-      ],
+      modules: [{ href: "learning/index.html", title: "阅读" }],
       summaryKey: "learning",
     },
     {
@@ -198,12 +190,18 @@
   }
 
   function loadFinanceSummary() {
-    if (global.FinanceCore && global.FinanceCore.getPortalSummary) {
-      return Promise.resolve(global.FinanceCore.getPortalSummary());
+    var pending = global.TodoLite && TodoLite.getPendingTodos ? TodoLite.getPendingTodos(1) : [];
+    if (pending.length) {
+      return Promise.resolve({
+        title: "财务",
+        sub: pending[0].text.slice(0, 48),
+        href: "finance/index.html#plan",
+        lock: true,
+      });
     }
     return Promise.resolve({
-      title: "财务计划",
-      sub: "执行 · 还债 · 持仓",
+      title: "财务",
+      sub: "执行 · 还债",
       href: "finance/index.html",
       lock: true,
     });

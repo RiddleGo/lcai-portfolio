@@ -764,11 +764,7 @@
     }
 
     function goToNewHoldingForm() {
-      switchTab("stock");
-      requestAnimationFrame(() => {
-        document.getElementById("new-holding-panel")?.scrollIntoView({ behavior: "smooth", block: "start" });
-        document.getElementById("local-holding-name")?.focus();
-      });
+      switchTab("debt");
     }
 
     function addDeposit() {
@@ -1190,7 +1186,7 @@
     });
 
     const PAGE_TITLES = {
-      home: "首页", plan: "执行", debt: "债务", policy: "规划", stock: "持仓", etf: "ETF", screen: "选股", criteria: "规则", books: "书籍", handbook: "手册",
+      plan: "执行", debt: "概况",
     };
 
     function closeShellDrawer() {

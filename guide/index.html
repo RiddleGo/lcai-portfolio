@@ -105,16 +105,14 @@
               <ol class="guide-rhythm-list">
                 <li>打开 <a href="../today/index.html">今日 Todo</a>：自动生成当日清单</li>
                 <li><a href="../health/index.html">健康习惯</a>：勾选运动 / 睡眠 / 晨间例行</li>
-                <li>若有还款：<a href="../finance/index.html">财务计划</a> 执行表勾选待办</li>
+                <li>若有还款：<a href="../finance/index.html">财务</a> 执行表勾选</li>
                 <li>首页扫一眼「本月要紧事」是否变化</li>
               </ol>
             </div>
             <div class="guide-rhythm-card">
               <div class="guide-rhythm-when">每周 · 约 15 分钟</div>
               <ol class="guide-rhythm-list">
-                <li>首页五维摘要：财务 / OKR / 精读 / 健康 streak</li>
-                <li><a href="../invest/workbench.html">LCAI 投资</a>：更新关注列表或跑一只票研判</li>
-                <li><a href="../learning/index.html">阅读笔记</a>：推进本季精读 1 本</li>
+                <li><a href="../learning/index.html">阅读</a>：推进本季精读</li>
               </ol>
             </div>
             <div class="guide-rhythm-card">
@@ -161,19 +159,14 @@
                 <td>年度主题、4 条 KR（链到各模块）、不做清单、复盘链接</td>
               </tr>
               <tr>
-                <td><a href="../finance/index.html">💰 财务计划 🔒</a></td>
-                <td>有还款或调仓时</td>
-                <td>执行计划勾选、债务时间线、持仓、一页纸规划（2027 前只还不投）</td>
+                <td><a href="../today/index.html">☀️ 今日 Todo</a></td>
+                <td>每天</td>
+                <td>健康 / 财务 / OKR / 阅读待办，勾选即完成</td>
               </tr>
               <tr>
-                <td><a href="../invest/workbench.html">🔍 LCAI 投资</a></td>
-                <td>研究个股 / 2027 后加仓</td>
-                <td>输入代码「帮我看看」→ 买入/观察/卖出裁决；ETF 计划、书库规则</td>
-              </tr>
-              <tr>
-                <td><a href="../docs/research/index.html">🧠 产业研究</a></td>
-                <td>扩能力圈时</td>
-                <td>AI 五层产业地图、产业链映射，支撑 LCAI 研判</td>
+                <td><a href="../finance/index.html">💰 财务 🔒</a></td>
+                <td>有还款时</td>
+                <td>执行勾选、债务与净资产概况</td>
               </tr>
               <tr>
                 <td><a href="../learning/index.html">📚 阅读笔记</a></td>
@@ -183,7 +176,7 @@
               <tr>
                 <td><a href="../career/index.html">💼 职业成长</a></td>
                 <td>项目里程碑 / 季末</td>
-                <td>技能矩阵、3 个项目卡片（LCAI / 人生中枢 / AI 实验）、学习路径</td>
+                <td>技能矩阵、项目卡片、学习路径</td>
               </tr>
               <tr>
                 <td><a href="../health/index.html">🏃 健康习惯</a></td>
@@ -200,8 +193,8 @@
 
           <div class="guide-callout">
             <strong>五维怎么对应模块？</strong><br>
-            💰 钱 → 财务 + LCAI + 产业研究 ·
-            🧠 脑 → 阅读 + 研究 ·
+            💰 钱 → 财务 ·
+            🧠 脑 → 阅读 ·
             🛠 手 → 职业项目 ·
             📜 心 → 宪法 + 决策日记 ·
             🏃 体 → 健康打卡。
@@ -219,7 +212,7 @@
             <li><a href="../health/index.html">健康打卡</a>：勾选即保存</li>
             <li><a href="../goals/index.html">OKR</a>：每条 KR 下方改数字 → 点「保存」</li>
             <li><a href="../journal/index.html">决策日记</a>：「新建决策记录」在线编写</li>
-            <li><a href="../finance/index.html">财务计划</a>：执行待办勾选自动保存</li>
+            <li><a href="../finance/index.html">财务</a>：执行待办勾选</li>
           </ul>
           <div class="guide-callout">
             <strong>换电脑不丢：</strong>打开 <a href="../settings/index.html">数据同步</a> → 邮箱注册/登录一次。
@@ -250,24 +243,16 @@
           </div>
           <ul class="guide-faq-list">
             <li class="guide-faq-item">
-              <div class="guide-faq-q">LCAI 研判结果能当投资建议吗？</div>
-              <p class="guide-faq-a">不能。本站是个人研究辅助，买卖裁决以 <code>投资系统/criteria.json</code> 规则为准，仅供自用复盘，不对外分发。</p>
-            </li>
-            <li class="guide-faq-item">
-              <div class="guide-faq-q">健康打卡、OKR 进度换电脑会丢吗？</div>
-              <p class="guide-faq-a">在 <a href="../settings/index.html">数据同步</a> 登录后不会丢：改动自动写入 Supabase，新设备登录同一账号即可恢复。未登录时数据在本机；也可导出 JSON 备份。</p>
-            </li>
-            <li class="guide-faq-item">
-              <div class="guide-faq-q">我想改 OKR 或写决策日记，怎么操作？</div>
-              <p class="guide-faq-a"><strong>OKR</strong>：在 <a href="../goals/index.html">目标页</a> 每条 KR 下方改数字点保存（覆盖 goals.json 默认值）。<strong>决策日记</strong>：日记页点「新建决策记录」，或从模板进入后编辑保存。<strong>季末复盘 MD</strong> 仍建议在仓库 <code>goals/reviews/</code> 维护。</p>
+              <div class="guide-faq-q">换电脑数据会丢吗？</div>
+              <p class="guide-faq-a">在 <a href="../settings/index.html">数据同步</a> 登录后不会；未登录时仅存本机。</p>
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">2027.4 之前能买股票吗？</div>
-              <p class="guide-faq-a">按人生宪法与财务一页纸：<strong>只还不投、不开杠杆</strong>。赛力斯等信仰持仓按双框架处理；卖股还债须先写决策日记。2027.4 清零后按 LCAI 规则启动双核加仓。</p>
+              <p class="guide-faq-a">按人生宪法：<strong>只还不投、不开杠杆</strong>。卖股还债须先写决策日记。</p>
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">手机能用吗？</div>
-              <p class="guide-faq-a">可以。左上角 ☰ 打开侧栏导航；健康打卡、首页摘要、LCAI 研判均支持移动端。复杂财务表格小屏上横向滚动查看。</p>
+              <p class="guide-faq-a">可以。侧栏 ☰ 打开导航；今日 Todo、健康打卡均支持移动端。</p>
             </li>
           </ul>
         </section>
