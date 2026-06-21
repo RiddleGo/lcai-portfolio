@@ -10,7 +10,9 @@
 python scripts/export_ticktick.py
 ```
 
-生成 [ticktick-life-os.md](./ticktick-life-os.md) — 含：
+生成 **[ticktick-five-dimensions.md](./ticktick-five-dimensions.md)** — **五维完整手册（推荐）**，含 OKR、财务、投资计划、观察池、转行、反思模板。
+
+旧版十清单见 [ticktick-life-os.md](./ticktick-life-os.md)。
 
 - 10 个清单结构（含 **07-反思笔记**、**08-决策日记**）
 - 人生宪法全文（贴进 00-方向 任务备注）
