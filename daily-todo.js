@@ -19,14 +19,14 @@
     review: "复盘",
   };
 
-  /** 下方链接文案：跳转到对应功能页完成/查看详情 */
+  /** 下方链接文案 */
   var CAT_LINK = {
-    meta: "查看 OKR →",
-    health: "去健康打卡 →",
-    finance: "去财务执行表 →",
-    learning: "去阅读笔记 →",
-    goals: "查看 OKR →",
-    review: "打开门户 →",
+    meta: "OKR →",
+    health: "打卡 →",
+    finance: "财务 →",
+    learning: "阅读 →",
+    goals: "OKR →",
+    review: "首页 →",
   };
 
   function linkLabel(category) {

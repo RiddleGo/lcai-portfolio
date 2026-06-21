@@ -7,33 +7,25 @@
   <link rel="stylesheet" href="../kb-theme.css">
   <link rel="stylesheet" href="../portal-home.css">
   <link rel="stylesheet" href="sync.css">
-  <link rel="stylesheet" href="../guide/guide.css">
 </head>
 <body class="kb-body">
   <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
   <aside class="kb-sidebar" id="kb-sidebar">
     <div class="kb-sidebar-header"></div>
     <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
-    <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
+    <div class="kb-sidebar-foot"><a href="../index.html">← 首页</a></div>
   </aside>
 
   <main class="kb-main">
     <div class="kb-page-wrap">
-      <section class="kb-hero-section">
+      <section class="kb-hero-section kb-hero-section--compact">
         <h1 class="kb-hero-title">数据<span class="gold">同步</span></h1>
-        <p class="kb-hero-sub">登录一次 · 改完即上云 · 换电脑登录即恢复</p>
       </section>
 
       <div class="kb-main-inner">
         <div id="sync-status-bar" class="sync-status-bar"></div>
 
         <div id="sync-panel-login">
-          <div class="kb-section-header">
-            <h2 class="kb-section-title">登录 / 注册</h2>
-            <div class="kb-section-line"></div>
-          </div>
-          <p class="module-page-desc">个人账号仅你自用。登录后打卡、OKR、日记、财务勾选 <strong>自动同步到 Supabase 云端</strong>。</p>
-
           <div class="sync-form-group">
             <label for="sync-email">邮箱</label>
             <input type="email" id="sync-email" autocomplete="username" placeholder="you@example.com">
@@ -45,49 +37,32 @@
 
           <div class="sync-btn-row">
             <button type="button" class="sync-btn sync-btn-primary" id="sync-btn-login">登录</button>
-            <button type="button" class="sync-btn" id="sync-btn-signup">注册新账号</button>
+            <button type="button" class="sync-btn" id="sync-btn-signup">注册</button>
           </div>
           <p id="sync-message" class="module-page-desc"></p>
         </div>
 
         <div id="sync-panel-logged" hidden>
-          <div class="kb-section-header">
-            <h2 class="kb-section-title">已登录</h2>
-            <div class="kb-section-line"></div>
-          </div>
-          <p class="module-page-desc">当前账号：<strong id="sync-user-email">—</strong> · 各模块保存后约 1 秒内自动上传。</p>
+          <p class="module-page-desc">账号：<strong id="sync-user-email">—</strong></p>
           <div class="sync-btn-row">
-            <button type="button" class="sync-btn" id="sync-btn-pull">从云端拉取</button>
-            <button type="button" class="sync-btn" id="sync-btn-push">立即上传</button>
-            <button type="button" class="sync-btn" id="sync-btn-logout">退出登录</button>
+            <button type="button" class="sync-btn" id="sync-btn-pull">拉取</button>
+            <button type="button" class="sync-btn" id="sync-btn-push">上传</button>
+            <button type="button" class="sync-btn" id="sync-btn-logout">退出</button>
           </div>
           <p id="sync-message-logged" class="module-page-desc"></p>
         </div>
 
         <div id="sync-panel-unconfigured" class="guide-callout" hidden>
-          <strong>Supabase 尚未配置</strong><br>
-          仓库维护者需按 <a href="../supabase/README.md">supabase/README.md</a> 创建项目、运行 schema.sql，并填写根目录 <code>supabase-config.js</code> 后推送。
-          配置完成前数据仍保存在本机浏览器。
+          云同步未配置 · 见 <a href="../supabase/README.md">supabase/README.md</a>
         </div>
 
-        <div class="kb-section-header" style="margin-top:32px">
-          <h2 class="kb-section-title">本地备份</h2>
-          <div class="kb-section-line"></div>
-        </div>
-        <p class="module-page-desc">额外导出 JSON 备份（可选）。</p>
-        <div class="sync-btn-row">
+        <div class="sync-btn-row" style="margin-top:28px">
           <button type="button" class="sync-btn" id="sync-btn-export">导出 JSON</button>
           <label class="sync-btn" style="cursor:pointer">
             导入 JSON
             <input type="file" id="sync-file-import" accept=".json,application/json" hidden>
           </label>
         </div>
-
-        <div class="kb-section-header" style="margin-top:32px">
-          <h2 class="kb-section-title">会同步哪些内容</h2>
-          <div class="kb-section-line"></div>
-        </div>
-        <ul class="sync-data-list" id="sync-data-list"></ul>
       </div>
     </div>
   </main>

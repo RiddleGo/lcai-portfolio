@@ -237,6 +237,22 @@
   padding: 18px 22px;
 }
 
+a.portal-priority-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+a.portal-priority-link:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+a.portal-priority-link .portal-priority-main {
+  color: var(--kb-gold-light);
+}
+
 .portal-priority-label {
   font-size: 0.78rem;
   opacity: 0.75;
@@ -350,8 +366,8 @@ a.portal-method-step:hover {
   flex-direction: column;
   background: var(--kb-card);
   border: 1px solid var(--kb-border);
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 12px;
+  padding: 14px 16px;
   transition: border-color 0.15s, box-shadow 0.15s;
 }
 
@@ -362,9 +378,9 @@ a.portal-method-step:hover {
 
 .portal-dim-head {
   display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  margin-bottom: 10px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
 }
 
 .portal-dim-icon {

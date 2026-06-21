@@ -5,8 +5,7 @@
     var box = document.getElementById("journal-triggers");
     if (!box || !triggers) return;
     box.innerHTML =
-      '<h2 class="kb-section-title">何时必须写决策日记</h2>' +
-      '<p class="module-page-desc">以下情形触发后，先选模板、填四段式，再行动。详见 <a href="../principles/life-constitution.md">人生宪法 §4</a>。</p>' +
+      '<h2 class="kb-section-title">触发情形</h2>' +
       '<ul class="journal-entry-list">' +
       triggers
         .map(function (t) {
@@ -31,8 +30,7 @@
     var entries = LifeSync.getJournalEntries();
     if (!entries.length) return "";
     return (
-      '<h2 class="kb-section-title">我的决策记录</h2>' +
-      '<p class="module-page-desc">保存在浏览器 / 云端同步，换电脑配置同步后可恢复。</p>' +
+      '<h2 class="kb-section-title">我的记录</h2>' +
       '<ul class="journal-entry-list">' +
       entries
         .map(function (e) {
@@ -58,11 +56,11 @@
     var entries = data.entries || [];
     var templates = data.templates || [];
     var html =
-      '<p class="module-page-desc"><a href="read.html?edit=new" class="sync-btn sync-btn-primary" style="display:inline-block;text-decoration:none">✏️ 新建决策记录</a> · <a href="../settings/index.html">数据同步</a></p>';
+      '<p style="margin-bottom:16px"><a href="read.html?edit=new" class="sync-btn sync-btn-primary" style="display:inline-block;text-decoration:none">新建记录</a></p>';
     html += renderUserEntries();
     if (entries.length) {
       html +=
-        '<h2 class="kb-section-title">示例 / 仓库内记录</h2><ul class="journal-entry-list">' +
+        '<h2 class="kb-section-title">示例</h2><ul class="journal-entry-list">' +
         entries
           .map(function (e) {
             return (

@@ -270,6 +270,21 @@ body.kb-body > .kb-main {
   font-weight: 700;
 }
 
+.kb-hero-section--compact {
+  padding-bottom: 12px;
+}
+
+.kb-hero-sub--muted {
+  font-size: 0.92rem;
+  color: var(--kb-text2);
+  margin-top: 4px;
+}
+
+.kb-hero-section--compact .today-progress-bar {
+  margin: 12px 0 0;
+  max-width: 320px;
+}
+
 /* ── Stats ── */
 .kb-stats-row {
   display: grid;

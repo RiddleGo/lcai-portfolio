@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>今日 Todo · Russshare</title>
-  <meta name="description" content="每天早上自动生成的个人待办 — 健康 / 财务 / OKR / 阅读">
+  <meta name="description" content="每日待办 — 健康 / 财务 / OKR / 阅读">
   <link rel="stylesheet" href="../kb-theme.css">
   <link rel="stylesheet" href="../portal-home.css">
   <link rel="stylesheet" href="../settings/sync.css">
@@ -15,47 +15,24 @@
   <aside class="kb-sidebar" id="kb-sidebar">
     <div class="kb-sidebar-header"></div>
     <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
-    <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
+    <div class="kb-sidebar-foot"><a href="../index.html">← 首页</a></div>
   </aside>
 
   <main class="kb-main">
     <div class="kb-page-wrap">
-      <section class="kb-hero-section">
+      <section class="kb-hero-section kb-hero-section--compact">
         <h1 class="kb-hero-title">今日 <span class="gold">Todo</span></h1>
         <p class="kb-hero-sub" id="today-subtitle">加载中…</p>
+        <div class="today-progress-bar"><span id="today-progress-bar" style="width:0%"></span></div>
       </section>
 
       <div class="kb-main-inner">
-        <div class="today-header-meta">
-          <div class="today-stat-card">
-            <div class="today-stat-label">今日进度</div>
-            <div class="today-stat-value" id="today-progress-text">—</div>
-          </div>
-          <div class="today-stat-card">
-            <div class="today-stat-label">健康 streak</div>
-            <div class="today-stat-value" id="today-streak">—</div>
-          </div>
-          <div class="today-stat-card">
-            <div class="today-stat-label">生成时间</div>
-            <div class="today-stat-value" id="today-generated" style="font-size:1rem">—</div>
-          </div>
-        </div>
-
-        <div class="today-progress-bar"><span id="today-progress-bar" style="width:0%"></span></div>
-
-        <p class="module-page-desc">
-          每天<strong>第一次打开</strong>自动生成清单。左侧<strong>勾选</strong>表示今日已完成；下方链接跳到对应页面做详细操作（如财务里勾选执行项、健康里打卡）。
-        </p>
-
         <div id="today-sections"></div>
 
         <div class="today-actions">
-          <button type="button" class="sync-btn sync-btn-primary" id="today-copy-digest">复制今日摘要</button>
-          <button type="button" class="sync-btn" id="today-toggle-digest">预览摘要</button>
+          <button type="button" class="sync-btn sync-btn-primary" id="today-copy-digest">复制摘要</button>
           <button type="button" class="sync-btn" id="today-regenerate">重新生成</button>
-          <a href="../settings/index.html" class="sync-btn" style="text-decoration:none;line-height:1.4">数据同步</a>
         </div>
-        <pre id="today-digest-preview" class="today-digest-box" hidden></pre>
       </div>
     </div>
   </main>

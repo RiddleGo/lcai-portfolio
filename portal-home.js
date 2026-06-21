@@ -92,18 +92,14 @@
   function renderPriority(financeItem, goalsData) {
     var box = el("portal-priority");
     if (!box) return;
-    var financeSub = financeItem && financeItem.sub ? financeItem.sub : "查看财务计划";
-    var theme = goalsData && goalsData.theme ? goalsData.theme : "清债重建";
-    var phase = goalsData && goalsData.phase ? goalsData.phase.name + " → " + goalsData.phase.until : "";
+    var financeSub = financeItem && financeItem.sub ? financeItem.sub : "打开今日清单";
     var notDo = goalsData && goalsData.not_do && goalsData.not_do[0] ? goalsData.not_do[0] : "";
     box.innerHTML =
-      '<div class="portal-priority-inner">' +
-      '<div class="portal-priority-label">今日助手 · ' + esc(phase) + "</div>" +
-      '<div class="portal-priority-main"><a href="today/index.html">' + esc(financeSub) + "</a></div>" +
-      '<div class="portal-priority-meta">主题：' +
-      esc(theme) +
-      (notDo ? " · 不做：" + esc(notDo) : "") +
-      ' · <a href="today/index.html">打开今日 Todo →</a></div></div>';
+      '<a href="today/index.html" class="portal-priority-inner portal-priority-link">' +
+      '<div class="portal-priority-label">今日 Todo</div>' +
+      '<div class="portal-priority-main">' + esc(financeSub) + "</div>" +
+      (notDo ? '<div class="portal-priority-meta">不做 · ' + esc(notDo) + "</div>" : "") +
+      "</a>";
   }
 
   function loadBooksSummary() {
@@ -234,10 +230,8 @@
       '<header class="portal-dim-head">' +
       '<span class="portal-dim-icon">' + dim.icon + "</span>" +
       '<div class="portal-dim-head-text">' +
-      '<div class="portal-dim-name">' + esc(dim.name) + ' <span class="portal-dim-short">' + esc(dim.short) + "</span></div>" +
-      '<div class="portal-dim-question">' + esc(dim.question) + "</div>" +
+      '<div class="portal-dim-name">' + esc(dim.name) + "</div>" +
       "</div></header>" +
-      '<p class="portal-dim-logic">' + esc(dim.logic) + "</p>" +
       '<div class="portal-dim-modules">' + modLinks + "</div>" +
       summaryHtml +
       "</article>"
@@ -255,7 +249,6 @@
   function renderHub(goalsSummary, goalsData) {
     var wrap = el("portal-hub");
     if (!wrap) return;
-    var phase = goalsData && goalsData.phase ? goalsData.phase.name + "（至 " + goalsData.phase.until + "）" : "偿债期";
     var notDoList =
       goalsData && goalsData.not_do
         ? goalsData.not_do
@@ -269,24 +262,14 @@
 
     wrap.innerHTML =
       '<a href="goals/index.html" class="portal-hub-card portal-hub-card--primary">' +
-      '<div class="portal-hub-label">目标 OKR</div>' +
+      '<div class="portal-hub-label">OKR</div>' +
       '<div class="portal-hub-title">' + esc(goalsSummary.title) + "</div>" +
       '<div class="portal-hub-sub">' + esc(goalsSummary.sub) + "</div>" +
       '<div class="module-progress-bar"><span style="width:' + progress + '%"></span></div>' +
       "</a>" +
-      '<a href="principles/life-constitution.md" class="portal-hub-card">' +
-      '<div class="portal-hub-label">人生宪法</div>' +
-      '<div class="portal-hub-title">10 条铁律</div>' +
-      '<div class="portal-hub-sub">投资宪法管钱 · 人生宪法管阶段与重大选择</div>' +
-      "</a>" +
-      '<a href="goals/life-phases.md" class="portal-hub-card">' +
-      '<div class="portal-hub-label">人生阶段</div>' +
-      '<div class="portal-hub-title">' + esc(phase) + "</div>" +
-      '<div class="portal-hub-sub">偿债期 → 积累期 → 复利期</div>' +
-      "</a>" +
       (notDoList
         ? '<div class="portal-hub-card portal-hub-card--static">' +
-          '<div class="portal-hub-label">本季不做</div>' +
+          '<div class="portal-hub-label">不做</div>' +
           '<ul class="portal-not-do-list">' +
           notDoList +
           "</ul></div>"
@@ -333,12 +316,10 @@
     }
     box.hidden = false;
     if (!LifeSync.isConfigured()) {
-      box.innerHTML =
-        '☁️ 云同步待配置：维护者填写 <code>supabase-config.js</code> 后，<a href="settings/index.html">登录即自动上云</a>。';
+      box.innerHTML = '☁️ 云同步待配置 · <a href="settings/index.html">设置</a>';
       return;
     }
-    box.innerHTML =
-      '☁️ <a href="settings/index.html">登录数据同步</a> 后，打卡 / OKR / 日记 / 财务勾选 <strong>改完即上云</strong>，换电脑登录即恢复。';
+    box.innerHTML = '☁️ <a href="settings/index.html">登录同步</a> · 换设备不丢';
   }
 
   function startPortal() {
@@ -371,6 +352,11 @@
       if (goalsData) {
         renderPriority(results[0], goalsData);
         renderHub(goalsSummary, goalsData);
+        var heroSub = el("portal-hero-sub");
+        if (heroSub && goalsData.phase) {
+          heroSub.textContent =
+            (goalsData.theme || "清债重建") + " · " + goalsData.phase.name + " · " + goalsData.phase.until;
+        }
       } else {
         loadGoalsData().then(function (d) {
           renderPriority(results[0], d);

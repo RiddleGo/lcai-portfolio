@@ -27,27 +27,22 @@
     var obj = el("goals-objective");
     var quarter = el("goals-quarter");
     var list = el("goals-kr-list");
-    var theme = el("goals-theme");
-    var phase = el("goals-phase");
     var notDo = el("goals-not-do");
 
-    if (theme) theme.textContent = data.theme ? "年度主题：" + data.theme : "";
-    if (obj) obj.textContent = data.objective || "—";
+    if (obj) obj.textContent = data.objective || "";
     if (quarter) {
-      var phaseNote = data.phase ? " · " + data.phase.name + "（～" + data.phase.until + "）" : "";
-      quarter.textContent = (data.year || "") + " · " + ((data.quarter && data.quarter.name) || "") + phaseNote;
-    }
-    if (phase && data.phase) {
-      phase.innerHTML =
-        '当前阶段：<strong>' +
-        data.phase.name +
-        '</strong>（至 ' +
-        data.phase.until +
-        '）· <a href="life-phases.md">阶段叙事</a> · <a href="../principles/life-constitution.md">人生宪法</a>';
+      var phaseNote = data.phase ? " · " + data.phase.name : "";
+      quarter.textContent =
+        (data.theme || "") +
+        " · " +
+        (data.year || "") +
+        " " +
+        ((data.quarter && data.quarter.name) || "") +
+        phaseNote;
     }
     if (notDo && data.not_do && data.not_do.length) {
       notDo.innerHTML =
-        '<h2 class="kb-section-title">本季不做</h2><ul>' +
+        '<h2 class="kb-section-title">不做</h2><ul>' +
         data.not_do
           .map(function (x) {
             return "<li>" + x + "</li>";
@@ -62,7 +57,7 @@
       .map(function (kr) {
         var pct = kr.target ? Math.min(100, Math.round((kr.progress / kr.target) * 100)) : kr.progress;
         var unit = kr.unit || "";
-        var link = kr.link ? ' <a href="' + kr.link + '" style="font-size:0.82rem">模块 →</a>' : "";
+        var link = kr.link ? ' <a href="' + kr.link + '" style="font-size:0.82rem">→</a>' : "";
         var edit =
           '<div class="goals-kr-edit">' +
           '<label>更新进度 <input type="number" min="0" step="1" data-kr-id="' +

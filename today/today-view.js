@@ -67,14 +67,10 @@
       var d = new Date(day.date + "T08:00:00");
       var w = "日一二三四五六"[d.getDay()];
       sub.textContent =
-        day.date + " 周" + w + " · " + ((goalsData && goalsData.theme) || day.theme || "") + " · 共 " + prog.total + " 项";
+        day.date + " 周" + w + " · " + prog.done + "/" + prog.total + " · " + ((goalsData && goalsData.theme) || day.theme || "");
     }
 
-    if (el("today-progress-text")) el("today-progress-text").textContent = prog.done + " / " + prog.total;
     if (el("today-progress-bar")) el("today-progress-bar").style.width = pct + "%";
-
-    var health = global.LifeSync ? LifeSync.getHealth() : {};
-    if (el("today-streak")) el("today-streak").textContent = String(health.streak || 0);
   }
 
   function updateRowUI(itemId, checked) {
@@ -118,7 +114,7 @@
     updateProgressUI(day, goalsCache);
 
     var preview = el("today-digest-preview");
-    if (preview && !preview.hidden) {
+    if (preview && !preview.hidden && global.DailyTodo) {
       preview.textContent = DailyTodo.formatDigest(day, goalsCache);
     }
   }
@@ -219,7 +215,7 @@
         var text = DailyTodo.formatDigest(currentDay, goalsCache);
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function () {
-            alert("已复制今日摘要，可粘贴到微信 / 公众号草稿");
+            alert("已复制");
           });
         } else {
           prompt("复制以下内容：", text);
@@ -227,22 +223,11 @@
       });
     }
 
-    var toggleBtn = el("today-toggle-digest");
-    if (toggleBtn && !toggleBtn.dataset.bound) {
-      toggleBtn.dataset.bound = "1";
-      toggleBtn.addEventListener("click", function () {
-        var box = el("today-digest-preview");
-        if (!box || !currentDay) return;
-        box.hidden = !box.hidden;
-        if (!box.hidden) box.textContent = DailyTodo.formatDigest(currentDay, goalsCache);
-      });
-    }
-
     var regenBtn = el("today-regenerate");
     if (regenBtn && !regenBtn.dataset.bound) {
       regenBtn.dataset.bound = "1";
       regenBtn.addEventListener("click", function () {
-        if (!confirm("重新生成今日清单？已勾选状态会重置。")) return;
+        if (!confirm("重新生成？已勾选会重置。")) return;
         showDay(true).catch(function (e) {
           showError(e.message || String(e));
         });
