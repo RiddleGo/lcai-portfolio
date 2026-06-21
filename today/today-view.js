@@ -8,6 +8,18 @@
     return document.getElementById(id);
   }
 
+  function esc(s) {
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function cbId(itemId) {
+    return "today-cb-" + itemId.replace(/[^a-zA-Z0-9_-]/g, "_");
+  }
+
   function loadGoals() {
     return fetch("../goals/goals.json")
       .then(function (r) {
@@ -32,8 +44,38 @@
     return groups;
   }
 
+  function updateProgressUI(day, goalsData) {
+    if (!day) return;
+    var prog = DailyTodo.countProgress(day);
+    var pct = prog.total ? Math.round((prog.done / prog.total) * 100) : 0;
+
+    var sub = el("today-subtitle");
+    if (sub) {
+      var d = new Date(day.date + "T08:00:00");
+      var w = "日一二三四五六"[d.getDay()];
+      sub.textContent =
+        day.date + " 周" + w + " · " + ((goalsData && goalsData.theme) || day.theme || "") + " · 共 " + prog.total + " 项";
+    }
+
+    if (el("today-progress-text")) el("today-progress-text").textContent = prog.done + " / " + prog.total;
+    if (el("today-progress-bar")) el("today-progress-bar").style.width = pct + "%";
+
+    var health = global.LifeSync ? LifeSync.getHealth() : {};
+    if (el("today-streak")) el("today-streak").textContent = String(health.streak || 0);
+  }
+
+  function updateRowUI(itemId, checked) {
+    var cb = document.querySelector('#today-sections input[data-id="' + itemId + '"]');
+    if (!cb) return;
+    var row = cb.closest(".today-item");
+    if (!row) return;
+    row.classList.toggle("done", !!checked);
+    cb.checked = !!checked;
+  }
+
   function onItemToggle(day, item, checked) {
-    if (global.LifeSync) LifeSync.setDailyItemDone(day.date, item.id, checked);
+    if (!day.completed) day.completed = {};
+    day.completed[item.id] = checked;
 
     if (item.habitId && global.LifeSync) {
       var health = LifeSync.getHealth();
@@ -54,32 +96,28 @@
       LifeSync.setHealth(health);
     }
 
-    if (!day.completed) day.completed = {};
-    day.completed[item.id] = checked;
+    if (global.LifeSync) {
+      LifeSync.saveDailyTodoDay(day.date, day);
+    }
+
     currentDay = day;
-    render(day, goalsCache);
+    updateRowUI(item.id, checked);
+    updateProgressUI(day, goalsCache);
+
+    var preview = el("today-digest-preview");
+    if (preview && !preview.hidden) {
+      preview.textContent = DailyTodo.formatDigest(day, goalsCache);
+    }
   }
 
   function render(day, goalsData) {
     if (!day) return;
     currentDay = day;
-    var prog = DailyTodo.countProgress(day);
-    var pct = prog.total ? Math.round((prog.done / prog.total) * 100) : 0;
+    updateProgressUI(day, goalsData);
 
-    var sub = el("today-subtitle");
-    if (sub) {
-      var d = new Date(day.date + "T08:00:00");
-      var w = "日一二三四五六"[d.getDay()];
-      sub.textContent =
-        day.date + " 周" + w + " · " + (goalsData.theme || day.theme || "") + " · 共 " + prog.total + " 项";
+    if (el("today-generated")) {
+      el("today-generated").textContent = (day.generatedAt || "").slice(11, 16) || "—";
     }
-
-    el("today-progress-text").textContent = prog.done + " / " + prog.total;
-    el("today-progress-bar").style.width = pct + "%";
-    el("today-generated").textContent = (day.generatedAt || "").slice(11, 16) || "—";
-
-    var health = global.LifeSync ? LifeSync.getHealth() : {};
-    el("today-streak").textContent = String(health.streak || 0);
 
     var wrap = el("today-sections");
     if (!wrap) return;
@@ -92,34 +130,42 @@
           .map(function (item) {
             var done = day.completed && day.completed[item.id];
             var opt = item.optional ? '<span class="today-item-tag">可选</span>' : "";
+            var id = cbId(item.id);
+            var linkHtml = item.href
+              ? '<a class="today-item-link" href="' +
+                esc(item.href) +
+                '">' +
+                esc(item.linkLabel || DailyTodo.linkLabel(item.category)) +
+                "</a>"
+              : "";
             return (
-              '<label class="today-item' + (done ? " done" : "") + '">' +
-              '<input type="checkbox" data-id="' + item.id + '"' + (done ? " checked" : "") + ">" +
+              '<div class="today-item' +
+              (done ? " done" : "") +
+              '" data-id="' +
+              esc(item.id) +
+              '">' +
+              '<input type="checkbox" id="' +
+              id +
+              '" data-id="' +
+              esc(item.id) +
+              '"' +
+              (done ? " checked" : "") +
+              ">" +
               '<div class="today-item-body">' +
-              '<div class="today-item-text">' + item.text + opt + "</div>" +
-              (item.href ? '<a class="today-item-link" href="' + item.href + '">去模块 →</a>' : "") +
-              "</div></label>"
+              '<label class="today-item-text" for="' +
+              id +
+              '">' +
+              esc(item.text) +
+              opt +
+              "</label>" +
+              linkHtml +
+              "</div></div>"
             );
           })
           .join("");
         return '<section class="today-section"><div class="today-section-title">' + label + "</div>" + itemsHtml + "</section>";
       })
       .join("");
-
-    wrap.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
-      cb.addEventListener("change", function () {
-        var id = cb.dataset.id;
-        var item = day.items.find(function (x) {
-          return x.id === id;
-        });
-        if (item) onItemToggle(day, item, cb.checked);
-      });
-    });
-
-    var preview = el("today-digest-preview");
-    if (preview && !preview.hidden) {
-      preview.textContent = DailyTodo.formatDigest(day, goalsData);
-    }
   }
 
   function showDay(forceRegen) {
@@ -130,7 +176,24 @@
     });
   }
 
+  function bindInteractions() {
+    var wrap = el("today-sections");
+    if (!wrap || wrap.dataset.bound) return;
+    wrap.dataset.bound = "1";
+
+    wrap.addEventListener("change", function (e) {
+      var cb = e.target;
+      if (!cb || cb.type !== "checkbox" || !cb.dataset.id || !currentDay) return;
+      var item = currentDay.items.find(function (x) {
+        return x.id === cb.dataset.id;
+      });
+      if (item) onItemToggle(currentDay, item, cb.checked);
+    });
+  }
+
   function init() {
+    bindInteractions();
+
     showDay(false).then(function (day) {
       el("today-copy-digest").addEventListener("click", function () {
         var text = DailyTodo.formatDigest(currentDay || day, goalsCache);
@@ -157,8 +220,10 @@
     });
 
     if (global.LifeSync) {
-      LifeSync.onChange(function () {
-        showDay(false);
+      LifeSync.onChange(function (status) {
+        if (status && status.type === "pull") {
+          showDay(false);
+        }
       });
     }
   }

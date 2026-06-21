@@ -63,7 +63,6 @@
   border-radius: 12px;
   margin-bottom: 8px;
   transition: border-color 0.12s, opacity 0.12s;
-  cursor: pointer;
 }
 
 .today-item.done {
@@ -90,15 +89,19 @@
 }
 
 .today-item-text {
+  display: block;
   font-size: 0.95rem;
   line-height: 1.45;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
 .today-item-link {
+  display: inline-block;
   font-size: 0.82rem;
   color: var(--kb-link);
   text-decoration: none;
+  margin-top: 2px;
 }
 
 .today-item-link:hover {

@@ -19,6 +19,25 @@
     review: "复盘",
   };
 
+  /** 下方链接文案：跳转到对应功能页完成/查看详情 */
+  var CAT_LINK = {
+    meta: "查看 OKR →",
+    health: "去健康打卡 →",
+    finance: "去财务执行表 →",
+    learning: "去阅读笔记 →",
+    goals: "查看 OKR →",
+    review: "打开门户 →",
+  };
+
+  function linkLabel(category) {
+    return CAT_LINK[category] || "查看详情 →";
+  }
+
+  function stampItem(item) {
+    item.linkLabel = item.linkLabel || linkLabel(item.category);
+    return item;
+  }
+
   function todayKey(d) {
     d = d || new Date();
     return d.toISOString().slice(0, 10);
@@ -156,7 +175,7 @@
       });
     }
 
-    return items;
+    return items.map(stampItem);
   }
 
   function syncCompletionFromModules(dateKey, day) {
@@ -259,5 +278,7 @@
     countProgress: countProgress,
     applyGoalsOverrides: applyGoalsOverrides,
     CAT_LABEL: CAT_LABEL,
+    CAT_LINK: CAT_LINK,
+    linkLabel: linkLabel,
   };
 })(window);
