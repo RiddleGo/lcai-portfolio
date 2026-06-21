@@ -96,8 +96,14 @@
       });
     });
 
-    if (global.FinanceCore && FinanceCore.getPendingTodos) {
+    if (global.TodoLite && TodoLite.getPendingTodos) {
+      var pending = TodoLite.getPendingTodos(2);
+    } else if (global.FinanceCore && FinanceCore.getPendingTodos) {
       var pending = FinanceCore.getPendingTodos(2);
+    } else {
+      var pending = [];
+    }
+    if (pending.length) {
       pending.forEach(function (t, i) {
         items.push({
           id: dateKey + "-finance-" + t.id,
@@ -178,6 +184,20 @@
     return items.map(stampItem);
   }
 
+  function getFinanceTodoState() {
+    if (global.LifeSync && LifeSync.getState) {
+      var s = LifeSync.getState();
+      if (s.finance && s.finance.todoDone) return s.finance.todoDone;
+    }
+    if (global.FinanceCore && FinanceCore.loadTodoState) return FinanceCore.loadTodoState();
+    try {
+      var key = (global.FINANCE_CONFIG && FINANCE_CONFIG.todoStorageKey) || "lcai-exec-todos-v9";
+      return JSON.parse(localStorage.getItem(key) || "{}");
+    } catch (e) {
+      return {};
+    }
+  }
+
   function syncCompletionFromModules(dateKey, day) {
     if (!day || !day.items) return day;
     if (!day.completed) day.completed = {};
@@ -189,8 +209,8 @@
       if (item.habitId && logs[item.habitId]) {
         day.completed[item.id] = true;
       }
-      if (item.financeTodoId && global.FinanceCore && FinanceCore.loadTodoState) {
-        var st = FinanceCore.loadTodoState();
+      if (item.financeTodoId) {
+        var st = getFinanceTodoState();
         var entry = st[item.financeTodoId];
         var done = entry && (entry.done === true || entry === true);
         if (done) day.completed[item.id] = true;

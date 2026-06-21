@@ -64,19 +64,22 @@
   <script src="../kb-shell.js"></script>
   <script src="../module-shell.js"></script>
   <script src="../supabase-config.js"></script>
-  <script src="../holdings-data.js"></script>
-  <script src="../quotes-data.js"></script>
   <script src="../finance/finance-config-data.js"></script>
-  <script src="../finance/finance-core.js"></script>
+  <script src="../finance/todo-lite.js"></script>
   <script src="../life-sync.js"></script>
   <script src="../daily-todo.js"></script>
   <script src="today-view.js"></script>
   <script>
     ModuleShell.initModulePage({ activeId: "today", base: "../" });
-    LifeSync.init().then(function () {
-      LifeSync.applyFinanceToLocalStorage();
-      TodayView.init();
-    });
+    TodayView.init();
+    if (window.LifeSync) {
+      LifeSync.init()
+        .then(function () {
+          LifeSync.applyFinanceToLocalStorage();
+          return TodayView.refresh(false);
+        })
+        .catch(function () {});
+    }
   </script>
 </body>
 </html>

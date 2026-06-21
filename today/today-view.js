@@ -20,9 +20,22 @@
     return "today-cb-" + itemId.replace(/[^a-zA-Z0-9_-]/g, "_");
   }
 
+  function showError(msg) {
+    var sub = el("today-subtitle");
+    if (sub) sub.textContent = "加载失败，请刷新重试";
+    var wrap = el("today-sections");
+    if (wrap) {
+      wrap.innerHTML =
+        '<p class="today-error" style="color:#c44;padding:1rem;background:#fff5f5;border-radius:8px">' +
+        esc(msg) +
+        "</p>";
+    }
+  }
+
   function loadGoals() {
     return fetch("../goals/goals.json")
       .then(function (r) {
+        if (!r.ok) throw new Error("无法读取 goals.json（" + r.status + "）");
         return r.json();
       })
       .then(function (data) {
@@ -169,6 +182,9 @@
   }
 
   function showDay(forceRegen) {
+    if (!global.DailyTodo) {
+      return Promise.reject(new Error("DailyTodo 未加载，请检查脚本引用"));
+    }
     return loadGoals().then(function (goals) {
       var day = forceRegen ? DailyTodo.regenerateToday(goals) : DailyTodo.ensureToday(goals);
       render(day, goals);
@@ -191,12 +207,16 @@
     });
   }
 
-  function init() {
-    bindInteractions();
-
-    showDay(false).then(function (day) {
-      el("today-copy-digest").addEventListener("click", function () {
-        var text = DailyTodo.formatDigest(currentDay || day, goalsCache);
+  function bindActionButtons() {
+    var copyBtn = el("today-copy-digest");
+    if (copyBtn && !copyBtn.dataset.bound) {
+      copyBtn.dataset.bound = "1";
+      copyBtn.addEventListener("click", function () {
+        if (!currentDay) {
+          alert("清单尚未加载");
+          return;
+        }
+        var text = DailyTodo.formatDigest(currentDay, goalsCache);
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function () {
             alert("已复制今日摘要，可粘贴到微信 / 公众号草稿");
@@ -205,28 +225,53 @@
           prompt("复制以下内容：", text);
         }
       });
+    }
 
-      el("today-toggle-digest").addEventListener("click", function () {
+    var toggleBtn = el("today-toggle-digest");
+    if (toggleBtn && !toggleBtn.dataset.bound) {
+      toggleBtn.dataset.bound = "1";
+      toggleBtn.addEventListener("click", function () {
         var box = el("today-digest-preview");
-        if (!box) return;
+        if (!box || !currentDay) return;
         box.hidden = !box.hidden;
-        if (!box.hidden) box.textContent = DailyTodo.formatDigest(currentDay || day, goalsCache);
+        if (!box.hidden) box.textContent = DailyTodo.formatDigest(currentDay, goalsCache);
       });
+    }
 
-      el("today-regenerate").addEventListener("click", function () {
+    var regenBtn = el("today-regenerate");
+    if (regenBtn && !regenBtn.dataset.bound) {
+      regenBtn.dataset.bound = "1";
+      regenBtn.addEventListener("click", function () {
         if (!confirm("重新生成今日清单？已勾选状态会重置。")) return;
-        showDay(true);
+        showDay(true).catch(function (e) {
+          showError(e.message || String(e));
+        });
       });
+    }
+  }
+
+  function init() {
+    bindInteractions();
+    bindActionButtons();
+
+    showDay(false).catch(function (e) {
+      showError(e.message || String(e));
     });
 
     if (global.LifeSync) {
       LifeSync.onChange(function (status) {
         if (status && status.type === "pull") {
-          showDay(false);
+          showDay(false).catch(function (e) {
+            showError(e.message || String(e));
+          });
         }
       });
     }
   }
 
-  global.TodayView = { init: init };
+  function refresh(forceRegen) {
+    return showDay(!!forceRegen);
+  }
+
+  global.TodayView = { init: init, refresh: refresh };
 })(window);

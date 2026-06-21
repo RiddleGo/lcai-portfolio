@@ -1166,7 +1166,7 @@
 
     document.getElementById("quote-reload")?.addEventListener("click", () => location.reload());
 
-    document.getElementById("todo-reset").addEventListener("click", () => {
+    document.getElementById("todo-reset")?.addEventListener("click", () => {
       if (confirm("确定重置全部待办勾选？财务数据将恢复基准。")) {
         localStorage.removeItem(TODO_STORAGE_KEY);
         localStorage.removeItem(TODO_STORAGE_KEY_V1);
