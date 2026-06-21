@@ -1,20 +1,23 @@
 /**
- * 人生中枢 · 统一状态存储 + 可选 GitHub Gist 云同步
- * 健康打卡、OKR 进度、决策日记、财务待办勾选 → 一处保存，换机可恢复
+ * 人生中枢 · 统一状态存储 + Supabase 云同步
+ * 登录后：健康 / OKR / 日记 / 财务勾选 改完即上云
  */
 (function (global) {
   "use strict";
 
   var STORAGE_KEY = "life-state-v1";
-  var CONFIG_KEY = "life-sync-config-v1";
-  var GIST_FILE = "life-state.json";
+  var META_KEY = "life-sync-meta-v2";
   var HEALTH_LEGACY = "life-health-v1";
+  var SUPABASE_CDN =
+    "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js";
 
   var state = null;
-  var config = null;
+  var meta = null;
+  var client = null;
   var syncTimer = null;
   var syncing = false;
   var listeners = [];
+  var sessionUser = null;
 
   function defaultState() {
     return {
@@ -28,17 +31,76 @@
     };
   }
 
-  function loadConfig() {
+  function loadMeta() {
     try {
-      return JSON.parse(localStorage.getItem(CONFIG_KEY) || "{}");
+      return JSON.parse(localStorage.getItem(META_KEY) || "{}");
     } catch (e) {
       return {};
     }
   }
 
-  function saveConfig(c) {
-    config = c || {};
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+  function saveMeta(m) {
+    meta = m || {};
+    localStorage.setItem(META_KEY, JSON.stringify(meta));
+  }
+
+  function isConfigured() {
+    var cfg = global.SUPABASE_CONFIG;
+    return !!(cfg && cfg.url && cfg.anonKey);
+  }
+
+  function loadSupabaseScript() {
+    if (global.supabase && global.supabase.createClient) return Promise.resolve();
+    if (!isConfigured()) return Promise.resolve();
+    return new Promise(function (resolve, reject) {
+      if (document.querySelector('script[data-life-supabase="1"]')) {
+        var t = setInterval(function () {
+          if (global.supabase) {
+            clearInterval(t);
+            resolve();
+          }
+        }, 50);
+        setTimeout(function () {
+          clearInterval(t);
+          resolve();
+        }, 5000);
+        return;
+      }
+      var s = document.createElement("script");
+      s.src = SUPABASE_CDN;
+      s.dataset.lifeSupabase = "1";
+      s.onload = function () {
+        resolve();
+      };
+      s.onerror = function () {
+        reject(new Error("无法加载 Supabase SDK"));
+      };
+      document.head.appendChild(s);
+    });
+  }
+
+  function initClient() {
+    if (client) return client;
+    if (!isConfigured() || !global.supabase) return null;
+    client = global.supabase.createClient(global.SUPABASE_CONFIG.url, global.SUPABASE_CONFIG.anonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true,
+        storage: localStorage,
+      },
+    });
+    client.auth.onAuthStateChange(function (event, session) {
+      sessionUser = session && session.user ? session.user : null;
+      if (event === "SIGNED_IN") {
+        pullFromCloud().catch(function () {});
+      }
+      if (event === "SIGNED_OUT") {
+        sessionUser = null;
+      }
+      notify({ type: "auth", event: event });
+    });
+    return client;
   }
 
   function migrateLegacyInto(s) {
@@ -95,9 +157,7 @@
 
   function applyToLegacyStores() {
     var s = getState();
-    if (s.health) {
-      localStorage.setItem(HEALTH_LEGACY, JSON.stringify(s.health));
-    }
+    if (s.health) localStorage.setItem(HEALTH_LEGACY, JSON.stringify(s.health));
     if (s.finance && s.finance.todoDone && s.meta.todoStorageKey) {
       localStorage.setItem(s.meta.todoStorageKey, JSON.stringify(s.finance.todoDone));
     }
@@ -134,6 +194,19 @@
     }
   }
 
+  function mergeRemote(remote) {
+    if (!remote || typeof remote !== "object") return;
+    var local = getState();
+    var localAt = local.updatedAt || "";
+    var remoteAt = remote.updatedAt || "";
+    if (remoteAt >= localAt) {
+      state = migrateLegacyInto(remote);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      applyToLegacyStores();
+      notify({ type: "pull", at: remoteAt });
+    }
+  }
+
   function persistLocal() {
     collectFromLegacyStores();
     state.updatedAt = new Date().toISOString();
@@ -143,156 +216,155 @@
     scheduleCloudSync();
   }
 
-  function mergeRemote(remote) {
-    if (!remote || typeof remote !== "object") return;
-    var local = getState();
-    var localAt = local.updatedAt || "";
-    var remoteAt = remote.updatedAt || "";
-    if (remoteAt > localAt) {
-      state = migrateLegacyInto(remote);
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      applyToLegacyStores();
-      notify({ type: "pull", at: remoteAt });
-    }
-  }
-
-  function authHeaders() {
-    return {
-      Authorization: "Bearer " + config.token,
-      Accept: "application/vnd.github+json",
-      "X-GitHub-Api-Version": "2022-11-28",
-    };
+  function getSession() {
+    if (!client) return Promise.resolve(null);
+    return client.auth.getSession().then(function (res) {
+      var session = res.data && res.data.session;
+      sessionUser = session && session.user ? session.user : null;
+      return session;
+    });
   }
 
   function pullFromCloud() {
-    if (!config.gistId || !config.token) return Promise.resolve(false);
-    return fetch("https://api.github.com/gists/" + config.gistId, { headers: authHeaders() })
-      .then(function (r) {
-        if (!r.ok) throw new Error("拉取失败 " + r.status);
-        return r.json();
-      })
-      .then(function (gist) {
-        var file = gist.files && gist.files[GIST_FILE];
-        if (!file || !file.content) return false;
-        mergeRemote(JSON.parse(file.content));
-        config.lastPull = new Date().toISOString();
-        saveConfig(config);
-        return true;
-      });
+    if (!client) return Promise.resolve(false);
+    return getSession().then(function (session) {
+      if (!session) return false;
+      return client
+        .from("life_state")
+        .select("data, updated_at")
+        .eq("user_id", session.user.id)
+        .maybeSingle();
+    }).then(function (res) {
+      if (res && res.error) throw new Error(res.error.message);
+      if (!res || !res.data) {
+        return pushToCloud();
+      }
+      mergeRemote(res.data.data);
+      meta = loadMeta();
+      meta.lastPull = new Date().toISOString();
+      saveMeta(meta);
+      return true;
+    });
   }
 
   function pushToCloud() {
-    if (!config.gistId || !config.token || syncing) return Promise.resolve(false);
-    syncing = true;
-    collectFromLegacyStores();
-    state.updatedAt = new Date().toISOString();
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    var body = {
-      files: {},
-    };
-    body.files[GIST_FILE] = { content: JSON.stringify(state, null, 2) };
-    return fetch("https://api.github.com/gists/" + config.gistId, {
-      method: "PATCH",
-      headers: Object.assign({ "Content-Type": "application/json" }, authHeaders()),
-      body: JSON.stringify(body),
-    })
-      .then(function (r) {
-        if (!r.ok) throw new Error("上传失败 " + r.status);
-        config.lastPush = new Date().toISOString();
-        saveConfig(config);
-        notify({ type: "push", at: config.lastPush });
-        return true;
-      })
-      .finally(function () {
-        syncing = false;
-      });
+    if (!client || syncing) return Promise.resolve(false);
+    return getSession().then(function (session) {
+      if (!session) return false;
+      syncing = true;
+      collectFromLegacyStores();
+      state.updatedAt = new Date().toISOString();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      return client
+        .from("life_state")
+        .upsert({ user_id: session.user.id, data: state }, { onConflict: "user_id" })
+        .then(function (res) {
+          if (res.error) throw new Error(res.error.message);
+          meta = loadMeta();
+          meta.lastPush = new Date().toISOString();
+          saveMeta(meta);
+          notify({ type: "push", at: meta.lastPush });
+          return true;
+        })
+        .finally(function () {
+          syncing = false;
+        });
+    });
   }
 
   function scheduleCloudSync() {
-    if (!config || !config.gistId || !config.token) return;
+    if (!client || !sessionUser) return;
     clearTimeout(syncTimer);
     syncTimer = setTimeout(function () {
       pushToCloud().catch(function (e) {
         notify({ type: "error", message: e.message });
       });
-    }, 1500);
+    }, 800);
   }
 
   function init() {
-    config = loadConfig();
+    meta = loadMeta();
     state = loadLocal();
     applyToLegacyStores();
-    if (!config.gistId || !config.token) {
-      return Promise.resolve(getState());
-    }
-    return pullFromCloud()
-      .catch(function (e) {
-        notify({ type: "error", message: e.message });
-        return false;
-      })
+    if (!isConfigured()) return Promise.resolve(getState());
+
+    return loadSupabaseScript()
       .then(function () {
+        initClient();
+        if (!client) return getState();
+        return client.auth.getSession().then(function (res) {
+          sessionUser = res.data.session && res.data.session.user ? res.data.session.user : null;
+          if (sessionUser) {
+            return pullFromCloud()
+              .catch(function (e) {
+                notify({ type: "error", message: e.message });
+              })
+              .then(function () {
+                return getState();
+              });
+          }
+          return getState();
+        });
+      })
+      .catch(function () {
         return getState();
       });
   }
 
+  function isSignedIn() {
+    return !!sessionUser;
+  }
+
   function isCloudEnabled() {
-    config = config || loadConfig();
-    return !!(config.gistId && config.token);
+    return isConfigured() && isSignedIn();
   }
 
   function getSyncStatus() {
-    config = config || loadConfig();
+    meta = meta || loadMeta();
     return {
+      configured: isConfigured(),
       enabled: isCloudEnabled(),
-      gistId: config.gistId || "",
-      lastPull: config.lastPull || "",
-      lastPush: config.lastPush || "",
+      signedIn: isSignedIn(),
+      email: sessionUser ? sessionUser.email : "",
+      lastPull: meta.lastPull || "",
+      lastPush: meta.lastPush || "",
       localUpdated: getState().updatedAt || "",
     };
   }
 
-  function setCloudCredentials(token, gistId) {
-    saveConfig({ token: token || "", gistId: gistId || "", lastPull: "", lastPush: "" });
-    return pullFromCloud().then(function () {
-      return pushToCloud();
+  function signIn(email, password) {
+    if (!client) return Promise.reject(new Error("Supabase 未配置，见 supabase/README.md"));
+    return client.auth.signInWithPassword({ email: email, password: password }).then(function (res) {
+      if (res.error) throw new Error(res.error.message);
+      sessionUser = res.data.user;
+      return pullFromCloud().then(function () {
+        return pushToCloud();
+      }).then(function () {
+        return res.data.user;
+      });
     });
   }
 
-  function createGist(token) {
-    if (!token) return Promise.reject(new Error("需要 GitHub Token"));
-    collectFromLegacyStores();
-    state.updatedAt = new Date().toISOString();
-    var initialContent = JSON.stringify(state, null, 2);
-    var payload = {
-      description: "Russshare 人生中枢 · 私密同步",
-      public: false,
-      files: {},
-    };
-    payload.files[GIST_FILE] = { content: initialContent };
-    return fetch("https://api.github.com/gists", {
-      method: "POST",
-      headers: Object.assign({ "Content-Type": "application/json" }, {
-        Authorization: "Bearer " + token,
-        Accept: "application/vnd.github+json",
-        "X-GitHub-Api-Version": "2022-11-28",
-      }),
-      body: JSON.stringify(payload),
-    })
-      .then(function (r) {
-        if (!r.ok) throw new Error("创建 Gist 失败 " + r.status);
-        return r.json();
-      })
-      .then(function (gist) {
-        saveConfig({ token: token, gistId: gist.id, lastPull: "", lastPush: "" });
+  function signUp(email, password) {
+    if (!client) return Promise.reject(new Error("Supabase 未配置，见 supabase/README.md"));
+    return client.auth.signUp({ email: email, password: password }).then(function (res) {
+      if (res.error) throw new Error(res.error.message);
+      if (res.data.session) {
+        sessionUser = res.data.user;
         return pushToCloud().then(function () {
-          return gist.id;
+          return res.data.user;
         });
-      });
+      }
+      return signIn(email, password);
+    });
   }
 
-  function disconnectCloud() {
-    saveConfig({});
-    config = {};
+  function signOut() {
+    if (!client) return Promise.resolve();
+    return client.auth.signOut().then(function () {
+      sessionUser = null;
+      notify({ type: "auth", event: "SIGNED_OUT" });
+    });
   }
 
   function exportJson() {
@@ -305,14 +377,17 @@
     var parsed = JSON.parse(text);
     state = migrateLegacyInto(parsed);
     persistLocal();
-    return getState();
+    if (isCloudEnabled()) {
+      return pushToCloud().then(function () {
+        return getState();
+      });
+    }
+    return Promise.resolve(getState());
   }
 
   function onChange(fn) {
     listeners.push(fn);
   }
-
-  /* ── 模块 API ── */
 
   function getHealth() {
     return getState().health || { logs: {}, streak: 0 };
@@ -407,11 +482,13 @@
 
   global.LifeSync = {
     init: init,
+    isConfigured: isConfigured,
+    isSignedIn: isSignedIn,
     isCloudEnabled: isCloudEnabled,
     getSyncStatus: getSyncStatus,
-    setCloudCredentials: setCloudCredentials,
-    createGist: createGist,
-    disconnectCloud: disconnectCloud,
+    signIn: signIn,
+    signUp: signUp,
+    signOut: signOut,
     pullFromCloud: pullFromCloud,
     pushToCloud: pushToCloud,
     exportJson: exportJson,

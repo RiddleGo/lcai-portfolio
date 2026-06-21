@@ -213,7 +213,7 @@
             <h2 class="kb-section-title">网页保存与换机同步</h2>
             <div class="kb-section-line"></div>
           </div>
-          <p class="module-page-desc">以下操作<strong>直接在网页完成</strong>，无需改代码：</p>
+          <p class="module-page-desc">以下操作<strong>直接在网页完成</strong>，登录后自动上云：</p>
           <ul class="guide-rhythm-list" style="margin-bottom:16px">
             <li><a href="../health/index.html">健康打卡</a>：勾选即保存</li>
             <li><a href="../goals/index.html">OKR</a>：每条 KR 下方改数字 → 点「保存」</li>
@@ -221,8 +221,8 @@
             <li><a href="../finance/index.html">财务计划</a>：执行待办勾选自动保存</li>
           </ul>
           <div class="guide-callout">
-            <strong>换电脑不丢：</strong>打开 <a href="../settings/index.html">数据同步</a>，用 GitHub Token（<code>gist</code> 权限）创建私密 Gist。
-            配置一次后自动云同步；新电脑填同一 Token + Gist ID 即可恢复。也可导出 JSON 手动备份。
+            <strong>换电脑不丢：</strong>打开 <a href="../settings/index.html">数据同步</a> → 邮箱注册/登录一次。
+            之后改完即同步到 Supabase；新设备同样登录即可。详见 <a href="../supabase/README.md">Supabase 配置说明</a>（维护者一次性配置）。
           </div>
         </section>
 
@@ -254,7 +254,7 @@
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">健康打卡、OKR 进度换电脑会丢吗？</div>
-              <p class="guide-faq-a">配置 <a href="../settings/index.html">数据同步</a> 后不会丢：改动自动存到 GitHub 私密 Gist，新设备用同一 Token + Gist ID 即可恢复。也可导出/导入 JSON 手动备份。OKR 可在网页直接改 KR 进度；决策日记支持在线新建编辑。</p>
+              <p class="guide-faq-a">在 <a href="../settings/index.html">数据同步</a> 登录后不会丢：改动自动写入 Supabase，新设备登录同一账号即可恢复。未登录时数据在本机；也可导出 JSON 备份。</p>
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">我想改 OKR 或写决策日记，怎么操作？</div>

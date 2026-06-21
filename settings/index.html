@@ -21,51 +21,60 @@
     <div class="kb-page-wrap">
       <section class="kb-hero-section">
         <h1 class="kb-hero-title">数据<span class="gold">同步</span></h1>
-        <p class="kb-hero-sub">健康打卡、OKR 进度、决策日记、财务待办 — 保存后自动同步，换电脑不丢</p>
+        <p class="kb-hero-sub">登录一次 · 改完即上云 · 换电脑登录即恢复</p>
       </section>
 
       <div class="kb-main-inner">
         <div id="sync-status-bar" class="sync-status-bar"></div>
 
-        <div class="kb-section-header">
-          <h2 class="kb-section-title">云端同步（推荐）</h2>
-          <div class="kb-section-line"></div>
-        </div>
-        <p class="module-page-desc">
-          使用 <strong>GitHub 私密 Gist</strong> 存你的个人数据（不进公开仓库）。
-          配置一次后，各模块改动约 1.5 秒自动上传；新设备打开任意页面会先拉取最新。
-        </p>
+        <div id="sync-panel-login">
+          <div class="kb-section-header">
+            <h2 class="kb-section-title">登录 / 注册</h2>
+            <div class="kb-section-line"></div>
+          </div>
+          <p class="module-page-desc">个人账号仅你自用。登录后打卡、OKR、日记、财务勾选 <strong>自动同步到 Supabase 云端</strong>。</p>
 
-        <div class="guide-callout">
-          <strong>如何获取 Token？</strong><br>
-          GitHub → Settings → Developer settings → Personal access tokens → Generate（classic）→ 勾选 <code>gist</code> 权限即可。
-          Token 只保存在本机浏览器，不会提交到 git。
-        </div>
+          <div class="sync-form-group">
+            <label for="sync-email">邮箱</label>
+            <input type="email" id="sync-email" autocomplete="username" placeholder="you@example.com">
+          </div>
+          <div class="sync-form-group">
+            <label for="sync-password">密码</label>
+            <input type="password" id="sync-password" autocomplete="current-password" placeholder="至少 6 位">
+          </div>
 
-        <div class="sync-form-group">
-          <label for="sync-token">GitHub Token（gist 权限）</label>
-          <input type="password" id="sync-token" autocomplete="off" placeholder="ghp_…">
-        </div>
-        <div class="sync-form-group">
-          <label for="sync-gist-id">Gist ID（留空则自动创建新的）</label>
-          <input type="text" id="sync-gist-id" placeholder="首次使用点「创建并连接」">
-          <p class="sync-form-hint">已有 Gist 可填 ID 复用；换电脑时填同一 ID + 同一 Token。</p>
+          <div class="sync-btn-row">
+            <button type="button" class="sync-btn sync-btn-primary" id="sync-btn-login">登录</button>
+            <button type="button" class="sync-btn" id="sync-btn-signup">注册新账号</button>
+          </div>
+          <p id="sync-message" class="module-page-desc"></p>
         </div>
 
-        <div class="sync-btn-row">
-          <button type="button" class="sync-btn sync-btn-primary" id="sync-btn-connect">保存并连接</button>
-          <button type="button" class="sync-btn" id="sync-btn-create">创建新 Gist 并连接</button>
-          <button type="button" class="sync-btn" id="sync-btn-pull">立即拉取</button>
-          <button type="button" class="sync-btn" id="sync-btn-push">立即上传</button>
-          <button type="button" class="sync-btn" id="sync-btn-disconnect">断开云同步</button>
+        <div id="sync-panel-logged" hidden>
+          <div class="kb-section-header">
+            <h2 class="kb-section-title">已登录</h2>
+            <div class="kb-section-line"></div>
+          </div>
+          <p class="module-page-desc">当前账号：<strong id="sync-user-email">—</strong> · 各模块保存后约 1 秒内自动上传。</p>
+          <div class="sync-btn-row">
+            <button type="button" class="sync-btn" id="sync-btn-pull">从云端拉取</button>
+            <button type="button" class="sync-btn" id="sync-btn-push">立即上传</button>
+            <button type="button" class="sync-btn" id="sync-btn-logout">退出登录</button>
+          </div>
+          <p id="sync-message-logged" class="module-page-desc"></p>
         </div>
-        <p id="sync-message" class="module-page-desc"></p>
+
+        <div id="sync-panel-unconfigured" class="guide-callout" hidden>
+          <strong>Supabase 尚未配置</strong><br>
+          仓库维护者需按 <a href="../supabase/README.md">supabase/README.md</a> 创建项目、运行 schema.sql，并填写根目录 <code>supabase-config.js</code> 后推送。
+          配置完成前数据仍保存在本机浏览器。
+        </div>
 
         <div class="kb-section-header" style="margin-top:32px">
           <h2 class="kb-section-title">本地备份</h2>
           <div class="kb-section-line"></div>
         </div>
-        <p class="module-page-desc">不配置云端时，可导出 JSON 文件，换电脑后导入恢复。</p>
+        <p class="module-page-desc">额外导出 JSON 备份（可选）。</p>
         <div class="sync-btn-row">
           <button type="button" class="sync-btn" id="sync-btn-export">导出 JSON</button>
           <label class="sync-btn" style="cursor:pointer">
@@ -86,6 +95,7 @@
   <script src="../site-nav-data.js"></script>
   <script src="../kb-shell.js"></script>
   <script src="../module-shell.js"></script>
+  <script src="../supabase-config.js"></script>
   <script src="../life-sync.js"></script>
   <script src="sync-view.js"></script>
   <script>

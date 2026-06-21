@@ -332,9 +332,13 @@
       return;
     }
     box.hidden = false;
+    if (!LifeSync.isConfigured()) {
+      box.innerHTML =
+        '☁️ 云同步待配置：维护者填写 <code>supabase-config.js</code> 后，<a href="settings/index.html">登录即自动上云</a>。';
+      return;
+    }
     box.innerHTML =
-      "☁️ <strong>打卡、OKR、决策日记</strong>现已可在网页保存。" +
-      ' 换电脑请配置 <a href="settings/index.html">数据同步</a>（GitHub 私密 Gist），或导出 JSON 备份。';
+      '☁️ <a href="settings/index.html">登录数据同步</a> 后，打卡 / OKR / 日记 / 财务勾选 <strong>改完即上云</strong>，换电脑登录即恢复。';
   }
 
   function startPortal() {
