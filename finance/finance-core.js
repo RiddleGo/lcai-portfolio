@@ -1272,6 +1272,27 @@
       });
     })();
 
+  function getPendingTodos(limit) {
+    const todoState = loadTodoState();
+    const result = [];
+    const max = limit == null ? 10 : limit;
+    for (const month of Object.keys(MONTH_TODO_MAP)) {
+      for (const id of MONTH_TODO_MAP[month]) {
+        if (isTodoDone(todoState, id)) continue;
+        const item = getTodoItemById(id);
+        if (!item) continue;
+        result.push({
+          id: id,
+          month: month,
+          text: item.text.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(),
+          href: "finance/index.html#plan",
+        });
+        if (result.length >= max) return result;
+      }
+    }
+    return result;
+  }
+
   function getPortalSummary() {
     try {
       const todoState = loadTodoState();
@@ -1302,6 +1323,7 @@
     renderAll: renderAll,
     computeState: computeState,
     loadTodoState: loadTodoState,
+    getPendingTodos: getPendingTodos,
     getPortalSummary: getPortalSummary,
     switchTab: null,
   };

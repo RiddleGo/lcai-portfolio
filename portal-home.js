@@ -98,12 +98,12 @@
     var notDo = goalsData && goalsData.not_do && goalsData.not_do[0] ? goalsData.not_do[0] : "";
     box.innerHTML =
       '<div class="portal-priority-inner">' +
-      '<div class="portal-priority-label">本月要紧事 · ' + esc(phase) + "</div>" +
-      '<div class="portal-priority-main"><a href="finance/index.html">' + esc(financeSub) + "</a></div>" +
+      '<div class="portal-priority-label">今日助手 · ' + esc(phase) + "</div>" +
+      '<div class="portal-priority-main"><a href="today/index.html">' + esc(financeSub) + "</a></div>" +
       '<div class="portal-priority-meta">主题：' +
       esc(theme) +
       (notDo ? " · 不做：" + esc(notDo) : "") +
-      ' · <a href="principles/life-constitution.md">宪法</a></div></div>';
+      ' · <a href="today/index.html">打开今日 Todo →</a></div></div>';
   }
 
   function loadBooksSummary() {

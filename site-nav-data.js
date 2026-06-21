@@ -12,6 +12,7 @@ window.SITE_NAV = {
       title: "人生",
       links: [
         { href: "index.html", label: "🏛 总入口", id: "home" },
+        { href: "today/index.html", label: "☀️ 今日 Todo", id: "today" },
         { href: "guide/index.html", label: "📖 使用指南", id: "guide" },
         { href: "settings/index.html", label: "☁️ 数据同步", id: "sync" },
         { href: "principles/life-constitution.md", label: "📜 人生宪法", id: "constitution" },
@@ -33,6 +34,7 @@ window.SITE_NAV = {
     },
   ],
   modules: [
+    { href: "today/index.html", icon: "☀️", title: "今日 Todo", sub: "每日自动生成 · 健康 / 财务 / OKR" },
     { href: "finance/index.html", icon: "💰", title: "财务计划", sub: "还债 · 执行 · 持仓 · 一页纸规划", lock: true },
     { href: "invest/workbench.html", icon: "🔍", title: "LCAI 投资", sub: "选股研判 · 规则 · ETF · 书籍" },
     { href: "goals/index.html", icon: "🎯", title: "目标 OKR", sub: "年度目标 · 季度 KR · 复盘" },

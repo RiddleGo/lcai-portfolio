@@ -27,6 +27,7 @@
       goals: { krProgress: {}, seasonBooks: {} },
       journal: { entries: [] },
       finance: { todoDone: null, overrides: null },
+      dailyTodo: { days: {} },
       meta: { todoStorageKey: null, overridesKey: null },
     };
   }
@@ -480,6 +481,28 @@
     }
   }
 
+  function getDailyTodoDay(dateKey) {
+    var s = getState();
+    if (!s.dailyTodo) s.dailyTodo = { days: {} };
+    return s.dailyTodo.days[dateKey] || null;
+  }
+
+  function saveDailyTodoDay(dateKey, dayData) {
+    var s = getState();
+    if (!s.dailyTodo) s.dailyTodo = { days: {} };
+    if (dayData == null) delete s.dailyTodo.days[dateKey];
+    else s.dailyTodo.days[dateKey] = dayData;
+    persistLocal();
+  }
+
+  function setDailyItemDone(dateKey, itemId, done) {
+    var day = getDailyTodoDay(dateKey);
+    if (!day) return;
+    if (!day.completed) day.completed = {};
+    day.completed[itemId] = !!done;
+    saveDailyTodoDay(dateKey, day);
+  }
+
   global.LifeSync = {
     init: init,
     isConfigured: isConfigured,
@@ -505,6 +528,9 @@
     syncFinanceTodo: syncFinanceTodo,
     syncFinanceOverrides: syncFinanceOverrides,
     applyFinanceToLocalStorage: applyFinanceToLocalStorage,
+    getDailyTodoDay: getDailyTodoDay,
+    saveDailyTodoDay: saveDailyTodoDay,
+    setDailyItemDone: setDailyItemDone,
     STORAGE_KEY: STORAGE_KEY,
   };
 })(window);
