@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>滴答清单配置 · Russshare</title>
-  <meta name="description" content="将 Russshare 人生系统同步到滴答清单：清单结构、习惯、重复任务与维护节奏">
+  <title>复利人生 · 滴答清单系统</title>
+  <meta name="description" content="只用滴答清单构建复利人生：OKR、财务、习惯、反思笔记、决策日记">
   <link rel="stylesheet" href="../kb-theme.css">
   <link rel="stylesheet" href="../portal-home.css">
   <link rel="stylesheet" href="guide.css">
@@ -13,10 +13,12 @@
     .md-body h1 { font-family: var(--kb-serif); font-size: 1.75rem; margin-bottom: 12px; }
     .md-body h2 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--kb-navy); }
     .md-body h3 { font-size: 1rem; margin: 20px 0 8px; }
+    .md-body h4 { font-size: 0.95rem; margin: 16px 0 6px; }
     .md-body table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.92rem; }
     .md-body th, .md-body td { border: 1px solid var(--kb-border); padding: 8px 10px; text-align: left; vertical-align: top; }
     .md-body blockquote { margin: 12px 0; padding: 10px 14px; background: var(--kb-bg2); border-left: 3px solid var(--kb-gold); color: var(--kb-text2); }
-    .md-body a { color: var(--kb-link); word-break: break-all; }
+    .md-body pre { overflow-x: auto; font-size: 0.85rem; padding: 12px; background: var(--kb-bg2); border-radius: 8px; }
+    .md-body a { color: var(--kb-link); }
     .md-body ul { padding-left: 1.2em; }
     .ticktick-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
     .ticktick-links a { font-size: 0.88rem; text-decoration: none; padding: 6px 12px; border: 1px solid var(--kb-border); border-radius: 8px; color: var(--kb-text); }
@@ -33,19 +35,18 @@
   <main class="kb-main">
     <div class="kb-page-wrap">
       <section class="kb-hero-section kb-hero-section--compact">
-        <h1 class="kb-hero-title">滴答 <span class="gold">清单</span></h1>
-        <p class="kb-hero-sub">执行层 · 今天汇总 · 网站负责思考与存档</p>
+        <h1 class="kb-hero-title">复利人生 · <span class="gold">滴答</span></h1>
+        <p class="kb-hero-sub">唯一系统 · 今天汇总 · 备注里存档</p>
       </section>
       <div class="kb-main-inner">
         <nav class="ticktick-links" aria-label="文档">
-          <a href="ticktick.html" class="active" data-doc="../docs/ticktick-tasks.md">任务清单（自动生成）</a>
+          <a href="ticktick.html" class="active" data-doc="../docs/ticktick-life-os.md">完整配置（推荐）</a>
           <a href="ticktick.html?doc=../docs/ticktick-setup.md" data-doc="../docs/ticktick-setup.md">简明说明</a>
-          <a href="../today/index.html">网站 Today →</a>
         </nav>
         <div class="guide-callout" style="margin-bottom:20px">
-          <strong>怎么用：</strong>按下方清单在滴答手工建文件夹、习惯与任务。
-          左上角 <strong>今天</strong> 会自动汇集所有设了日期/重复的任务，不必再建「01-今日」清单。
-          财务或 OKR 变更后，维护者运行 <code>python scripts/export_ticktick.py</code> 刷新本文。
+          <strong>不用网站。</strong>按下方在滴答建 10 个清单；反思、OKR、财务进度全在滴答维护。
+          长文写在任务 <strong>备注</strong> 里，勾完保留当档案。
+          本地更新 JSON 后运行 <code>python scripts/export_ticktick.py</code> 刷新数字。
         </div>
         <div id="md-content" class="md-body">加载中…</div>
       </div>
@@ -58,7 +59,7 @@
   <script src="../md-view.js"></script>
   <script>
     ModuleShell.initModulePage({ activeId: "guide", base: "../" });
-    var doc = new URLSearchParams(location.search).get("doc") || "../docs/ticktick-tasks.md";
+    var doc = new URLSearchParams(location.search).get("doc") || "../docs/ticktick-life-os.md";
     document.querySelectorAll(".ticktick-links a[data-doc]").forEach(function (a) {
       if (a.dataset.doc === doc) a.classList.add("active");
       else a.classList.remove("active");
