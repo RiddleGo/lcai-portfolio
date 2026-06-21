@@ -197,7 +197,7 @@ def section_intro() -> str:
 
 
 def section_lists_table() -> str:
-    rows = []
+    rows = ["| 清单 | 放什么 | 进「今天」？ |", "|------|--------|-------------|"]
     for name, desc in LISTS:
         today = "否" if name.startswith(("00", "06", "07", "08", "99")) else "重复/到期日则进"
         if name == "07-反思笔记":
