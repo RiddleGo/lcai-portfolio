@@ -5,6 +5,9 @@ __pycache__/
 Thumbs.db
 .vendor/
 
+# 财务配置源文件（含敏感数据 · 用 example 复制后 build）
+finance/finance-config.json
+
 # 书籍目录 OCR 中间产物（正文以 .md 为准）
 书籍/*.png
 书籍/*.csv

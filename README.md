@@ -1,70 +1,51 @@
-# lcai-portfolio
+# Russshare · 人生中枢
 
-Personal investment portfolio dashboard with value-investing stock screener.
+Personal life planning hub with LCAI investment workbench, finance execution, goals, learning, health, and journal modules.
 
 **在线访问：** https://riddlego.github.io/lcai-portfolio/
 
-**总入口：** 打开根目录 `index.html` — 统一导航至资产总览、选股、AI 五层研究。
+**总入口：** [`index.html`](index.html) — 人生中枢门户
 
-| 栏目 | 说明 |
-|------|------|
-| **总入口** | 门户首页 → 资产总览 / 选股 / 投资研究 / GitHub |
-| 执行 / 还款 / 现金流 | 还债与资金计划 |
-| 投资规划 / 诊断 / 持仓 | 组合管理与评价 |
-| **选股** | 输入代码 → LCAI 研判 → 买入/观察/持有/减仓/卖出 |
+## 模块
+
+| 模块 | 路径 | 说明 |
+|------|------|------|
+| **人生中枢** | [`index.html`](index.html) | 门户 · 今日概览 · 各模块入口 |
+| 财务计划 | [`finance/index.html`](finance/index.html) | 还债 · 执行 · 持仓 · 一页纸规划（门控） |
+| LCAI 投资 | [`invest/workbench.html`](invest/workbench.html) | 选股研判 · 规则 · ETF · 书籍 |
+| 目标 OKR | [`goals/index.html`](goals/index.html) | 年度目标 · 季度 KR |
+| 阅读笔记 | [`learning/index.html`](learning/index.html) | 书库筛选 · 跳转 LCAI 书籍 Tab |
+| 职业成长 | [`career/index.html`](career/index.html) | 技能矩阵 · 项目 |
+| 健康习惯 | [`health/index.html`](health/index.html) | 本机打卡 · streak |
+| 决策日记 | [`journal/index.html`](journal/index.html) | 重大决策记录（门控） |
+| 产业研究 | [`docs/research/index.html`](docs/research/index.html) | AI 五层研究 |
+
+[`资产总览.html`](资产总览.html) 与 [`选股研判.html`](选股研判.html) 已重定向至投资/财务子模块。
 
 ## 本地使用
 
-直接用浏览器打开 `资产总览.html`，选股 tab：`资产总览.html#screen`
-
-## 选股 CLI
-
 ```bash
+# 生成财务配置（从 资产总览 迁移后维护 finance-config.json）
+python scripts/build_finance_module.py
+
+# 选股 CLI（不变）
 python 投资系统/engine/screen_stock.py 600519
-python scripts/lcai_screen_json.py 600519          # 完整 JSON
-bash scripts/run_lcai_analysis.sh 600519           # 写入 reports/
 ```
 
-## 怎么用（给完全不懂技术的人）
+## 隐私说明
 
-1. 打开 [资产总览 → 选股](https://riddlego.github.io/lcai-portfolio/资产总览.html#screen)
-2. 输入代码，点 **「帮我看看」** → 出 **综合研判**（买卖结论以 LCAI 为准）
-3. 点 **「⭐ 收藏」** 加入「我的关注」，方便下次再看
-4. **已在持仓/云端关注**的票 → **每周一自动**刷新报告，无需 Issue
-5. **新票第一次** → 收藏后在新页面点一次绿色 **Submit** 入队，约 2–5 分钟生成；之后也每周自动
+- 财务敏感配置：编辑 `finance/finance-config.json`（已 gitignore），运行 `scripts/build_finance_module.py` 生成 `finance-config-data.js`
+- 健康打卡：仅 `localStorage`
+- 决策日记：公开仓库建议只放框架；正文本地或私有分支
 
-## 网页操作
+## LCAI 投资（子系统）
 
-| 你想干什么 | 怎么做 |
-|------------|--------|
-| 看能不能买 | **帮我看看**（已有缓存秒出） |
-| 常看的票 | **⭐ 收藏** → **我的关注** |
-| 持仓 / 云端关注 | **每周一自动**刷新 |
-| **新票第一次** | 收藏 → GitHub **Submit 一次** → 等 2–5 分钟 |
-| **买入加入持仓** | 研判后点 **「加入持仓」** → 填表 → GitHub **Submit** |
-| **立刻更新全部** | 选股页 **🔄 立即更新全部报告** → GitHub **Run workflow** → 约 5–15 分钟 |
+买卖裁决唯一来源：[`投资系统/criteria.json`](投资系统/criteria.json) + [`screen-engine.js`](screen-engine.js)
+
+维护手册：[`invest/workbench.html#handbook`](invest/workbench.html#handbook) 或 [`投资系统/08-日常维护手册.md`](投资系统/08-日常维护手册.md)
+
+Agent 指令见 [`AGENTS.md`](AGENTS.md)
 
 ## 部署
 
-GitHub Pages 托管于 `main` 分支根目录。行情工作日更新；`reports/*/unified.json` **每周一**由 Actions 全量刷新。
-
-## 维护与新增股票
-
-完整操作说明见 **[投资系统/08-日常维护手册.md](投资系统/08-日常维护手册.md)**，或网页 **[手册 Tab](资产总览.html#handbook)**。
-
-**维护判定标准：** [资产总览 → 规则](资产总览.html#criteria) 网页改数字 → 提交到云端
-
-**新增持仓：** 选股 → **加入持仓** → GitHub Submit（或改 `holdings.json`）
-
-## AI 五层投资研究
-
-Markdown 托管于 `docs/research/`，在线阅读：`docs/research/index.html`
-
-同步本地研究（从 `d:\投资\投资研究`）：
-
-```powershell
-.\scripts\sync-research.ps1
-git add docs/research/
-git commit -m "docs: sync AI research"
-git push
-```
+GitHub Pages 托管于 `main` 分支根目录。有改动推送后约 1–2 分钟生效。

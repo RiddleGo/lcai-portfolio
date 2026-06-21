@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LCAI 投资工作台 · Russshare</title>
+  <meta name="theme-color" content="#B8860B">
+  <link rel="stylesheet" href="../lcai-theme.css">
+  <link rel="stylesheet" href="../lcai-workbench-skin.css">
+  <link rel="stylesheet" href="../lcai-admin-gate.css">
+  <style>
+    :root {
+      /* 平台/账户色（业务专用，与 lcai-theme.css 并存） */
+      --jd: #e1251b;
+      --ali: #1677ff;
+      --dy: #fe2c55;
+      --didi: #ff7a00;
+      --personal: #a855f7;
+      --gt: #6366f1;
+      --hb: #14b8a6;
+    }
+
+    * { box-sizing: border-box; }
+
+    .wrap { width: 100%; margin: 0 auto; }
+
+    .tab-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-desc {
+      color: var(--muted);
+      font-size: 0.88rem;
+      margin-bottom: 22px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 1100px) {
+      .summary-grid {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      }
+    }
+
+    @media (min-width: 1400px) {
+      .finance-page .summary-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .finance-page .plan-principles {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    .card {
+      padding: 16px 18px;
+    }
+
+    .card-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .card-value {
+      font-size: 1.35rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .card.warn-card .card-value { color: var(--warn-text); }
+    .card.danger-card .card-value { color: var(--loss-text); }
+
+    .card-sub {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .platform-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dot.jd { background: var(--jd); }
+    .dot.ali { background: var(--ali); }
+    .dot.dy { background: var(--dy); }
+    .dot.didi { background: var(--didi); }
+    .dot.personal { background: var(--personal); }
+    .dot.gt { background: var(--gt); }
+    .dot.hb { background: var(--hb); }
+    .dot.fund { background: #ec4899; }
+    .dot.salary { background: #22c55e; }
+
+    section { margin-bottom: 28px; }
+
+    section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.86rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    thead th {
+      text-align: right;
+      padding: 10px 12px;
+      color: var(--muted);
+      font-weight: 500;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    thead th:first-child { text-align: left; }
+
+    tbody td {
+      padding: 10px 12px;
+      text-align: right;
+      border-bottom: 1px solid var(--border);
+    }
+
+    tbody td:first-child { text-align: left; font-weight: 500; }
+
+    tbody tr:hover { background: var(--kb-gold-glow); }
+    tbody tr.peak { background: rgba(180, 35, 24, 0.06); }
+    tbody tr.peak td:last-child { color: var(--loss-text); font-weight: 700; }
+    tbody tr.aug { background: rgba(154, 103, 0, 0.06); }
+    tbody tr.aug td:nth-child(6) { color: var(--warn-text); font-weight: 700; }
+    tbody tr.light { background: rgba(45, 106, 79, 0.06); }
+    tbody tr.light td:last-child { color: var(--gain-text); }
+
+    .dash { color: var(--border); }
+    .loss { color: var(--loss-text); }
+    .gain { color: var(--gain-text); }
+    .warn { color: var(--warn-text); }
+    .month-total { font-weight: 700; }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 999px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    .badge.danger { background: rgba(180, 35, 24, 0.1); color: var(--loss-text); }
+    .badge.purple { background: rgba(92, 72, 19, 0.1); color: #5c4813; }
+    .badge.ok { background: rgba(45, 106, 79, 0.12); color: var(--gain-text); }
+    .badge.hk { background: rgba(26, 35, 50, 0.08); color: var(--kb-navy-light); font-size: 0.62rem; margin-left: 4px; }
+
+    .tips {
+      background: var(--kb-cream);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 18px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-left: 4px solid var(--kb-gold);
+    }
+
+    .tips strong { color: var(--kb-navy); }
+    .tips ul { margin-top: 8px; padding-left: 18px; }
+    .tips li { margin-bottom: 5px; }
+
+    .account-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-right: 6px;
+    }
+
+    .account-tag.gt { background: rgba(26, 35, 50, 0.08); color: var(--kb-navy-light); }
+    .account-tag.hb { background: rgba(20, 184, 166, 0.12); color: #0d9488; }
+
+    .plan-principles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .principle {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 0.84rem;
+    }
+
+    .principle .tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .principle.hold { border-color: rgba(45, 106, 79, 0.35); }
+    .principle.hold .tag { color: var(--gain-text); }
+    .principle.sell { border-color: rgba(180, 35, 24, 0.3); }
+    .principle.sell .tag { color: var(--loss-text); }
+    .principle.later { border-color: rgba(154, 103, 0, 0.35); }
+    .principle.later .tag { color: var(--warn-text); }
+
+    .phase {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+    }
+
+    .phase-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .phase-head h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .phase-date {
+      font-size: 0.78rem;
+      color: var(--muted);
+      background: var(--kb-bg2);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .phase-need {
+      font-size: 0.82rem;
+      color: var(--warn);
+      margin-bottom: 10px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding: 8px 0 8px 28px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+
+    .checklist li:last-child { border-bottom: none; }
+
+    .checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .checklist li.done::before { content: "☑"; color: var(--ok); }
+
+    .todo-section {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+
+    .todo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .todo-header h2 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .todo-progress {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .todo-progress strong {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-progress-bar {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+
+    .todo-progress-bar span {
+      display: block;
+      height: 100%;
+      background: var(--ok);
+      border-radius: 2px;
+      transition: width 0.25s ease;
+      width: 0%;
+    }
+
+    .todo-group {
+      margin-bottom: 18px;
+    }
+
+    .todo-group:last-child { margin-bottom: 0; }
+
+    .todo-group-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .todo-group-head h3 {
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin: 0;
+      color: var(--text);
+    }
+
+    .todo-group-count {
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(45, 58, 79, 0.5);
+      cursor: pointer;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+
+    .todo-item:last-child { border-bottom: none; }
+
+    .todo-item:hover { background: hsl(var(--foreground) / 0.04); }
+
+    .todo-item input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--ok);
+      cursor: pointer;
+    }
+
+    .todo-item label {
+      flex: 1;
+      font-size: 0.86rem;
+      line-height: 1.5;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .todo-item.done label {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-color: rgba(139, 156, 179, 0.6);
+    }
+
+    .todo-item.urgent label { color: var(--loss-text); }
+    .todo-item.urgent.done label { color: var(--muted); }
+
+    .todo-reset {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .todo-reset:hover {
+      border-color: var(--danger);
+      color: var(--loss-text);
+    }
+
+    .edit-amount-btn {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: hsl(var(--primary) / 0.15);
+      color: hsl(var(--primary));
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      font-family: inherit;
+      margin-left: auto;
+    }
+
+    .edit-amount-btn:hover { border-color: var(--accent); }
+
+    .todo-actual-tag {
+      font-size: 0.75rem;
+      color: var(--warn);
+    }
+
+    .card.data-done { opacity: 0.55; }
+    .card.data-done.card-debt-cleared { display: none; }
+    .card.data-done .card-value {
+      text-decoration: line-through;
+      color: var(--muted);
+    }
+
+    tr.data-done td {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    tr.data-done td:first-child { text-decoration: none; }
+
+    .todo-group-fold {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .todo-group-fold > summary {
+      cursor: pointer;
+      padding: 10px 14px;
+      font-weight: 600;
+      list-style: none;
+      background: hsl(var(--foreground) / 0.03);
+    }
+
+    .todo-group-fold > summary::-webkit-details-marker { display: none; }
+
+    .todo-group-fold .todo-list { padding: 0 14px 10px; }
+
+    .home-urgent-val { font-size: 1.35rem; font-weight: 700; margin: 6px 0; }
+
+    #monthly-table .col-cleared { display: none; }
+
+    .badge-done {
+      display: inline-block;
+      font-size: 0.68rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: rgba(45, 106, 79, 0.12);
+      color: var(--gain-text);
+      margin-left: 6px;
+    }
+
+    .quote-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 0.84rem;
+    }
+
+    .quote-bar.stale { border-color: var(--warn); }
+
+    .quote-bar-meta { color: var(--muted); }
+    .quote-bar-meta strong { color: var(--text); }
+
+    .holding-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      justify-content: flex-end;
+    }
+
+    .holding-actions button {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .holding-actions button:hover {
+      border-color: var(--accent);
+      color: hsl(var(--primary));
+    }
+
+    .price-manual { color: var(--warn); font-size: 0.75rem; }
+
+    .effect-toast {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.55);
+    }
+
+    .effect-toast.hidden { display: none; }
+
+    .effect-toast-box {
+      width: min(420px, 100%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .effect-toast-box h3 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: var(--gain-text);
+    }
+
+    .effect-toast-box ul {
+      margin: 0 0 16px;
+      padding-left: 18px;
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text);
+    }
+
+    .effect-toast-box li { margin-bottom: 4px; }
+
+    .effect-toast-box .effect-toast-sub {
+      margin: -6px 0 10px;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .effect-toast-close {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: hsl(var(--primary) / 0.15);
+      color: hsl(var(--primary));
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .effect-toast-close:hover { background: rgba(59, 130, 246, 0.25); }
+
+    .score-ok { color: var(--gain-text); }
+    .score-warn { color: var(--warn-text); }
+    .score-bad { color: var(--loss-text); }
+
+    tbody tr.plan-row-sell { background: rgba(239,68,68,0.08); }
+    tbody tr.plan-row-hold { background: rgba(16,185,129,0.06); }
+    tbody tr.plan-row-later { background: rgba(245,158,11,0.06); }
+
+    footer {
+      margin-top: 28px;
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+    }
+
+    /* ========== 选股研判 ========== */
+    .screen-input-row {
+      display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+    }
+    .screen-input-row input[type=text] {
+      flex: 1; min-width: 140px; max-width: 280px;
+      padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+      background: var(--bg); color: var(--text); font-size: 0.95rem;
+    }
+    .screen-btn {
+      padding: 9px 18px; border: none; border-radius: 8px;
+      background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; font-family: inherit;
+    }
+    .screen-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .screen-btn-ghost {
+      background: transparent; border: 1px solid var(--border); color: var(--text);
+    }
+    .screen-chk-row { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+    .screen-chk-row label { font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+    .screen-error {
+      background: rgba(180, 35, 24, 0.08); border: 1px solid var(--danger);
+      color: var(--loss-text); padding: 10px 12px; border-radius: 8px; margin-top: 12px;
+    }
+    .screen-loading { color: var(--muted); margin-top: 10px; font-size: 0.88rem; }
+    .verdict-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 12px; }
+    .verdict-badge {
+      font-size: 1.35rem; font-weight: 700; padding: 6px 16px; border-radius: 10px;
+    }
+    .verdict-badge.ok { background: rgba(45, 106, 79, 0.12); color: var(--ok); }
+    .verdict-badge.warn { background: rgba(154, 103, 0, 0.1); color: var(--warn); }
+    .verdict-badge.danger { background: rgba(180, 35, 24, 0.1); color: var(--danger); }
+    .screen-tag {
+      font-size: 0.72rem; padding: 3px 9px; border-radius: 999px;
+      background: var(--border); color: var(--muted);
+    }
+    .screen-tag.in-port { background: hsl(var(--primary) / 0.15); color: hsl(var(--primary)); }
+    .screen-score-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 10px; margin: 12px 0;
+    }
+    .screen-score-item {
+      background: var(--bg); border-radius: 8px; padding: 10px; text-align: center;
+    }
+    .screen-score-item .val { font-size: 1.25rem; font-weight: 700; color: var(--accent); }
+    .screen-score-item .lbl { font-size: 0.72rem; color: var(--muted); }
+    .layer-row {
+      display: grid; grid-template-columns: 64px 1fr 32px; align-items: center;
+      gap: 8px; margin-bottom: 6px;
+    }
+    .layer-label { font-size: 0.78rem; color: var(--muted); }
+    .bar-wrap { height: 7px; background: var(--bg); border-radius: 4px; overflow: hidden; }
+    .bar { height: 100%; background: var(--accent); border-radius: 4px; }
+    .layer-val { font-size: 0.78rem; text-align: right; }
+    td.rule-pass { color: var(--ok); }
+    td.rule-fail { color: var(--warn); }
+    td.rule-veto { color: var(--danger); font-weight: 600; }
+    .rule-missing { color: var(--warn); font-size: 0.72rem; }
+    .rule-manual { color: hsl(var(--primary)); font-size: 0.72rem; }
+    .screen-json {
+      background: var(--bg); padding: 10px; border-radius: 8px;
+      overflow: auto; font-size: 0.72rem; max-height: 200px; margin-top: 8px;
+    }
+    .screen-analysis-block { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .screen-analysis-block h3 { font-size: 0.9rem; margin-bottom: 8px; }
+    .screen-analysis-text { font-size: 0.88rem; line-height: 1.7; color: var(--text); white-space: pre-wrap; }
+    .screen-metrics-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 8px; margin: 12px 0;
+    }
+    .screen-metric-item { background: var(--bg); border-radius: 8px; padding: 8px 10px; }
+    .screen-metric-item .m-val { font-weight: 600; font-size: 0.92rem; }
+    .screen-metric-item .m-lbl { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .screen-metric-item .m-th { font-size: 0.68rem; color: var(--muted); margin-top: 2px; }
+    .screen-metric-item .m-note { font-size: 0.65rem; color: var(--muted); opacity: 0.85; }
+    .screen-metric-item.metric-ok { border: 1px solid rgba(16,185,129,0.35); }
+    .screen-metric-item.metric-fail { border: 1px solid rgba(239,68,68,0.35); }
+    .divergence-item {
+      background: var(--bg); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+      border-left: 3px solid var(--warn);
+    }
+    .divergence-item.veto { border-left-color: var(--danger); }
+    .divergence-item.hard_fail { border-left-color: #f97316; }
+    .divergence-item .div-title { font-size: 0.84rem; font-weight: 600; margin-bottom: 4px; }
+    .divergence-item .div-summary { font-size: 0.82rem; line-height: 1.6; margin: 0; color: var(--text); }
+    .divergence-item .div-metrics { font-size: 0.75rem; color: var(--muted); margin-top: 6px; }
+    .final-conclusion {
+      background: linear-gradient(135deg, hsl(var(--primary) / 0.12), hsl(152 69% 40% / 0.08));
+      border: 1px solid hsl(var(--primary) / 0.35); border-radius: 10px; padding: 14px 16px; margin-bottom: 14px;
+    }
+    .final-conclusion.data-bad { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.4); }
+    .final-conclusion h3 { font-size: 0.9rem; margin: 0 0 8px; color: var(--muted); }
+    .final-conclusion .fc-headline { font-size: 1.05rem; font-weight: 700; margin: 0 0 10px; line-height: 1.45; }
+    .final-conclusion .fc-label { font-size: 0.78rem; color: var(--muted); margin: 8px 0 4px; }
+    .final-conclusion .fc-list { margin: 0; padding-left: 1.2rem; font-size: 0.86rem; line-height: 1.55; }
+    .final-conclusion .fc-actions { color: var(--text); }
+    #analysis-detailed { margin-top: 8px; }
+    .screen-analysis-cols {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px;
+    }
+    .screen-list-block h4 { font-size: 0.82rem; margin-bottom: 6px; color: var(--muted); }
+    .screen-list-block ul { margin: 0; padding-left: 18px; font-size: 0.82rem; line-height: 1.6; }
+    .screen-list-block li { margin-bottom: 4px; }
+    .screen-decision-step {
+      display: flex; gap: 10px; margin-bottom: 10px; font-size: 0.84rem; align-items: flex-start;
+    }
+    .screen-decision-step .step-num {
+      flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600;
+    }
+    .screen-decision-step.pass .step-num { background: rgba(16,185,129,0.2); color: var(--ok); }
+    .screen-decision-step.fail .step-num { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .screen-decision-step.danger .step-num { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .screen-decision-step .step-body { flex: 1; }
+    .screen-decision-step .step-title { font-weight: 600; margin-bottom: 2px; }
+    .screen-decision-step .step-detail { color: var(--muted); line-height: 1.55; }
+    .screen-layer-card {
+      background: var(--bg); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px;
+    }
+    .screen-layer-card h4 { font-size: 0.85rem; margin-bottom: 4px; display: flex; justify-content: space-between; gap: 8px; }
+    .screen-layer-card .layer-status { font-size: 0.72rem; font-weight: 600; }
+    .screen-layer-card .layer-status.ok { color: var(--ok); }
+    .screen-layer-card .layer-status.warn { color: var(--warn); }
+    .screen-layer-card .layer-status.danger { color: var(--danger); }
+    .screen-layer-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.55; margin: 0; }
+    .rule-reason { font-size: 0.78rem; line-height: 1.45; color: var(--muted); max-width: 280px; }
+    .unified-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; align-items: center; }
+    .screen-disclaimer { font-size: 0.75rem; color: var(--muted); margin: 8px 0 0; line-height: 1.5; }
+    .ai-layer-card, .growth-mode-card {
+      margin: 12px 0; padding: 12px 14px; border-radius: 10px;
+      background: hsl(var(--primary) / 0.06); border: 1px solid hsl(var(--primary) / 0.15);
+    }
+    .ai-layer-title, .growth-mode-title { font-size: 0.88rem; font-weight: 600; margin: 0 0 8px; }
+    .ai-layer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; font-size: 0.82rem; }
+    .ai-k { color: var(--muted); margin-right: 6px; }
+    .ai-v.ai-bn-binding { color: var(--ok); font-weight: 600; }
+    .ai-v.ai-bn-narrative { color: var(--warn); }
+    .ai-tag { font-size: 0.68rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600; }
+    .ai-tag.core { background: rgba(16,185,129,0.15); color: var(--ok); }
+    .ai-tag.ext { background: rgba(245,158,11,0.15); color: var(--warn); }
+    .ai-layer-foot, .ai-layer-muted { font-size: 0.72rem; color: var(--muted); margin: 8px 0 0; }
+    .growth-mode-action { font-size: 0.82rem; color: var(--muted); margin: 0 0 6px; }
+    .growth-mode-sub { font-size: 0.75rem; color: var(--muted); margin: 0 0 6px; }
+    .growth-verdict { font-size: 0.78rem; padding: 2px 8px; border-radius: 4px; margin-left: 6px; }
+    .growth-verdict.ok { background: rgba(16,185,129,0.2); color: var(--ok); }
+    .growth-verdict.warn { background: rgba(245,158,11,0.2); color: var(--warn); }
+    .growth-verdict.danger { background: rgba(239,68,68,0.2); color: var(--danger); }
+    .growth-signals { margin: 0; padding-left: 18px; font-size: 0.8rem; line-height: 1.5; }
+    .growth-signals .ok { color: var(--ok); }
+    .growth-signals .fail { color: var(--muted); }
+    .etf-alert {
+      border-radius: 12px; padding: 16px 18px; margin-bottom: 20px; border: 1px solid var(--border);
+    }
+    .etf-alert-buy { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); }
+    .etf-alert-info { background: hsl(var(--primary) / 0.1); border-color: hsl(var(--primary) / 0.3); }
+    .etf-alert-wait { background: var(--bg); }
+    .etf-alert-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+    .etf-alert-body { font-size: 0.92rem; line-height: 1.6; }
+    .etf-alert-note { margin-top: 8px; font-size: 0.82rem; color: var(--warn); }
+    .etf-alert-meta { margin-top: 8px; font-size: 0.75rem; color: var(--muted); }
+    .etf-signal-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      padding: 14px 16px; margin-bottom: 12px;
+    }
+    .etf-signal-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .etf-signal-grid { display: flex; flex-wrap: wrap; gap: 12px 18px; font-size: 0.84rem; color: var(--muted); margin-bottom: 8px; }
+    .etf-reasons { margin: 0 0 10px; padding-left: 18px; font-size: 0.82rem; line-height: 1.55; }
+    .etf-tag {
+      display: inline-block; font-size: 0.72rem; padding: 2px 8px; border-radius: 999px;
+      background: var(--bg); color: var(--muted); border: 1px solid var(--border);
+    }
+    .etf-tag-buy { background: rgba(16,185,129,0.15); color: var(--ok); border-color: rgba(16,185,129,0.35); }
+    .etf-tag-done { background: rgba(148,163,184,0.15); color: var(--muted); }
+    .etf-mark-btn { margin-top: 4px; font-size: 0.82rem; padding: 6px 12px; }
+    .cloud-status {
+      margin-top: 10px; padding: 10px 12px; border-radius: 8px; font-size: 0.84rem; line-height: 1.5;
+      background: hsl(var(--primary) / 0.12); border: 1px solid hsl(var(--primary) / 0.35); color: hsl(var(--primary));
+    }
+    .cloud-status[data-type="ok"] { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.35); color: var(--ok); }
+    .cloud-status[data-type="warn"] { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: var(--warn); }
+    .holding-modal-backdrop {
+      position: fixed; inset: 0; background: rgba(26, 35, 50, 0.55); z-index: 10000;
+      display: flex; align-items: center; justify-content: center; padding: 16px;
+    }
+    .holding-modal-backdrop[hidden] { display: none !important; }
+    .holding-modal-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      max-width: 420px; width: 100%; padding: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .holding-modal-card h3 { margin: 0 0 12px; font-size: 1rem; }
+    .holding-form-row { margin-bottom: 10px; }
+    .holding-form-row label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 4px; }
+    .holding-form-row input, .holding-form-row select {
+      width: 100%; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-size: 0.9rem;
+    }
+    .holding-modal-actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+    .criteria-toolbar { margin-bottom: 16px; }
+    .criteria-lead { font-size: 0.88rem; color: var(--muted); margin: 0 0 12px; line-height: 1.55; }
+    .criteria-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+    .criteria-h2 { font-size: 0.95rem; margin: 0 0 12px; }
+    .criteria-hint { font-size: 0.78rem; color: var(--muted); margin: 6px 0 0; }
+    .criteria-muted { color: var(--muted); font-size: 0.85rem; }
+    .criteria-inp {
+      display: block; width: 100%; max-width: 280px; margin-top: 4px;
+      padding: 7px 10px; border-radius: 8px; border: 1px solid var(--border);
+      background: var(--bg); color: var(--text); font-size: 0.88rem;
+    }
+    .criteria-inp-sm { max-width: 100px; display: inline-block; width: auto; }
+    .criteria-field { display: block; font-size: 0.85rem; margin-bottom: 8px; }
+    .criteria-weights { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px; }
+    .criteria-weights label { font-size: 0.82rem; }
+    .criteria-table .criteria-inp { max-width: none; width: 100%; margin: 0; }
+    .criteria-layer { margin-bottom: 12px; }
+    .criteria-rule { border: 1px solid var(--border); border-radius: 10px; padding: 12px; margin-bottom: 10px; }
+    .criteria-rule-head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 8px; font-size: 0.9rem; }
+    .criteria-badge { font-size: 0.72rem; padding: 2px 8px; border-radius: 999px; background: hsl(var(--primary) / 0.12); color: var(--accent); }
+    .criteria-rule-body label { display: block; font-size: 0.82rem; margin-bottom: 8px; }
+    .criteria-unit { font-size: 0.82rem; color: var(--muted); }
+    .criteria-readonly { font-size: 0.82rem; color: var(--muted); }
+    .criteria-fallback { margin-top: 12px; padding: 12px; border-radius: 8px; border: 1px dashed var(--border); font-size: 0.82rem; }
+    .criteria-copy-area { width: 100%; min-height: 120px; margin: 8px 0; font-family: monospace; font-size: 0.75rem; }
+    .criteria-book-select { min-height: 88px; }
+    .criteria-book-links { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+    .criteria-rule-highlight { outline: 2px solid hsl(var(--primary) / 0.55); box-shadow: 0 0 0 4px hsl(var(--primary) / 0.12); }
+    .books-layout { display: grid; grid-template-columns: minmax(240px, 320px) 1fr; gap: 16px; align-items: start; }
+    @media (max-width: 900px) { .books-layout { grid-template-columns: 1fr; } }
+    .books-sidebar { padding: 14px; max-height: calc(100vh - 160px); overflow: auto; }
+    .books-detail { padding: 16px; min-height: 320px; }
+    .books-lead { font-size: 0.82rem; color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+    .books-filter-label { display: block; font-size: 0.82rem; margin-bottom: 8px; }
+    .books-list { display: flex; flex-direction: column; gap: 4px; margin-top: 10px; }
+    .books-item { text-align: left; border: 1px solid var(--border); background: transparent; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--text); }
+    .books-item:hover, .books-item-active { border-color: hsl(var(--primary) / 0.4); background: hsl(var(--primary) / 0.06); }
+    .books-item-title { display: block; font-size: 0.85rem; font-weight: 600; }
+    .books-item-meta { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .books-stub, .books-stub-badge { font-size: 0.68rem; padding: 1px 6px; border-radius: 999px; background: hsl(37 92% 50% / 0.15); color: hsl(37 80% 40%); margin-left: 4px; }
+    .books-empty { color: var(--muted); font-size: 0.85rem; }
+    .books-meta { font-size: 0.82rem; color: var(--muted); margin: 4px 0; }
+    .books-related { margin: 10px 0; }
+    .books-related-label { font-size: 0.78rem; color: var(--muted); margin-right: 8px; }
+    .books-rule-chip, .book-source-link { display: inline-block; font-size: 0.75rem; padding: 2px 8px; border-radius: 999px; border: 1px solid hsl(var(--primary) / 0.25); background: hsl(var(--primary) / 0.08); color: var(--accent); cursor: pointer; text-decoration: none; margin: 2px; }
+    .books-actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 8px; }
+    .books-article { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+    .books-muted { font-size: 0.82rem; color: var(--muted); }
+    .handbook-article { font-size: 0.9rem; line-height: 1.65; color: var(--text); }
+    .handbook-article h1 { font-size: 1.35rem; margin: 0 0 12px; }
+    .handbook-article h2 { font-size: 1.05rem; margin: 24px 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+    .handbook-article h3 { font-size: 0.95rem; margin: 16px 0 8px; color: var(--accent); }
+    .handbook-article p { margin: 0 0 10px; }
+    .handbook-article ul, .handbook-article ol { margin: 0 0 12px 1.2em; padding: 0; }
+    .handbook-article li { margin-bottom: 6px; }
+    .handbook-article blockquote { margin: 0 0 12px; padding: 10px 14px; border-left: 3px solid var(--accent); background: hsl(var(--primary) / 0.06); color: var(--muted); font-size: 0.85rem; }
+    .handbook-article code { font-family: ui-monospace, monospace; font-size: 0.82em; background: var(--kb-bg2); padding: 2px 6px; border-radius: 4px; }
+    .handbook-pre { overflow-x: auto; padding: 12px; border-radius: 8px; background: var(--kb-bg2); border: 1px solid var(--border); margin: 0 0 12px; font-size: 0.8rem; }
+    .handbook-table { width: 100%; border-collapse: collapse; margin: 0 0 16px; font-size: 0.84rem; }
+    .handbook-table th, .handbook-table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; }
+    .handbook-table th { background: hsl(var(--foreground) / 0.04); font-weight: 600; }
+    .handbook-article a { color: var(--accent); }
+    .handbook-article hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .watchlist-box { margin-bottom: 14px; }
+    .watchlist-box h3 { font-size: 0.88rem; margin-bottom: 8px; color: var(--muted); font-weight: 600; }
+    .watchlist-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .watchlist-chip {
+      border: 1px solid var(--border); background: var(--bg); color: var(--text);
+      padding: 6px 12px; border-radius: 999px; font-size: 0.82rem; cursor: pointer;
+    }
+    .watchlist-chip:hover { border-color: var(--accent); color: var(--accent); }
+    .watchlist-empty { font-size: 0.82rem; color: var(--muted); }
+    .report-cta {
+      margin: 14px 0; padding: 14px; border-radius: 10px;
+      background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25);
+    }
+    .report-cta .cta-title { font-weight: 600; margin: 0 0 6px; }
+    .report-cta .cta-steps { font-size: 0.84rem; color: var(--muted); margin: 0 0 10px; line-height: 1.6; }
+    .report-cta .cta-ok { color: var(--ok); margin: 0 0 10px; font-weight: 600; }
+    .screen-hero-btn { font-size: 1rem; padding: 11px 22px; }
+    .screen-help { font-size: 0.82rem; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+    @media (max-width: 768px) {
+      .screen-analysis-cols { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      table { font-size: 0.76rem; }
+      thead th, tbody td { padding: 7px 5px; }
+      .card-value { font-size: 1.15rem; }
+      .tab-btn { padding: 7px 12px; font-size: 0.82rem; }
+      .finance-page table { font-size: 0.9rem; }
+      .finance-page thead th,
+      .finance-page tbody td { padding: 10px 8px; }
+      .finance-page .card-value { font-size: 1.35rem; }
+    }
+
+    /* ── 财务计划 Tab：独立排版尺度（不影响投资 Tab）── */
+    .finance-page {
+      --fin-base: 1rem;
+      --fin-small: 0.875rem;
+      --fin-h2: 1.2rem;
+      --fin-h3: 1.05rem;
+      --fin-table: 0.9375rem;
+      --fin-line: 1.65;
+    }
+
+    .finance-page .page-desc {
+      font-size: var(--fin-base);
+      color: hsl(var(--foreground) / 0.72);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page section {
+      margin-bottom: 32px;
+    }
+
+    .finance-page section h2 {
+      font-size: var(--fin-h2);
+      margin-bottom: 14px;
+    }
+
+    .finance-page .summary-grid {
+      gap: 14px;
+    }
+
+    .finance-page .card {
+      padding: 18px 20px;
+    }
+
+    .finance-page .card-label {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .card-sub {
+      font-size: var(--fin-small);
+      color: hsl(var(--foreground) / 0.62);
+    }
+
+    .finance-page .card-value {
+      font-size: 1.45rem;
+    }
+
+    .finance-page table {
+      font-size: var(--fin-table);
+    }
+
+    .finance-page thead th,
+    .finance-page tbody td {
+      padding: 12px 14px;
+    }
+
+    .finance-page tbody tr.peak {
+      background: rgba(239, 68, 68, 0.14);
+    }
+
+    .finance-page .tips {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+      color: hsl(var(--foreground) / 0.72);
+    }
+
+    .finance-page .checklist li {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .principle {
+      font-size: 0.95rem;
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .principle .tag {
+      font-size: 0.8125rem;
+    }
+
+    .finance-page .phase-head h3 {
+      font-size: var(--fin-h3);
+    }
+
+    .finance-page .phase-date {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .phase-need {
+      font-size: var(--fin-base);
+      line-height: var(--fin-line);
+    }
+
+    .finance-page .badge {
+      font-size: 0.75rem;
+    }
+
+    .finance-page .todo-header h2 {
+      font-size: 1.15rem;
+    }
+
+    .finance-page .todo-progress {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .todo-group-head h3 {
+      font-size: 0.95rem;
+    }
+
+    .finance-page .todo-group-count {
+      font-size: var(--fin-small);
+    }
+
+    .finance-page .todo-item {
+      padding: 12px 10px;
+    }
+
+    .finance-page .todo-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+    }
+
+    .finance-page .todo-item label {
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+
+    .finance-page .account-tag {
+      font-size: var(--fin-small);
+    }
+
+    .finance-lead {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid hsl(var(--primary) / 0.3);
+      background: hsl(var(--primary) / 0.06);
+      font-size: var(--fin-base, 1rem);
+      margin-bottom: 18px;
+      line-height: 1.55;
+    }
+
+    .finance-fold {
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 0 16px 12px;
+      background: var(--card);
+    }
+
+    .finance-fold > summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 14px 0;
+      list-style: none;
+      color: var(--text);
+    }
+
+    .finance-fold > summary::-webkit-details-marker { display: none; }
+
+    .finance-fold[open] > summary {
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-sheet {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .plan-sheet-row {
+      display: grid;
+      grid-template-columns: 9.5rem 1fr;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .plan-sheet-row:last-child { border-bottom: none; }
+
+    .plan-sheet-row.head {
+      background: hsl(var(--primary) / 0.08);
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .plan-sheet-when {
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .plan-sheet-target {
+      padding: 12px 18px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .finance-adjust-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .finance-adjust-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .finance-adjust-item {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: hsl(var(--foreground) / 0.02);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .finance-adjust-item .meta { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+
+    .finance-adjust-item button {
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 0.78rem;
+    }
+
+    .finance-adjust-item button:hover { border-color: var(--danger); color: var(--danger); }
+
+    .badge.local { background: rgba(26, 35, 50, 0.08); color: var(--kb-navy-light); font-size: 0.62rem; margin-left: 4px; }
+
+    .holding-inline-panel {
+      background: var(--card);
+      border: 1px solid hsl(var(--primary) / 0.28);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+    }
+
+    .holding-inline-panel h2 { margin-bottom: 6px; }
+
+    .holding-inline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px 14px;
+      margin-top: 12px;
+    }
+
+    .holding-inline-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="shell-sidebar" id="shell-sidebar">
+      <a href="../index.html" class="shell-brand" style="text-decoration:none;color:inherit;">
+        <img src="../assets/lcai-kb-logo.svg" class="shell-brand-logo" alt="">
+        <div>
+          <div class="shell-brand-title">LCAI</div>
+          <div class="shell-brand-sub">投资工作台</div>
+        </div>
+      </a>
+      <nav class="shell-nav tabs" aria-label="主导航">
+        <details class="nav-group" open data-nav-group="invest">
+          <summary class="nav-group-label">投资</summary>
+          <div class="nav-group-items">
+            <button class="tab-btn active" data-page="home">首页</button>
+            <button class="tab-btn" data-page="screen">选股</button>
+            <button class="tab-btn" data-page="etf">ETF</button>
+            <button class="tab-btn" data-page="criteria">规则</button>
+            <button class="tab-btn" data-page="books">书籍</button>
+            <button class="tab-btn" data-page="handbook">手册</button>
+            <a href="docs/research/index.html" class="tab-btn" style="text-decoration:none;display:block;">AI 五层研究</a>
+          </div>
+        </details>
+        <a href="../finance/index.html" class="tab-btn" style="text-decoration:none;display:block;">💰 财务计划 →</a>
+      </nav>
+      <div class="shell-sidebar-foot">
+        <a href="../index.html" class="wb-home-link">← 返回人生中枢</a>
+      </div>
+    </aside>
+    <div class="shell-overlay" id="shell-overlay" hidden></div>
+    <div class="shell-main">
+      <header class="shell-header">
+        <button type="button" class="shell-menu-btn" id="shell-menu-btn" aria-label="打开菜单">☰</button>
+        <h1 class="shell-page-title" id="shell-page-title">首页</h1>
+      </header>
+      <div class="wrap shell-content">
+
+    <!-- ========== 首页 Dashboard ========== -->
+    <div id="page-home" class="page active">
+      <p class="page-desc">常用入口 · 输入代码快速研判 · 下方可跳转持仓与执行计划</p>
+
+      <div class="card home-hero">
+        <p class="home-hero-lead">输入股票代码，一键进入 LCAI 研判（与「选股」页相同）</p>
+        <div class="screen-input-row">
+          <input type="text" id="home-symbol-input" placeholder="例如 600519、601127、09880" value="">
+          <button type="button" class="screen-btn screen-hero-btn" id="btn-home-screen">帮我看看</button>
+        </div>
+      </div>
+
+      <div class="home-grid">
+        <div class="card home-card highlight">
+          <h3>⏰ 近期必还</h3>
+          <div class="home-urgent-val" id="home-urgent-amount">—</div>
+          <p class="home-stat-sub" id="home-urgent-sub">—</p>
+          <button type="button" class="home-link-btn" data-goto="plan">查看执行计划 →</button>
+        </div>
+        <div class="card home-card">
+          <h3>☁️ 云端关注</h3>
+          <div id="home-watchlist-chips" class="watchlist-chips"></div>
+        </div>
+        <div class="card home-card">
+          <h3>📊 持仓摘要</h3>
+          <div class="home-stat"><span>证券市值</span><span class="val" id="home-sec-total">—</span></div>
+          <div class="home-stat"><span>浮动盈亏</span><span class="val" id="home-sec-pnl">—</span></div>
+          <div class="home-stat"><span>持仓只数</span><span class="val" id="home-holdings-count">—</span></div>
+          <p class="home-stat-sub" id="home-net-worth-sub">—</p>
+          <button type="button" class="home-link-btn" data-goto="stock">查看全部持仓 →</button>
+        </div>
+        <div class="card home-card">
+          <h3>✅ 执行待办</h3>
+          <div class="home-stat"><span>进度</span><span class="val"><span id="home-todo-done">0</span> / <span id="home-todo-total">0</span></span></div>
+          <div class="home-todo-bar-wrap"><span id="home-todo-bar"></span></div>
+          <button type="button" class="home-link-btn" data-goto="plan">打开执行计划 →</button>
+        </div>
+        <div class="card home-card">
+          <h3>📈 ETF 加仓</h3>
+          <div class="home-stat"><span>今日信号</span><span class="val" id="home-etf-summary">—</span></div>
+          <p class="home-stat-sub" id="home-etf-sub">收盘后自动检测</p>
+          <button type="button" class="home-link-btn" data-goto="etf">打开 ETF 计划 →</button>
+        </div>
+      </div>
+
+      <div class="home-quick-links">
+        <button type="button" class="home-quick-btn" data-goto="screen">🔍 选股研判</button>
+        <button type="button" class="home-quick-btn" data-goto="criteria">⚙️ 改规则</button>
+        <button type="button" class="home-quick-btn" data-goto="handbook">📖 维护手册</button>
+        <button type="button" class="home-quick-btn" data-goto="debt">💳 债务总览</button>
+        <button type="button" class="home-quick-btn" data-goto="etf">📈 ETF 计划</button>
+      </div>
+    </div>
+
+    <!-- ========== ETF 分批计划 ========== -->
+    <div id="page-etf" class="page">
+      <p class="page-desc">10 万科技 ETF · 每日收盘后检测 · 符合回调/批次规则则提醒加仓 · 研究辅助非投资建议</p>
+      <div id="etf-alert-banner" class="etf-alert etf-alert-wait">加载中…</div>
+      <section>
+        <h2>今日加仓信号</h2>
+        <div id="etf-buy-signals"></div>
+      </section>
+      <section>
+        <h2>当前批次</h2>
+        <div class="card" style="padding:14px;overflow-x:auto;" id="etf-batch-wrap"></div>
+      </section>
+      <section>
+        <h2>目标进度</h2>
+        <div class="card" style="padding:0;overflow-x:auto;" id="etf-targets-wrap"></div>
+      </section>
+      <section>
+        <h2>买入记录</h2>
+        <div class="tips">
+          <ul id="etf-local-done"></ul>
+          <p style="margin-top:8px;font-size:0.82rem;color:var(--muted);">
+            本机标记仅作备忘。正式进度请运行：
+            <code>python scripts/check_etf_plan.py --done 588000 10000</code>
+            · 批次完成后：
+            <code>python scripts/check_etf_plan.py --complete-batch batch1</code>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    
+    <div id="page-screen" class="page">
+      <p class="page-desc">输入代码，点「帮我看看」。买入后可点 <strong>「加入持仓」</strong> 网页提交；<strong>持仓 + 云端关注</strong>每周一自动刷新 LCAI 报告。</p>
+
+      <div class="card watchlist-box" style="margin-bottom:16px">
+        <h3>⭐ 我的关注（点一下就能再看）</h3>
+        <div id="watchlist-chips" class="watchlist-chips"></div>
+        <div class="unified-actions" style="margin-top:12px">
+          <button type="button" class="screen-btn screen-btn-ghost" id="btn-weekly-refresh">🔄 立即更新全部报告</button>
+        </div>
+        <p class="screen-help" style="margin-top:8px">点上面按钮 → 在 GitHub 页点 <strong>Run workflow</strong> → 约 5–15 分钟更新（与每周一自动跑的是同一个任务）。</p>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <div class="screen-input-row">
+          <input type="text" id="symbol-input" placeholder="例如 600519、601127、09880" value="">
+          <button type="button" class="screen-btn screen-hero-btn" id="btn-screen">帮我看看</button>
+        </div>
+        <p class="screen-help">就这两步：输入代码 → 点按钮。下面两个勾一般不用动。</p>
+        <details style="margin-top:8px">
+          <summary style="cursor:pointer;color:var(--muted);font-size:0.82rem">更多选项（一般不用改）</summary>
+          <div class="screen-chk-row" style="margin-top:8px">
+            <label><input type="checkbox" id="chk-competence" checked> 我懂这门生意</label>
+            <label><input type="checkbox" id="chk-psychology" checked> 非情绪化交易</label>
+            <label><input type="checkbox" id="chk-growth-mode" checked> 成长型二次裁决（AI/国产替代）</label>
+          </div>
+        </details>
+        <div id="cloud-status" class="cloud-status" hidden></div>
+        <div id="screen-error" class="screen-error" hidden></div>
+        <p id="screen-loading" class="screen-loading" hidden>正在帮你看… 几秒钟就好</p>
+      </div>
+
+      <div id="report-panel" hidden>
+        <div class="card" style="margin-bottom:16px">
+          <div class="verdict-head">
+            <span id="verdict-badge" class="verdict-badge warn">—</span>
+            <div>
+              <div id="stock-title" style="font-weight:600">—</div>
+              <div id="verdict-action" style="color:var(--muted);font-size:0.88rem">—</div>
+            </div>
+            <span id="portfolio-tag" class="screen-tag">—</span>
+          </div>
+          <div id="ai-layer-wrap"></div>
+          <div id="growth-mode-wrap"></div>
+          <div id="final-conclusion" class="final-conclusion" hidden></div>
+          <p id="logic-summary" class="screen-analysis-text" style="margin-bottom:10px;font-size:0.88rem;color:var(--muted)"></p>
+          <details id="analysis-detailed-wrap" class="screen-analysis-block" hidden>
+            <summary style="cursor:pointer;font-size:0.88rem;color:var(--muted);margin-bottom:8px">展开详细总结</summary>
+            <pre id="analysis-detailed-text" class="screen-analysis-text" style="white-space:pre-wrap;font-family:inherit;margin:0"></pre>
+          </details>
+          <div class="screen-score-grid">
+            <div class="screen-score-item"><div class="val" id="overall-score">—</div><div class="lbl">总分</div></div>
+            <div class="screen-score-item"><div class="val" id="rating">—</div><div class="lbl">评级</div></div>
+          </div>
+          <p id="position-hint" style="font-size:0.85rem;color:var(--muted)"></p>
+          <p id="unified-disclaimer" class="screen-disclaimer" hidden>买卖结论以 LCAI 投资宪法为准。</p>
+
+          <div id="report-cta" class="report-cta" hidden>
+            <div id="report-cta-text"></div>
+            <div class="unified-actions">
+              <button type="button" class="screen-btn" id="btn-favorite-generate">⭐ 收藏并加入云端队列</button>
+              <button type="button" class="screen-btn screen-btn-ghost" id="btn-add-holding" hidden>📥 加入持仓（网页提交）</button>
+              <button type="button" class="screen-btn screen-btn-ghost" id="btn-open-full-report" hidden disabled>报告生成中…</button>
+            </div>
+            <p class="screen-help" style="margin-top:10px">⭐ 常看、未买入 → 收藏（云端每周刷新） · 📥 已买入 → 加入持仓</p>
+          </div>
+
+          <div id="unified-divergences" class="screen-analysis-block" hidden></div>
+          <div id="unified-cache-footer" class="screen-analysis-block" hidden></div>
+
+          <details class="screen-fold">
+            <summary>展开详细分析（指标 · 估值 · 优劣势 · 逻辑链）</summary>
+
+          <div id="analysis-metrics" class="screen-metrics-grid"></div>
+
+          <div id="analysis-valuation" class="screen-analysis-block">
+            <h3>估值测算</h3>
+            <div id="analysis-valuation-text" class="screen-analysis-text"></div>
+          </div>
+
+          <div class="screen-analysis-cols">
+            <div id="analysis-strengths" class="screen-list-block"></div>
+            <div id="analysis-weaknesses" class="screen-list-block"></div>
+            <div id="analysis-watch" class="screen-list-block"></div>
+          </div>
+
+          <div class="screen-analysis-block">
+            <h3>判定逻辑链</h3>
+            <div id="analysis-decision-steps"></div>
+          </div>
+
+          <h3 style="margin:14px 0 8px;font-size:0.9rem">分层得分</h3>
+          <div id="layer-scores"></div>
+
+          <div class="screen-analysis-block">
+            <h3>综合研判 · 分层解读</h3>
+            <div id="analysis-layer-cards"></div>
+          </div>
+          </details>
+        </div>
+
+        <details class="screen-fold">
+          <summary>规则明细（含分析说明）</summary>
+        <div class="card" style="margin-top:0;box-shadow:none;border:none;padding:0;background:transparent">
+          <p id="rules-fail-count" style="font-size:0.78rem;color:var(--muted);margin:0 0 10px"></p>
+          <div style="overflow-x:auto">
+            <table>
+              <thead>
+                <tr>
+                  <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>分析说明</th><th>来源</th>
+                </tr>
+              </thead>
+              <tbody id="rules-body"></tbody>
+            </table>
+          </div>
+          <details id="rules-pass-wrap" style="margin-top:12px" hidden>
+            <summary style="cursor:pointer;color:var(--muted);font-size:0.85rem">展开 Pass 规则（已通过项）</summary>
+            <div style="overflow-x:auto;margin-top:8px">
+              <table>
+                <thead>
+                  <tr>
+                    <th>编号</th><th>检查项</th><th>实际值</th><th>阈值</th><th>结果</th><th>分析说明</th><th>来源</th>
+                  </tr>
+                </thead>
+                <tbody id="rules-body-pass"></tbody>
+              </table>
+            </div>
+          </details>
+          <details style="margin-top:12px">
+            <summary style="cursor:pointer;color:var(--muted);font-size:0.85rem">导出 JSON</summary>
+            <button type="button" class="screen-btn screen-btn-ghost" id="btn-export" style="margin:8px 0">下载报告</button>
+            <pre id="report-json" class="screen-json"></pre>
+          </details>
+        </div>
+        </details>
+      </div>
+
+      <p class="page-desc" style="margin-top:16px;margin-bottom:0">研究辅助，不构成投资建议。买卖以 LCAI 投资宪法为准。规则见 <a href="投资系统/criteria.json">criteria.json</a>。</p>
+    </div>
+
+    <!-- ========== 页8：判定标准 ========== -->
+    <div id="page-criteria" class="page">
+      <p class="page-desc">在这里直接改判定门槛，点 <strong>「提交到云端」</strong> → GitHub 点 Submit，约 5–10 分钟生效（不用懂代码）。</p>
+      <div id="criteria-content"></div>
+    </div>
+
+    <!-- ========== 页8b：书籍知识库 ========== -->
+    <div id="page-books" class="page">
+      <p class="page-desc">110 本书独立笔记 · 按分层/主题筛选 · 关联规则可跳转 · 本地改 <code>书籍/books/*.md</code> 或网页提交。</p>
+      <div id="books-content"></div>
+    </div>
+
+    <!-- ========== 页9：维护手册 ========== -->
+    <div id="page-handbook" class="page">
+      <p class="page-desc">LCAI 使用与维护说明（与仓库 <code>08-日常维护手册.md</code> 同步）。</p>
+      <div id="handbook-content"></div>
+    </div>
+
+    <div id="holding-modal" class="holding-modal-backdrop" hidden>
+      <div class="holding-modal-card" role="dialog" aria-labelledby="holding-modal-title">
+        <h3 id="holding-modal-title">加入持仓</h3>
+        <p style="font-size:0.82rem;color:var(--muted);margin:0 0 12px">填写后跳转 GitHub，点绿色 <strong>Submit</strong> 即可（约 2–5 分钟同步到持仓页）。</p>
+        <div id="holding-modal-error" class="cloud-status" hidden style="margin-bottom:10px"></div>
+        <div class="holding-form-row">
+          <label>代码</label>
+          <input type="text" id="holding-code" readonly>
+        </div>
+        <div class="holding-form-row">
+          <label>名称</label>
+          <input type="text" id="holding-name">
+        </div>
+        <div class="holding-form-row">
+          <label>股数</label>
+          <input type="number" id="holding-shares" min="1" step="1" placeholder="例如 100">
+        </div>
+        <div class="holding-form-row">
+          <label>成本价（单股）</label>
+          <input type="number" id="holding-cost" min="0.01" step="0.01" placeholder="买入均价">
+        </div>
+        <div class="holding-form-row">
+          <label>现价备用（行情失败时用）</label>
+          <input type="number" id="holding-fallback" min="0.01" step="0.01">
+        </div>
+        <div class="holding-form-row">
+          <label>账户</label>
+          <select id="holding-account">
+            <option value="hb">华宝 (hb)</option>
+            <option value="gt">国投 (gt)</option>
+          </select>
+        </div>
+        <div class="holding-modal-actions">
+          <button type="button" class="screen-btn" id="holding-modal-submit">下一步 → GitHub Submit</button>
+          <button type="button" class="screen-btn screen-btn-ghost" id="holding-modal-cancel">取消</button>
+        </div>
+      </div>
+    </div>
+
+      <footer id="site-footer">LCAI 投资工作台</footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="../holdings-data.js"></script>
+  <script src="../quotes-data.js"></script>
+  <script src="../site-admin-gate.js"></script>
+  <script src="../etf-plan-data.js"></script>
+  <script src="../etf-plan-view.js"></script>
+
+  <script src="../finance/finance-config-data.js"></script>
+  <script src="../finance/finance-core.js"></script>
+  <script>
+    function renderHomeFinanceSummary() {
+      if (!window.FinanceCore || !window.FINANCE_CONFIG) {
+        ["home-sec-total","home-sec-pnl","home-holdings-count","home-urgent-amount"].forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el) el.textContent = "—";
+        });
+        var sub = document.getElementById("home-urgent-sub");
+        if (sub) sub.textContent = "前往财务计划查看";
+        var netSub = document.getElementById("home-net-worth-sub");
+        if (netSub) netSub.textContent = "finance/index.html";
+        return;
+      }
+      var todoState = FinanceCore.loadTodoState();
+      var state = FinanceCore.computeState(todoState);
+      var active = state.holdings.filter(function(h) { return !h.sold; });
+      var fmtInt = function(n) { return Math.round(n).toLocaleString("zh-CN"); };
+      var secTotal = document.getElementById("home-sec-total");
+      var secPnl = document.getElementById("home-sec-pnl");
+      var holdCount = document.getElementById("home-holdings-count");
+      var netSub = document.getElementById("home-net-worth-sub");
+      if (secTotal) secTotal.textContent = fmtInt(state.securitiesTotal);
+      if (secPnl) {
+        secPnl.textContent = (state.stockPnl >= 0 ? "+" : "") + fmtInt(state.stockPnl);
+        secPnl.className = "val " + (state.stockPnl >= 0 ? "gain" : "loss");
+      }
+      if (holdCount) holdCount.textContent = String(active.length);
+      if (netSub) netSub.textContent = "净资产 " + fmtInt(state.netWorth) + " · 负债 " + fmtInt(state.liabilitiesTotal);
+      var summary = FinanceCore.getPortalSummary();
+      var urgentAmt = document.getElementById("home-urgent-amount");
+      var urgentSub = document.getElementById("home-urgent-sub");
+      if (urgentAmt) urgentAmt.textContent = "→";
+      if (urgentSub && summary.sub) urgentSub.textContent = summary.sub;
+      var todoTotal = (window.FINANCE_CONFIG.todoGroups || []).reduce(function(a, g) { return a + g.items.length; }, 0);
+      var done = 0;
+      try {
+        var raw = localStorage.getItem(window.FINANCE_CONFIG.todoStorageKey);
+        var st = raw ? JSON.parse(raw) : {};
+        Object.keys(st).forEach(function(k) {
+          var v = st[k];
+          if (v && (v.done || v === true)) done++;
+        });
+      } catch (_) {}
+      var homeDone = document.getElementById("home-todo-done");
+      var homeTotal = document.getElementById("home-todo-total");
+      var homeBar = document.getElementById("home-todo-bar");
+      if (homeDone) homeDone.textContent = done;
+      if (homeTotal) homeTotal.textContent = todoTotal;
+      if (homeBar) homeBar.style.width = todoTotal ? (done / todoTotal * 100) + "%" : "0%";
+    }
+
+    function closeShellDrawer() {
+      document.getElementById("shell-sidebar")?.classList.remove("open");
+      var ov = document.getElementById("shell-overlay");
+      if (ov) ov.hidden = true;
+    }
+
+    var PAGE_TITLES = {
+      home: "首页", etf: "ETF", screen: "选股", criteria: "规则", books: "书籍", handbook: "手册",
+    };
+
+    function switchTab(page) {
+      window.ScreenHoldings?.closeModal?.();
+      closeShellDrawer();
+      document.querySelectorAll(".tab-btn").forEach(function(b) { b.classList.remove("active"); });
+      document.querySelectorAll(".page").forEach(function(p) { p.classList.remove("active"); });
+      var btn = document.querySelector('.tab-btn[data-page="' + page + '"]');
+      if (btn) {
+        btn.classList.add("active");
+        btn.closest(".nav-group")?.setAttribute("open", "");
+      }
+      var el = document.getElementById("page-" + page);
+      if (el) el.classList.add("active");
+      var titleEl = document.getElementById("shell-page-title");
+      if (titleEl) titleEl.textContent = PAGE_TITLES[page] || page;
+      if (page === "screen") {
+        history.replaceState(null, "", "#screen");
+        window.ScreenUI?.init?.();
+      } else if (page === "home") {
+        if (location.hash) history.replaceState(null, "", location.pathname);
+        renderHomeFinanceSummary();
+      } else if (page === "criteria") {
+        history.replaceState(null, "", "#criteria");
+        window.CriteriaView?.load?.();
+      } else if (page === "books") {
+        history.replaceState(null, "", "#books");
+        window.BooksView?.load?.();
+      } else if (page === "handbook") {
+        history.replaceState(null, "", "#handbook");
+        window.HandbookView?.load?.();
+      } else if (page === "etf") {
+        history.replaceState(null, "", "#etf");
+        window.EtfPlanView?.render?.();
+      }
+    }
+    window.switchTab = switchTab;
+
+    function runHomeScreen() {
+      var sym = document.getElementById("home-symbol-input")?.value?.trim();
+      switchTab("screen");
+      if (sym) {
+        var input = document.getElementById("symbol-input");
+        if (input) input.value = sym;
+        window.ScreenUI?.init?.();
+        document.getElementById("btn-screen")?.click();
+      }
+    }
+
+    document.getElementById("btn-home-screen")?.addEventListener("click", runHomeScreen);
+    document.getElementById("home-symbol-input")?.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") runHomeScreen();
+    });
+    document.querySelectorAll(".tab-btn[data-page]").forEach(function(btn) {
+      btn.addEventListener("click", function() { switchTab(btn.dataset.page); });
+    });
+    document.querySelectorAll("[data-goto]").forEach(function(btn) {
+      var page = btn.dataset.goto;
+      if (page === "plan" || page === "stock" || page === "debt") {
+        btn.addEventListener("click", function(e) {
+          e.preventDefault();
+          location.href = "../finance/index.html#" + page;
+        });
+        return;
+      }
+      btn.addEventListener("click", function() { switchTab(page); });
+    });
+
+    if (location.hash === "#screen") switchTab("screen");
+    if (location.hash === "#criteria") switchTab("criteria");
+    if (location.hash === "#books" || location.hash.startsWith("#books")) switchTab("books");
+    if (location.hash === "#handbook") switchTab("handbook");
+    if (location.hash === "#etf") switchTab("etf");
+
+    document.getElementById("shell-menu-btn")?.addEventListener("click", function() {
+      document.getElementById("shell-sidebar")?.classList.add("open");
+      document.getElementById("shell-overlay").hidden = false;
+    });
+    document.getElementById("shell-overlay")?.addEventListener("click", closeShellDrawer);
+
+    renderHomeFinanceSummary();
+    window.LCAIAdminGate?.initOverview?.("finance");
+  </script>
+
+  <script src="../screen-data.js?v=748028"></script>
+  <script src="../screen-engine.js?v=748028"></script>
+  <script src="../screen-ai-layers.js?v=748032"></script>
+  <script src="../screen-growth-mode.js?v=748032"></script>
+  <script src="../screen-watchlist.js?v=748028"></script>
+  <script src="../screen-cloud.js?v=748028"></script>
+  <script src="../screen-holdings.js?v=748028"></script>
+  <script src="../screen-unified.js?v=748028"></script>
+  <script src="../criteria-view.js?v=748031"></script>
+  <script src="../books-view.js?v=748031"></script>
+  <script src="../handbook-view.js?v=748031"></script>
+  <script src="../screen-ui.js?v=748031"></script>
+  <script>
+    CriteriaView?.init?.();
+    BooksView?.init?.();
+    HandbookView?.init?.();
+    ScreenHoldings?.init?.();
+    if (location.hash === "#screen") {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.querySelector('.tab-btn[data-page="screen"]')?.classList.add("active");
+      document.getElementById("page-screen")?.classList.add("active");
+      window.ScreenUI?.init();
+    }
+  </script>
+</body>
+</html>

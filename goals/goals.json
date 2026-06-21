@@ -1,0 +1,40 @@
+{
+  "year": 2026,
+  "objective": "先还清平台债，重建财务安全边际，同步推进职业与学习",
+  "quarter": {
+    "name": "2026 Q2",
+    "key_results": [
+      {
+        "id": "kr1",
+        "title": "6 月完成支付宝还款，7 月按时还京东",
+        "target": 100,
+        "progress": 85,
+        "link": "../finance/index.html#plan"
+      },
+      {
+        "id": "kr2",
+        "title": "阅读笔记：本季精读 3 本书并写摘要",
+        "target": 3,
+        "progress": 1,
+        "link": "../learning/index.html"
+      },
+      {
+        "id": "kr3",
+        "title": "健康：每周运动 ≥3 次",
+        "target": 12,
+        "progress": 4,
+        "link": "../health/index.html"
+      },
+      {
+        "id": "kr4",
+        "title": "职业：更新技能矩阵 + 1 个项目复盘",
+        "target": 100,
+        "progress": 30,
+        "link": "../career/index.html"
+      }
+    ]
+  },
+  "reviews": [
+    { "id": "2026-Q2", "title": "2026 Q2 复盘", "file": "reviews/2026-Q2.md" }
+  ]
+}

@@ -1,0 +1,183 @@
+{
+  "version": 1,
+  "todoStorageKey": "lcai-exec-todos-v9",
+  "overridesKey": "lcai-portfolio-overrides",
+  "constants": {
+    "jdPrepayAmount": 75122.86,
+    "jdDebtTotal": 209352.52,
+    "dyDebtTotal": 0,
+    "dyClearAmount": 160000,
+    "hbCashBeforeDyClear": 167202.69,
+    "dyRateAnnual": 16.2,
+    "dyLoanDate": "2026-06-17",
+    "dyMonthly": 14532.08,
+    "julJdPay": 34145.47,
+    "fundTotal": 63352.29,
+    "weimobJulEst": 43260,
+    "tencentAugEst": 79600,
+    "pinganAugSell": 8500,
+    "pinganAugEst": 65700,
+    "monthlySavings": 20000,
+    "jdHealthShares": 800
+  },
+  "baselineTodoDone": {},
+  "baseline": {
+    "debts": {
+      "jd": 0,
+      "ali": 0,
+      "dy": 0,
+      "didi": 0,
+      "personal": 0
+    },
+    "debtCounts": {
+      "jd": 9,
+      "ali": 1,
+      "dy": 0,
+      "didi": 0,
+      "personal": 1
+    },
+    "funds": [],
+    "accountCash": {
+      "gt": 0,
+      "hb": 7202.690000000002
+    },
+    "accountCashReserve": {}
+  },
+  "todoGroups": [],
+  "monthTodoMap": {
+    "2026-06": [
+      "jun-ali-pay"
+    ],
+    "2026-07": [
+      "jul-sell-weimob",
+      "jul-jd-pay",
+      "jul-ali-pay"
+    ],
+    "2026-08": [
+      "aug-fund",
+      "aug-sell-tencent",
+      "aug-sell-pa",
+      "aug-jd-pay",
+      "aug-friend",
+      "aug-ali-pay"
+    ],
+    "2026-09": [
+      "sep-pay"
+    ],
+    "2026-10": [
+      "oct-pay"
+    ],
+    "2026-11": [
+      "nov-pay"
+    ],
+    "2026-12": [
+      "dec-pay"
+    ],
+    "2027-01": [
+      "y27-01"
+    ],
+    "2027-02": [
+      "y27-02"
+    ],
+    "2027-03": [
+      "y27-03"
+    ],
+    "2027-04": [
+      "y27-04"
+    ]
+  },
+  "months": [
+    {
+      "label": "2026-06",
+      "jd": null,
+      "didi": null,
+      "dy": null,
+      "ali": 14660.75,
+      "personal": null,
+      "peak": false
+    },
+    {
+      "label": "2026-07",
+      "jd": 34145.47,
+      "didi": null,
+      "dy": null,
+      "ali": 14761.3,
+      "personal": null,
+      "peak": true
+    },
+    {
+      "label": "2026-08",
+      "jd": 39930.19,
+      "didi": null,
+      "dy": null,
+      "ali": 14815.43,
+      "personal": 200000,
+      "aug": true
+    },
+    {
+      "label": "2026-09",
+      "jd": 40326.41,
+      "didi": null,
+      "dy": null,
+      "ali": 14894.26,
+      "personal": null
+    },
+    {
+      "label": "2026-10",
+      "jd": 25245.47,
+      "didi": null,
+      "dy": null,
+      "ali": 14990.5,
+      "personal": null
+    },
+    {
+      "label": "2026-11",
+      "jd": 25473.47,
+      "didi": null,
+      "dy": null,
+      "ali": 15055.54,
+      "personal": null
+    },
+    {
+      "label": "2026-12",
+      "jd": 25806.47,
+      "didi": null,
+      "dy": null,
+      "ali": 15148.8,
+      "personal": null
+    },
+    {
+      "label": "2027-01",
+      "jd": 26071.47,
+      "didi": null,
+      "dy": null,
+      "ali": 15221.38,
+      "personal": null
+    },
+    {
+      "label": "2027-02",
+      "jd": 26370.47,
+      "didi": null,
+      "dy": null,
+      "ali": 15306.0,
+      "personal": null
+    },
+    {
+      "label": "2027-03",
+      "jd": 19089.47,
+      "didi": null,
+      "dy": null,
+      "ali": 15400.26,
+      "personal": null
+    },
+    {
+      "label": "2027-04",
+      "jd": 7939.47,
+      "didi": null,
+      "dy": null,
+      "ali": null,
+      "personal": null,
+      "light": true
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "entries": [
+    {
+      "id": "example-decision",
+      "title": "示例：重大决策记录框架",
+      "date": "2026-06-01",
+      "summary": "公开仓库仅保留框架；真实决策正文建议本地维护或门控后查看",
+      "file": "entries/example-decision.md",
+      "public": true
+    }
+  ]
+}

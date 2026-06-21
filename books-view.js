@@ -8,7 +8,20 @@ const BooksView = (() => {
   let index = null;
   let selectedId = null;
   let filterTier = '';
+  let filterDomain = '';
   let searchQuery = '';
+
+  function bookDomain(b) {
+    if (b.domain) return b.domain;
+    const cats = (b.categories || []).join(' ');
+    const section = b.section || '';
+    if (/技术|编程|AI|软件|计算机/.test(cats + section)) return 'tech';
+    if (/职业|管理|沟通|领导力/.test(cats + section)) return 'career';
+    if (/通识|心理|传记|历史/.test(cats + section)) return 'general';
+    return 'invest';
+  }
+
+  const DOMAIN_LABELS = { invest: '投资', tech: '技术', general: '通识', career: '职业' };
 
   function el(id) {
     return document.getElementById(id);
@@ -28,6 +41,7 @@ const BooksView = (() => {
     const idx = getIndex();
     let list = idx.books || [];
     if (filterTier) list = list.filter(b => String(b.tier) === filterTier);
+    if (filterDomain) list = list.filter(b => bookDomain(b) === filterDomain);
     if (searchQuery) {
       const q = searchQuery.toLowerCase();
       list = list.filter(b =>
@@ -51,7 +65,7 @@ const BooksView = (() => {
       const stub = statusBadge(b.status || 'stub');
       return `<button type="button" class="books-item${active}" data-book-id="${b.id}">
         <span class="books-item-title">${b.title} ${stub}</span>
-        <span class="books-item-meta">${tierLabel(b.tier)}</span>
+        <span class="books-item-meta">${tierLabel(b.tier)} · ${DOMAIN_LABELS[bookDomain(b)] || bookDomain(b)}</span>
       </button>`;
     }).join('');
     listEl.querySelectorAll('.books-item').forEach(btn => {
@@ -62,6 +76,10 @@ const BooksView = (() => {
   function bindFilterEvents() {
     el('books-filter-tier')?.addEventListener('change', e => {
       filterTier = e.target.value;
+      renderList();
+    });
+    el('books-filter-domain')?.addEventListener('change', e => {
+      filterDomain = e.target.value;
       renderList();
     });
     el('books-search')?.addEventListener('input', e => {
@@ -238,6 +256,15 @@ const BooksView = (() => {
       <div class="books-layout">
         <aside class="books-sidebar card">
           <p class="books-lead">本地改 <code>书籍/books/*.md</code> 或网页「提交到云端」。索引由脚本自动生成。</p>
+          <label class="books-filter-label">领域
+            <select id="books-filter-domain" class="criteria-inp">
+              <option value="">全部</option>
+              <option value="invest">投资</option>
+              <option value="tech">技术</option>
+              <option value="general">通识</option>
+              <option value="career">职业</option>
+            </select>
+          </label>
           <label class="books-filter-label">大类
             <select id="books-filter-tier" class="criteria-inp">
               <option value="">全部</option>

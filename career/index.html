@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>职业成长 · Russshare</title>
+  <link rel="stylesheet" href="../kb-theme.css">
+  <link rel="stylesheet" href="../portal-home.css">
+</head>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header"></div>
+    <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
+    <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
+  </aside>
+  <main class="kb-main">
+    <div class="kb-page-wrap">
+      <section class="kb-hero-section">
+        <h1 class="kb-hero-title">职业 <span class="gold">成长</span></h1>
+        <p class="kb-hero-sub">目标岗位：<strong id="career-target-role">—</strong></p>
+      </section>
+      <div class="kb-main-inner">
+        <h2 class="kb-section-title">技能矩阵</h2>
+        <table class="career-skill-table" id="career-skills-table">
+          <thead><tr><th>技能</th><th>水平</th><th>自评</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <h2 class="kb-section-title" style="margin-top:28px">项目</h2>
+        <div class="module-card-grid" id="career-projects"></div>
+        <h2 class="kb-section-title" style="margin-top:28px">学习路径</h2>
+        <ul id="career-learning-path"></ul>
+      </div>
+    </div>
+  </main>
+  <script src="../site-nav-data.js"></script>
+  <script src="../kb-shell.js"></script>
+  <script src="../module-shell.js"></script>
+  <script src="../site-admin-gate.js"></script>
+  <script src="career-view.js"></script>
+  <script>
+    ModuleShell.initModulePage({ activeId: "career", base: "../" });
+    CareerView.init();
+  </script>
+</body>
+</html>

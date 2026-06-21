@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>目标 OKR · Russshare</title>
+  <link rel="stylesheet" href="../kb-theme.css">
+  <link rel="stylesheet" href="../portal-home.css">
+</head>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header"></div>
+    <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
+    <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
+  </aside>
+  <main class="kb-main">
+    <div class="kb-page-wrap">
+      <section class="kb-hero-section">
+        <h1 class="kb-hero-title">目标 <span class="gold">OKR</span></h1>
+        <p class="kb-hero-sub" id="goals-quarter">加载中…</p>
+      </section>
+      <div class="kb-main-inner">
+        <p class="module-page-desc" id="goals-objective">—</p>
+        <h2 class="kb-section-title">本季 Key Results</h2>
+        <ul class="goals-kr-list" id="goals-kr-list"></ul>
+        <h2 class="kb-section-title" style="margin-top:28px">复盘</h2>
+        <ul id="goals-reviews"></ul>
+      </div>
+    </div>
+  </main>
+  <script src="../site-nav-data.js"></script>
+  <script src="../kb-shell.js"></script>
+  <script src="../module-shell.js"></script>
+  <script src="goals-view.js"></script>
+  <script>
+    ModuleShell.initModulePage({ activeId: "goals", base: "../" });
+    GoalsView.init();
+  </script>
+</body>
+</html>

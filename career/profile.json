@@ -1,0 +1,26 @@
+{
+  "name": "Russshare",
+  "targetRole": "全栈 / AI 应用工程师",
+  "skills": [
+    { "name": "Python", "level": "熟练", "score": 4 },
+    { "name": "JavaScript", "level": "熟练", "score": 4 },
+    { "name": "投资系统 / 数据", "level": "进阶", "score": 4 },
+    { "name": "AI / LLM 应用", "level": "进阶", "score": 3 },
+    { "name": "产品 / 写作", "level": "入门", "score": 2 }
+  ],
+  "projects": [
+    {
+      "id": "lcai",
+      "title": "LCAI 投资系统 + 人生中枢",
+      "period": "2025 — 至今",
+      "summary": "价值投资筛选引擎、GitHub Pages 工作台、CI 自动报告",
+      "tags": ["Python", "JavaScript", "GitHub Actions"],
+      "file": "projects/lcai-life-hub.md"
+    }
+  ],
+  "learningPath": [
+    "深化 AI 应用工程（RAG / Agent）",
+    "系统设计与可维护的前端架构",
+    "产业研究方法论"
+  ]
+}
