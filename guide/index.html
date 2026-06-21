@@ -38,6 +38,7 @@
           <a href="#quickstart">快速开始</a>
           <a href="#rhythm">使用节奏</a>
           <a href="#modules">模块说明</a>
+          <a href="#sync">数据同步</a>
           <a href="#lock">带锁页面</a>
           <a href="#faq">常见问题</a>
         </nav>
@@ -207,6 +208,24 @@
           </div>
         </section>
 
+        <section id="sync">
+          <div class="kb-section-header">
+            <h2 class="kb-section-title">网页保存与换机同步</h2>
+            <div class="kb-section-line"></div>
+          </div>
+          <p class="module-page-desc">以下操作<strong>直接在网页完成</strong>，无需改代码：</p>
+          <ul class="guide-rhythm-list" style="margin-bottom:16px">
+            <li><a href="../health/index.html">健康打卡</a>：勾选即保存</li>
+            <li><a href="../goals/index.html">OKR</a>：每条 KR 下方改数字 → 点「保存」</li>
+            <li><a href="../journal/index.html">决策日记</a>：「新建决策记录」在线编写</li>
+            <li><a href="../finance/index.html">财务计划</a>：执行待办勾选自动保存</li>
+          </ul>
+          <div class="guide-callout">
+            <strong>换电脑不丢：</strong>打开 <a href="../settings/index.html">数据同步</a>，用 GitHub Token（<code>gist</code> 权限）创建私密 Gist。
+            配置一次后自动云同步；新电脑填同一 Token + Gist ID 即可恢复。也可导出 JSON 手动备份。
+          </div>
+        </section>
+
         <section id="lock">
           <div class="kb-section-header">
             <h2 class="kb-section-title">带锁页面说明</h2>
@@ -234,12 +253,12 @@
               <p class="guide-faq-a">不能。本站是个人研究辅助，买卖裁决以 <code>投资系统/criteria.json</code> 规则为准，仅供自用复盘，不对外分发。</p>
             </li>
             <li class="guide-faq-item">
-              <div class="guide-faq-q">健康打卡换电脑会丢吗？</div>
-              <p class="guide-faq-a">会。健康数据存在浏览器 localStorage，不跨设备同步。财务/OKR 等内容在 git 仓库里，改 JSON/MD 后推送即更新网站。</p>
+              <div class="guide-faq-q">健康打卡、OKR 进度换电脑会丢吗？</div>
+              <p class="guide-faq-a">配置 <a href="../settings/index.html">数据同步</a> 后不会丢：改动自动存到 GitHub 私密 Gist，新设备用同一 Token + Gist ID 即可恢复。也可导出/导入 JSON 手动备份。OKR 可在网页直接改 KR 进度；决策日记支持在线新建编辑。</p>
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">我想改 OKR 或写决策日记，怎么操作？</div>
-              <p class="guide-faq-a">OKR：编辑 <code>goals/goals.json</code>，复盘写 <code>goals/reviews/</code> 下 MD。决策日记：在 <code>journal/entries/</code> 新建 MD，并登记到 <code>journal-index.json</code>。也可用 journal 页提供的模板起步。</p>
+              <p class="guide-faq-a"><strong>OKR</strong>：在 <a href="../goals/index.html">目标页</a> 每条 KR 下方改数字点保存（覆盖 goals.json 默认值）。<strong>决策日记</strong>：日记页点「新建决策记录」，或从模板进入后编辑保存。<strong>季末复盘 MD</strong> 仍建议在仓库 <code>goals/reviews/</code> 维护。</p>
             </li>
             <li class="guide-faq-item">
               <div class="guide-faq-q">2027.4 之前能买股票吗？</div>

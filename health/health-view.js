@@ -1,7 +1,6 @@
 (function (global) {
   "use strict";
 
-  var STORAGE_KEY = "life-health-v1";
   var HABITS = [
     { id: "exercise", label: "运动 ≥30 分钟" },
     { id: "sleep", label: "23:30 前睡觉" },
@@ -13,15 +12,20 @@
   }
 
   function load() {
+    if (global.LifeSync) return LifeSync.getHealth();
     try {
-      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      return JSON.parse(localStorage.getItem("life-health-v1") || "{}");
     } catch (e) {
       return {};
     }
   }
 
   function save(data) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    if (global.LifeSync) {
+      LifeSync.setHealth(data);
+      return;
+    }
+    localStorage.setItem("life-health-v1", JSON.stringify(data));
   }
 
   function computeStreak(logs) {
@@ -31,7 +35,9 @@
       var key = d.toISOString().slice(0, 10);
       var day = logs[key];
       if (!day) break;
-      var ok = HABITS.every(function (h) { return day[h.id]; });
+      var ok = HABITS.every(function (h) {
+        return day[h.id];
+      });
       if (!ok) break;
       streak++;
       d.setDate(d.getDate() - 1);
@@ -49,7 +55,15 @@
     if (!grid) return;
     grid.innerHTML = HABITS.map(function (h) {
       var checked = data.logs[t][h.id] ? " checked" : "";
-      return '<label class="health-check-item"><input type="checkbox" data-habit="' + h.id + '"' + checked + "><span>" + h.label + "</span></label>";
+      return (
+        '<label class="health-check-item"><input type="checkbox" data-habit="' +
+        h.id +
+        '"' +
+        checked +
+        "><span>" +
+        h.label +
+        "</span></label>"
+      );
     }).join("");
 
     grid.querySelectorAll("input").forEach(function (cb) {
@@ -58,6 +72,7 @@
         data.streak = computeStreak(data.logs);
         save(data);
         updateStats(data);
+        renderWeek(data);
       });
     });
 
@@ -72,7 +87,9 @@
     var todayEl = document.getElementById("health-today-count");
     var t = today();
     var day = data.logs[t] || {};
-    var count = HABITS.filter(function (h) { return day[h.id]; }).length;
+    var count = HABITS.filter(function (h) {
+      return day[h.id];
+    }).length;
     if (streakEl) streakEl.textContent = String(data.streak || 0);
     if (todayEl) todayEl.textContent = count + " / " + HABITS.length;
   }
@@ -86,12 +103,39 @@
       d.setDate(d.getDate() - i);
       var key = d.toISOString().slice(0, 10);
       var day = data.logs[key] || {};
-      var count = HABITS.filter(function (h) { return day[h.id]; }).length;
+      var count = HABITS.filter(function (h) {
+        return day[h.id];
+      }).length;
       var pct = Math.round((count / HABITS.length) * 100);
-      html += '<div class="module-stat-card"><div class="module-stat-label">' + key.slice(5) + '</div><div class="module-stat-value">' + count + "/" + HABITS.length + '</div><div class="module-progress-bar"><span style="width:' + pct + '%"></span></div></div>';
+      html +=
+        '<div class="module-stat-card"><div class="module-stat-label">' +
+        key.slice(5) +
+        '</div><div class="module-stat-value">' +
+        count +
+        "/" +
+        HABITS.length +
+        '</div><div class="module-progress-bar"><span style="width:' +
+        pct +
+        '%"></span></div></div>';
     }
     wrap.innerHTML = html;
   }
 
-  global.HealthView = { init: render, STORAGE_KEY: STORAGE_KEY };
+  function init() {
+    var run = function () {
+      render();
+      if (global.LifeSync) {
+        LifeSync.onChange(function () {
+          render();
+        });
+      }
+    };
+    if (global.LifeSync && LifeSync.init) {
+      LifeSync.init().then(run);
+    } else {
+      run();
+    }
+  }
+
+  global.HealthView = { init: init, STORAGE_KEY: "life-health-v1" };
 })(window);

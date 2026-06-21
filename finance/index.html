@@ -1870,6 +1870,7 @@
   <script src="../holdings-data.js"></script>
   <script src="../quotes-data.js"></script>
   <script src="../site-admin-gate.js"></script>
+  <script src="../life-sync.js"></script>
   <script src="finance-config-data.js"></script>
   <script src="finance-core.js"></script>
   <script>
@@ -1914,7 +1915,12 @@
       if (PAGE_TITLES[initial]) switchTab(initial);
     }
 
-    SiteAdminGate.initModule("finance", bootFinance, { cancelHref: "../index.html" });
+    SiteAdminGate.initModule("finance", function () {
+      LifeSync.init().then(function () {
+        LifeSync.applyFinanceToLocalStorage();
+        bootFinance();
+      });
+    }, { cancelHref: "../index.html" });
   </script>
 </body>
 </html>

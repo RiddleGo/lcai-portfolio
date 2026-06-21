@@ -89,33 +89,6 @@
     });
   }
 
-  function loadGoalsSummary() {
-    return loadGoalsData()
-      .then(function (data) {
-        var krs = (data.quarter && data.quarter.key_results) || [];
-        var done = krs.filter(function (k) {
-          return k.progress >= (k.target || 100);
-        }).length;
-        var avg =
-          krs.length > 0
-            ? Math.round(
-                krs.reduce(function (s, k) {
-                  return s + Math.min(100, (k.progress / (k.target || 1)) * 100);
-                }, 0) / krs.length
-              )
-            : 0;
-        return {
-          title: data.theme + " · " + ((data.quarter && data.quarter.name) || "本季"),
-          sub: "KR " + done + "/" + krs.length + " 达标 · 均进度 " + avg + "%",
-          href: "goals/index.html",
-          progress: avg,
-        };
-      })
-      .catch(function () {
-        return { title: "目标 OKR", sub: "设置年度与季度目标", href: "goals/index.html", progress: 0 };
-      });
-  }
-
   function renderPriority(financeItem, goalsData) {
     var box = el("portal-priority");
     if (!box) return;
@@ -183,13 +156,14 @@
   }
 
   function loadJournalSummary() {
+    var userCount = global.LifeSync ? LifeSync.getJournalEntries().length : 0;
     return fetch("journal/journal-index.json")
       .then(function (r) {
         if (!r.ok) throw new Error("no journal");
         return r.json();
       })
       .then(function (data) {
-        var entries = (data.entries || []).length;
+        var entries = (data.entries || []).length + userCount;
         var templates = (data.templates || []).length;
         return {
           title: "决策日记",
@@ -199,17 +173,21 @@
         };
       })
       .catch(function () {
-        return { title: "决策日记", sub: "重大决策 · 反思记录", href: "journal/index.html", lock: true };
+        return {
+          title: "决策日记",
+          sub: userCount + " 篇我的记录",
+          href: "journal/index.html",
+          lock: true,
+        };
       });
   }
 
   function loadHealthSummary() {
     try {
-      var raw = localStorage.getItem("life-health-v1");
-      if (!raw) return { title: "健康习惯", sub: "今日尚未打卡", href: "health/index.html" };
-      var data = JSON.parse(raw);
+      var data = global.LifeSync ? LifeSync.getHealth() : JSON.parse(localStorage.getItem("life-health-v1") || "{}");
+      if (!data.logs) return { title: "健康习惯", sub: "今日尚未打卡", href: "health/index.html" };
       var today = new Date().toISOString().slice(0, 10);
-      var todayLog = (data.logs || {})[today] || {};
+      var todayLog = data.logs[today] || {};
       var checked = ["exercise", "sleep", "routine"].filter(function (k) {
         return todayLog[k];
       }).length;
@@ -315,7 +293,52 @@
         : "");
   }
 
-  function init() {
+  function loadGoalsSummary() {
+    return loadGoalsData()
+      .then(function (data) {
+        var ov = global.LifeSync ? LifeSync.getGoalsOverrides().krProgress || {} : {};
+        var krs = (data.quarter && data.quarter.key_results) || [];
+        krs.forEach(function (k) {
+          if (ov[k.id] != null) k.progress = ov[k.id];
+        });
+        var done = krs.filter(function (k) {
+          return k.progress >= (k.target || 100);
+        }).length;
+        var avg =
+          krs.length > 0
+            ? Math.round(
+                krs.reduce(function (s, k) {
+                  return s + Math.min(100, (k.progress / (k.target || 1)) * 100);
+                }, 0) / krs.length
+              )
+            : 0;
+        return {
+          title: data.theme + " · " + ((data.quarter && data.quarter.name) || "本季"),
+          sub: "KR " + done + "/" + krs.length + " 达标 · 均进度 " + avg + "%",
+          href: "goals/index.html",
+          progress: avg,
+        };
+      })
+      .catch(function () {
+        return { title: "目标 OKR", sub: "设置年度与季度目标", href: "goals/index.html", progress: 0 };
+      });
+  }
+
+  function renderSyncBanner() {
+    var box = el("portal-sync-banner");
+    if (!box || !global.LifeSync) return;
+    if (LifeSync.isCloudEnabled()) {
+      box.hidden = true;
+      return;
+    }
+    box.hidden = false;
+    box.innerHTML =
+      "☁️ <strong>打卡、OKR、决策日记</strong>现已可在网页保存。" +
+      ' 换电脑请配置 <a href="settings/index.html">数据同步</a>（GitHub 私密 Gist），或导出 JSON 备份。';
+  }
+
+  function startPortal() {
+    renderSyncBanner();
     var goalsData = null;
     loadGoalsData()
       .then(function (d) {
@@ -367,6 +390,14 @@
         });
       };
       document.body.appendChild(booksScript);
+    }
+  }
+
+  function init() {
+    if (global.LifeSync && LifeSync.init) {
+      LifeSync.init().then(startPortal);
+    } else {
+      startPortal();
     }
   }
 

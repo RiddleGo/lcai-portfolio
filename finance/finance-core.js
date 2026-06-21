@@ -205,6 +205,9 @@
 
     function saveTodoState(state) {
       localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(state));
+      if (global.LifeSync && global.LifeSync.syncFinanceTodo) {
+        global.LifeSync.syncFinanceTodo(state);
+      }
     }
 
     function loadOverrides() {
@@ -218,6 +221,9 @@
 
     function saveOverrides(o) {
       localStorage.setItem(OVERRIDES_KEY, JSON.stringify(o));
+      if (global.LifeSync && global.LifeSync.syncFinanceOverrides) {
+        global.LifeSync.syncFinanceOverrides(o);
+      }
     }
 
     function normalizeOverrides(o) {

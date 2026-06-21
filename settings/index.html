@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>数据同步 · Russshare</title>
+  <link rel="stylesheet" href="../kb-theme.css">
+  <link rel="stylesheet" href="../portal-home.css">
+  <link rel="stylesheet" href="sync.css">
+  <link rel="stylesheet" href="../guide/guide.css">
+</head>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header"></div>
+    <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
+    <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
+  </aside>
+
+  <main class="kb-main">
+    <div class="kb-page-wrap">
+      <section class="kb-hero-section">
+        <h1 class="kb-hero-title">数据<span class="gold">同步</span></h1>
+        <p class="kb-hero-sub">健康打卡、OKR 进度、决策日记、财务待办 — 保存后自动同步，换电脑不丢</p>
+      </section>
+
+      <div class="kb-main-inner">
+        <div id="sync-status-bar" class="sync-status-bar"></div>
+
+        <div class="kb-section-header">
+          <h2 class="kb-section-title">云端同步（推荐）</h2>
+          <div class="kb-section-line"></div>
+        </div>
+        <p class="module-page-desc">
+          使用 <strong>GitHub 私密 Gist</strong> 存你的个人数据（不进公开仓库）。
+          配置一次后，各模块改动约 1.5 秒自动上传；新设备打开任意页面会先拉取最新。
+        </p>
+
+        <div class="guide-callout">
+          <strong>如何获取 Token？</strong><br>
+          GitHub → Settings → Developer settings → Personal access tokens → Generate（classic）→ 勾选 <code>gist</code> 权限即可。
+          Token 只保存在本机浏览器，不会提交到 git。
+        </div>
+
+        <div class="sync-form-group">
+          <label for="sync-token">GitHub Token（gist 权限）</label>
+          <input type="password" id="sync-token" autocomplete="off" placeholder="ghp_…">
+        </div>
+        <div class="sync-form-group">
+          <label for="sync-gist-id">Gist ID（留空则自动创建新的）</label>
+          <input type="text" id="sync-gist-id" placeholder="首次使用点「创建并连接」">
+          <p class="sync-form-hint">已有 Gist 可填 ID 复用；换电脑时填同一 ID + 同一 Token。</p>
+        </div>
+
+        <div class="sync-btn-row">
+          <button type="button" class="sync-btn sync-btn-primary" id="sync-btn-connect">保存并连接</button>
+          <button type="button" class="sync-btn" id="sync-btn-create">创建新 Gist 并连接</button>
+          <button type="button" class="sync-btn" id="sync-btn-pull">立即拉取</button>
+          <button type="button" class="sync-btn" id="sync-btn-push">立即上传</button>
+          <button type="button" class="sync-btn" id="sync-btn-disconnect">断开云同步</button>
+        </div>
+        <p id="sync-message" class="module-page-desc"></p>
+
+        <div class="kb-section-header" style="margin-top:32px">
+          <h2 class="kb-section-title">本地备份</h2>
+          <div class="kb-section-line"></div>
+        </div>
+        <p class="module-page-desc">不配置云端时，可导出 JSON 文件，换电脑后导入恢复。</p>
+        <div class="sync-btn-row">
+          <button type="button" class="sync-btn" id="sync-btn-export">导出 JSON</button>
+          <label class="sync-btn" style="cursor:pointer">
+            导入 JSON
+            <input type="file" id="sync-file-import" accept=".json,application/json" hidden>
+          </label>
+        </div>
+
+        <div class="kb-section-header" style="margin-top:32px">
+          <h2 class="kb-section-title">会同步哪些内容</h2>
+          <div class="kb-section-line"></div>
+        </div>
+        <ul class="sync-data-list" id="sync-data-list"></ul>
+      </div>
+    </div>
+  </main>
+
+  <script src="../site-nav-data.js"></script>
+  <script src="../kb-shell.js"></script>
+  <script src="../module-shell.js"></script>
+  <script src="../life-sync.js"></script>
+  <script src="sync-view.js"></script>
+  <script>
+    ModuleShell.initModulePage({ activeId: "sync", base: "../" });
+    LifeSync.init().then(function () { SyncView.init(); });
+  </script>
+</body>
+</html>

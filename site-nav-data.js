@@ -13,6 +13,7 @@ window.SITE_NAV = {
       links: [
         { href: "index.html", label: "🏛 总入口", id: "home" },
         { href: "guide/index.html", label: "📖 使用指南", id: "guide" },
+        { href: "settings/index.html", label: "☁️ 数据同步", id: "sync" },
         { href: "principles/life-constitution.md", label: "📜 人生宪法", id: "constitution" },
         { href: "goals/index.html", label: "🎯 目标 OKR", id: "goals" },
         { href: "career/index.html", label: "💼 职业成长", id: "career" },

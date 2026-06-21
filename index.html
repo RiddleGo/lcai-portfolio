@@ -8,6 +8,7 @@
   <meta name="theme-color" content="#B8860B">
   <link rel="stylesheet" href="kb-theme.css">
   <link rel="stylesheet" href="portal-home.css">
+  <link rel="stylesheet" href="settings/sync.css">
 </head>
 <body class="kb-body">
   <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
@@ -33,6 +34,8 @@
           当前处于 <b>偿债期</b>（2027.4 平台债清零）→ 之后进入 <b>双核复利期</b>。
         </p>
       </section>
+
+      <div id="portal-sync-banner" class="portal-sync-banner" hidden></div>
 
       <section class="portal-build-method" aria-label="构建方法">
         <div class="portal-method-steps">
@@ -120,11 +123,14 @@
   <script src="quotes-data.js"></script>
   <script src="finance/finance-config-data.js"></script>
   <script src="finance/finance-core.js"></script>
+  <script src="life-sync.js"></script>
   <script src="portal-home.js"></script>
   <script>
     KBShell.renderPortalSidebar("home");
     KBShell.initSidebar();
-    PortalHome.init();
+    LifeSync.init().then(function () {
+      PortalHome.init();
+    });
   </script>
 </body>
 </html>
