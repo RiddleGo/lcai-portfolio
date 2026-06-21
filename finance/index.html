@@ -1195,7 +1195,7 @@
       </div>
     </aside>
     <div class="shell-overlay" id="shell-overlay" hidden></div>
-    <div class="shell-main">
+    <div class="shell-main" id="site-gated-content">
       <header class="shell-header">
         <button type="button" class="shell-menu-btn" id="shell-menu-btn" aria-label="打开菜单">☰</button>
         <h1 class="shell-page-title" id="shell-page-title">持仓</h1>
@@ -1904,14 +1904,17 @@
     });
     document.getElementById("shell-overlay")?.addEventListener("click", closeShellDrawer);
 
-    if (!window.FINANCE_CONFIG) {
-      document.getElementById("finance-setup-banner").hidden = false;
-    } else {
+    function bootFinance() {
+      if (!window.FINANCE_CONFIG) {
+        document.getElementById("finance-setup-banner").hidden = false;
+        return;
+      }
       FinanceCore.init({ switchTab });
+      const initial = (location.hash || "#stock").replace("#", "") || "stock";
+      if (PAGE_TITLES[initial]) switchTab(initial);
     }
 
-    const initial = (location.hash || "#stock").replace("#", "") || "stock";
-    if (PAGE_TITLES[initial]) switchTab(initial);
+    SiteAdminGate.initModule("finance", bootFinance, { cancelHref: "../index.html" });
   </script>
 </body>
 </html>

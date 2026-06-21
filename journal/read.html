@@ -6,16 +6,20 @@
   <title>决策日记 · 阅读</title>
   <link rel="stylesheet" href="../kb-theme.css">
   <link rel="stylesheet" href="../portal-home.css">
+  <link rel="stylesheet" href="../lcai-admin-gate.css">
 </head>
 <body class="kb-body">
-  <main class="kb-main" style="grid-column:1/-1">
+  <main class="kb-main" id="site-gated-content" style="grid-column:1/-1">
     <div class="kb-page-wrap">
       <p><a href="index.html">← 返回日记列表</a></p>
       <h1 class="kb-hero-title" id="journal-read-title">—</h1>
       <div id="journal-read-content"></div>
     </div>
   </main>
+  <script src="../site-admin-gate.js"></script>
   <script src="journal-read.js"></script>
-  <script>JournalReader.init();</script>
+  <script>
+    SiteAdminGate.initModule("journal", function () { JournalReader.init(); }, { cancelHref: "index.html" });
+  </script>
 </body>
 </html>

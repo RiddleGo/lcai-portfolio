@@ -1,3 +1,18 @@
+/* 门控模块：未解锁前隐藏敏感正文（弹窗仍可操作） */
+body.site-admin-locked #site-gated-content {
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  height: 0;
+  overflow: hidden;
+}
+
+body.site-admin-locked .shell-sidebar,
+body.site-admin-locked .kb-sidebar {
+  pointer-events: none;
+  opacity: 0.45;
+}
+
 .lcai-admin-overlay {
   position: fixed;
   inset: 0;

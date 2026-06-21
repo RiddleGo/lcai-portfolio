@@ -54,7 +54,7 @@
     renderSidebar(opts.activeId, base);
     if (global.KBShell && global.KBShell.initSidebar) global.KBShell.initSidebar();
     if (opts.gateModule && global.SiteAdminGate) {
-      global.SiteAdminGate.initModule(opts.gateModule, opts.onUnlock);
+      global.SiteAdminGate.initModule(opts.gateModule, opts.onUnlock, opts.gateOptions);
     }
   }
 

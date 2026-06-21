@@ -54,7 +54,16 @@
 
   var overlayEl = null;
   var pendingTarget = null;
-  var currentModuleLabel = MODULE_LABELS.finance;
+  var cancelCallback = null;
+  var gatedBooted = false;
+
+  function lockGatedContent() {
+    document.body.classList.add("site-admin-locked");
+  }
+
+  function unlockGatedContent() {
+    document.body.classList.remove("site-admin-locked");
+  }
 
   function ensureOverlay() {
     if (overlayEl) return overlayEl;
@@ -78,16 +87,26 @@
     var pwInput = overlayEl.querySelector("#lcai-admin-pw");
     var errEl = overlayEl.querySelector("#lcai-admin-error");
 
-    function close() {
+    function close(unlocked) {
       overlayEl.hidden = true;
-      pendingTarget = null;
       errEl.textContent = "";
       pwInput.value = "";
+      var cb = cancelCallback;
+      var pending = pendingTarget;
+      pendingTarget = null;
+      cancelCallback = null;
+      if (!unlocked && cb) {
+        cb();
+        return;
+      }
+      if (unlocked && pending && typeof pending === "function") pending();
     }
 
-    overlayEl.querySelector(".lcai-admin-cancel").addEventListener("click", close);
+    overlayEl.querySelector(".lcai-admin-cancel").addEventListener("click", function () {
+      close(false);
+    });
     overlayEl.addEventListener("click", function (e) {
-      if (e.target === overlayEl) close();
+      if (e.target === overlayEl) close(false);
     });
 
     function submit() {
@@ -103,11 +122,11 @@
           return;
         }
         setUnlocked();
-        close();
+        unlockGatedContent();
+        gatedBooted = true;
         if (typeof global.__lcaiRenderAll === "function") global.__lcaiRenderAll();
         if (typeof global.__siteModuleUnlock === "function") global.__siteModuleUnlock();
-        if (pendingTarget && typeof pendingTarget === "function") pendingTarget();
-        pendingTarget = null;
+        close(true);
       }).catch(function () {
         errEl.textContent = "当前环境无法验证，请换浏览器重试";
       });
@@ -120,13 +139,15 @@
     return overlayEl;
   }
 
-  function promptUnlock(onSuccess, moduleId) {
+  function promptUnlock(onSuccess, moduleId, options) {
+    options = options || {};
     ensureOverlay();
     var desc = overlayEl.querySelector("#lcai-admin-desc");
     if (desc) {
       desc.textContent = (MODULE_LABELS[moduleId] || MODULE_LABELS.finance) + "含个人数据，请输入管理密码继续。";
     }
     pendingTarget = onSuccess || null;
+    cancelCallback = options.onCancel || null;
     overlayEl.hidden = false;
     overlayEl.querySelector("#lcai-admin-pw").focus();
   }
@@ -202,13 +223,32 @@
     }
   }
 
-  function initModule(moduleId, onUnlock) {
+  function initModule(moduleId, onUnlock, options) {
+    options = options || {};
+    var cancelHref = options.cancelHref || "../index.html";
     global.__siteModuleUnlock = onUnlock;
-    if (!isUnlocked()) {
-      promptUnlock(onUnlock, moduleId);
-    } else if (onUnlock) {
-      onUnlock();
+
+    function boot() {
+      if (gatedBooted) return;
+      gatedBooted = true;
+      unlockGatedContent();
+      if (onUnlock) onUnlock();
     }
+
+    if (document.getElementById("site-gated-content")) {
+      lockGatedContent();
+    }
+
+    if (isUnlocked()) {
+      boot();
+      return;
+    }
+
+    promptUnlock(boot, moduleId, {
+      onCancel: function () {
+        location.replace(cancelHref);
+      },
+    });
   }
 
   global.SiteAdminGate = {
@@ -218,6 +258,8 @@
     needsAdmin: needsAdmin,
     pageFromHash: pageFromHash,
     initModule: initModule,
+    lockGatedContent: lockGatedContent,
+    unlockGatedContent: unlockGatedContent,
     MODULE_PAGES: MODULE_PAGES,
   };
 

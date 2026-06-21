@@ -15,7 +15,7 @@
     <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
     <div class="kb-sidebar-foot"><a href="../index.html">← 人生中枢</a></div>
   </aside>
-  <main class="kb-main">
+  <main class="kb-main" id="site-gated-content">
     <div class="kb-page-wrap">
       <section class="kb-hero-section">
         <h1 class="kb-hero-title">决策 <span class="gold">日记</span></h1>
@@ -32,13 +32,9 @@
   <script src="../site-admin-gate.js"></script>
   <script src="journal-view.js"></script>
   <script>
-    ModuleShell.initModulePage({
-      activeId: "journal",
-      base: "../",
-      gateModule: "journal",
-      onUnlock: function () { JournalView.init(); },
-    });
-    if (SiteAdminGate.isUnlocked()) JournalView.init();
+    ModuleShell.renderSidebar("journal", "../");
+    KBShell.initSidebar();
+    SiteAdminGate.initModule("journal", function () { JournalView.init(); }, { cancelHref: "../index.html" });
   </script>
 </body>
 </html>
