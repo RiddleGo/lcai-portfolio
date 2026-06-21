@@ -10,6 +10,31 @@
     return "invest";
   }
 
+  function statusLabel(s) {
+    var map = { done: "已读完", reading: "在读", planned: "计划" };
+    return map[s] || s;
+  }
+
+  function renderSeasonBooks(books, idx) {
+    var box = document.getElementById("learning-season-books");
+    if (!box || !books || !books.length) return;
+    box.innerHTML =
+      "<h2 class=\"kb-section-title\">本季精读（2026 Q2）</h2>" +
+      "<div class=\"module-card-grid\">" +
+      books.map(function (b) {
+        var book = idx.by_id && idx.by_id[b.id];
+        var title = b.title || (book && book.title) || b.id;
+        var href = "../invest/workbench.html#books?book=" + encodeURIComponent(b.id);
+        return (
+          '<div class="module-stat-card">' +
+          '<div class="module-stat-label">' + statusLabel(b.status) + "</div>" +
+          '<strong><a href="' + href + '">' + title + "</a></strong>" +
+          '<p class="module-page-desc" style="margin:8px 0 0">' + (b.action || "") + "</p></div>"
+        );
+      }).join("") +
+      "</div>";
+  }
+
   function init() {
     var filterEl = document.getElementById("books-filter-domain");
     var searchEl = document.getElementById("books-search");
@@ -17,6 +42,13 @@
     var statsEl = document.getElementById("learning-books-stats");
     var idx = global.LCAI_BOOKS_INDEX;
     if (!idx || !listEl) return;
+
+    fetch("../goals/goals.json")
+      .then(function (r) { return r.json(); })
+      .then(function (goals) {
+        renderSeasonBooks(goals.season_books, idx);
+      })
+      .catch(function () {});
 
     function render() {
       var domain = filterEl ? filterEl.value : "";
@@ -28,7 +60,7 @@
           return (b.title || "").toLowerCase().includes(q) || (b.id || "").toLowerCase().includes(q);
         });
       }
-      if (statsEl) statsEl.textContent = "显示 " + books.length + " / " + (idx.count || idx.books.length) + " 本";
+      if (statsEl) statsEl.textContent = "书库 " + books.length + " / " + (idx.count || idx.books.length) + " 本（下方为全库浏览）";
       if (!books.length) {
         listEl.innerHTML = "<p>无匹配书籍</p>";
         return;

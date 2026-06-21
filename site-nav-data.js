@@ -12,6 +12,7 @@ window.SITE_NAV = {
       title: "人生",
       links: [
         { href: "index.html", label: "🏛 总入口", id: "home" },
+        { href: "principles/life-constitution.md", label: "📜 人生宪法", id: "constitution" },
         { href: "goals/index.html", label: "🎯 目标 OKR", id: "goals" },
         { href: "career/index.html", label: "💼 职业成长", id: "career" },
         { href: "learning/index.html", label: "📚 阅读笔记", id: "learning" },

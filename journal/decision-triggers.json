@@ -1,0 +1,39 @@
+{
+  "triggers": [
+    {
+      "id": "sell-stock",
+      "label": "卖出持仓（含 partial）",
+      "threshold": "任意卖出或 >10% 单票",
+      "template": "entries/template-sell-for-debt.md",
+      "link": "../finance/index.html#plan"
+    },
+    {
+      "id": "new-debt",
+      "label": "借入新债 / 消费贷",
+      "threshold": "任意新借款",
+      "template": "entries/template-new-debt.md",
+      "link": "../principles/life-constitution.md"
+    },
+    {
+      "id": "career-change",
+      "label": "职业变动",
+      "threshold": "换工作 / 大幅调整主业方向",
+      "template": "entries/template-career-change.md",
+      "link": "../career/index.html"
+    },
+    {
+      "id": "large-expense",
+      "label": "大额非计划支出",
+      "threshold": "> 月储蓄 2 万 或 > 总资产 5%",
+      "template": "entries/template-major-expense.md",
+      "link": "../finance/index.html#policy"
+    },
+    {
+      "id": "okr-change",
+      "label": "改变年度 OKR / 阶段规划",
+      "threshold": "修改 theme 或 phase",
+      "template": "entries/template-okr-change.md",
+      "link": "../goals/index.html"
+    }
+  ]
+}

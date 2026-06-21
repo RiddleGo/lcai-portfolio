@@ -11,16 +11,32 @@
   "projects": [
     {
       "id": "lcai",
-      "title": "LCAI 投资系统 + 人生中枢",
-      "period": "2025 — 至今",
-      "summary": "价值投资筛选引擎、GitHub Pages 工作台、CI 自动报告",
-      "tags": ["Python", "JavaScript", "GitHub Actions"],
-      "file": "projects/lcai-life-hub.md"
+      "title": "LCAI 规则引擎",
+      "period": "2024 — 至今",
+      "summary": "25+ 规则 · Python/JS 双引擎 · CI 自动报告",
+      "tags": ["Python", "规则引擎", "GitHub Actions"],
+      "file": "projects/lcai-engine.md"
+    },
+    {
+      "id": "life-hub",
+      "title": "Russshare 人生中枢",
+      "period": "2026 — 至今",
+      "summary": "8 模块人生 OS · 5C 复利框架 · 静态站点",
+      "tags": ["JavaScript", "信息架构", "GitHub Pages"],
+      "file": "projects/life-hub.md"
+    },
+    {
+      "id": "ai-rag",
+      "title": "AI Agent / RAG 实验",
+      "period": "2026 Q3 规划",
+      "summary": "书库 + criteria RAG 原型 · 可展示 LLM 应用",
+      "tags": ["LLM", "RAG", "规划中"],
+      "file": "projects/ai-agent-rag.md"
     }
   ],
   "learningPath": [
-    "深化 AI 应用工程（RAG / Agent）",
-    "系统设计与可维护的前端架构",
-    "产业研究方法论"
+    "深化 AI 应用工程（RAG / Agent）→ KR4 / ai-rag 项目",
+    "系统设计与可维护的前端架构 → life-hub 项目",
+    "产业研究方法论 → LCAI 五层研究 + season books"
   ]
 }

@@ -22,7 +22,7 @@
         var tags = (p.tags || []).map(function (t) {
           return '<span class="skill-level">' + t + "</span>";
         }).join(" ");
-        var href = p.file ? p.file.split("/").pop() : "#";
+        var href = p.file || "#";
         return '<div class="module-stat-card"><div class="module-stat-label">' + p.period + "</div><strong>" + p.title + "</strong><p class=\"module-page-desc\">" + p.summary + "</p><p>" + tags + ' · <a href="' + href + '" target="_blank" rel="noopener">详情</a></p></div>';
       }).join("");
     }

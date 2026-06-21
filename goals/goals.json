@@ -1,6 +1,19 @@
 {
   "year": 2026,
+  "theme": "清债重建",
   "objective": "先还清平台债，重建财务安全边际，同步推进职业与学习",
+  "phase": {
+    "name": "偿债期",
+    "until": "2027-04",
+    "link": "life-phases.md"
+  },
+  "constitution": "../principles/life-constitution.md",
+  "not_do": [
+    "2027.4 前不开新仓、不加杠杆",
+    "不为投资新增消费贷",
+    "不分散精力开超过 2 个 Side Project",
+    "本季不追新书数量，精读 3 本即可"
+  ],
   "quarter": {
     "name": "2026 Q2",
     "key_results": [
@@ -9,31 +22,60 @@
         "title": "6 月完成支付宝还款，7 月按时还京东",
         "target": 100,
         "progress": 85,
-        "link": "../finance/index.html#plan"
+        "unit": "%",
+        "link": "../finance/index.html#plan",
+        "module": "finance"
       },
       {
         "id": "kr2",
         "title": "阅读笔记：本季精读 3 本书并写摘要",
         "target": 3,
         "progress": 1,
-        "link": "../learning/index.html"
+        "unit": "本",
+        "link": "../learning/index.html",
+        "module": "learning",
+        "books": ["b032-5dbeb7", "b073-e63846", "b019-9a3426"]
       },
       {
         "id": "kr3",
-        "title": "健康：每周运动 ≥3 次",
+        "title": "健康：本季每周运动 ≥3 次（合计 12 次达标周）",
         "target": 12,
         "progress": 4,
-        "link": "../health/index.html"
+        "unit": "周",
+        "link": "../health/index.html",
+        "module": "health"
       },
       {
         "id": "kr4",
-        "title": "职业：更新技能矩阵 + 1 个项目复盘",
-        "target": 100,
-        "progress": 30,
-        "link": "../career/index.html"
+        "title": "职业：更新技能矩阵 + 完成 3 个项目复盘",
+        "target": 3,
+        "progress": 1,
+        "unit": "个",
+        "link": "../career/index.html",
+        "module": "career"
       }
     ]
   },
+  "season_books": [
+    {
+      "id": "b032-5dbeb7",
+      "title": "不焦虑的投资",
+      "status": "done",
+      "action": "强化 LCAI 心理纪律 L4 规则"
+    },
+    {
+      "id": "b073-e63846",
+      "title": "原则",
+      "status": "reading",
+      "action": "决策日记模板对齐「可信度加权」四段式"
+    },
+    {
+      "id": "b019-9a3426",
+      "title": "穷查理宝典",
+      "status": "planned",
+      "action": "能力圈 + 多学科思维清单写入人生宪法附录"
+    }
+  ],
   "reviews": [
     { "id": "2026-Q2", "title": "2026 Q2 复盘", "file": "reviews/2026-Q2.md" }
   ]

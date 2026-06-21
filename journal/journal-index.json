@@ -4,9 +4,16 @@
       "id": "example-decision",
       "title": "示例：重大决策记录框架",
       "date": "2026-06-01",
-      "summary": "公开仓库仅保留框架；真实决策正文建议本地维护或门控后查看",
+      "summary": "四段式模板 · 背景 / 选项 / 决策 / 复盘",
       "file": "entries/example-decision.md",
       "public": true
     }
+  ],
+  "templates": [
+    { "id": "sell-stock", "title": "卖股还债", "file": "entries/template-sell-for-debt.md" },
+    { "id": "new-debt", "title": "借入新债", "file": "entries/template-new-debt.md" },
+    { "id": "career-change", "title": "职业变动", "file": "entries/template-career-change.md" },
+    { "id": "major-expense", "title": "大额支出", "file": "entries/template-major-expense.md" },
+    { "id": "okr-change", "title": "改变 OKR", "file": "entries/template-okr-change.md" }
   ]
 }
