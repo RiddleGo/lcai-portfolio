@@ -106,7 +106,7 @@
     if (reviews && data.reviews) {
       reviews.innerHTML = data.reviews
         .map(function (r) {
-          return '<li><a href="reviews/' + r.id + '.md" target="_blank" rel="noopener">' + r.title + "</a></li>";
+          return '<li><a href="review.html?p=' + r.id + '">' + r.title + "</a></li>";
         })
         .join("");
     }

@@ -1,0 +1,42 @@
+{
+  "targetRole": "全栈 / AI 应用工程师",
+  "phase": "偿债期并行转型 · 2026–2027",
+  "northStar": "用可展示的项目证明「我能独立交付 AI 应用」，而不是只写「会 Python」",
+  "weeklyRhythm": [
+    { "block": "周一 · 规划", "action": "打开本页，确认本周 1 个可交付物；更新 profile 若进度变化" },
+    { "block": "周二四 · 深度", "action": "各 2h：写代码 / 写项目复盘（ai-rag 或 life-hub 迭代）" },
+    { "block": "周三 · 学习", "action": "1h 跟 AI 应用教程或官方文档，笔记写入项目 README" },
+    { "block": "周五 · 对外", "action": "整理 1 段「本周做了什么」→ 可贴 LinkedIn / 简历 bullet" },
+    { "block": "周日 · 复盘", "action": "勾选下方里程碑；不够就减 scope，不加新坑" }
+  ],
+  "thisMonth": [
+    "ai-rag：完成「上传 1 本书 PDF → 问 1 个问题有答案」最小 demo",
+    "life-hub：本月功能已上线，写 300 字项目复盘进 projects/life-hub.md",
+    "简历一句：Russshare 人生 OS + LCAI 规则引擎 · 全栈静态站 + Python CI"
+  ],
+  "milestones": [
+    {
+      "id": "m1",
+      "title": "LCAI 引擎 parity 文档",
+      "deadline": "2026-07",
+      "steps": ["跑 check_engine_parity.py", "补 README 说明 JS/Python 一致", "career 项目卡片标记完成"]
+    },
+    {
+      "id": "m2",
+      "title": "ai-rag MVP 可演示",
+      "deadline": "2026-08",
+      "steps": ["本地 ingest 1 本书", "CLI 或简单页面问答", "录 30s 屏或截图进项目详情"]
+    },
+    {
+      "id": "m3",
+      "title": "转型叙事定稿",
+      "deadline": "2026-09",
+      "steps": ["目标岗位 JD 找 3 份", "技能矩阵对照 gap", "定 1 个主攻方向（RAG / Agent / 全栈）"]
+    }
+  ],
+  "avoid": [
+    "偿债高峰期同时开第 4 个项目",
+    "只学课不做 demo",
+    "简历堆技能词无链接"
+  ]
+}

@@ -5,9 +5,9 @@
   "use strict";
 
   var HEALTH_ITEMS = [
-    { habitId: "exercise", text: "运动 ≥30 分钟", href: "../health/index.html" },
+    { habitId: "exercise", text: "今日训练（力量/空腹有氧）", href: "../health/index.html" },
     { habitId: "sleep", text: "23:30 前睡觉", href: "../health/index.html" },
-    { habitId: "routine", text: "晨间例行（计划 / 阅读）", href: "../health/index.html" },
+    { habitId: "routine", text: "晨间例行", href: "../health/index.html" },
   ];
 
   var CAT_LABEL = {
@@ -26,7 +26,7 @@
     finance: "财务 →",
     learning: "阅读 →",
     goals: "OKR →",
-    review: "首页 →",
+    review: "反思 →",
   };
 
   function linkLabel(category) {
@@ -171,6 +171,17 @@
     }
 
     var d = new Date();
+    var dom = d.getDate();
+    var lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+    if (dom <= 3 || dom >= lastDay - 2) {
+      items.push({
+        id: dateKey + "-review-monthly",
+        category: "review",
+        text: "月度反思：五维各 1 句 + 下月 1 个重点",
+        href: "../journal/monthly.html",
+        optional: dom > 3,
+      });
+    }
     if (d.getDay() === 0) {
       items.push({
         id: dateKey + "-review-week",

@@ -56,7 +56,7 @@
     var entries = data.entries || [];
     var templates = data.templates || [];
     var html =
-      '<p style="margin-bottom:16px"><a href="read.html?edit=new" class="sync-btn sync-btn-primary" style="display:inline-block;text-decoration:none">新建记录</a></p>';
+      '<p style="margin-bottom:16px"><a href="read.html?edit=new" class="sync-btn sync-btn-primary" style="display:inline-block;text-decoration:none">新建记录</a> · <a href="monthly.html" class="sync-btn" style="display:inline-block;text-decoration:none">月度反思</a></p>';
     html += renderUserEntries();
     if (entries.length) {
       html +=

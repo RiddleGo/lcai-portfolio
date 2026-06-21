@@ -1,0 +1,33 @@
+{
+  "season": "2026 Q2",
+  "weeklyTarget": "精读 ≥140 分钟 / 周",
+  "books": [
+    { "id": "b073-e63846", "title": "原则", "status": "reading", "minutesPerWeek": 60 },
+    { "id": "b019-9a3426", "title": "穷查理宝典", "status": "planned", "minutesPerWeek": 40 },
+    { "id": "b032-5dbeb7", "title": "不焦虑的投资", "status": "done", "minutesPerWeek": 0 }
+  ],
+  "schedule": [
+    {
+      "label": "工作日晨间",
+      "when": "周一至周五 · 起床后 20 分钟",
+      "task": "读当前在读书 1 章或 15 页；手机开飞行模式",
+      "link": "../today/index.html"
+    },
+    {
+      "label": "周末整块",
+      "when": "周日 · 40 分钟",
+      "task": "写读书笔记：3 条 takeaway + 1 条行动（对应 OKR / 宪法 / 项目）",
+      "link": "../journal/index.html"
+    }
+  ],
+  "notePrompts": [
+    "这条认知如何变成规则或行动？",
+    "能否写进决策日记模板或 career 项目？",
+    "与本月财务/职业冲突吗？"
+  ],
+  "rules": [
+    "本季只精读 3 本，不追新书数量",
+    "读完一本再开下一本",
+    "每本书至少 1 条行动写入 OKR 或 journal"
+  ]
+}

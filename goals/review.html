@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>复盘 · Russshare</title>
+  <link rel="stylesheet" href="../kb-theme.css">
+  <link rel="stylesheet" href="../portal-home.css">
+  <style>
+    .md-body { line-height: 1.85; max-width: 760px; }
+    .md-body h1 { font-family: var(--kb-serif); font-size: 1.6rem; }
+    .md-body h2 { font-size: 1.05rem; margin: 24px 0 8px; }
+    .md-body table { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin: 12px 0; }
+    .md-body th, .md-body td { border: 1px solid var(--kb-border); padding: 8px; }
+    .md-body blockquote { padding: 10px 14px; background: var(--kb-bg2); border-left: 3px solid var(--kb-gold); }
+  </style>
+</head>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header"></div>
+    <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
+    <div class="kb-sidebar-foot"><a href="index.html">← OKR</a></div>
+  </aside>
+  <main class="kb-main">
+    <div class="kb-page-wrap">
+      <div class="kb-main-inner" style="padding-top:24px">
+        <p><a href="index.html">← 返回 OKR</a></p>
+        <div id="md-content" class="md-body"></div>
+      </div>
+    </div>
+  </main>
+  <script src="../site-nav-data.js"></script>
+  <script src="../kb-shell.js"></script>
+  <script src="../module-shell.js"></script>
+  <script src="../md-view.js"></script>
+  <script>
+    ModuleShell.initModulePage({ activeId: "goals", base: "../" });
+    var id = new URLSearchParams(location.search).get("p") || "2026-Q2";
+    document.title = id + " 复盘 · Russshare";
+    MdView.fetchRender(document.getElementById("md-content"), "reviews/" + id + ".md", { basePath: "../" });
+  </script>
+</body>
+</html>
