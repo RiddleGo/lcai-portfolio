@@ -26,6 +26,9 @@
     var rules = (plan.rules || []).map(function (r) { return "<li>" + r + "</li>"; }).join("");
     var prompts = (plan.notePrompts || []).map(function (p) { return "<li>" + p + "</li>"; }).join("");
     box.innerHTML =
+      '<p class="module-page-desc" style="margin-bottom:12px">' +
+      '<a href="../reflect/edit.html?new=1&amp;kind=learning">+ 写学习记录</a> · ' +
+      '<a href="../reflect/index.html?kind=learning">查看全部笔记</a></p>' +
       '<p class="module-page-desc"><strong>' +
       (plan.season || "") +
       "</strong> · 目标 " +

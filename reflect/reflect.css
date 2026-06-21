@@ -1,0 +1,126 @@
+.reflect-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.reflect-tab {
+  padding: 6px 14px;
+  border: 1px solid var(--kb-border);
+  border-radius: 999px;
+  background: var(--kb-card);
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.reflect-tab.active {
+  border-color: var(--kb-gold);
+  background: var(--kb-gold-glow);
+  font-weight: 600;
+}
+
+.reflect-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.reflect-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reflect-item {
+  border: 1px solid var(--kb-border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  background: var(--kb-card);
+  transition: border-color 0.12s;
+}
+
+.reflect-item:hover {
+  border-color: var(--kb-gold);
+}
+
+.reflect-item a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.reflect-item-meta {
+  font-size: 0.78rem;
+  color: var(--kb-text2);
+  margin-bottom: 4px;
+}
+
+.reflect-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.reflect-item-snippet {
+  font-size: 0.88rem;
+  color: var(--kb-text2);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.reflect-editor {
+  width: 100%;
+  min-height: 320px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.75;
+  padding: 14px;
+  border: 1px solid var(--kb-border);
+  border-radius: 10px;
+  resize: vertical;
+}
+
+.reflect-form-row {
+  margin-bottom: 14px;
+}
+
+.reflect-form-row label {
+  display: block;
+  font-size: 0.82rem;
+  color: var(--kb-text2);
+  margin-bottom: 4px;
+}
+
+.reflect-form-row input,
+.reflect-form-row select {
+  width: 100%;
+  max-width: 420px;
+  padding: 8px 12px;
+  border: 1px solid var(--kb-border);
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.reflect-kind-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--kb-bg2);
+  color: var(--kb-text2);
+  margin-right: 6px;
+}
+
+.reflect-empty {
+  color: var(--kb-text2);
+  padding: 24px;
+  text-align: center;
+  border: 1px dashed var(--kb-border);
+  border-radius: 12px;
+}

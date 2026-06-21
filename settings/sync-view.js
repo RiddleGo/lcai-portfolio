@@ -66,12 +66,14 @@
     var health = LifeSync.getHealth();
     var goals = LifeSync.getGoalsOverrides();
     var journal = LifeSync.getJournalEntries();
+    var notes = LifeSync.getNotes ? LifeSync.getNotes() : [];
     var krCount = Object.keys(goals.krProgress || {}).length;
     var healthDays = Object.keys(health.logs || {}).length;
     list.innerHTML =
       "<li>🏃 健康打卡 · " + healthDays + " 天 · streak " + (health.streak || 0) + "</li>" +
       "<li>🎯 OKR 进度 · " + krCount + " 条 KR 已更新</li>" +
       "<li>📝 决策日记 · " + journal.length + " 篇</li>" +
+      "<li>📓 反思笔记 · " + notes.length + " 篇</li>" +
       "<li>💰 财务待办勾选</li>";
   }
 

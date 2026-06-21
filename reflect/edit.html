@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>写记录 · Russshare</title>
+  <link rel="stylesheet" href="../kb-theme.css">
+  <link rel="stylesheet" href="../portal-home.css">
+  <link rel="stylesheet" href="../settings/sync.css">
+  <link rel="stylesheet" href="reflect.css">
+</head>
+<body class="kb-body">
+  <button type="button" class="kb-hamburger" aria-label="打开菜单">☰</button>
+  <aside class="kb-sidebar" id="kb-sidebar">
+    <div class="kb-sidebar-header"></div>
+    <nav class="kb-sidebar-nav" id="kb-sidebar-nav"></nav>
+    <div class="kb-sidebar-foot"><a href="index.html">← 列表</a></div>
+  </aside>
+  <main class="kb-main">
+    <div class="kb-page-wrap">
+      <section class="kb-hero-section kb-hero-section--compact">
+        <h1 class="kb-hero-title">写 <span class="gold">记录</span></h1>
+        <p class="kb-hero-sub" id="reflect-edit-sub">—</p>
+      </section>
+      <div class="kb-main-inner">
+        <div class="reflect-form-row">
+          <label for="reflect-edit-kind">类型</label>
+          <select id="reflect-edit-kind">
+            <option value="reflection">日常反思</option>
+            <option value="learning">学习记录</option>
+            <option value="monthly">月度总结</option>
+            <option value="summary">自由总结</option>
+          </select>
+        </div>
+        <div class="reflect-form-row">
+          <label for="reflect-edit-title">标题</label>
+          <input type="text" id="reflect-edit-title" placeholder="标题">
+        </div>
+        <div class="reflect-form-row">
+          <label for="reflect-edit-date">日期</label>
+          <input type="date" id="reflect-edit-date">
+        </div>
+        <div class="reflect-form-row" id="reflect-book-row">
+          <label for="reflect-edit-book">书名 / 来源（学习记录可选）</label>
+          <input type="text" id="reflect-edit-book" placeholder="例如《原则》">
+        </div>
+        <div class="reflect-form-row">
+          <label for="reflect-edit-body">正文（支持 Markdown 标题）</label>
+          <textarea id="reflect-edit-body" class="reflect-editor"></textarea>
+        </div>
+        <div class="sync-btn-row">
+          <button type="button" class="sync-btn sync-btn-primary" id="reflect-edit-save">保存</button>
+          <button type="button" class="sync-btn" id="reflect-edit-delete" hidden>删除</button>
+          <a href="index.html" class="sync-btn" style="text-decoration:none;line-height:1.4">返回</a>
+        </div>
+        <p class="module-page-desc" id="reflect-edit-status"></p>
+      </div>
+    </div>
+  </main>
+  <script src="../site-nav-data.js"></script>
+  <script src="../kb-shell.js"></script>
+  <script src="../module-shell.js"></script>
+  <script src="../supabase-config.js"></script>
+  <script src="../life-sync.js"></script>
+  <script src="reflect-edit.js"></script>
+  <script>
+    ModuleShell.initModulePage({ activeId: "reflect", base: "../" });
+    ReflectEdit.init();
+  </script>
+</body>
+</html>

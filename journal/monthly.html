@@ -61,15 +61,17 @@
 
     function loadEntry(key) {
       if (!window.LifeSync) return null;
-      return LifeSync.getJournalEntries().find(function (e) {
-        return e.id === entryId(key);
-      });
+      return LifeSync.getNote(entryId(key));
     }
 
     function boot() {
       var key = monthKey();
       var sub = document.getElementById("monthly-subtitle");
-      if (sub) sub.textContent = key + " · 保存后可在日记列表查看";
+      if (sub) {
+        sub.innerHTML =
+          key +
+          ' · 已并入 <a href="../reflect/index.html?kind=monthly">反思笔记</a>';
+      }
 
       var ta = document.getElementById("monthly-body");
       var existing = loadEntry(key);
@@ -80,9 +82,10 @@
           alert("需要 life-sync.js");
           return;
         }
-        LifeSync.saveJournalEntry({
+        LifeSync.saveNote({
           id: entryId(key),
-          title: key + " 月度反思",
+          kind: "monthly",
+          title: key + " 月度总结",
           date: new Date().toISOString().slice(0, 10),
           body: ta.value,
         });

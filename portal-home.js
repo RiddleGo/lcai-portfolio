@@ -20,7 +20,10 @@
       short: "脑",
       question: "这条认知变成规则或行动了吗？",
       logic: "读书 → 笔记 → 原则/规则 → 决策与代码 → 再验证",
-      modules: [{ href: "learning/index.html", title: "阅读" }],
+      modules: [
+        { href: "learning/index.html", title: "阅读" },
+        { href: "reflect/index.html", title: "反思笔记" },
+      ],
       summaryKey: "learning",
     },
     {
@@ -244,6 +247,38 @@
     }).join("");
   }
 
+  function renderBuildPath() {
+    var wrap = el("portal-build-path");
+    if (!wrap) return;
+    var steps = [
+      { num: "L0", title: "宪法", desc: "原则与边界", href: "principles/index.html" },
+      { num: "L1", title: "OKR", desc: "季/年目标", href: "goals/index.html" },
+      { num: "L2", title: "模块计划", desc: "健康 · 职业 · 阅读", href: "health/index.html" },
+      { num: "L3", title: "今日 Todo", desc: "每天最重要的事", href: "today/index.html" },
+      { num: "L4", title: "反思笔记", desc: "反思 · 学习 · 月总结", href: "reflect/index.html" },
+      { num: "L5", title: "季复盘", desc: "OKR 回顾", href: "goals/review.html" },
+    ];
+    var parts = [];
+    steps.forEach(function (s, i) {
+      parts.push(
+        '<a href="' +
+          s.href +
+          '" class="portal-method-step">' +
+          '<span class="portal-method-num">' +
+          esc(s.num) +
+          "</span>" +
+          '<span class="portal-method-title">' +
+          esc(s.title) +
+          "</span>" +
+          '<span class="portal-method-desc">' +
+          esc(s.desc) +
+          "</span></a>"
+      );
+      if (i < steps.length - 1) parts.push('<span class="portal-method-arrow">→</span>');
+    });
+    wrap.innerHTML = '<div class="portal-method-steps">' + parts.join("") + "</div>";
+  }
+
   function renderHub(goalsSummary, goalsData) {
     var wrap = el("portal-hub");
     if (!wrap) return;
@@ -322,6 +357,7 @@
 
   function startPortal() {
     renderSyncBanner();
+    renderBuildPath();
     var goalsData = null;
     loadGoalsData()
       .then(function (d) {

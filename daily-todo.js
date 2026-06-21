@@ -178,7 +178,7 @@
         id: dateKey + "-review-monthly",
         category: "review",
         text: "月度反思：五维各 1 句 + 下月 1 个重点",
-        href: "../journal/monthly.html",
+        href: "../reflect/edit.html?new=1&kind=monthly",
         optional: dom > 3,
       });
     }

@@ -26,6 +26,7 @@
       health: { logs: {}, streak: 0 },
       goals: { krProgress: {}, seasonBooks: {} },
       journal: { entries: [] },
+      notes: { entries: [] },
       finance: { todoDone: null, overrides: null },
       dailyTodo: { days: {} },
       meta: { todoStorageKey: null, overridesKey: null },
@@ -132,6 +133,29 @@
     }
     if (todoKey) s.meta.todoStorageKey = todoKey;
     if (ovKey) s.meta.overridesKey = ovKey;
+    if (!s.notes) s.notes = { entries: [] };
+    var noteIds = {};
+    s.notes.entries.forEach(function (e) {
+      noteIds[e.id] = true;
+    });
+    if (s.journal && s.journal.entries) {
+      s.journal.entries = s.journal.entries.filter(function (e) {
+        if (e.id && e.id.indexOf("monthly-") === 0) {
+          if (!noteIds[e.id]) {
+            s.notes.entries.push({
+              id: e.id,
+              kind: "monthly",
+              title: e.title || e.id,
+              date: e.date,
+              body: e.body || "",
+              updatedAt: e.updatedAt,
+            });
+          }
+          return false;
+        }
+        return true;
+      });
+    }
     return s;
   }
 
@@ -443,6 +467,45 @@
     persistLocal();
   }
 
+  function getNotes(kind) {
+    var list = (getState().notes && getState().notes.entries) || [];
+    if (!kind || kind === "all") return list.slice();
+    return list.filter(function (e) {
+      return e.kind === kind;
+    });
+  }
+
+  function getNote(id) {
+    return getNotes().find(function (e) {
+      return e.id === id;
+    });
+  }
+
+  function saveNote(entry) {
+    var s = getState();
+    if (!s.notes) s.notes = { entries: [] };
+    var list = s.notes.entries;
+    if (!entry.id) entry.id = "note-" + Date.now();
+    if (!entry.date) entry.date = new Date().toISOString().slice(0, 10);
+    entry.updatedAt = new Date().toISOString();
+    var idx = list.findIndex(function (e) {
+      return e.id === entry.id;
+    });
+    if (idx >= 0) list[idx] = entry;
+    else list.unshift(entry);
+    persistLocal();
+    return entry;
+  }
+
+  function deleteNote(id) {
+    var s = getState();
+    if (!s.notes) return;
+    s.notes.entries = s.notes.entries.filter(function (e) {
+      return e.id !== id;
+    });
+    persistLocal();
+  }
+
   function syncFinanceTodo(todoState) {
     var s = getState();
     if (!s.finance) s.finance = {};
@@ -525,6 +588,10 @@
     getJournalEntry: getJournalEntry,
     saveJournalEntry: saveJournalEntry,
     deleteJournalEntry: deleteJournalEntry,
+    getNotes: getNotes,
+    getNote: getNote,
+    saveNote: saveNote,
+    deleteNote: deleteNote,
     syncFinanceTodo: syncFinanceTodo,
     syncFinanceOverrides: syncFinanceOverrides,
     applyFinanceToLocalStorage: applyFinanceToLocalStorage,
