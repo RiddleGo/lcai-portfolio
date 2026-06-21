@@ -295,39 +295,109 @@
 
 ---
 
-## 五、🛠 职业清单
+## 五、🛠 职业清单 · 端侧 AI 部署 12 周
 
-**北极星：** 用可展示的项目证明「我能独立交付 AI 应用」，而不是只写「会 Python」
+> 主仓库：`D:\CV\edge-ai-deployment`  
+> 详细每日任务：`每日学习计划.md`（84 天）  
+> 简历：`D:\CV\简历_v2_端侧AI部署.md`  
+> **当前进度：Week 1 收尾 → Week 2 TensorRT FP16**
 
-**目标岗位：** 全栈 / AI 应用工程师 · 偿债期并行转型 2026–2027
+**北极星：** 用 **YOLO TRT + LLM/RKNN** 可演示项目，证明「端侧 AI 部署工程化」能力  
+**目标岗位：** 端侧 AI 部署 / 图像算法工程化 / 嵌入式 AI（成都 35–45K）
 
-### 5.1 父任务
+### 5.1 父任务（不设重复）
 
-**标题：** `转行 · 全栈/AI 应用（KR4 1/3）`
+**标题：** `端侧 AI 部署 · 12 周转型（KR4 + 求职主线）`
 
-**子任务：**
-- [ ] ai-rag：上传 1 本书 PDF → 问 1 个问题有答案（最小 demo）
-- [ ] life-hub：300 字项目复盘
-- [ ] 简历一句：人生 OS + 规则引擎 · 全栈静态站 + Python CI
-- [ ] LCAI 引擎 parity 文档（deadline 2026-07）
-- [ ] ai-rag MVP 可演示（deadline 2026-08）
-- [ ] 转型叙事定稿：JD×3 + 技能 gap + 主攻方向（deadline 2026-09）
+**备注：**
+```
+仓库：D:\CV\edge-ai-deployment
+每周 10h：周二四各 1.5h + 周六 4h + 周日 3h（见每日学习计划）
+INFJ：连续 1.5–2h 一块，不要拆成多段
 
-### 5.2 每周重复
+项目一：project1_yolo_trt（YOLOv8n → ONNX → TRT → C++）
+项目二：project2_llm_edge（Qwen benchmark + RKNN）
 
-| 标题 | 重复 |
-|------|------|
-| 周一 · 确认本周 1 个可交付物 | 每周一 |
-| 周二 · 深度编码 2h | 每周二 |
-| 周三 · AI 教程 1h + 笔记进 README | 每周三 |
-| 周四 · 深度编码 2h | 每周四 |
-| 周五 · 整理「本周做了什么」bullet | 每周五 |
+Week12 才全力 BOSS 投递；前 11 周以项目和笔记为主
+```
 
-### 5.3 避免（贴父任务备注）
+**12 周里程碑（子任务 / 检查项）：**
 
-- 偿债高峰期同时开第 4 个项目
-- 只学课不做 demo
-- 简历堆技能词无链接
+| 周 | Phase | 标题 | 关键产出 |
+|----|-------|------|----------|
+| W1 | P1 | ONNX 基础 | yolov8n.onnx, ORT ~19.8 FPS ✅ 进行中 |
+| W2 | P1 | TensorRT FP16 | fp16.engine + TRT FPS |
+| W3 | P2 | 预处理/后处理对齐 | 检测框与 PyTorch 一致 |
+| W4 | P2 | INT8 PTQ | int8.engine + 量化三联表 |
+| W5 | P2 | Profiling + README | 项目一 GitHub 可展示 |
+| W6 | P3 | C++ TRT demo | yolo_trt_demo 可运行 |
+| W7 | P3 | 算子排查 | troubleshooting.md 案例 |
+| W8 | P3 | 自动化 | export.ps1 一键脚本 |
+| W9 | P4 | Qwen benchmark | llm_benchmark.md |
+| W10 | P4 | RKNN 转换 | rknn_conversion.md / .rknn |
+| W11 | P4 | 多平台选型 | platform_comparison + 简历项目二 |
+| W12 | P5 | 求职收尾 | BOSS 上线 + 投 2 个 JD + 面试稿 |
+
+---
+
+### 5.2 本周任务（Week 1 收尾 · 复制进滴答）
+
+**标题：** `W1 · ONNX 基础（Day 4–7 收尾）`
+
+- [x] Day3–5：ONNX 导出 + PyTorch 对齐（max diff 0.000549）
+- [ ] Day4：Netron 截图 + week01.md 记录 input/output
+- [ ] Day6：ORT 基准写入 benchmark_report.md
+- [ ] Day7：缓冲 / 预习 trt_optimization.md
+
+**命令：**
+```powershell
+cd D:\CV\edge-ai-deployment\project1_yolo_trt
+python scripts\01_export_onnx.py
+python scripts\03_trt_inference_benchmark.py
+```
+
+---
+
+### 5.3 下周预览（Week 2 · 进滴答时可建子任务）
+
+**标题：** `W2 · TensorRT FP16`
+
+| Day | 任务 |
+|-----|------|
+| Day8 | TensorRT 安装，版本写入 environment.md |
+| Day9 | trtexec 转 fp16.engine |
+| Day10 | TRT Python benchmark，记录 FPS/延迟/显存 |
+| Day11 | 笔记 week02：TRT 为何比 ORT 快 |
+| Day12 | FP32 vs FP16 对比实验 |
+| Day13 | Phase1 验收：完整流水线 |
+| Day14 | 休息，预习 YOLO 预处理 |
+
+---
+
+### 5.4 每周重复（会进「今天」）
+
+| 标题 | 重复 | 备注 |
+|------|------|------|
+| 周二 · 端侧学习 1.5h | 每周二 | 打开 每日学习计划.md 对应当天 |
+| 周四 · 端侧实战 1.5h | 每周四 | GPU 任务优先在块内完成 |
+| 周六 · 端侧集中 4h | 每周六 | 脚本/引擎/build |
+| 周日 · 笔记复盘 3h | 每周日 | notes/weekXX.md + 更新 KR4 进度 |
+
+---
+
+### 5.5 Phase 5 求职（W12 再建，或现在设无日期提醒）
+
+**标题：** `求职 · 端侧 AI 部署岗`
+
+- [ ] BOSS 个人优势与简历 v2 对齐
+- [ ] 筛 10 个 JD → notes/target_jd.md
+- [ ] 投 2 个最匹配（端侧/RKNN/TensorRT 关键词）
+- [ ] 5 道面试题脱稿（见 面试题_端侧AI部署.md）
+
+**投递比例：** 端侧部署 50% · 图像算法 20% · 嵌入式安全 15% · 技术售前 10% · 产品 5%
+
+**简历项目描述模板（有真实数字后替换 XX）：**
+> 独立完成 YOLOv8n 端侧部署：PyTorch→ONNX→TensorRT FP16/INT8 PTQ→C++ 推理；FP16 XX FPS，INT8 XX FPS，mAP 下降 < X%。
 
 ---
 
