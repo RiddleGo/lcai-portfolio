@@ -2,11 +2,11 @@
   "source": "lcai",
   "symbol": "06618",
   "name": "京东健康",
-  "price": 35.1,
+  "price": 34.02,
   "pe": 18.94,
-  "pb": 1.69,
+  "pb": 1.64,
   "eps": 1.7,
-  "amount": 17209711.0,
+  "amount": 370868048.0,
   "roe_avg": 6.09,
   "profit_years": 5,
   "gross_margin": 24.78,
@@ -22,29 +22,29 @@
   },
   "is_st": false,
   "trap_suspect": false,
-  "margin_of_safety_pct": 26.3,
+  "margin_of_safety_pct": 28.5,
   "fair_value": 47.6,
   "dcf_fair_value": 30.08,
-  "dcf_margin_of_safety_pct": -16.7,
+  "dcf_margin_of_safety_pct": -13.1,
   "trap_flags": [],
   "loss_maker": false,
   "layer_scores": {
-    "L0": 0,
+    "L0": 100,
     "L1": 70,
     "L2": 100,
-    "L3": 73,
+    "L3": 76,
     "L4": 100,
     "L5": 100
   },
   "position_hint": {
     "suggested_weight": "0%",
     "max_weight": "25%",
-    "reason": "不建议投资；若已持仓，计划退出"
+    "reason": "硬指标未过：L1-01"
   },
   "in_portfolio": true,
-  "verdict": "排除",
-  "verdict_action": "不建议投资；若已持仓，计划退出",
-  "overall_score": 84,
+  "verdict": "观察",
+  "verdict_action": "硬指标未过：L1-01",
+  "overall_score": 85,
   "rating": "A",
   "vetoes_triggered": [],
   "hard_failures": [
@@ -52,24 +52,24 @@
   ],
   "analysis": {
     "final_conclusion": {
-      "verdict": "排除",
-      "action": "不建议投资；若已持仓，计划退出",
-      "headline": "【已持仓】排除 — 不建议投资；若已持仓，计划退出",
+      "verdict": "观察",
+      "action": "硬指标未过：L1-01",
+      "headline": "【已持仓】观察 — 硬指标未过：L1-01",
       "reasons": [
         "近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。"
       ],
       "actions": [
-        "已持仓：逻辑证伪或触发否决，建议制定退出计划，不因熟悉公司而豁免规则。"
+        "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
       ],
       "data_ok": true,
       "in_portfolio": true
     },
-    "executive_brief": "京东健康：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-    "summary_detailed": "【一句话结论】京东健康（06618）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 A，总分 84。\n\n【公司与行业】\n所属行业：药品及生物科技；估值归类：医药（公允 PE 28，PE 上限 45）。\n现价 35.10 元；PE 18.94；ROE 五年均值 6.09%；经营现金流/每股收益 OCF/EPS 1.76。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 47.60 元（EPS×公允 PE），安全边际 26.3%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 30.08 元，DCF 安全边际 -16.7%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 1 项：L1-01 ROE均值。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "executive_brief": "京东健康：【已持仓】观察 — 硬指标未过：L1-01 核心：近 5 年 ROE 均值 6.09%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
+    "summary_detailed": "【一句话结论】京东健康（06618）— LCAI 判定「观察」：硬指标未过：L1-01。评级 A，总分 85。\n\n【公司与行业】\n所属行业：药品及生物科技；估值归类：医药（公允 PE 28，PE 上限 45）。\n现价 34.02 元；PE 18.94；ROE 五年均值 6.09%；经营现金流/每股收益 OCF/EPS 1.76。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 47.60 元（EPS×公允 PE），安全边际 28.5%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 30.08 元，DCF 安全边际 -13.1%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 1 项：L1-01 ROE均值。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
-        "value": "35.10 元",
+        "value": "34.02 元",
         "threshold": "—",
         "status": "neutral",
         "note": "行情或缓存价"
@@ -83,7 +83,7 @@
       },
       {
         "label": "PB",
-        "value": "1.69",
+        "value": "1.64",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
@@ -146,7 +146,7 @@
       },
       {
         "label": "安全边际",
-        "value": "26.3%",
+        "value": "28.5%",
         "threshold": "≥25%",
         "status": "ok",
         "note": "=(公允−现价)/公允"
@@ -160,7 +160,7 @@
       },
       {
         "label": "DCF 边际",
-        "value": "-16.7%",
+        "value": "-13.1%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "与 L3-01 交叉"
@@ -174,7 +174,7 @@
       },
       {
         "label": "成交额",
-        "value": "0.17 亿",
+        "value": "3.71 亿",
         "threshold": "A股≥0.5亿",
         "status": "neutral",
         "note": "流动性 L0-03"
@@ -197,25 +197,25 @@
         "step": 3,
         "title": "综合评分",
         "ok": true,
-        "detail": "总分 84，评级 A（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+        "detail": "总分 85，评级 A（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
       },
       {
         "step": 4,
         "title": "安全边际",
         "ok": true,
-        "detail": "安全边际 26.3%，建仓要求 ≥25%。"
+        "detail": "安全边际 28.5%，建仓要求 ≥25%。"
       },
       {
         "step": 5,
         "title": "仓位上限",
-        "ok": false,
+        "ok": true,
         "detail": "按评级 A：A→25% / B→10% / 其他→0%。"
       },
       {
         "step": 6,
         "title": "最终判定",
-        "ok": false,
-        "detail": "排除：不建议投资；若已持仓，计划退出"
+        "ok": true,
+        "detail": "观察：硬指标未过：L1-01"
       }
     ],
     "rule_highlights": [
@@ -240,11 +240,11 @@
       {
         "id": "L3-01",
         "name": "安全边际",
-        "actual": "26.3%",
+        "actual": "28.5%",
         "threshold": "≥25%",
         "result": "pass",
         "pass": true,
-        "reason": "现价 35.10 元 vs 公允 47.60 元，安全边际 26.3%，价格足够便宜。"
+        "reason": "现价 34.02 元 vs 公允 47.60 元，安全边际 28.5%，价格足够便宜。"
       },
       {
         "id": "L3-02",
@@ -309,15 +309,15 @@
           "手把手教你投资港股"
         ],
         "weight": 5,
-        "pass": false,
-        "actual": "0.17亿",
+        "pass": true,
+        "actual": "3.71亿",
         "threshold": "≥0.20亿",
-        "score": 0,
+        "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
-        "result": "fail",
-        "reason": "日均成交额 0.17亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
+        "result": "pass",
+        "reason": "日均成交额 3.71亿，流动性充足，可正常建仓与退出。"
       },
       {
         "id": "L0-04",
@@ -614,14 +614,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "26.3% (公允47.60元)",
+        "actual": "28.5% (公允47.60元)",
         "threshold": "≥25%",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "现价 35.10 元 vs 公允 47.60 元，安全边际 26.3%，价格足够便宜。"
+        "reason": "现价 34.02 元 vs 公允 47.60 元，安全边际 28.5%，价格足够便宜。"
       },
       {
         "id": "L3-02",
@@ -652,14 +652,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "1.69",
+        "actual": "1.64",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（1.69 / ≤8）。"
+        "reason": "PB合理达标（1.64 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -710,14 +710,14 @@
         ],
         "weight": 8,
         "pass": false,
-        "actual": "-16.7% (DCF 30.08元)",
+        "actual": "-13.1% (DCF 30.08元)",
         "threshold": "DCF 安全边际≥0%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "proxy",
         "result": "fail",
-        "reason": "DCF交叉验证未达标：实际 -16.7% (DCF 30.08元)，要求 DCF 安全边际≥0%。"
+        "reason": "DCF交叉验证未达标：实际 -13.1% (DCF 30.08元)，要求 DCF 安全边际≥0%。"
       },
       {
         "id": "L4-01",
