@@ -2,18 +2,18 @@
   "source": "lcai",
   "symbol": "601127",
   "name": "赛力斯",
-  "price": 61.04,
-  "pe": 35.23,
-  "pb": 2.66,
+  "price": 60.36,
+  "pe": 34.84,
+  "pb": 2.63,
   "eps": 3.68,
-  "amount": 1660893055.0,
+  "amount": 1089074260.0,
   "roe_avg": -4.79,
   "profit_years": 2,
   "gross_margin": 29.14,
   "ocf_ratio": 4.15,
   "profit_yoy": 0.89,
   "revenue_yoy": 34.46,
-  "peg": 39.58,
+  "peg": 39.15,
   "industry": "乘用车",
   "sector": {
     "key": "default",
@@ -22,17 +22,17 @@
   },
   "is_st": false,
   "trap_suspect": false,
-  "margin_of_safety_pct": 17.1,
+  "margin_of_safety_pct": 18.0,
   "fair_value": 73.6,
   "dcf_fair_value": 57.75,
-  "dcf_margin_of_safety_pct": -5.7,
+  "dcf_margin_of_safety_pct": -4.5,
   "trap_flags": [],
   "loss_maker": false,
   "layer_scores": {
     "L0": 100,
     "L1": 70,
     "L2": 100,
-    "L3": 52,
+    "L3": 53,
     "L4": 100,
     "L5": 100
   },
@@ -60,7 +60,7 @@
       "reasons": [
         "近 5 年 ROE 均值 -4.79%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
         "近 5 年仅 2/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
-        "现价 61.04 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 17.1%，未达 25%。好公司也需要好价格。"
+        "现价 60.36 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 18.0%，未达 25%。好公司也需要好价格。"
       ],
       "actions": [
         "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
@@ -69,32 +69,32 @@
       "in_portfolio": true
     },
     "executive_brief": "赛力斯：【已持仓】观察 — 硬指标未过：L1-01、L1-02、L3-01 核心：近 5 年 ROE 均值 -4.79%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；近 5 年仅 2/5年 盈利，波动过大，不符合「稳定复利机器」画像。",
-    "summary_detailed": "【一句话结论】赛力斯（601127）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02、L3-01。评级 B，总分 79。\n\n【公司与行业】\n所属行业：乘用车；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 61.04 元；PE 35.23；ROE 五年均值 -4.79%；经营现金流/每股收益 OCF/EPS 4.15。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 73.60 元（EPS×公允 PE），安全边际 17.1%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 57.75 元，DCF 安全边际 -5.7%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 3 项：L1-01 ROE均值、L1-02 盈利稳定性、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02、L3-01。\n单票建议上限 10%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "summary_detailed": "【一句话结论】赛力斯（601127）— LCAI 判定「观察」：硬指标未过：L1-01、L1-02、L3-01。评级 B，总分 79。\n\n【公司与行业】\n所属行业：乘用车；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 60.36 元；PE 34.84；ROE 五年均值 -4.79%；经营现金流/每股收益 OCF/EPS 4.15。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 73.60 元（EPS×公允 PE），安全边际 18.0%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 57.75 元，DCF 安全边际 -4.5%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 3 项：L1-01 ROE均值、L1-02 盈利稳定性、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L1-02、L3-01。\n单票建议上限 10%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
-        "value": "61.04 元",
+        "value": "60.36 元",
         "threshold": "—",
         "status": "neutral",
         "note": "行情或缓存价"
       },
       {
         "label": "PE",
-        "value": "35.23",
+        "value": "34.84",
         "threshold": "≤40",
         "status": "ok",
         "note": "行业上限 40"
       },
       {
         "label": "PB",
-        "value": "2.66",
+        "value": "2.63",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
       },
       {
         "label": "PEG",
-        "value": "39.58",
+        "value": "39.15",
         "threshold": "≤2",
         "status": "fail",
         "note": "彼得·林奇"
@@ -150,7 +150,7 @@
       },
       {
         "label": "安全边际",
-        "value": "17.1%",
+        "value": "18.0%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "=(公允−现价)/公允"
@@ -164,7 +164,7 @@
       },
       {
         "label": "DCF 边际",
-        "value": "-5.7%",
+        "value": "-4.5%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "与 L3-01 交叉"
@@ -178,7 +178,7 @@
       },
       {
         "label": "成交额",
-        "value": "16.61 亿",
+        "value": "10.89 亿",
         "threshold": "A股≥0.5亿",
         "status": "neutral",
         "note": "流动性 L0-03"
@@ -207,7 +207,7 @@
         "step": 4,
         "title": "安全边际",
         "ok": false,
-        "detail": "安全边际 17.1%，建仓要求 ≥25%。"
+        "detail": "安全边际 18.0%，建仓要求 ≥25%。"
       },
       {
         "step": 5,
@@ -244,20 +244,20 @@
       {
         "id": "L3-01",
         "name": "安全边际",
-        "actual": "17.1%",
+        "actual": "18.0%",
         "threshold": "≥25%",
         "result": "fail",
         "pass": false,
-        "reason": "现价 61.04 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 17.1%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 60.36 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 18.0%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
         "name": "PE合理",
-        "actual": "35.23",
+        "actual": "34.84",
         "threshold": "≤40",
         "result": "pass",
         "pass": true,
-        "reason": "PE 35.23 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
+        "reason": "PE 34.84 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
       }
     ],
     "rule_details": [
@@ -314,14 +314,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "16.61亿",
+        "actual": "10.89亿",
         "threshold": "≥0.50亿",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "日均成交额 16.61亿，流动性充足，可正常建仓与退出。"
+        "reason": "日均成交额 10.89亿，流动性充足，可正常建仓与退出。"
       },
       {
         "id": "L0-04",
@@ -618,14 +618,14 @@
         ],
         "weight": 5,
         "pass": false,
-        "actual": "17.1% (公允73.60元)",
+        "actual": "18.0% (公允73.60元)",
         "threshold": "≥25%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "现价 61.04 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 17.1%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 60.36 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 18.0%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
@@ -637,14 +637,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "35.23",
+        "actual": "34.84",
         "threshold": "≤40（default）",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PE 35.23 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
+        "reason": "PE 34.84 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
       },
       {
         "id": "L3-03",
@@ -656,14 +656,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "2.66",
+        "actual": "2.63",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（2.66 / ≤8）。"
+        "reason": "PB合理达标（2.63 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -675,14 +675,14 @@
         ],
         "weight": 8,
         "pass": false,
-        "actual": "39.58",
+        "actual": "39.15",
         "threshold": "≤2",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "PEG未达标：实际 39.58，要求 ≤2。"
+        "reason": "PEG未达标：实际 39.15，要求 ≤2。"
       },
       {
         "id": "L3-05",
@@ -714,14 +714,14 @@
         ],
         "weight": 8,
         "pass": false,
-        "actual": "-5.7% (DCF 57.75元)",
+        "actual": "-4.5% (DCF 57.75元)",
         "threshold": "DCF 安全边际≥0%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "proxy",
         "result": "fail",
-        "reason": "DCF交叉验证未达标：实际 -5.7% (DCF 57.75元)，要求 DCF 安全边际≥0%。"
+        "reason": "DCF交叉验证未达标：实际 -4.5% (DCF 57.75元)，要求 DCF 安全边际≥0%。"
       },
       {
         "id": "L4-01",
@@ -852,8 +852,8 @@
         "kind": "hard_fail",
         "rule_id": "L3-01",
         "title": "L3-01 安全边际（硬指标 Fail）",
-        "summary": "现价 61.04 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 17.1%，未达 25%。好公司也需要好价格。",
-        "actual": "17.1% (公允73.60元)",
+        "summary": "现价 60.36 元，公允价值 73.60 元（default 行业公允 PE 20 × EPS 3.680），安全边际 18.0%，未达 25%。好公司也需要好价格。",
+        "actual": "18.0% (公允73.60元)",
         "threshold": "≥25%"
       }
     ],
