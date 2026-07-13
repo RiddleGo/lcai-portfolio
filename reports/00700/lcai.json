@@ -2,18 +2,18 @@
   "source": "lcai",
   "symbol": "00700",
   "name": "腾讯控股",
-  "price": 448.6,
-  "pe": 14.91,
-  "pb": 3.2,
+  "price": 459.6,
+  "pe": 15.92,
+  "pb": 3.28,
   "eps": 6.431,
-  "amount": 10908317696.0,
+  "amount": 14462953.0,
   "roe_avg": 11.28,
   "profit_years": 5,
   "gross_margin": 56.64,
   "ocf_ratio": 1.49,
   "profit_yoy": 21.48,
   "revenue_yoy": 9.13,
-  "peg": 0.69,
+  "peg": 0.74,
   "industry": "软件服务",
   "sector": {
     "key": "软件",
@@ -22,14 +22,14 @@
   },
   "is_st": false,
   "trap_suspect": false,
-  "margin_of_safety_pct": -149.1,
+  "margin_of_safety_pct": -155.2,
   "fair_value": 180.07,
   "dcf_fair_value": 113.78,
-  "dcf_margin_of_safety_pct": -294.3,
+  "dcf_margin_of_safety_pct": -303.9,
   "trap_flags": [],
   "loss_maker": false,
   "layer_scores": {
-    "L0": 100,
+    "L0": 0,
     "L1": 85,
     "L2": 100,
     "L3": 71,
@@ -39,11 +39,11 @@
   "position_hint": {
     "suggested_weight": "0%",
     "max_weight": "25%",
-    "reason": "硬指标未过：L1-01、L3-01"
+    "reason": "不建议投资；若已持仓，计划退出"
   },
   "in_portfolio": true,
-  "verdict": "观察",
-  "verdict_action": "硬指标未过：L1-01、L3-01",
+  "verdict": "排除",
+  "verdict_action": "不建议投资；若已持仓，计划退出",
   "overall_score": 86,
   "rating": "A",
   "vetoes_triggered": [],
@@ -53,46 +53,46 @@
   ],
   "analysis": {
     "final_conclusion": {
-      "verdict": "观察",
-      "action": "硬指标未过：L1-01、L3-01",
-      "headline": "【已持仓】观察 — 硬指标未过：L1-01、L3-01",
+      "verdict": "排除",
+      "action": "不建议投资；若已持仓，计划退出",
+      "headline": "【已持仓】排除 — 不建议投资；若已持仓，计划退出",
       "reasons": [
         "近 5 年 ROE 均值 11.28%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。",
-        "现价 448.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -149.1%，未达 25%。好公司也需要好价格。"
+        "现价 459.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -155.2%，未达 25%。好公司也需要好价格。"
       ],
       "actions": [
-        "已持仓：未达加仓线，维持观察；可等更好价格或下一季财报验证。"
+        "已持仓：逻辑证伪或触发否决，建议制定退出计划，不因熟悉公司而豁免规则。"
       ],
       "data_ok": true,
       "in_portfolio": true
     },
-    "executive_brief": "腾讯控股：【已持仓】观察 — 硬指标未过：L1-01、L3-01 核心：近 5 年 ROE 均值 11.28%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；现价 448.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -149.1%，未达 25%。好公司也需要好价格。",
-    "summary_detailed": "【一句话结论】腾讯控股（00700）— LCAI 判定「观察」：硬指标未过：L1-01、L3-01。评级 A，总分 86。\n\n【公司与行业】\n所属行业：软件服务；估值归类：软件（公允 PE 28，PE 上限 45）。\n现价 448.60 元；PE 14.91；ROE 五年均值 11.28%；经营现金流/每股收益 OCF/EPS 1.49。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 180.07 元（EPS×公允 PE），安全边际 -149.1%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 113.78 元，DCF 安全边际 -294.3%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L3-01。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "executive_brief": "腾讯控股：【已持仓】排除 — 不建议投资；若已持仓，计划退出 核心：近 5 年 ROE 均值 11.28%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；现价 459.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -155.2%，未达 25%。好公司也需要好价格。",
+    "summary_detailed": "【一句话结论】腾讯控股（00700）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 A，总分 86。\n\n【公司与行业】\n所属行业：软件服务；估值归类：软件（公允 PE 28，PE 上限 45）。\n现价 459.60 元；PE 15.92；ROE 五年均值 11.28%；经营现金流/每股收益 OCF/EPS 1.49。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 180.07 元（EPS×公允 PE），安全边际 -155.2%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 113.78 元，DCF 安全边际 -303.9%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L3-01 安全边际。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：通过。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
-        "value": "448.60 元",
+        "value": "459.60 元",
         "threshold": "—",
         "status": "neutral",
         "note": "行情或缓存价"
       },
       {
         "label": "PE",
-        "value": "14.91",
+        "value": "15.92",
         "threshold": "≤45",
         "status": "ok",
         "note": "行业上限 45"
       },
       {
         "label": "PB",
-        "value": "3.20",
+        "value": "3.28",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
       },
       {
         "label": "PEG",
-        "value": "0.69",
+        "value": "0.74",
         "threshold": "≤2",
         "status": "ok",
         "note": "彼得·林奇"
@@ -148,7 +148,7 @@
       },
       {
         "label": "安全边际",
-        "value": "-149.1%",
+        "value": "-155.2%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "=(公允−现价)/公允"
@@ -162,7 +162,7 @@
       },
       {
         "label": "DCF 边际",
-        "value": "-294.3%",
+        "value": "-303.9%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "与 L3-01 交叉"
@@ -176,7 +176,7 @@
       },
       {
         "label": "成交额",
-        "value": "109.08 亿",
+        "value": "0.14 亿",
         "threshold": "A股≥0.5亿",
         "status": "neutral",
         "note": "流动性 L0-03"
@@ -205,19 +205,19 @@
         "step": 4,
         "title": "安全边际",
         "ok": false,
-        "detail": "安全边际 -149.1%，建仓要求 ≥25%。"
+        "detail": "安全边际 -155.2%，建仓要求 ≥25%。"
       },
       {
         "step": 5,
         "title": "仓位上限",
-        "ok": true,
+        "ok": false,
         "detail": "按评级 A：A→25% / B→10% / 其他→0%。"
       },
       {
         "step": 6,
         "title": "最终判定",
-        "ok": true,
-        "detail": "观察：硬指标未过：L1-01、L3-01"
+        "ok": false,
+        "detail": "排除：不建议投资；若已持仓，计划退出"
       }
     ],
     "rule_highlights": [
@@ -242,20 +242,20 @@
       {
         "id": "L3-01",
         "name": "安全边际",
-        "actual": "-149.1%",
+        "actual": "-155.2%",
         "threshold": "≥25%",
         "result": "fail",
         "pass": false,
-        "reason": "现价 448.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -149.1%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 459.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -155.2%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
         "name": "PE合理",
-        "actual": "14.91",
+        "actual": "15.92",
         "threshold": "≤45",
         "result": "pass",
         "pass": true,
-        "reason": "PE 14.91 处于 软件 行业上限 ≤45（软件） 以内，估值可接受。"
+        "reason": "PE 15.92 处于 软件 行业上限 ≤45（软件） 以内，估值可接受。"
       }
     ],
     "rule_details": [
@@ -311,15 +311,15 @@
           "手把手教你投资港股"
         ],
         "weight": 5,
-        "pass": true,
-        "actual": "109.08亿",
+        "pass": false,
+        "actual": "0.14亿",
         "threshold": "≥0.20亿",
-        "score": 5,
+        "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
-        "result": "pass",
-        "reason": "日均成交额 109.08亿，流动性充足，可正常建仓与退出。"
+        "result": "fail",
+        "reason": "日均成交额 0.14亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
       },
       {
         "id": "L0-04",
@@ -616,14 +616,14 @@
         ],
         "weight": 5,
         "pass": false,
-        "actual": "-149.1% (公允180.07元)",
+        "actual": "-155.2% (公允180.07元)",
         "threshold": "≥25%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "现价 448.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -149.1%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 459.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -155.2%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
@@ -635,14 +635,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "14.91",
+        "actual": "15.92",
         "threshold": "≤45（软件）",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PE 14.91 处于 软件 行业上限 ≤45（软件） 以内，估值可接受。"
+        "reason": "PE 15.92 处于 软件 行业上限 ≤45（软件） 以内，估值可接受。"
       },
       {
         "id": "L3-03",
@@ -654,14 +654,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "3.20",
+        "actual": "3.28",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（3.20 / ≤8）。"
+        "reason": "PB合理达标（3.28 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -673,14 +673,14 @@
         ],
         "weight": 8,
         "pass": true,
-        "actual": "0.69",
+        "actual": "0.74",
         "threshold": "≤2",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PEG达标（0.69 / ≤2）。"
+        "reason": "PEG达标（0.74 / ≤2）。"
       },
       {
         "id": "L3-05",
@@ -712,14 +712,14 @@
         ],
         "weight": 8,
         "pass": false,
-        "actual": "-294.3% (DCF 113.78元)",
+        "actual": "-303.9% (DCF 113.78元)",
         "threshold": "DCF 安全边际≥0%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "proxy",
         "result": "fail",
-        "reason": "DCF交叉验证未达标：实际 -294.3% (DCF 113.78元)，要求 DCF 安全边际≥0%。"
+        "reason": "DCF交叉验证未达标：实际 -303.9% (DCF 113.78元)，要求 DCF 安全边际≥0%。"
       },
       {
         "id": "L4-01",
@@ -842,8 +842,8 @@
         "kind": "hard_fail",
         "rule_id": "L3-01",
         "title": "L3-01 安全边际（硬指标 Fail）",
-        "summary": "现价 448.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -149.1%，未达 25%。好公司也需要好价格。",
-        "actual": "-149.1% (公允180.07元)",
+        "summary": "现价 459.60 元，公允价值 180.07 元（软件 行业公允 PE 28 × EPS 6.431），安全边际 -155.2%，未达 25%。好公司也需要好价格。",
+        "actual": "-155.2% (公允180.07元)",
         "threshold": "≥25%"
       }
     ],
