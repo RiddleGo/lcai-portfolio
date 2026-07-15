@@ -1,43 +1,43 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-07-14T17:25:04+08:00",
+  "updatedAt": "2026-07-15T17:28:32+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
   "prices": {
     "116.01833": {
       "name": "平安好医生",
-      "price": 7.55,
-      "changePct": 0.94,
+      "price": 7.45,
+      "changePct": -1.32,
       "source": "eastmoney"
     },
     "116.00700": {
       "name": "腾讯控股",
-      "price": 456.2,
-      "changePct": -0.31,
+      "price": 474.0,
+      "changePct": 3.9,
       "source": "eastmoney"
     },
     "116.02013": {
       "name": "微盟集团",
-      "price": 1.16,
-      "changePct": 0.87,
+      "price": 1.18,
+      "changePct": 1.72,
       "source": "eastmoney"
     },
     "116.06618": {
       "name": "京东健康",
-      "price": 36.96,
-      "changePct": 0.71,
+      "price": 37.52,
+      "changePct": 1.52,
       "source": "eastmoney"
     },
     "1.601127": {
       "name": "赛力斯",
-      "price": 53.38,
-      "changePct": -0.98,
+      "price": 55.89,
+      "changePct": 4.7,
       "source": "eastmoney"
     },
     "0.002837": {
       "name": "英维克",
-      "price": 70.13,
-      "changePct": 4.7,
+      "price": 67.74,
+      "changePct": -3.41,
       "source": "eastmoney"
     }
   }
