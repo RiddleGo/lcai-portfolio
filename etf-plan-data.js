@@ -2,9 +2,9 @@ window.ETF_PLAN = {
   "planName": "10万科技ETF分批计划",
   "totalBudget": 100000,
   "startDate": "2026-06-09",
-  "updatedAt": "2026-08-26T16:11:05+08:00",
-  "checkedDate": "2026-08-26",
-  "isTradingDay": true,
+  "updatedAt": "2026-08-29T03:34:35+08:00",
+  "checkedDate": "2026-08-29",
+  "isTradingDay": false,
   "alertLevel": "buy",
   "summary": "今日符合计划：建议加仓 588000 10000元、562500 5000元、159819 5000元",
   "buySignals": [
@@ -18,11 +18,11 @@ window.ETF_PLAN = {
       "targetAmount": 25000.0,
       "investedAmount": 0.0,
       "remainingTarget": 25000.0,
-      "price": 1.721,
-      "changePct": 1.65,
+      "price": null,
+      "changePct": null,
       "highNDays": 1.899,
-      "drawdownPct": 9.37,
-      "triggerPrice": 1.899,
+      "drawdownPct": null,
+      "triggerPrice": null,
       "pullbackNeedPct": 0.0,
       "signal": "buy",
       "reasons": [
@@ -82,10 +82,10 @@ window.ETF_PLAN = {
       "investedAmount": 0.0,
       "remainingTarget": 25000.0,
       "progressPct": 0.0,
-      "price": 1.721,
-      "changePct": 1.65,
+      "price": null,
+      "changePct": null,
       "high20d": 1.899,
-      "drawdownPct": 9.37
+      "drawdownPct": null
     },
     {
       "code": "588200",
@@ -96,10 +96,10 @@ window.ETF_PLAN = {
       "investedAmount": 0.0,
       "remainingTarget": 20000.0,
       "progressPct": 0.0,
-      "price": 1.148,
-      "changePct": 1.59,
-      "high20d": 1.285,
-      "drawdownPct": 10.66
+      "price": null,
+      "changePct": null,
+      "high20d": null,
+      "drawdownPct": null
     },
     {
       "code": "159516",
@@ -171,11 +171,11 @@ window.ETF_PLAN = {
           "targetAmount": 25000.0,
           "investedAmount": 0.0,
           "remainingTarget": 25000.0,
-          "price": 1.721,
-          "changePct": 1.65,
+          "price": null,
+          "changePct": null,
           "highNDays": 1.899,
-          "drawdownPct": 9.37,
-          "triggerPrice": 1.899,
+          "drawdownPct": null,
+          "triggerPrice": null,
           "pullbackNeedPct": 0.0,
           "signal": "buy",
           "reasons": [
