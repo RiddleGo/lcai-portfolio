@@ -1,5 +1,5 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-09-30T22:04:16+08:00",
+  "updatedAt": "2026-10-01T22:40:09+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
