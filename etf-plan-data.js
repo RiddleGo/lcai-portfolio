@@ -2,7 +2,7 @@ window.ETF_PLAN = {
   "planName": "10万科技ETF分批计划",
   "totalBudget": 100000,
   "startDate": "2026-06-09",
-  "updatedAt": "2026-10-06T00:20:25+08:00",
+  "updatedAt": "2026-10-06T22:25:56+08:00",
   "checkedDate": "2026-10-06",
   "isTradingDay": true,
   "alertLevel": "buy",
