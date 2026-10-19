@@ -1,5 +1,5 @@
 window.LCAI_QUOTES = {
-  "updatedAt": "2026-10-16T20:37:50+08:00",
+  "updatedAt": "2026-10-19T22:52:09+08:00",
   "fx": {
     "HKDCNY": 0.92
   },
@@ -30,14 +30,14 @@ window.LCAI_QUOTES = {
     },
     "1.601127": {
       "name": "赛力斯",
-      "price": 46.49,
-      "changePct": 2.11,
+      "price": 44.87,
+      "changePct": -3.48,
       "source": "eastmoney"
     },
     "0.002837": {
       "name": "英维克",
-      "price": 44.7,
-      "changePct": 0.07,
+      "price": 44.46,
+      "changePct": -0.54,
       "source": "eastmoney"
     }
   }
