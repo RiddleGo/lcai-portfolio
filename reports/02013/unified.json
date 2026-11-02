@@ -45,7 +45,7 @@
     },
     {
       "label": "PB",
-      "value": "0.91",
+      "value": "0.90",
       "threshold": "≤8",
       "status": "ok",
       "note": "资产定价"
@@ -136,7 +136,7 @@
     },
     {
       "label": "成交额",
-      "value": "0.13 亿",
+      "value": "0.15 亿",
       "threshold": "A股≥0.5亿",
       "status": "neutral",
       "note": "流动性 L0-03"
@@ -272,14 +272,14 @@
       ],
       "weight": 5,
       "pass": false,
-      "actual": "0.13亿",
+      "actual": "0.15亿",
       "threshold": "≥0.20亿",
       "score": 0,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "fail",
-      "reason": "日均成交额 0.13亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
+      "reason": "日均成交额 0.15亿 低于门槛 ≥0.20亿，买卖冲击大，不适合重仓。"
     },
     {
       "id": "L0-04",
@@ -614,14 +614,14 @@
       ],
       "weight": 6,
       "pass": true,
-      "actual": "0.91",
+      "actual": "0.90",
       "threshold": "≤8",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "PB合理达标（0.91 / ≤8）。"
+      "reason": "PB合理达标（0.90 / ≤8）。"
     },
     {
       "id": "L3-04",
@@ -922,6 +922,6 @@
     "schedule": "weekly_monday"
   },
   "report_url": "reports/02013/index.html",
-  "generated_at": "2026-10-26T13:53:06+08:00",
+  "generated_at": "2026-11-02T15:29:53+08:00",
   "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }
