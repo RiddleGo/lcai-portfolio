@@ -2,18 +2,18 @@
   "source": "lcai",
   "symbol": "002851",
   "name": "麦格米特",
-  "price": 80.07,
-  "pe": 76.06,
-  "pb": 5.31,
+  "price": 76.89,
+  "pe": 73.04,
+  "pb": 5.1,
   "eps": 0.268,
-  "amount": 2206203961.98,
+  "amount": 1673259640.39,
   "roe_avg": 10.72,
   "profit_years": 5,
   "gross_margin": 22.29,
   "ocf_ratio": -0.06,
   "profit_yoy": 117.32,
   "revenue_yoy": 33.05,
-  "peg": 0.65,
+  "peg": 0.62,
   "industry": "其他电源设备Ⅱ",
   "sector": {
     "key": "default",
@@ -22,10 +22,10 @@
   },
   "is_st": false,
   "trap_suspect": false,
-  "margin_of_safety_pct": -1395.5,
+  "margin_of_safety_pct": -1336.1,
   "fair_value": 5.35,
   "dcf_fair_value": 4.74,
-  "dcf_margin_of_safety_pct": -1590.6,
+  "dcf_margin_of_safety_pct": -1523.4,
   "trap_flags": [],
   "loss_maker": false,
   "layer_scores": {
@@ -73,32 +73,32 @@
       "in_portfolio": false
     },
     "executive_brief": "麦格米特：【未持仓】排除 — 不建议投资；若已持仓，计划退出 核心：经营现金流/每股收益 OCF/EPS -0.06 长期偏低且仍报盈利——存在利润质量疑点，触发否决（财务造假嫌疑）。；近 3 年经营现金流持续远低于每股收益（OCF/EPS -0.06），利润兑现能力存疑，触发否决（现金流长期背离）。",
-    "summary_detailed": "【一句话结论】麦格米特（002851）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 C，总分 68。\n\n【公司与行业】\n所属行业：其他电源设备Ⅱ；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 80.07 元；PE 76.06；ROE 五年均值 10.72%；经营现金流/每股收益 OCF/EPS -0.06。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 5.35 元（EPS×公允 PE），安全边际 -1395.5%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 4.74 元，DCF 安全边际 -1590.6%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n触发否决 2 项：L0-05 财务造假嫌疑、L2-04 现金流长期背离。原则上不应新建仓。\n硬指标 Fail 4 项：L1-01 ROE均值、L2-01 现金流质量、L3-01 安全边际、L3-02 PE合理。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：未通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+    "summary_detailed": "【一句话结论】麦格米特（002851）— LCAI 判定「排除」：不建议投资；若已持仓，计划退出。评级 C，总分 68。\n\n【公司与行业】\n所属行业：其他电源设备Ⅱ；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 76.89 元；PE 73.04；ROE 五年均值 10.72%；经营现金流/每股收益 OCF/EPS -0.06。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 5.35 元（EPS×公允 PE），安全边际 -1336.1%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 4.74 元，DCF 安全边际 -1523.4%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n触发否决 2 项：L0-05 财务造假嫌疑、L2-04 现金流长期背离。原则上不应新建仓。\n硬指标 Fail 4 项：L1-01 ROE均值、L2-01 现金流质量、L3-01 安全边际、L3-02 PE合理。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：未通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：有缺口。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：排除 — 不建议投资；若已持仓，计划退出。\n单票建议上限 0%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
     "key_metrics": [
       {
         "label": "现价",
-        "value": "80.07 元",
+        "value": "76.89 元",
         "threshold": "—",
         "status": "neutral",
         "note": "行情或缓存价"
       },
       {
         "label": "PE",
-        "value": "76.06",
+        "value": "73.04",
         "threshold": "≤40",
         "status": "fail",
         "note": "行业上限 40"
       },
       {
         "label": "PB",
-        "value": "5.31",
+        "value": "5.10",
         "threshold": "≤8",
         "status": "ok",
         "note": "资产定价"
       },
       {
         "label": "PEG",
-        "value": "0.65",
+        "value": "0.62",
         "threshold": "≤2",
         "status": "ok",
         "note": "彼得·林奇"
@@ -154,7 +154,7 @@
       },
       {
         "label": "安全边际",
-        "value": "-1395.5%",
+        "value": "-1336.1%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "=(公允−现价)/公允"
@@ -168,7 +168,7 @@
       },
       {
         "label": "DCF 边际",
-        "value": "-1590.6%",
+        "value": "-1523.4%",
         "threshold": "≥25%",
         "status": "fail",
         "note": "与 L3-01 交叉"
@@ -182,7 +182,7 @@
       },
       {
         "label": "成交额",
-        "value": "22.06 亿",
+        "value": "16.73 亿",
         "threshold": "A股≥0.5亿",
         "status": "neutral",
         "note": "流动性 L0-03"
@@ -211,7 +211,7 @@
         "step": 4,
         "title": "安全边际",
         "ok": false,
-        "detail": "安全边际 -1395.5%，建仓要求 ≥25%。"
+        "detail": "安全边际 -1336.1%，建仓要求 ≥25%。"
       },
       {
         "step": 5,
@@ -248,20 +248,20 @@
       {
         "id": "L3-01",
         "name": "安全边际",
-        "actual": "-1395.5%",
+        "actual": "-1336.1%",
         "threshold": "≥25%",
         "result": "fail",
         "pass": false,
-        "reason": "现价 80.07 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1395.5%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 76.89 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1336.1%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
         "name": "PE合理",
-        "actual": "76.06",
+        "actual": "73.04",
         "threshold": "≤40",
         "result": "fail",
         "pass": false,
-        "reason": "PE 76.06 超过 default 行业上限 ≤40（default），估值偏贵。"
+        "reason": "PE 73.04 超过 default 行业上限 ≤40（default），估值偏贵。"
       }
     ],
     "rule_details": [
@@ -318,14 +318,14 @@
         ],
         "weight": 5,
         "pass": true,
-        "actual": "22.06亿",
+        "actual": "16.73亿",
         "threshold": "≥0.50亿",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "日均成交额 22.06亿，流动性充足，可正常建仓与退出。"
+        "reason": "日均成交额 16.73亿，流动性充足，可正常建仓与退出。"
       },
       {
         "id": "L0-04",
@@ -622,14 +622,14 @@
         ],
         "weight": 5,
         "pass": false,
-        "actual": "-1395.5% (公允5.35元)",
+        "actual": "-1336.1% (公允5.35元)",
         "threshold": "≥25%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "现价 80.07 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1395.5%，未达 25%。好公司也需要好价格。"
+        "reason": "现价 76.89 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1336.1%，未达 25%。好公司也需要好价格。"
       },
       {
         "id": "L3-02",
@@ -641,14 +641,14 @@
         ],
         "weight": 5,
         "pass": false,
-        "actual": "76.06",
+        "actual": "73.04",
         "threshold": "≤40（default）",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "fail",
-        "reason": "PE 76.06 超过 default 行业上限 ≤40（default），估值偏贵。"
+        "reason": "PE 73.04 超过 default 行业上限 ≤40（default），估值偏贵。"
       },
       {
         "id": "L3-03",
@@ -660,14 +660,14 @@
         ],
         "weight": 6,
         "pass": true,
-        "actual": "5.31",
+        "actual": "5.10",
         "threshold": "≤8",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PB合理达标（5.31 / ≤8）。"
+        "reason": "PB合理达标（5.10 / ≤8）。"
       },
       {
         "id": "L3-04",
@@ -679,14 +679,14 @@
         ],
         "weight": 8,
         "pass": true,
-        "actual": "0.65",
+        "actual": "0.62",
         "threshold": "≤2",
         "score": 5,
         "veto": false,
         "missing": false,
         "note": "full",
         "result": "pass",
-        "reason": "PEG达标（0.65 / ≤2）。"
+        "reason": "PEG达标（0.62 / ≤2）。"
       },
       {
         "id": "L3-05",
@@ -718,14 +718,14 @@
         ],
         "weight": 8,
         "pass": false,
-        "actual": "-1590.6% (DCF 4.74元)",
+        "actual": "-1523.4% (DCF 4.74元)",
         "threshold": "DCF 安全边际≥0%",
         "score": 0,
         "veto": false,
         "missing": false,
         "note": "proxy",
         "result": "fail",
-        "reason": "DCF交叉验证未达标：实际 -1590.6% (DCF 4.74元)，要求 DCF 安全边际≥0%。"
+        "reason": "DCF交叉验证未达标：实际 -1523.4% (DCF 4.74元)，要求 DCF 安全边际≥0%。"
       },
       {
         "id": "L4-01",
@@ -872,16 +872,16 @@
         "kind": "hard_fail",
         "rule_id": "L3-01",
         "title": "L3-01 安全边际（硬指标 Fail）",
-        "summary": "现价 80.07 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1395.5%，未达 25%。好公司也需要好价格。",
-        "actual": "-1395.5% (公允5.35元)",
+        "summary": "现价 76.89 元，公允价值 5.35 元（default 行业公允 PE 20 × EPS 0.268），安全边际 -1336.1%，未达 25%。好公司也需要好价格。",
+        "actual": "-1336.1% (公允5.35元)",
         "threshold": "≥25%"
       },
       {
         "kind": "hard_fail",
         "rule_id": "L3-02",
         "title": "L3-02 PE合理（硬指标 Fail）",
-        "summary": "PE 76.06 超过 default 行业上限 ≤40（default），估值偏贵。",
-        "actual": "76.06",
+        "summary": "PE 73.04 超过 default 行业上限 ≤40（default），估值偏贵。",
+        "actual": "73.04",
         "threshold": "≤40（default）"
       }
     ],
