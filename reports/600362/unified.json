@@ -4,10 +4,10 @@
   "verdict": {
     "value": "观察",
     "action": "硬指标未过：L1-01、L2-01",
-    "rating": "B",
-    "score": 78,
+    "rating": "A",
+    "score": 81,
     "source": "lcai",
-    "max_weight": "10%"
+    "max_weight": "25%"
   },
   "executive": "江西铜业：【未持仓】观察 — 硬指标未过：L1-01、L2-01 核心：近 5 年 ROE 均值 8.96%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；经营现金流/每股收益 0.35 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。",
   "final_conclusion": {
@@ -26,32 +26,32 @@
   },
   "executive_brief": "江西铜业：【未持仓】观察 — 硬指标未过：L1-01、L2-01 核心：近 5 年 ROE 均值 8.96%，低于 15% 门槛。长期 ROE 是商业模式的试金石，当前回报不足。；经营现金流/每股收益 0.35 低于 0.8，利润兑现能力偏弱，需警惕应收与资本开支。",
   "data_ok": true,
-  "summary_detailed": "【一句话结论】江西铜业（600362）— LCAI 判定「观察」：硬指标未过：L1-01、L2-01。评级 B，总分 78。\n\n【公司与行业】\n所属行业：工业金属；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 30.22 元；PE 14.60；ROE 五年均值 8.96%；经营现金流/每股收益 OCF/EPS 0.35。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 41.40 元（EPS×公允 PE），安全边际 27.0%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 36.62 元，DCF 安全边际 17.5%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L2-01 现金流质量。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L2-01。\n单票建议上限 10%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
+  "summary_detailed": "【一句话结论】江西铜业（600362）— LCAI 判定「观察」：硬指标未过：L1-01、L2-01。评级 A，总分 81。\n\n【公司与行业】\n所属行业：工业金属；估值归类：default（公允 PE 20，PE 上限 40）。\n现价 29.10 元；PE 6.47；ROE 五年均值 8.96%；经营现金流/每股收益 OCF/EPS 0.35。\n\n【估值测算】\n格雷厄姆式公允价 ≈ 41.40 元（EPS×公允 PE），安全边际 29.7%（=(公允−现价)/公允，建仓线 25%）。\n简化 DCF 公允 ≈ 36.62 元，DCF 安全边际 20.5%，与 PE×EPS 方向交叉验证。\n\n【规则结论】\n硬指标 Fail 2 项：L1-01 ROE均值、L2-01 现金流质量。\n\n【分层要点】\nL0 门禁（ST/流动性/造假/异常票）：通过。\nL1 生意（ROE/盈利稳定性/护城河）：有缺口。\nL2 财务（现金流质量/扣非/趋势）：有缺口。\nL3 估值（安全边际/PE/PB/PEG/DCF）：通过。\nL4 执行（能力圈/心理/仓位）：通过。\nL5 行业（行业适配与周期）：通过。\n\n【操作建议】\n买卖结论以 LCAI 宪法为准：观察 — 硬指标未过：L1-01、L2-01。\n单票建议上限 25%；未达建仓线时不追涨，等待更好价格或下一季财报验证。",
   "key_metrics": [
     {
       "label": "现价",
-      "value": "30.22 元",
+      "value": "29.10 元",
       "threshold": "—",
       "status": "neutral",
       "note": "行情或缓存价"
     },
     {
       "label": "PE",
-      "value": "14.60",
+      "value": "6.47",
       "threshold": "≤40",
       "status": "ok",
       "note": "行业上限 40"
     },
     {
       "label": "PB",
-      "value": "—",
+      "value": "1.11",
       "threshold": "≤8",
       "status": "ok",
       "note": "资产定价"
     },
     {
       "label": "PEG",
-      "value": "0.16",
+      "value": "0.07",
       "threshold": "≤2",
       "status": "ok",
       "note": "彼得·林奇"
@@ -107,7 +107,7 @@
     },
     {
       "label": "安全边际",
-      "value": "27.0%",
+      "value": "29.7%",
       "threshold": "≥25%",
       "status": "ok",
       "note": "=(公允−现价)/公允"
@@ -121,7 +121,7 @@
     },
     {
       "label": "DCF 边际",
-      "value": "17.5%",
+      "value": "20.5%",
       "threshold": "≥25%",
       "status": "fail",
       "note": "与 L3-01 交叉"
@@ -135,7 +135,7 @@
     },
     {
       "label": "成交额",
-      "value": "10.24 亿",
+      "value": "9.13 亿",
       "threshold": "A股≥0.5亿",
       "status": "neutral",
       "note": "流动性 L0-03"
@@ -158,19 +158,19 @@
       "step": 3,
       "title": "综合评分",
       "ok": true,
-      "detail": "总分 78，评级 B（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
+      "detail": "总分 81，评级 A（A≥80 / B≥72 / C≥60 / D<60）。建仓线 72。"
     },
     {
       "step": 4,
       "title": "安全边际",
       "ok": true,
-      "detail": "安全边际 27.0%，建仓要求 ≥25%。"
+      "detail": "安全边际 29.7%，建仓要求 ≥25%。"
     },
     {
       "step": 5,
       "title": "仓位上限",
       "ok": true,
-      "detail": "按评级 B：A→25% / B→10% / 其他→0%。"
+      "detail": "按评级 A：A→25% / B→10% / 其他→0%。"
     },
     {
       "step": 6,
@@ -201,20 +201,20 @@
     {
       "id": "L3-01",
       "name": "安全边际",
-      "actual": "27.0%",
+      "actual": "29.7%",
       "threshold": "≥25%",
       "result": "pass",
       "pass": true,
-      "reason": "现价 30.22 元 vs 公允 41.40 元，安全边际 27.0%，价格足够便宜。"
+      "reason": "现价 29.10 元 vs 公允 41.40 元，安全边际 29.7%，价格足够便宜。"
     },
     {
       "id": "L3-02",
       "name": "PE合理",
-      "actual": "14.60",
+      "actual": "6.47",
       "threshold": "≤40",
       "result": "pass",
       "pass": true,
-      "reason": "PE 14.60 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
+      "reason": "PE 6.47 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
     }
   ],
   "rule_details": [
@@ -271,14 +271,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "10.24亿",
+      "actual": "9.13亿",
       "threshold": "≥0.50亿",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "日均成交额 10.24亿，流动性充足，可正常建仓与退出。"
+      "reason": "日均成交额 9.13亿，流动性充足，可正常建仓与退出。"
     },
     {
       "id": "L0-04",
@@ -575,14 +575,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "27.0% (公允41.40元)",
+      "actual": "29.7% (公允41.40元)",
       "threshold": "≥25%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "现价 30.22 元 vs 公允 41.40 元，安全边际 27.0%，价格足够便宜。"
+      "reason": "现价 29.10 元 vs 公允 41.40 元，安全边际 29.7%，价格足够便宜。"
     },
     {
       "id": "L3-02",
@@ -594,14 +594,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "14.60",
+      "actual": "6.47",
       "threshold": "≤40（default）",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "PE 14.60 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
+      "reason": "PE 6.47 处于 default 行业上限 ≤40（default） 以内，估值可接受。"
     },
     {
       "id": "L3-03",
@@ -613,14 +613,14 @@
       ],
       "weight": 6,
       "pass": true,
-      "actual": "—",
+      "actual": "1.11",
       "threshold": "≤8",
       "score": 5,
       "veto": false,
-      "missing": true,
+      "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "PB合理达标（— / ≤8）。"
+      "reason": "PB合理达标（1.11 / ≤8）。"
     },
     {
       "id": "L3-04",
@@ -632,14 +632,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "0.16",
+      "actual": "0.07",
       "threshold": "≤2",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "PEG达标（0.16 / ≤2）。"
+      "reason": "PEG达标（0.07 / ≤2）。"
     },
     {
       "id": "L3-05",
@@ -671,14 +671,14 @@
       ],
       "weight": 8,
       "pass": true,
-      "actual": "17.5% (DCF 36.62元)",
+      "actual": "20.5% (DCF 36.62元)",
       "threshold": "DCF 安全边际≥0%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "proxy",
       "result": "pass",
-      "reason": "DCF交叉验证达标（17.5% (DCF 36.62元) / DCF 安全边际≥0%）。"
+      "reason": "DCF交叉验证达标（20.5% (DCF 36.62元) / DCF 安全边际≥0%）。"
     },
     {
       "id": "L4-01",
@@ -744,14 +744,14 @@
       ],
       "weight": 5,
       "pass": true,
-      "actual": "建议上限 10%",
+      "actual": "建议上限 25%",
       "threshold": "≤25%",
       "score": 5,
       "veto": false,
       "missing": false,
       "note": "full",
       "result": "pass",
-      "reason": "按 B 评级，单票建议上限 建议上限 10%。"
+      "reason": "按 A 评级，单票建议上限 建议上限 25%。"
     },
     {
       "id": "L5-01",
@@ -808,10 +808,10 @@
   ],
   "valuation": {
     "lcai_fair_value": 41.4,
-    "lcai_margin_pct": 27.0,
+    "lcai_margin_pct": 29.7,
     "dcf_fair_value": 36.62,
-    "dcf_margin_pct": 17.5,
-    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 41.4 元，安全边际 27.0%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 36.62 元，DCF 安全边际 17.5%。\n现价 30.22 元。\nLCAI PE×EPS 27.0% vs DCF 17.5%。"
+    "dcf_margin_pct": 20.5,
+    "narrative": "LCAI 公允价（行业 PE × EPS）≈ 41.4 元，安全边际 29.7%（建仓线 25%）。\nLCAI 简化 DCF 公允 ≈ 36.62 元，DCF 安全边际 20.5%。\n现价 29.1 元。\nLCAI PE×EPS 29.7% vs DCF 20.5%。"
   },
   "layers": [
     {
@@ -839,8 +839,8 @@
       "layer": "L3",
       "title": "L3 估值",
       "lcai_status": "通过",
-      "lcai_summary": "安全边际 27.0%；公允价约 41.4 元；DCF 公允 36.62 元（边际 17.5%）",
-      "merged_summary": "安全边际 27.0%；公允价约 41.4 元；DCF 公允 36.62 元（边际 17.5%）"
+      "lcai_summary": "安全边际 29.7%；公允价约 41.4 元；DCF 公允 36.62 元（边际 20.5%）",
+      "merged_summary": "安全边际 29.7%；公允价约 41.4 元；DCF 公允 36.62 元（边际 20.5%）"
     },
     {
       "layer": "L4",
@@ -858,7 +858,7 @@
     }
   ],
   "strengths": [
-    "LCAI: 安全边际 27.0% 达建仓线"
+    "LCAI: 安全边际 29.7% 达建仓线"
   ],
   "weaknesses": [
     "LCAI: ROE 均值 8.96% 未达 15%",
@@ -889,6 +889,6 @@
     "schedule": "weekly_monday"
   },
   "report_url": "reports/600362/index.html",
-  "generated_at": "2026-11-16T15:47:36+08:00",
+  "generated_at": "2026-11-23T16:45:23+08:00",
   "disclaimer": "买卖结论以 LCAI 投资宪法为准。"
 }
